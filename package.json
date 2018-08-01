@@ -13,7 +13,16 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
-    "build": "nuxt build && electron-builder"
+    "build": "nuxt build && electron-builder",
+    "lint": "eslint --ext .js,.vue .",
+    "lintfix": "eslint --fix --ext .js,.vue .",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,vue,css}": [
+      "npm run lintfix",
+      "git add"
+    ]
   },
   "dependencies": {
     "nuxt": "^1.4.0"
@@ -25,8 +34,11 @@
     "electron-builder": "^20.8.1",
     "electron-devtools-installer": "^2.2.3",
     "eslint": "^4.15.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "eslint-plugin-vue": "^4.0.0",
+    "lint-staged": "^7.2.0",
+    "prettier": "1.14.0"
   }
 }
