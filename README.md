@@ -34,7 +34,21 @@ the wallet actually hold EOS tokens.
 
 ## Install
 
-We plan to use [Electron](https://electronjs.org/) for developing the app, so that is a requirement. Others are TBD.
+- Node
+- NPM 5.x or Yarn
+
+``` bash
+# install dependencies
+$ npm install # Or yarn install
+
+# development with vue devtools
+$ npm run dev
+
+# build for production
+$ npm run build
+```
+
+For detailed explanation on how things work, checkout [Nuxt.js](https://github.com/nuxt/nuxt.js), [Electron.js](https://electronjs.org/), and [electron-builder](https://www.electron.build/).
 
 ## Usage
 
