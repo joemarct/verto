@@ -1,6 +1,7 @@
 # verto
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Volentix/vtx.svg?columns=all)](https://waffle.io/Volentix/vtx)
+
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
