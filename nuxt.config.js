@@ -20,5 +20,6 @@ module.exports = {
     }
   },
   dev: process.env.NODE_ENV === "DEV",
-  css: ["@/assets/css/global.css"]
+  css: ["@/assets/css/global.css"],
+  modules: ["@nuxtjs/axios"]
 };
