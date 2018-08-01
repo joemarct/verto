@@ -3,25 +3,8 @@
     <div>
       <img 
         width="256" 
-        src="~/assets/img/logo.png">
-      <h1>verto</h1>
+        src="~/assets/img/verto-dark.png">
       <h2>A multi-currency crypto wallet with initial support for EOS &amp; VTX</h2>
-      <a 
-        href="https://nuxtjs.org/" 
-        target="_blank" 
-        class="btn btn-primary">Documentation</a>
-      <a 
-        href="https://github.com/nuxt/nuxt.js" 
-        target="_blank" 
-        class="btn btn-primary">GitHub</a>
-      <a 
-        href="https://electronjs.org/" 
-        target="_blank" 
-        class="btn btn-secondary">Electron</a>
-      <a 
-        href="https://github.com/electron-userland/electron-builder" 
-        target="_blank" 
-        class="btn btn-secondary">Electron Builder</a>
     </div>
   </section>
 </template>
