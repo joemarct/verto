@@ -1,5 +1,12 @@
 # verto
 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/Volentix/vtx.svg?columns=all)](https://waffle.io/Volentix/vtx)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+
 > A multi-currency crypto wallet with initial support for EOS & VTX
 
 Verto is a wallet which will connect closely with VDex, the Volentix decentralized
@@ -15,13 +22,6 @@ external entity.
 The goal of the first version of Verto is to hold VTX, which is the native currency
 of the [Volentix ecosystem](https://volentix.io). VTX is a currency based on EOS, and so
 the wallet actually hold EOS tokens.
-
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/Volentix/vtx.svg?columns=all)](https://waffle.io/Volentix/vtx)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
 ## Table of Contents
 
