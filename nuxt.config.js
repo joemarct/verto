@@ -25,6 +25,5 @@ module.exports = {
     }
   },
   dev: process.env.NODE_ENV === "DEV",
-  css: [{ src: "~/assets/css/main.scss", lang: "scss" }],
   modules: ["@nuxtjs/axios", "@nuxtjs/bulma"]
 };
