@@ -14,8 +14,11 @@
             </a>
 
             <div class="navbar-dropdown">
-              <a class="navbar-item">
+              <a class="navbar-item" @click="createWallet">
                 Create
+              </a>
+              <a class="navbar-item" @click="listWallets">
+                List
               </a>
             </div>
           </div>
@@ -38,8 +41,31 @@
 export default {
   data() {
     return {
-      messages: "EOS result"
+      messages: "EOS result\n"
     };
+  },
+  methods: {
+    async createWallet() {
+      this.invoke("/v1/wallet/create", "new_wallet");
+    },
+    async listWallets() {
+      this.invoke("/v1/wallet/list_wallets");
+    },
+    async invoke(name, data) {
+      this.messages += `Calling ${name} ...\n`;
+      try {
+        const resp = await this.$axios.post(name, data);
+        this.messages += resp + "\n";
+        return resp;
+      } catch (e) {
+        const response = e.response;
+        this.messages += "ERROR " + response.status + "\n";
+        this.messages += JSON.stringify(response.data.error, null, 2) + "\n";
+
+        // TODO log error
+        throw e;
+      }
+    }
   }
 };
 </script>

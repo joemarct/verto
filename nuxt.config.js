@@ -25,5 +25,8 @@ module.exports = {
     }
   },
   dev: process.env.NODE_ENV === "DEV",
-  modules: ["@nuxtjs/axios", "@nuxtjs/bulma"]
+  modules: ["@nuxtjs/axios", "@nuxtjs/bulma"],
+  axios: {
+    baseURL: "http://127.0.0.1:8888"
+  }
 };
