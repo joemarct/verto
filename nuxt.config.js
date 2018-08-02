@@ -17,9 +17,14 @@ module.exports = {
       if (isClient) {
         config.target = "electron-renderer";
       }
+    },
+    postcss: {
+      plugins: {
+        "postcss-custom-properties": false
+      }
     }
   },
   dev: process.env.NODE_ENV === "DEV",
-  css: ["@/assets/css/global.css"],
-  modules: ["@nuxtjs/axios"]
+  css: [{ src: "~/assets/css/main.scss", lang: "scss" }],
+  modules: ["@nuxtjs/axios", "@nuxtjs/bulma"]
 };

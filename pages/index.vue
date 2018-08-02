@@ -1,16 +1,47 @@
 <template>
-  <section class="container">
-    <div>
-      <img 
-        width="256" 
-        src="~/assets/img/verto-dark.png">
-      <h2>A multi-currency crypto wallet with initial support for EOS &amp; VTX</h2>
-    </div>
-  </section>
+  <div>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="~/assets/img/verto-dark.png" alt="A multi-currency crypto wallet with initial support for EOS &amp; VTX">
+        </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Wallet
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item">
+                Create
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            100 VTX
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <section class="container is-fullwidth">
+      <textarea :placeholder="messages" class="textarea" rows="10" type="text" readonly />
+    </section>
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      messages: "EOS result"
+    };
+  }
+};
 </script>
 
 <style scoped>
