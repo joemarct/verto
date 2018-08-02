@@ -40,8 +40,15 @@
       </div>
     </nav>
 
-    <section v-if="wallet" class="container">
-      Your public key: {{ wallet.publicKey }}
+    <section v-if="wallet" class="section">
+      <div class="container">
+        <qr :size="200" :text="wallet.publicKey" class="has-text-centered"/>
+      </div>
+      <div class="container">
+        <div class="has-text-centered">
+          Your public key: {{ wallet.publicKey }}
+        </div>
+      </div>
     </section>
 
     <footer class="fixed-footer">
@@ -51,8 +58,9 @@
 </template>
 
 <script>
-// const KEY_WALLET_NAME = "wallet.name";
-// const KEY_WALLET_PASSWORD = "wallet.password";
+import qr from "vue-qr";
+
+const KEY_WALLET = "wallet";
 
 const Store = require("electron-store");
 const store = new Store({
@@ -60,6 +68,9 @@ const store = new Store({
 });
 
 export default {
+  components: {
+    qr
+  },
   data() {
     return {
       messages: "",
@@ -68,7 +79,7 @@ export default {
     };
   },
   mounted() {
-    this.wallet = store.get("wallet", null);
+    this.wallet = store.get(KEY_WALLET, null);
   },
   methods: {
     async createWallet() {
@@ -83,9 +94,7 @@ export default {
       const publicKey = await this.createKeys();
 
       this.wallet = { name, password, publicKey };
-      // store.set(KEY_WALLET_NAME, this.wallet.name);
-      // store.set(KEY_WALLET_PASSWORD, this.wallet.password);
-      store.set("wallet", this.wallet);
+      store.set(KEY_WALLET, this.wallet);
     },
     async listWallets() {
       return this.invoke("/v1/wallet/list_wallets");
@@ -147,16 +156,6 @@ function getRandomInt(max) {
 </script>
 
 <style scoped>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.btn {
-  margin: 0 8px;
-}
 .fixed-footer {
   position: absolute;
   bottom: 0;
