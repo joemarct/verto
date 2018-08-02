@@ -27,6 +27,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/bulma": "^1.2.0",
+    "electron-store": "^2.0.0",
     "nuxt": "^1.4.0",
     "vue": "^2.5.17"
   },

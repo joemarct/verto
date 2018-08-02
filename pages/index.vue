@@ -20,10 +20,16 @@
               <a class="navbar-item" @click="listWallets">
                 List
               </a>
+              <a class="navbar-item" @click="openWallet">
+                Open
+              </a>
             </div>
           </div>
         </div>
         <div class="navbar-end">
+          <div v-if="walletName" class="navbar-item">
+            Wallet: {{ walletName }}
+          </div>
           <div class="navbar-item">
             0 VTX
           </div>
@@ -38,29 +44,52 @@
 </template>
 
 <script>
+const WALLET_NAME = "wallet.name";
+const DEFAULT_WALLET_NAME = "my_wallet";
+
+const Store = require("electron-store");
+const store = new Store({
+  encryptionKey: "j6=NPbpu#i&4=]u+xv_s8a'f^F}Y{ae_h2]Q=]*B"
+});
+
 export default {
   data() {
     return {
-      messages: ""
+      messages: "",
+      walletName: null,
+      isOpened: undefined
     };
+  },
+  mounted() {
+    this.walletName = store.get(WALLET_NAME, null);
   },
   methods: {
     async createWallet() {
-      this.invoke("/v1/wallet/create", "new_wallet");
+      // TODO Allow the user to set the wallet name
+      this.invoke("/v1/wallet/create", JSON.stringify(DEFAULT_WALLET_NAME));
+      store.set(WALLET_NAME, DEFAULT_WALLET_NAME);
+      this.walletName = DEFAULT_WALLET_NAME;
     },
     async listWallets() {
       this.invoke("/v1/wallet/list_wallets");
+    },
+    async openWallet() {
+      this.invoke("/v1/wallet/open", JSON.stringify(this.walletName));
     },
     async invoke(name, data) {
       this.addMessage(`Calling ${name} ...`);
       try {
         const resp = await this.$axios.$post(name, data);
-        this.addMessage(resp);
+        this.addMessage(JSON.stringify(resp));
         return resp;
       } catch (e) {
         const response = e.response;
-        this.addMessage("ERROR " + response.status);
-        this.addMessage(JSON.stringify(response.data.error, null, 2));
+        this.addMessage(
+          "ERROR " +
+            response.status +
+            ": " +
+            JSON.stringify(response.data.error)
+        );
 
         // TODO log error
         throw e;
