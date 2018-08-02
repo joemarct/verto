@@ -23,12 +23,15 @@
               <a class="navbar-item" @click="openWallet">
                 Open
               </a>
+              <a class="navbar-item" @click="listPublicKeys">
+                List public keys
+              </a>
             </div>
           </div>
         </div>
         <div class="navbar-end">
-          <div v-if="walletName" class="navbar-item">
-            Wallet: {{ walletName }}
+          <div v-if="wallet" class="navbar-item">
+            Wallet: {{ wallet.name }}
           </div>
           <div class="navbar-item">
             0 VTX
@@ -37,6 +40,10 @@
       </div>
     </nav>
 
+    <section v-if="wallet" class="container">
+      Your public key: {{ wallet.publicKey }}
+    </section>
+
     <footer class="fixed-footer">
       <textarea id="messages" v-model="messages" class="textarea" rows="8" type="text" readonly/>
     </footer>
@@ -44,8 +51,8 @@
 </template>
 
 <script>
-const WALLET_NAME = "wallet.name";
-const DEFAULT_WALLET_NAME = "my_wallet";
+// const KEY_WALLET_NAME = "wallet.name";
+// const KEY_WALLET_PASSWORD = "wallet.password";
 
 const Store = require("electron-store");
 const store = new Store({
@@ -56,28 +63,53 @@ export default {
   data() {
     return {
       messages: "",
-      walletName: null,
+      wallet: null, // { name: foo, password: bar }
       isOpened: undefined
     };
   },
   mounted() {
-    this.walletName = store.get(WALLET_NAME, null);
+    this.wallet = store.get("wallet", null);
   },
   methods: {
     async createWallet() {
       // TODO Allow the user to set the wallet name
-      this.invoke("/v1/wallet/create", JSON.stringify(DEFAULT_WALLET_NAME));
-      store.set(WALLET_NAME, DEFAULT_WALLET_NAME);
-      this.walletName = DEFAULT_WALLET_NAME;
+      const name = "my_wallet_" + getRandomInt(1000);
+      const password = await this.invoke(
+        "/v1/wallet/create",
+        JSON.stringify(name)
+      );
+      await this.openWallet();
+      await this.unlockWallet();
+      const publicKey = await this.createKeys();
+
+      this.wallet = { name, password, publicKey };
+      // store.set(KEY_WALLET_NAME, this.wallet.name);
+      // store.set(KEY_WALLET_PASSWORD, this.wallet.password);
+      store.set("wallet", this.wallet);
     },
     async listWallets() {
-      this.invoke("/v1/wallet/list_wallets");
+      return this.invoke("/v1/wallet/list_wallets");
+    },
+    async listPublicKeys() {
+      return this.invoke("/v1/wallet/get_public_keys");
     },
     async openWallet() {
-      this.invoke("/v1/wallet/open", JSON.stringify(this.walletName));
+      return this.invoke("/v1/wallet/open", JSON.stringify(this.wallet.name));
+    },
+    async unlockWallet() {
+      return this.invoke(
+        "/v1/wallet/unlock",
+        JSON.stringify([this.wallet.name, this.wallet.password])
+      );
+    },
+    async createKeys() {
+      return this.invoke(
+        "/v1/wallet/create_key",
+        JSON.stringify([this.wallet.name, "K1"])
+      );
     },
     async invoke(name, data) {
-      this.addMessage(`Calling ${name} ...`);
+      this.addMessage(`Calling ${name} (${data}) ...`);
       try {
         const resp = await this.$axios.$post(name, data);
         this.addMessage(JSON.stringify(resp));
@@ -108,6 +140,10 @@ export default {
     }
   }
 };
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
 </script>
 
 <style scoped>
