@@ -52,7 +52,7 @@
     </section>
 
     <footer class="fixed-footer">
-      <textarea id="messages" v-model="messages" class="textarea" rows="8" type="text" readonly/>
+      <textarea id="messages" v-model="messages" class="textarea code" rows="8" type="text" readonly/>
     </footer>
   </div>
 </template>
@@ -160,5 +160,10 @@ function getRandomInt(max) {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+.code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: small;
 }
 </style>
