@@ -98,16 +98,20 @@ export default {
   methods: {
     async createWallet() {
       // TODO Allow the user to set the wallet name
-      const name = "my_wallet_" + getRandomInt(1000);
-      const password = await this.invoke(
+      this.wallet.name = "my_wallet_" + getRandomInt(1000);
+      this.wallet.password = await this.invoke(
         "/v1/wallet/create",
-        JSON.stringify(name)
+        JSON.stringify(this.wallet.name)
       );
       await this.openWallet();
       await this.unlockWallet();
       const publicKey = await this.createKeys();
 
-      this.wallet = { name, password, publicKey };
+      this.wallet = {
+        name: this.wallet.name,
+        password: this.wallet.passsword,
+        publicKey
+      };
       store.set(KEY_WALLET, this.wallet);
     },
     async listWallets() {
