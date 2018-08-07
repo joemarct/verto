@@ -23,6 +23,20 @@
               <a class="navbar-item" @click="openWallet">
                 Open
               </a>
+              <a class="navbar-item" @click="unlockWallet">
+                Unlock
+              </a>
+            </div>
+          </div>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Keys
+            </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item" @click="listKeyPairs">
+                List key pairs
+              </a>
               <a class="navbar-item" @click="listPublicKeys">
                 List public keys
               </a>
@@ -97,10 +111,16 @@ export default {
       store.set(KEY_WALLET, this.wallet);
     },
     async listWallets() {
-      return this.invoke("/v1/wallet/list_wallets");
+      return this.invoke(
+        "/v1/wallet/list_wallets",
+        JSON.stringify(this.wallet.name)
+      );
     },
     async listPublicKeys() {
       return this.invoke("/v1/wallet/get_public_keys");
+    },
+    async listKeyPairs() {
+      return this.invoke("/v1/wallet/list_keys");
     },
     async openWallet() {
       return this.invoke("/v1/wallet/open", JSON.stringify(this.wallet.name));
