@@ -63,6 +63,13 @@
           Your public key: {{ wallet.publicKey }}
         </div>
       </div>
+      <div class="container">
+        <div>
+          <label class="label">URL to EOS node</label>
+          <input v-model="eosUrl" class="input" type="url" size="100">
+          <button class="button" @click="saveEosUrl">Save</button>
+        </div>
+      </div>
     </section>
 
     <footer class="fixed-footer">
@@ -75,6 +82,8 @@
 import qr from "vue-qr";
 
 const KEY_WALLET = "wallet";
+const KEY_EOS_URL = "eos_url";
+const DEFAULT_URL = "http://127.0.0.1:8888";
 
 const Store = require("electron-store");
 const store = new Store({
@@ -89,11 +98,12 @@ export default {
     return {
       messages: "",
       wallet: null, // { name: foo, password: bar }
-      isOpened: undefined
+      eosUrl: null
     };
   },
   mounted() {
     this.wallet = store.get(KEY_WALLET, null);
+    this.eosUrl = store.get(KEY_EOS_URL, DEFAULT_URL);
   },
   methods: {
     async createWallet() {
@@ -115,10 +125,7 @@ export default {
       store.set(KEY_WALLET, this.wallet);
     },
     async listWallets() {
-      return this.invoke(
-        "/v1/wallet/list_wallets",
-        JSON.stringify(this.wallet.name)
-      );
+      return this.invoke("/v1/wallet/list_wallets");
     },
     async listPublicKeys() {
       return this.invoke("/v1/wallet/get_public_keys");
@@ -142,9 +149,10 @@ export default {
       );
     },
     async invoke(name, data) {
-      this.addMessage(`Calling ${name} (${data}) ...`);
+      const url = this.eosUrl + name;
+      this.addMessage(`Calling "${url}"` + (data ? `(${data})` : "") + " ...");
       try {
-        const resp = await this.$axios.$post(name, data);
+        const resp = await this.$axios.$post(url, data);
         this.addMessage(JSON.stringify(resp));
         return resp;
       } catch (e) {
@@ -170,6 +178,10 @@ export default {
       // var messageBox = this.$el.querySelector("#messages");
       // console.log("scrollHeight", messageBox.scrollHeight);
       // messageBox.scrollTop = messageBox.scrollHeight + 10;
+    },
+    saveEosUrl() {
+      store.set(KEY_EOS_URL, this.eosUrl.trim());
+      console.log("Set new EOS URL to " + store.get(KEY_EOS_URL));
     }
   }
 };
