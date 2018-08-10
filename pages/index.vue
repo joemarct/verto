@@ -88,8 +88,8 @@ const SERVICE_VERTO = "verto.volentix.io";
 
 const DEFAULT_URL = "http://127.0.0.1:8888";
 
-const Store = require("electron-store");
-const keytar = require("keytar");
+import Store from "electron-store";
+import keytar from "keytar";
 
 const store = new Store({
   encryptionKey: "j6=NPbpu#i&4=]u+xv_s8a'f^F}Y{ae_h2]Q=]*B"
