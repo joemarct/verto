@@ -83,9 +83,14 @@ import qr from "vue-qr";
 
 const KEY_WALLET = "wallet";
 const KEY_EOS_URL = "eos_url";
+
+const SERVICE_VERTO = "verto.volentix.io";
+
 const DEFAULT_URL = "http://127.0.0.1:8888";
 
 const Store = require("electron-store");
+const keytar = require("keytar");
+
 const store = new Store({
   encryptionKey: "j6=NPbpu#i&4=]u+xv_s8a'f^F}Y{ae_h2]Q=]*B"
 });
@@ -97,7 +102,7 @@ export default {
   data() {
     return {
       messages: "",
-      wallet: null, // { name: foo, password: bar }
+      wallet: null, // { name: "wallet_xxx", publicKey: "EOS..."" }
       eosUrl: null
     };
   },
@@ -109,17 +114,18 @@ export default {
     async createWallet() {
       // TODO Allow the user to set the wallet name
       this.wallet.name = "my_wallet_" + getRandomInt(1000);
-      this.wallet.password = await this.invoke(
+      const password = await this.invoke(
         "/v1/wallet/create",
         JSON.stringify(this.wallet.name)
       );
+      await keytar.setPassword(SERVICE_VERTO, this.wallet.name, password);
+
       await this.openWallet();
       await this.unlockWallet();
       const publicKey = await this.createKeys();
 
       this.wallet = {
         name: this.wallet.name,
-        password: this.wallet.passsword,
         publicKey
       };
       store.set(KEY_WALLET, this.wallet);
@@ -137,9 +143,13 @@ export default {
       return this.invoke("/v1/wallet/open", JSON.stringify(this.wallet.name));
     },
     async unlockWallet() {
+      const password = await keytar.getPassword(
+        SERVICE_VERTO,
+        this.wallet.name
+      );
       return this.invoke(
         "/v1/wallet/unlock",
-        JSON.stringify([this.wallet.name, this.wallet.password])
+        JSON.stringify([this.wallet.name, password])
       );
     },
     async createKeys() {
