@@ -15,11 +15,6 @@ cryptocurrency exchange. Users with their funds in Verto will be able to maintai
 custody of their private keys and their funds in Verto, while being able to buy and
 sell crypto without depositing their own funds in the exchange.
 
-Security is the foremost consideration of Verto. The wallet encourages good practices
-such as disconnecting from the internet when generating private keys and writing
-the seed phrase on paper. Private keys are generated locally and never sent to any
-external entity.
-
 The goal of the first version of Verto is to hold VTX, which is the native currency
 of the [Volentix ecosystem](https://volentix.io). VTX is a currency based on EOS, and so
 the wallet actually hold EOS tokens.
