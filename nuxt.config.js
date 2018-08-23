@@ -1,7 +1,11 @@
 module.exports = {
   mode: "spa",
   head: { title: "verto" }, // Headers of the page
-  loading: false, // Disable default loading bar
+  loading: false, // Disable default loading bar,
+  css: [
+    // SCSS file in the project
+    { src: "~/scss/spacing.scss", lang: "scss" }
+  ],
   build: {
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
