@@ -30,7 +30,22 @@ module.exports = {
       plugins: {
         "postcss-custom-properties": false
       }
-    }
+    },
+    modules: [
+      [
+        "nuxt-fontawesome",
+        {
+          component: "fa",
+          imports: [
+            //import whole set
+            {
+              set: "@fortawesome/free-solid-svg-icons",
+              icons: ["fas"]
+            }
+          ]
+        }
+      ]
+    ]
   },
   dev: process.env.NODE_ENV === "DEV",
   modules: ["@nuxtjs/axios", "@nuxtjs/bulma"],

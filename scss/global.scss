@@ -30,6 +30,9 @@
 	font-family: "Gibson-bolditalic";
 	src: url("~assets/fonts/Gibson-BoldItalic.ttf");
 }
+
+$dark-green: rgba(55, 202, 189, 0.3);
+
 body, html {
   overflow: hidden !important;
   font-family: 'Calibri' !important;
@@ -57,4 +60,12 @@ body, html {
 }
 .font-calibri-italic {
 	font-family: "Calibri-italic";
+}
+
+.has-background-darkgreen {
+	background-color: $dark-green;
+}
+
+.has-text-darkgreen {
+	color: $dark-green;
 }
