@@ -7,30 +7,30 @@
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="item in items" :key="item" class="transaction_list column is-paddingless list-item has-background-darkgreen">
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
             <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-              <div class="column is-7 is-paddingless is-size-7 font-calibri">
+              <div class="column is-6 is-paddingless is-size-7 font-calibri">
                 <div class="columns is-marginless">
                   <div class="column is-paddingless">
                     <div class="level is-mobile has-text-white">
                       <div class="level-left">
-                        {{ date | formatDate }}
+                        {{ transaction.submittedAt | formatDate }}
                       </div>
                       <div class="level-right">
-                        {{ date | formatTime }}
+                        {{ transaction.submittedAt | formatTime }}
                       </div>
                     </div>
                   </div>
                   <div class="column is-paddingless">
                     <div class="wallet-address has-text-grey-light" >
-                      NO: {{ wallet_addr }}
+                      NO: {{ transaction.wallet }}
                     </div>
                   </div>
                 </div>
               </div>
               <div class="column is-1 is-paddingless">&nbsp;</div>
-              <div class="column is-4 is-paddingless is-flex level level-right has-text-primary is-size-4">
-                - {{ item }}.83 VTX
+              <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
+                {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
               </div>
             </div>              
           </div>
@@ -55,6 +55,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import moment from "moment";
+import Ledger from "@/ledger-mock.js";
 
 library.add(faSlidersH, faSyncAlt, faCopy);
 
@@ -72,14 +73,47 @@ Vue.filter("formatTime", function(value) {
   }
 });
 
+const mywallet = "EOS5vBqi8YSzFCeTv4weRTwBzVkGCY5PN5Hm1Gp3133m8g9MtHTbW";
+const myaccount = "vtxtrust";
+const keyProvider = "EOS8TJpbWeQEoaMZMZzmo4SqC7DUucEUHRQJs1x7cXLcTqRhiJ7VF";
+const chainId =
+  "cf057bbfb72640471ff8a%90ba539c22df9f92470936cddc1ade0e2f2e7dc4f";
+const httpEndpoint = "https://url-of-eos-node";
+
 export default {
   data() {
     return {
-      messages: "",
-      wallet_addr: "12sdf334345adfgabejlijb233d434jbosfigadfovoci5433",
-      date: new Date(),
-      items: [1, 2, 3, 4, 5]
+      messages: ""
     };
+  },
+  async asyncData(context) {
+    console.log("context", context);
+    const ledger = new Ledger({
+      httpEndpoint: httpEndpoint,
+      chainId: chainId,
+      keyProvider: keyProvider
+    });
+    // Retrie Transactions
+    const transactions = await ledger.retrieveTransactions({
+      account: myaccount,
+      wallet: mywallet
+    });
+    const transaction_list = [];
+    transactions.transactions.forEach(tx => {
+      let wallet;
+      if (tx.from.wallet) wallet = tx.from.wallet;
+      if (tx.to.wallet) wallet = tx.to.wallet;
+      transaction_list.push({
+        id: tx.id,
+        to: tx.to.account,
+        amount: Math.round(tx.amount * 100) / 100,
+        submittedAt: tx.submittedAt,
+        sign: myaccount === tx.from ? true : false,
+        wallet: wallet,
+        currency: tx.currency
+      });
+    });
+    return { transactions: transaction_list };
   },
   methods: {
     goToNext: function() {
