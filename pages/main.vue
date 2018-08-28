@@ -4,15 +4,15 @@
       <Div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
-            <img src="~/assets/img/verto-dark.png" alt="Logo">
+            <img src="~/assets/img/wallet-logo.png" class="logo">
             <div class="is-pulled-right is-vcentered is-flex m-t-md">
               <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal" @click="goToNext" />
             </div>
           </div>
-          <div class="p-t-md p-b-md level is-mobile">
+          <div class="p-b-md level is-mobile">
             <div class="level-left has-text-centered">
               <div>
-                <p class="title is-marginless is-size-1 has-text-white font-gibson-semibold">11.21 VTX</p>
+                <p class="is-marginless is-size-1 has-text-white font-gibson">11.21 VTX</p>
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
                   <div class="level-right">
@@ -97,8 +97,8 @@ export default {
 .dark-blue-gradient {
   background: linear-gradient(
     to bottom,
-    rgba(41, 137, 216, 0) -1%,
-    rgba(255, 255, 255, 0) 0%,
+    rgba(41, 137, 216, 0) 0%,
+    rgba(255, 255, 255, 0) 10%,
     rgba(34, 52, 53, 1) 100%
   );
 }
@@ -110,5 +110,8 @@ export default {
 }
 .line-height-md {
   line-height: 1rem;
+}
+.logo {
+  height: 3.5rem;
 }
 </style>
