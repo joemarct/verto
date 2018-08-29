@@ -31,7 +31,9 @@
 	src: url("~assets/fonts/Gibson-BoldItalic.ttf");
 }
 
-$dark-green: rgba(55, 202, 189, 0.3);
+$light-green: rgba(55, 202, 189, 0.3);
+$dark-green: #152223;
+$dark-light-green: #1A4A48;
 
 body, html {
   overflow: hidden !important;
@@ -68,4 +70,18 @@ body, html {
 
 .has-text-darkgreen {
 	color: $dark-green;
+.has-background-lightgreen {
+	background-color: $light-green;
+}
+.has-text-darkgreen {
+	color: $dark-green;
+}
+.has-text-lightgreen {
+	color: $light-green;
+}
+.has-text-darklightgreen {
+	color: $dark-light-green;
+}
+.has-background-darklightgreen {
+	background-color: $dark-light-green;
 }
