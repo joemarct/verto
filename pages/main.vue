@@ -205,6 +205,7 @@ export default {
 }
 .logo {
   height: 3.5rem;
+}
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
   width: 100vw;
