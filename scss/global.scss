@@ -67,6 +67,9 @@ body, html {
 .has-background-darkgreen {
 	background-color: $dark-green;
 }
+
+.has-text-darkgreen {
+	color: $dark-green;
 .has-background-lightgreen {
 	background-color: $light-green;
 }
@@ -81,27 +84,4 @@ body, html {
 }
 .has-background-darklightgreen {
 	background-color: $dark-light-green;
-}.font-gibson {
-	font-family: "Gibson";
-}
-.font-gibson-semibold {
-	font-family: "Gibson-semibold";
-}
-.font-gibson-italic {
-	font-family: "Gibson-italic";
-}
-.font-gibson-bold {
-	font-family: "Gibson-bold";
-}
-.font-gibson-bolditalic {
-	font-family: "Gibson-bolditalic";
-}
-.font-calibri {
-	font-family: "Calibri";
-}
-.font-calibri-bold {
-	font-family: "Calibri-bold";
-}
-.font-calibri-italic {
-	font-family: "Calibri-italic";
 }
