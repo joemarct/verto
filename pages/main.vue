@@ -179,12 +179,6 @@ export default {
 </script>
 
 <style scoped>
-.spinning {
-  color: #2cfee6;
-}
-.not-spinning {
-  color: white;
-}
 .is-vcentered {
   align-items: center;
 }
