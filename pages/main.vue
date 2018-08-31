@@ -12,11 +12,11 @@
           <div class="p-b-md level is-mobile">
             <div class="level-left has-text-centered">
               <div>
-                <p class="is-marginless is-size-1 has-text-white font-gibson">11.21 VTX</p>
+                <p class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </p>
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
-                  <div class="level-right">
-                    <font-awesome-icon icon="sync-alt" class="is-size-5 has-text-white" @click="refreshClicked" />
+                  <div class="level-right is-size-5 has-text-white">
+                    <font-awesome-icon icon="sync-alt" @click="refreshBalance"/>
                   </div>
                 </div>
               </div>
@@ -70,7 +70,7 @@
               <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
                 {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
               </div>
-            </div>              
+            </div>
           </div>
         </div>
       </div>
@@ -118,19 +118,22 @@ const chainId =
   "cf057bbfb72640471ff8a%90ba539c22df9f92470936cddc1ade0e2f2e7dc4f";
 const httpEndpoint = "https://url-of-eos-node";
 
+const ledger = new Ledger({
+  httpEndpoint: httpEndpoint,
+  chainId: chainId,
+  keyProvider: keyProvider
+});
+
 export default {
   data() {
     return {
-      messages: ""
+      messages: "",
+      balance: 0
+      //isRefreshingBalance: false
     };
   },
   async asyncData(context) {
     console.log("context", context);
-    const ledger = new Ledger({
-      httpEndpoint: httpEndpoint,
-      chainId: chainId,
-      keyProvider: keyProvider
-    });
     // Retrie Transactions
     const transactions = await ledger.retrieveTransactions({
       account: myaccount,
@@ -153,12 +156,20 @@ export default {
     });
     return { transactions: transaction_list };
   },
+  mounted() {
+    this.refreshBalance();
+  },
   methods: {
     goToNext: function() {
       window.alert("Navigate to setting");
     },
-    refreshClicked: function() {
-      window.alert("refresh clicked");
+    async refreshBalance() {
+      //this.isRefreshingBalance = true;
+      const balance = await ledger.retrieveBalance({
+        account: myaccount,
+        wallet: mywallet
+      });
+      this.balance = balance.amount.toFixed(2);
     },
     copiedClicked: function() {
       window.alert("copied clicked");
@@ -168,6 +179,12 @@ export default {
 </script>
 
 <style scoped>
+.spinning {
+  color: #2cfee6;
+}
+.not-spinning {
+  color: white;
+}
 .is-vcentered {
   align-items: center;
 }
