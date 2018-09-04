@@ -22,7 +22,9 @@
               </div>
             </div>
             <div class="level-right has-text-centered">
-              <img src="~/assets/img/qr-code.png" class="Logo">
+              <a @click="isCardModalActive = true">
+                <img src="~/assets/img/qr-code.png">
+              </a>
             </div>
           </div>
         </div>
@@ -39,13 +41,12 @@
       </Div>
     </div>
     <div class="hero-body is-paddingless has-background-darkgreen">
-      <div class="gradient-wrapper w-main-b-graident">&nbsp;</div>
-      <div class="container">
+      <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
               <div class="column is-6 is-paddingless is-size-7 font-calibri">
                 <div class="columns is-marginless">
@@ -70,7 +71,7 @@
               <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
                 {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
               </div>
-            </div>              
+            </div>
           </div>
         </div>
       </div>
@@ -80,6 +81,11 @@
         &nbsp;
       </div>
     </div>
+    <b-modal :active.sync="isCardModalActive">
+      <p class="image is-1by1 qr-modal">
+        <img src="~/assets/img/qr-code.png">
+      </p>
+    </b-modal>
   </section>
 </template>
 
@@ -121,7 +127,8 @@ const httpEndpoint = "https://url-of-eos-node";
 export default {
   data() {
     return {
-      messages: ""
+      messages: "",
+      isCardModalActive: false
     };
   },
   async asyncData(context) {
