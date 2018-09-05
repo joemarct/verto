@@ -27,12 +27,17 @@
           </div>
         </div>
         <div class="has-text-white container p-b-md" >
+          <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-primary">
+            {{ wallet }}
+          </span>
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm" >
-            <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-              Wallet address: 123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we
+            <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri" @mouseover="active = !active" @mouseout="active = !active">
+              Wallet address: {{ wallet }}
             </div>
             <div class="column is-1 is-paddingless has-text-right line-height-md">
-              <font-awesome-icon icon="copy" class="is-size-7 has-text-white" @click="copiedClicked" />
+              <a v-clipboard:copy="wallet">
+                <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
+              </a>
             </div>
           </div>
         </div>
@@ -47,10 +52,13 @@
           </div>
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
             <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+              <span v-if="transactionOn" class="hover-wallet-address p-l-sm p-r-sm has-background-primary">
+                {{ transaction.id }}
+              </span>
               <div class="column is-6 is-paddingless is-size-7 font-calibri">
                 <div class="columns is-marginless">
                   <div class="column is-paddingless">
-                    <div class="level is-mobile has-text-white">
+                    <div class="level is-mobile has-text-white" @mouseover="transactionOn = !transactionOn" @mouseout="transactionOn = !transactionOn">
                       <div class="level-left">
                         {{ transaction.submittedAt | formatDate }}
                       </div>
@@ -70,7 +78,7 @@
               <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
                 {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
               </div>
-            </div>              
+            </div>
           </div>
         </div>
       </div>
@@ -121,7 +129,10 @@ const httpEndpoint = "https://url-of-eos-node";
 export default {
   data() {
     return {
-      messages: ""
+      messages: "",
+      wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
+      active: false,
+      transactionOn: false
     };
   },
   async asyncData(context) {
@@ -168,6 +179,11 @@ export default {
 </script>
 
 <style scoped>
+.hover-wallet-address {
+  position: absolute;
+  margin-top: -1rem;
+  font-size: 0.95rem;
+}
 .is-vcentered {
   align-items: center;
 }

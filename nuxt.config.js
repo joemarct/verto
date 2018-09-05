@@ -49,5 +49,5 @@ module.exports = {
   },
   dev: process.env.NODE_ENV === "DEV",
   modules: ["@nuxtjs/axios", "@nuxtjs/bulma"],
-  plugins: ["~/plugins/vueqr"]
+  plugins: ["~/plugins/vueqr", "~/plugins/vue-clipboard"]
 };
