@@ -1,9 +1,6 @@
 <template>
   <section class="hero is-fullheight is-light is-bold" >
     <div class="hero-head top-bg">
-      <span v-show="isCopied" class="copied-toast is-size-6 has-background-primary has-text-white has-text-centered p-l-md p-r-md">
-        Copied
-      </span>
       <Div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
@@ -30,10 +27,10 @@
           </div>
         </div>
         <div class="has-text-white container p-b-md" >
-          <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-primary has-text-grey-dark">
-            {{ wallet }}
-          </span>
-          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm" >
+          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm">
+            <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-white p-t-sm p-b-sm">
+              {{ wallet }}
+            </span>
             <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri" @mouseover="active = !active" @mouseout="active = !active">
               Wallet address: {{ wallet }}
             </div>
@@ -42,20 +39,22 @@
                 <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
               </a>
             </div>
+            <span v-show="isCopied" class="copied-toast is-size-5 has-background-white has-text-centered p-l-md p-r-md">
+              Copied
+            </span>
           </div>
         </div>
       </Div>
     </div>
     <div class="hero-body is-paddingless has-background-darkgreen">
-      <div class="gradient-wrapper w-main-b-graident">&nbsp;</div>
-      <div class="container">
+      <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-              <span class="hover-transaction-id p-l-sm p-r-sm has-background-primary">
+              <span class="hover-transaction-id p-l-sm p-r-sm p-t-sm p-b-sm has-background-white">
                 {{ transaction.id }}
               </span>
               <div class="column is-6 is-paddingless is-size-7 font-calibri">
@@ -188,19 +187,29 @@ export default {
 <style scoped>
 .copied-toast {
   position: absolute;
-  width: 100%;
+  color: #454f63;
+  border-radius: 0.5rem;
+  margin-left: 16rem;
+  margin-top: 2rem;
+  z-index: 100;
 }
 .transaction_list:hover span.hover-transaction-id {
   display: block;
 }
 .hover-wallet-address {
   position: absolute;
-  margin-top: -1rem;
-  font-size: 0.95rem;
+  color: #223435;
+  border-radius: 0.5rem;
+  margin-top: 1.5rem;
+  margin-left: -1.3rem;
+  font-size: 0.9rem;
+  z-index: 100;
 }
 .hover-transaction-id {
   position: absolute;
-  margin-top: -1rem;
+  color: #223435;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
   font-size: 0.95rem;
   display: none;
 }
@@ -258,15 +267,6 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
-}
-.gradient-wrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  pointer-events: none;
 }
 .hero.is-fullheight .hero-body {
   flex: 1;
