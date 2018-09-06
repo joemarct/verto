@@ -1,6 +1,9 @@
 <template>
   <section class="hero is-fullheight is-light is-bold" >
     <div class="hero-head top-bg">
+      <span v-show="isCopied" class="copied-toast is-size-6 has-background-primary has-text-white has-text-centered p-l-md p-r-md">
+        Copied
+      </span>
       <Div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
@@ -27,7 +30,7 @@
           </div>
         </div>
         <div class="has-text-white container p-b-md" >
-          <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-primary">
+          <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-primary has-text-grey-dark">
             {{ wallet }}
           </span>
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm" >
@@ -35,7 +38,7 @@
               Wallet address: {{ wallet }}
             </div>
             <div class="column is-1 is-paddingless has-text-right line-height-md">
-              <a v-clipboard:copy="wallet">
+              <a v-clipboard:copy="wallet" @click="copiedClicked()">
                 <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
               </a>
             </div>
@@ -52,13 +55,13 @@
           </div>
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
             <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-              <span v-if="transactionOn" class="hover-wallet-address p-l-sm p-r-sm has-background-primary">
+              <span class="hover-transaction-id p-l-sm p-r-sm has-background-primary">
                 {{ transaction.id }}
               </span>
               <div class="column is-6 is-paddingless is-size-7 font-calibri">
                 <div class="columns is-marginless">
                   <div class="column is-paddingless">
-                    <div class="level is-mobile has-text-white" @mouseover="transactionOn = !transactionOn" @mouseout="transactionOn = !transactionOn">
+                    <div class="level is-mobile has-text-white">
                       <div class="level-left">
                         {{ transaction.submittedAt | formatDate }}
                       </div>
@@ -132,7 +135,7 @@ export default {
       messages: "",
       wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
       active: false,
-      transactionOn: false
+      isCopied: false
     };
   },
   async asyncData(context) {
@@ -171,19 +174,37 @@ export default {
     refreshClicked: function() {
       window.alert("refresh clicked");
     },
+    removeToast: function() {
+      this.isCopied = false;
+    },
     copiedClicked: function() {
-      window.alert("copied clicked");
+      this.isCopied = true;
+      setTimeout(this.removeToast, 2000);
     }
   }
 };
 </script>
 
 <style scoped>
+.copied-toast {
+  position: absolute;
+  width: 100%;
+}
+.transaction_list:hover span.hover-transaction-id {
+  display: block;
+}
 .hover-wallet-address {
   position: absolute;
   margin-top: -1rem;
   font-size: 0.95rem;
 }
+.hover-transaction-id {
+  position: absolute;
+  margin-top: -1rem;
+  font-size: 0.95rem;
+  display: none;
+}
+
 .is-vcentered {
   align-items: center;
 }
