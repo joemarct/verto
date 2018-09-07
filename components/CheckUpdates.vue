@@ -1,31 +1,29 @@
 <template>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
-      <div class="p-t-xl">
+    <div class="hero-head p-t-sm">
+      <div class="p-t-xl p-l-lg">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/main">
+          <router-link to="/settings">
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
           </router-link>
         </div>
         <img src="~/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-      </div>
-      <p class="p-t-lg has-text-aqua is-size-4">
-        Settings
-      </p>
-      <div class="p-t-xl">
-        <div class="is-size-5 has-text-white is-pulled-left">
-          <font-awesome-icon icon="sync-alt" class="fa-xs"/>
-        </div>
-        <span class="p-l-md has-text-white is-size-5">
-          <router-link to="/checkForUpdates">
-            Check for Updates
+        <div class="is-pulled-right is-vcentered is-flex m-t-md p-r-lg">
+          <router-link to="/settings">
+            <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-aqua" flip="horizontal"/>
           </router-link>
-        </span>
+        </div>
       </div>
-    </div>
-    <div class="hero-foot">
-      <div class="has-text-grey-light is-size-7 p-b-md p-t-md p-l-md">
-        Version 0.1.0
+      <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
+        Check for Updates
+      </p>
+      <div class="p-t-xl m-t-lg has-text-white has-text-centered">
+        <p>
+          Refreshing
+        </p>
+        <div class="is-size-5 has-text-white p-t-sm">
+          <font-awesome-icon icon="sync-alt" class="fa-lg"/>
+        </div>
       </div>
     </div>
   </div>
@@ -34,10 +32,14 @@
 <script>
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faSyncAlt, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSyncAlt,
+  faArrowLeft,
+  faSlidersH
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faSyncAlt, faArrowLeft);
+library.add(faSyncAlt, faArrowLeft, faSlidersH);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 </script>
