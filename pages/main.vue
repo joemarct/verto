@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="has-text-white container p-b-md" >
-          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm">
+          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <!-- <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
               <b-tooltip :label="wallet" position="is-bottom">
                 Wallet address: {{ wallet }}
@@ -36,7 +36,7 @@
             <!-- <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-white p-t-sm p-b-sm">
               {{ wallet }}
             </span> -->
-            <b-tooltip :label="wallet" class="wallet-tooltip" position="is-bottom" size="is-large" multilined>
+            <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
               <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
                 Wallet address: {{ wallet }}
               </div>
@@ -47,9 +47,9 @@
                 <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
               </a>
             </div>
-            <span v-show="isCopied" class="copied-toast is-size-5 has-background-white has-text-centered p-l-md p-r-md">
+            <!-- <span v-show="isCopied" class="copied-toast is-size-5 has-background-white has-text-centered p-l-md p-r-md">
               Copied
-            </span>
+            </span> -->
           </div>
         </div>
       </Div>
@@ -62,14 +62,11 @@
           </div>
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <b-tooltip label="text example" position="is-bottom">
-                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                  <span class="hover-transaction-id p-l-sm p-r-sm p-t-sm p-b-sm has-background-white">
-                    {{ transaction.id }}
-                  </span>
-                  <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                    <div class="columns is-marginless">
-                      <div class="column is-paddingless">
+              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md" style="width:75%;">
+                <div class="column is-6 is-paddingless is-size-7 font-calibri" style="width:40%">
+                  <div class="columns is-marginless">
+                    <div class="column is-paddingless">
+                      <b-tooltip :label="transaction.id" position="is-bottom">
                         <div class="level is-mobile has-text-white">
                           <div class="level-left">
                             {{ transaction.submittedAt | formatDate }}
@@ -78,20 +75,20 @@
                             {{ transaction.submittedAt | formatTime }}
                           </div>
                         </div>
-                      </div>
-                      <div class="column is-paddingless">
-                        <div class="wallet-address has-text-grey-light" >
-                          NO: {{ transaction.wallet }}
-                        </div>
+                      </b-tooltip>
+                    </div>
+                    <div class="column is-paddingless">
+                      <div class="wallet-address has-text-grey-light" >
+                        NO: {{ transaction.wallet }}
                       </div>
                     </div>
                   </div>
-                  <div class="column is-1 is-paddingless">&nbsp;</div>
-                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
-                    {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
-                  </div>
                 </div>
-              </b-tooltip>
+                <div class="column is-1 is-paddingless">&nbsp;</div>
+                <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
+                  {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
+                </div>
+              </div>
             </router-link>
           </div>
         </div>
@@ -229,24 +226,6 @@ export default {
 /* .transaction_list:hover span.hover-transaction-id {
   display: block;
 } */
-.hover-wallet-address {
-  position: absolute;
-  color: #223435;
-  border-radius: 0.5rem;
-  margin-top: 1.5rem;
-  margin-left: -1.3rem;
-  font-size: 0.9rem;
-  z-index: 100;
-}
-.hover-transaction-id {
-  position: absolute;
-  color: #223435;
-  border-radius: 0.5rem;
-  margin-top: 2rem;
-  font-size: 0.95rem;
-  display: none;
-}
-
 .is-vcentered {
   align-items: center;
 }
@@ -274,12 +253,6 @@ export default {
   );
 }
 .wallet-address {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  letter-spacing: 1px;
-}
-.wallet-tooltip {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
