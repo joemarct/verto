@@ -17,13 +17,13 @@
       <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
         Check for Updates
       </p>
-      <div class="p-t-xl m-t-lg has-text-white has-text-centered">
-        <router-link to="newVersionIsAvailable">
-          Refreshing
-        </router-link>
-        <div class="is-size-5 has-text-white p-t-sm">
-          <font-awesome-icon icon="sync-alt" class="fa-lg"/>
-        </div>
+      <div class="m-t-lg p-l-lg p-r-lg has-text-white">
+        <p class="has-text-grey-light is-size-6">
+          Version 0.1.2 is available. Do you want to download?
+        </p>
+        <a class="button is-primary m-t-md">
+          <p class="p-t-sm p-b-sm p-l-md p-r-md">Download</p>
+        </a>
       </div>
     </div>
   </div>
@@ -45,6 +45,12 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 </script>
 
 <style>
+.button {
+  border-radius: 0.6rem;
+}
+.button p {
+  color: #223435;
+}
 .is-size-custom-header {
   font-size: 1.7rem;
 }
