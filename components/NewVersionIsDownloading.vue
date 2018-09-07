@@ -3,7 +3,7 @@
     <div class="hero-head p-t-sm">
       <div class="p-t-xl p-l-lg">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/checkForUpdates">
+          <router-link to="/newVersionIsAvailable">
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
           </router-link>
         </div>
@@ -17,15 +17,19 @@
       <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
         Check for Updates
       </p>
-      <div class="m-t-lg p-l-lg p-r-lg has-text-white">
+      <div class="m-t-lg p-l-lg p-r-lg">
         <p class="has-text-grey-light is-size-6">
-          Version 0.1.2 is available. Do you want to download?
+          Version 0.1.2 is downloading.
         </p>
-        <router-link to="downloadVersion">
-          <a class="button is-primary m-t-md">
-            <p class="p-t-sm p-b-sm p-l-md p-r-md">Download</p>
-          </a>
-        </router-link>
+      </div>
+      <div class="m-t-xl p-l-lg p-r-lg has-text-white">
+        <div class="is-pulled-left">
+          Downloading
+        </div>
+        <div class="is-pulled-right">
+          25%
+        </div>
+        <progress class="progress is-primary is-small" value="25" max="100">25%</progress>
       </div>
     </div>
   </div>
