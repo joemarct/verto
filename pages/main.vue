@@ -22,14 +22,16 @@
               </div>
             </div>
             <div class="level-right has-text-centered">
-              <img src="~/assets/img/qr-code.png" class="Logo">
+              <a @click="isCardModalActive = true">
+                <qr :size="80" :margin="15" :text="wallet" class="has-text-centered"/>
+              </a>
             </div>
           </div>
         </div>
         <div class="has-text-white container p-b-md" >
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm" >
             <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-              Wallet address: 123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we
+              Wallet address: {{ wallet }}
             </div>
             <div class="column is-1 is-paddingless has-text-right line-height-md">
               <font-awesome-icon icon="copy" class="is-size-7 has-text-white" @click="copiedClicked" />
@@ -39,15 +41,14 @@
       </Div>
     </div>
     <div class="hero-body is-paddingless has-background-darkgreen">
-      <div class="gradient-wrapper w-main-b-graident">&nbsp;</div>
-      <div class="container">
+      <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md list-item">
                 <div class="column is-6 is-paddingless is-size-7 font-calibri">
                   <div class="columns is-marginless">
                     <div class="column is-paddingless">
@@ -82,6 +83,11 @@
         &nbsp;
       </div>
     </div>
+    <b-modal :active.sync="isCardModalActive" class="modal-qr">
+      <p class="image is-1by1 qr-modal">
+        <qr :size="200" :margin="25" :text="wallet" class="has-text-centered"/>
+      </p>
+    </b-modal>
   </section>
 </template>
 
@@ -98,6 +104,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import moment from "moment";
 import Ledger from "@/ledger-mock.js";
+import qr from "vue-qr";
 
 library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
@@ -129,16 +136,21 @@ const ledger = new Ledger({
 });
 
 export default {
+  components: {
+    qr
+  },
   data() {
     return {
       messages: "",
+      isCardModalActive: false,
+      wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
       balance: 0,
-      //isRefreshingBalance: false
+      //isRefreshingBalance: false,
       transactionLink: "/transactionDetails"
     };
   },
-  async asyncData(context) {
-    console.log("context", context);
+  async asyncData() {
+    //console.log("context", context);
     const ledger = new Ledger({
       httpEndpoint: httpEndpoint,
       chainId: chainId,
