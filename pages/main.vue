@@ -22,8 +22,11 @@
               </div>
             </div>
             <div class="level-right has-text-centered">
-              <a @click="isCardModalActive = true">
+              <!--
                 <img src="~/assets/img/qr-code.png">
+              </a> -->
+              <a @click="isCardModalActive = true">
+                <qr :size="80" :margin="15" :text="wallet" class="has-text-centered"/>
               </a>
             </div>
           </div>
@@ -31,7 +34,7 @@
         <div class="has-text-white container p-b-md" >
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm" >
             <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-              Wallet address: 123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we
+              Wallet address: {{ wallet }}
             </div>
             <div class="column is-1 is-paddingless has-text-right line-height-md">
               <font-awesome-icon icon="copy" class="is-size-7 has-text-white" @click="copiedClicked" />
@@ -81,9 +84,9 @@
         &nbsp;
       </div>
     </div>
-    <b-modal :active.sync="isCardModalActive">
+    <b-modal :active.sync="isCardModalActive" class="modal-qr">
       <p class="image is-1by1 qr-modal">
-        <img src="~/assets/img/qr-code.png">
+        <qr :size="200" :margin="25" :text="wallet" class="has-text-centered"/>
       </p>
     </b-modal>
   </section>
@@ -100,6 +103,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import moment from "moment";
 import Ledger from "@/ledger-mock.js";
+import qr from "vue-qr";
 
 library.add(faSlidersH, faSyncAlt, faCopy);
 
@@ -125,14 +129,18 @@ const chainId =
 const httpEndpoint = "https://url-of-eos-node";
 
 export default {
+  components: {
+    qr
+  },
   data() {
     return {
       messages: "",
-      isCardModalActive: false
+      isCardModalActive: false,
+      wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we"
     };
   },
-  async asyncData(context) {
-    console.log("context", context);
+  async asyncData() {
+    //console.log("context", context);
     const ledger = new Ledger({
       httpEndpoint: httpEndpoint,
       chainId: chainId,
