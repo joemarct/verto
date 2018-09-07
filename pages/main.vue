@@ -6,7 +6,9 @@
           <div class="p-t-lg p-b-lg has-text-centered">
             <img src="~/assets/img/wallet-logo.png" class="logo">
             <div class="is-pulled-right is-vcentered is-flex m-t-md">
-              <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal" @click="goToNext" />
+              <router-link to="/settings">
+                <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal"/>
+              </router-link>
             </div>
           </div>
           <div class="p-b-md level is-mobile">
