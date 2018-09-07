@@ -22,23 +22,23 @@
         </div>
         <div class="column list-item font-gibson has-text-white">
           <p class="is-size-5 has-text-grey p-t-md p-l-sm">From:</p>
-          <p>
+          <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> VTXtrust </span>
-          </p>
-          <p>
+          </div>
+          <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
-          </p>
+          </div>
           <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
-          <p>
+          <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> VTXdistrib </span>
-          </p>
-          <p>
+          </div>
+          <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
-          </p>
+          </div>
         </div>
         <div class="column">
           <div class="level is-mobile">
@@ -87,6 +87,11 @@ export default {
 };
 </script>
 <style>
+.wallet-address {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .transaction-id {
   white-space: nowrap;
   overflow: hidden;
@@ -110,7 +115,7 @@ export default {
   color: #2cfee6;
 }
 .size-font-wallet {
-  font-size: 0.63rem;
+  font-size: 0.8rem;
 }
 .size-smaller {
   font-size: 0.75rem;
