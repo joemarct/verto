@@ -51,7 +51,7 @@
             <div class="level-right">
               <div>
                 <p>
-                  <img src="~/assets/img/qr-code.png" class="transaction-qr-code">
+                  <qr :size="120" :margin="5" :text="$route.params.transaction.id" class="has-text-centered"/>
                 </p>
                 <p class="p-t-sm">
                   <a class="button copy-button is-small is-primary is-rounded"> Copy </a>
@@ -66,6 +66,13 @@
 </template>
 
 <script>
+import qr from "vue-qr";
+export default {
+  components: {
+    qr
+  }
+};
+</script>
 // import Ledger from "@/ledger-mock.js";
 // let ledger = new Ledger();
 
@@ -111,9 +118,13 @@
 //     }
 //   }
 // };
-</script>
 
 <style>
+.transaction-id {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .is-size-custom-header {
   font-size: 1.7rem;
 }

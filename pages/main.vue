@@ -22,9 +22,6 @@
               </div>
             </div>
             <div class="level-right has-text-centered">
-              <!--
-                <img src="~/assets/img/qr-code.png">
-              </a> -->
               <a @click="isCardModalActive = true">
                 <qr :size="80" :margin="15" :text="wallet" class="has-text-centered"/>
               </a>
@@ -49,9 +46,9 @@
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md list-item">
                 <div class="column is-6 is-paddingless is-size-7 font-calibri">
                   <div class="columns is-marginless">
                     <div class="column is-paddingless">
@@ -75,11 +72,6 @@
                 <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
                   {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
                 </div>
-              </div>
-              <div class="column is-1 is-paddingless">&nbsp;</div>
-              <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
-                {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
-              </div>
               </div>
             </router-link>
           </div>
