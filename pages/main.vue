@@ -12,11 +12,11 @@
           <div class="p-b-md level is-mobile">
             <div class="level-left has-text-centered">
               <div>
-                <p class="is-marginless is-size-1 has-text-white font-gibson">11.21 VTX</p>
+                <p class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </p>
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
-                  <div class="level-right">
-                    <font-awesome-icon icon="sync-alt" class="is-size-5 has-text-white" @click="refreshClicked" />
+                  <div class="level-right is-size-5 has-text-white">
+                    <font-awesome-icon icon="sync-alt" @click="refreshBalance"/>
                   </div>
                 </div>
               </div>
@@ -49,32 +49,39 @@
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
-            <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-              <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                <div class="columns is-marginless">
-                  <div class="column is-paddingless">
-                    <div class="level is-mobile has-text-white">
-                      <div class="level-left">
-                        {{ transaction.submittedAt | formatDate }}
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item has-background-darkgreen">
+            <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
+              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+                <div class="column is-6 is-paddingless is-size-7 font-calibri">
+                  <div class="columns is-marginless">
+                    <div class="column is-paddingless">
+                      <div class="level is-mobile has-text-white">
+                        <div class="level-left">
+                          {{ transaction.submittedAt | formatDate }}
+                        </div>
+                        <div class="level-right">
+                          {{ transaction.submittedAt | formatTime }}
+                        </div>
                       </div>
-                      <div class="level-right">
-                        {{ transaction.submittedAt | formatTime }}
+                    </div>
+                    <div class="column is-paddingless">
+                      <div class="wallet-address has-text-grey-light" >
+                        NO: {{ transaction.wallet }}
                       </div>
                     </div>
                   </div>
-                  <div class="column is-paddingless">
-                    <div class="wallet-address has-text-grey-light" >
-                      NO: {{ transaction.wallet }}
-                    </div>
-                  </div>
+                </div>
+                <div class="column is-1 is-paddingless">&nbsp;</div>
+                <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
+                  {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
                 </div>
               </div>
               <div class="column is-1 is-paddingless">&nbsp;</div>
               <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
                 {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
               </div>
-            </div>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -98,14 +105,16 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSlidersH,
   faSyncAlt,
-  faCopy
+  faCopy,
+  faArrowLeft,
+  faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import moment from "moment";
 import Ledger from "@/ledger-mock.js";
 import qr from "vue-qr";
 
-library.add(faSlidersH, faSyncAlt, faCopy);
+library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
@@ -128,6 +137,12 @@ const chainId =
   "cf057bbfb72640471ff8a%90ba539c22df9f92470936cddc1ade0e2f2e7dc4f";
 const httpEndpoint = "https://url-of-eos-node";
 
+const ledger = new Ledger({
+  httpEndpoint: httpEndpoint,
+  chainId: chainId,
+  keyProvider: keyProvider
+});
+
 export default {
   components: {
     qr
@@ -136,7 +151,10 @@ export default {
     return {
       messages: "",
       isCardModalActive: false,
-      wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we"
+      wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
+      balance: 0,
+      //isRefreshingBalance: false,
+      transactionLink: "/transactionDetails"
     };
   },
   async asyncData() {
@@ -146,7 +164,7 @@ export default {
       chainId: chainId,
       keyProvider: keyProvider
     });
-    // Retrie Transactions
+    // Retrieve Transactions
     const transactions = await ledger.retrieveTransactions({
       account: myaccount,
       wallet: mywallet
@@ -168,15 +186,26 @@ export default {
     });
     return { transactions: transaction_list };
   },
+  mounted() {
+    this.refreshBalance();
+  },
   methods: {
     goToNext: function() {
       window.alert("Navigate to setting");
     },
-    refreshClicked: function() {
-      window.alert("refresh clicked");
+    async refreshBalance() {
+      //this.isRefreshingBalance = true;
+      const balance = await ledger.retrieveBalance({
+        account: myaccount,
+        wallet: mywallet
+      });
+      this.balance = balance.amount.toFixed(2);
     },
     copiedClicked: function() {
       window.alert("copied clicked");
+    },
+    testFunction() {
+      window.alert("Test");
     }
   }
 };
