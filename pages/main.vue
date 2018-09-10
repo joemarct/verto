@@ -41,7 +41,6 @@
                 Wallet address: {{ wallet }}
               </div>
             </b-tooltip>
-            <!-- Wallet address: {{ wallet }} -->
             <div class="column is-1 is-paddingless has-text-right line-height-md">
               <a v-clipboard:copy="wallet" @click="toast">
                 <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
@@ -62,11 +61,11 @@
           </div>
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md" style="width:75%;">
-                <div class="column is-6 is-paddingless is-size-7 font-calibri" style="width:40%">
-                  <div class="columns is-marginless">
-                    <div class="column is-paddingless">
-                      <b-tooltip :label="transaction.id" position="is-bottom">
+              <b-tooltip :label="transaction.id" position="is-bottom" type="is-white">
+                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md" style="width:75%;">
+                  <div class="column is-6 is-paddingless is-size-7 font-calibri" style="width:40%">
+                    <div class="columns is-marginless">
+                      <div class="column is-paddingless">
                         <div class="level is-mobile has-text-white">
                           <div class="level-left">
                             {{ transaction.submittedAt | formatDate }}
@@ -75,20 +74,20 @@
                             {{ transaction.submittedAt | formatTime }}
                           </div>
                         </div>
-                      </b-tooltip>
-                    </div>
-                    <div class="column is-paddingless">
-                      <div class="wallet-address has-text-grey-light" >
-                        NO: {{ transaction.wallet }}
+                      </div>
+                      <div class="column is-paddingless">
+                        <div class="wallet-address has-text-grey-light" >
+                          NO: {{ transaction.wallet }}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="column is-1 is-paddingless">&nbsp;</div>
+                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
+                    {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
+                  </div>
                 </div>
-                <div class="column is-1 is-paddingless">&nbsp;</div>
-                <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
-                  {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
-                </div>
-              </div>
+              </b-tooltip>
             </router-link>
           </div>
         </div>
@@ -215,6 +214,12 @@ export default {
 </script>
 
 <style scoped>
+.transaction_list .tooltip:after {
+  left: 35%;
+}
+.transaction_list .tooltip:before {
+  left: 35%;
+}
 .copied-toast {
   position: absolute;
   color: #454f63;
