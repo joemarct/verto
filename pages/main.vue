@@ -31,13 +31,20 @@
           </div>
         </div>
         <div class="has-text-white container p-b-md" >
-          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm" >
-            <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-              Wallet address: {{ wallet }}
-            </div>
+          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
+            <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
+              <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
+                Wallet address: {{ wallet }}
+              </div>
+            </b-tooltip>
             <div class="column is-1 is-paddingless has-text-right line-height-md">
-              <font-awesome-icon icon="copy" class="is-size-7 has-text-white" @click="copiedClicked" />
+              <a v-clipboard:copy="wallet" @click="toast">
+                <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
+              </a>
             </div>
+            <!-- <span v-show="isCopied" class="copied-toast is-size-5 has-background-white has-text-centered p-l-md p-r-md">
+              Copied
+            </span> -->
           </div>
         </div>
       </Div>
@@ -48,33 +55,34 @@
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless">
+          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md list-item">
-                <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                  <div class="columns is-marginless">
-                    <div class="column is-paddingless">
-                      <div class="level is-mobile has-text-white">
-                        <div class="level-left">
-                          {{ transaction.submittedAt | formatDate }}
-                        </div>
-                        <div class="level-right">
-                          {{ transaction.submittedAt | formatTime }}
+              <b-tooltip :label="transaction.id" position="is-bottom" type="is-white">
+                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+                  <div class="column is-6 is-paddingless is-size-7 font-calibri" style="width:40%">
+                    <div class="columns is-marginless">
+                      <div class="column is-paddingless">
+                        <div class="level is-mobile has-text-white">
+                          <div class="level-left">
+                            {{ transaction.submittedAt | formatDate }}
+                          </div>
+                          <div class="level-right">
+                            {{ transaction.submittedAt | formatTime }}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="column is-paddingless">
-                      <div class="wallet-address has-text-grey-light" >
-                        NO: {{ transaction.wallet }}
+                      <div class="column is-paddingless">
+                        <div class="wallet-address has-text-grey-light" >
+                          NO: {{ transaction.wallet }}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
+                    {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
+                  </div>
                 </div>
-                <div class="column is-1 is-paddingless">&nbsp;</div>
-                <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
-                  {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
-                </div>
-              </div>
+              </b-tooltip>
             </router-link>
           </div>
         </div>
@@ -195,17 +203,42 @@ export default {
       });
       this.balance = balance.amount.toFixed(2);
     },
-    copiedClicked: function() {
-      window.alert("copied clicked");
+    removeToast: function() {
+      this.isCopied = false;
     },
-    testFunction() {
-      window.alert("Test");
+    copiedClicked: function() {
+      this.isCopied = true;
+      setTimeout(this.removeToast, 2000);
+    },
+    toast() {
+      this.$toast.open({
+        type: "is-white",
+        message: "Copied",
+        duration: 2000
+      });
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
+.notices.is-top {
+  top: 18rem !important;
+  left: 18.5rem;
+}
+.notices .toast {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+}
+.transaction_list .tooltip:after {
+  left: 35%;
+}
+.transaction_list .tooltip:before {
+  left: 35%;
+}
+.transaction_list .columns {
+  width: 75%;
+}
 .is-vcentered {
   align-items: center;
 }
@@ -259,15 +292,6 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
-}
-.gradient-wrapper {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  pointer-events: none;
 }
 .hero.is-fullheight .hero-body {
   flex: 1;
