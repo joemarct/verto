@@ -1,9 +1,9 @@
 import Vue from "vue";
-import Buefy from "buefy";
-//import Tooltip from "buefy/dist/components/tooltip";
-//import "buefy/dist/buefy.css";
+import Tooltip from "buefy/dist/components/tooltip";
+import Toast from "buefy/dist/components/toast";
+import Modal from "buefy/dist/components/modal";
+import "buefy/dist/buefy.css";
 
-//Vue.component(Buefy.Tooltip.name, Buefy.Tooltip);
-Vue.use(Buefy, {
-  defaultIconPack: "fas"
-});
+Vue.use(Tooltip);
+Vue.use(Toast);
+Vue.use(Modal);

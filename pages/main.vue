@@ -6,7 +6,9 @@
           <div class="p-t-lg p-b-lg has-text-centered">
             <img src="~/assets/img/wallet-logo.png" class="logo">
             <div class="is-pulled-right is-vcentered is-flex m-t-md">
-              <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal" @click="goToNext" />
+              <router-link to="/settings">
+                <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal"/>
+              </router-link>
             </div>
           </div>
           <div class="p-b-md level is-mobile">
@@ -22,7 +24,9 @@
               </div>
             </div>
             <div class="level-right has-text-centered">
-              <img src="~/assets/img/qr-code.png">
+              <a @click="isCardModalActive = true">
+                <qr :size="80" :margin="15" :text="wallet" class="has-text-centered"/>
+              </a>
             </div>
           </div>
         </div>
@@ -54,7 +58,7 @@
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
               <b-tooltip :label="transaction.id" position="is-bottom" type="is-white">
-                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md" style="width:75%;">
+                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
                   <div class="column is-6 is-paddingless is-size-7 font-calibri" style="width:40%">
                     <div class="columns is-marginless">
                       <div class="column is-paddingless">
@@ -90,6 +94,11 @@
         &nbsp;
       </div>
     </div>
+    <b-modal :active.sync="isCardModalActive" class="modal-qr">
+      <p class="image is-1by1 qr-modal">
+        <qr :size="200" :margin="25" :text="wallet" class="has-text-centered"/>
+      </p>
+    </b-modal>
   </section>
 </template>
 
@@ -106,6 +115,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import moment from "moment";
 import Ledger from "@/ledger-mock.js";
+import qr from "vue-qr";
 
 library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
@@ -137,18 +147,21 @@ const ledger = new Ledger({
 });
 
 export default {
+  components: {
+    qr
+  },
   data() {
     return {
       messages: "",
+      isCardModalActive: false,
       wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
-      active: false,
-      isCopied: false,
       balance: 0,
+      //isRefreshingBalance: false,
       transactionLink: "/transactionDetails"
     };
   },
-  async asyncData(context) {
-    console.log("context", context);
+  async asyncData() {
+    //console.log("context", context);
     const ledger = new Ledger({
       httpEndpoint: httpEndpoint,
       chainId: chainId,
@@ -224,17 +237,9 @@ export default {
 .transaction_list .tooltip:before {
   left: 35%;
 }
-.copied-toast {
-  position: absolute;
-  color: #454f63;
-  border-radius: 0.5rem;
-  margin-left: 16rem;
-  margin-top: 2rem;
-  z-index: 100;
+.transaction_list .columns {
+  width: 75%;
 }
-/* .transaction_list:hover span.hover-transaction-id {
-  display: block;
-} */
 .is-vcentered {
   align-items: center;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-body is-paddingless has-blur-background">
+  <div class="hero-body is-paddingless has-blur-background font-gibson">
     <div class="gradient-wrapper">&nbsp;</div>
     <div class="container">
       <div class="columns is-marginless p-b-md">
@@ -20,12 +20,25 @@
             </div>
           </div>
         </div>
-        <div class="column list-item">
+        <div class="column list-item font-gibson has-text-white">
           <p class="is-size-5 has-text-grey p-t-md p-l-sm">From:</p>
-          <p class="size-smaller has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </p>
-          <br>
-          <p class="is-size-5 has-text-grey p-l-sm">To:</p>
-          <p class="size-smaller has-text-white p-b-sm p-l-sm"> {{ $route.params.transaction.to }} </p>
+          <div class="wallet-address">
+            <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> VTXtrust </span>
+          </div>
+          <div class="wallet-address">
+            <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
+          </div>
+          <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
+          <div class="wallet-address">
+            <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> VTXdistrib </span>
+          </div>
+          <div class="wallet-address">
+            <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
+          </div>
         </div>
         <div class="column">
           <div class="level is-mobile">
@@ -51,10 +64,10 @@
             <div class="level-right">
               <div>
                 <p>
-                  <img src="~/assets/img/qr-code.png" class="transaction-qr-code">
+                  <qr :size="120" :margin="5" :text="$route.params.transaction.id" class="has-text-centered"/>
                 </p>
-                <p class="p-t-sm">
-                  <a class="button copy-button is-small is-primary is-rounded"> Copy </a>
+                <p class="p-t-sm has-text-weight-bold">
+                  <a class="button copy-button is-small is-primary is-rounded"> Copy URL </a>
                 </p>
               </div>
             </div>
@@ -66,54 +79,24 @@
 </template>
 
 <script>
-// import Ledger from "@/ledger-mock.js";
-// let ledger = new Ledger();
-
-// export default {
-//   props: {
-//     amount: {
-//       type: Number,
-//       default: 0
-//     }
-//   },
-//   data() {
-//     let data = {
-//       currency: "",
-//       from: "",
-//       to: {
-//         account: "",
-//         wallet: ""
-//       },
-//       id: "",
-//       block: "",
-//       date: ""
-//     };
-//     return data;
-//   },
-//   mounted() {
-//     this.retrieveTransactions();
-//   },
-//   methods: {
-//     async retrieveTransactions() {
-//       const userTransactions = await ledger.retrieveTransactions({
-//         account: "EOS6Ew693sd741xNhBPGaa72cujaaMByyJ7UBpWR5c9QnCsVcRuP4",
-//         key: "EOS5vBqi8YSzFCeTv4weRTwBzVkGCY5PN5Hm1Gp3133m8g9MtHTbW"
-//       });
-//       //this.amount = userTransactions.transactions[0].amount.toFixed(2);
-//       this.from = userTransactions.transactions[0].from;
-//       this.to = userTransactions.transactions[0].to;
-//       this.id = userTransactions.transactions[0].id;
-//       this.date = userTransactions.transactions[0].submittedAt;
-//       this.currency = userTransactions.transactions[0].currency;
-//     },
-//     test() {
-//       console.log(location);
-//     }
-//   }
-// };
+import qr from "vue-qr";
+export default {
+  components: {
+    qr
+  }
+};
 </script>
-
 <style>
+.wallet-address {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.transaction-id {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .is-size-custom-header {
   font-size: 1.7rem;
 }
@@ -130,6 +113,9 @@
 }
 .has-text-aqua {
   color: #2cfee6;
+}
+.size-font-wallet {
+  font-size: 0.8rem;
 }
 .size-smaller {
   font-size: 0.75rem;
