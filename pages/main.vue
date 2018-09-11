@@ -28,14 +28,6 @@
         </div>
         <div class="has-text-white container p-b-md" >
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
-            <!-- <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-              <b-tooltip :label="wallet" position="is-bottom">
-                Wallet address: {{ wallet }}
-              </b-tooltip>
-            </div> -->
-            <!-- <span v-if="active" class="hover-wallet-address p-l-sm p-r-sm has-background-white p-t-sm p-b-sm">
-              {{ wallet }}
-            </span> -->
             <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
               <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
                 Wallet address: {{ wallet }}
@@ -207,13 +199,25 @@ export default {
       setTimeout(this.removeToast, 2000);
     },
     toast() {
-      this.$toast.open("Something happened");
+      this.$toast.open({
+        type: "is-white",
+        message: "Copied",
+        duration: 2000
+      });
     }
   }
 };
 </script>
 
-<style scoped>
+<style>
+.notices.is-top {
+  top: 18rem !important;
+  left: 18.5rem;
+}
+.notices .toast {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+}
 .transaction_list .tooltip:after {
   left: 35%;
 }
