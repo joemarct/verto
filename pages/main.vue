@@ -78,7 +78,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="column is-1 is-paddingless">&nbsp;</div>
                   <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
                     {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
                   </div>
