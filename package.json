@@ -28,7 +28,9 @@
     ]
   },
   "jest": {
-    "transformIgnorePatterns": [],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(vue-qr)/)"
+    ],
     "testPathIgnorePatterns": [
       "e2e"
     ],
