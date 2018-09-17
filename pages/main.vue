@@ -34,7 +34,7 @@
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
               <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-                Wallet address: 
+                Wallet address:
                 <span id="wallet-address">{{ wallet }}</span>
               </div>
             </b-tooltip>
@@ -103,6 +103,8 @@
 </template>
 
 <script>
+//require("update-electron-app")();
+//to enable automated updates add to package.json: "repository": "https://github.com/Volentix/verto"
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
