@@ -58,32 +58,30 @@
           </div>
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
             <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <b-tooltip :label="transaction.id" position="is-bottom" type="is-white">
-                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                  <div class="column is-6 is-paddingless is-size-7 font-calibri" style="width:40%">
-                    <div class="columns is-marginless">
-                      <div class="column is-paddingless">
-                        <div class="level is-mobile has-text-white">
-                          <div class="level-left">
-                            {{ transaction.submittedAt | formatDate }}
-                          </div>
-                          <div class="level-right">
-                            {{ transaction.submittedAt | formatTime }}
-                          </div>
+              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+                <div class="column is-6 is-paddingless is-size-7 font-calibri">
+                  <div class="columns is-marginless">
+                    <div class="column is-paddingless">
+                      <div class="level is-mobile has-text-white">
+                        <div class="level-left">
+                          {{ transaction.submittedAt | formatDate }}
                         </div>
-                      </div>
-                      <div class="column is-paddingless">
-                        <div class="wallet-address has-text-grey-light" >
-                          NO: {{ transaction.wallet }}
+                        <div class="level-right">
+                          {{ transaction.submittedAt | formatTime }}
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4">
-                    {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
+                    <div class="column is-paddingless">
+                      <div class="wallet-address has-text-grey-light" >
+                        NO: {{ transaction.wallet }}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </b-tooltip>
+                <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
+                  {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
+                </div>
+              </div>
             </router-link>
           </div>
         </div>
@@ -233,15 +231,15 @@ export default {
   padding: 0.3rem 0.6rem;
   border-radius: 0.5rem;
 }
-.transaction_list .tooltip:after {
+/* .transaction_list .tooltip:after {
   left: 35%;
 }
 .transaction_list .tooltip:before {
   left: 35%;
-}
-.transaction_list .columns {
+} */
+/* .transaction_list .columns {
   width: 75%;
-}
+} */
 .is-vcentered {
   align-items: center;
 }
