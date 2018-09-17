@@ -26,19 +26,23 @@
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> VTXtrust </span>
           </div>
-          <div class="wallet-address">
-            <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
-            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
-          </div>
+          <b-tooltip :label="$route.params.transaction.wallet" position="is-bottom" type="is-white">
+            <div class="wallet-address">
+              <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
+              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
+            </div>
+          </b-tooltip>
           <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
           <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> VTXdistrib </span>
           </div>
-          <div class="wallet-address">
-            <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
-            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
-          </div>
+          <b-tooltip :label="$route.params.transaction.wallet" position="is-bottom" type="is-white">
+            <div class="wallet-address">
+              <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
+              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
+            </div>
+          </b-tooltip>
         </div>
         <div class="column">
           <div class="level is-mobile">
@@ -93,6 +97,17 @@ export default {
 };
 </script>
 <style>
+.tooltip {
+  width: 95%;
+}
+.tooltip:before {
+  margin-left: 0.5rem;
+}
+.tooltip:after {
+  width: 22rem;
+  font-size: 0.7rem;
+  margin-left: 0.5rem;
+}
 .wallet-address {
   white-space: nowrap;
   overflow: hidden;
