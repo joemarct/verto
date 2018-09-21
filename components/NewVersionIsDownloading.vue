@@ -48,6 +48,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faSyncAlt, faArrowLeft, faSlidersH);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+
+export default {};
 </script>
 
 <style>
