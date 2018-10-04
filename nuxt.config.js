@@ -18,7 +18,16 @@ module.exports = {
     { src: "~/scss/spacing.scss", lang: "scss" },
     { src: "~/scss/global.scss", lang: "scss" }
   ],
+  router: {
+    base: "/"
+  },
   build: {
+    uglify: {
+      uglifyOptions: {
+        compress: false
+      },
+      cache: "/path/to/cache/dir"
+    },
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         // Run ESLint on save
@@ -34,7 +43,7 @@ module.exports = {
         config.target = "electron-renderer";
 
         // Required for node-keytar to load
-        config.module.rules.push({ test: /\.node$/, loader: "node-loader" });
+        //config.module.rules.push({ test: /\.node$/, loader: "node-loader" });
       }
     },
     postcss: {

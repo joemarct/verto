@@ -7,7 +7,7 @@
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
           </router-link>
         </div>
-        <img src="~/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
+        <img src="~/static/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
       <p class="p-t-lg has-text-aqua is-size-4">
         Settings
@@ -59,7 +59,7 @@ export default {};
   width: 100%;
 }
 .has-blur-background {
-  background-image: url(~/assets/img/transaction-back-screen.jpg);
+  background-image: url(~/static/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }

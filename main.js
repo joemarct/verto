@@ -15,7 +15,12 @@ if (config.dev) {
     console.error(err); // eslint-disable-line no-console
     process.exit(1);
   });
-}
+} else {
+  builder.build().catch(err => {
+    console.error(err);
+    //process.exit(1);
+  });
+} // Added for showing errors on production
 // Listen the server
 server.listen();
 const _NUXT_URL_ = `http://localhost:${server.address().port}`;
@@ -30,6 +35,7 @@ const path = require("path");
 const app = electron.app;
 const width = 380;
 const height = 700;
+
 const newWin = () => {
   win = new electron.BrowserWindow({
     width: width,

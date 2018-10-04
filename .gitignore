@@ -8,6 +8,9 @@ yarn-error.log
 # Nuxt build
 .nuxt
 
+#config
+.env
+
 # Nuxt generate
 dist
 
@@ -16,3 +19,8 @@ dist
 
 # Editors
 .vscode
+
+#electron-package build
+bin
+
+resources

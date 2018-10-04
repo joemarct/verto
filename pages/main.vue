@@ -4,7 +4,7 @@
       <Div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
-            <img src="~/assets/img/wallet-logo.png" class="logo">
+            <img src="~/static/img/wallet-logo.png" class="logo">
             <div class="is-pulled-right is-vcentered is-flex m-t-md">
               <router-link to="/settings">
                 <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal"/>
@@ -14,7 +14,7 @@
           <div class="p-b-md level is-mobile">
             <div class="level-left has-text-centered">
               <div>
-                <p class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </p>
+                <p class="is-marginless is-size-3 has-text-white font-gibson"> {{ balance }} VTX </p>
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
                   <div class="level-right is-size-5 has-text-white">
@@ -53,6 +53,12 @@
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
+          <div class="p-l-md p-r-md m-t-s p-b-none is-size-7 has-text-grey-light">
+            <p> Generated keys: </p>
+            <p> {{ userKeys }} </p>
+          </div>
+        </div>
+        <div class="columns is-marginless p-b-md">
           <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
@@ -64,22 +70,23 @@
                     <div class="column is-paddingless">
                       <div class="level is-mobile has-text-white">
                         <div class="level-left">
-                          {{ transaction.submittedAt | formatDate }}
+                          <!-- {{ transaction.submittedAt | formatDate }} -->
+                          Date
                         </div>
                         <div class="level-right">
-                          {{ transaction.submittedAt | formatTime }}
+                          Time
                         </div>
                       </div>
                     </div>
                     <div class="column is-paddingless">
                       <div class="wallet-address has-text-grey-light" >
-                        NO: {{ transaction.wallet }}
+                        NO: {{ transaction.sToKey }}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
-                  {{ transaction.sign ? '-' : '+' }} {{ transaction.amount }}{{ transaction.currency }}
+                  {{ transaction.amount > 0 ? '+' : '' }} {{ transaction.amount }} VTX
                 </div>
               </div>
             </router-link>
@@ -103,6 +110,7 @@
 <script>
 //require("update-electron-app")();
 //to enable automated updates add to package.json: "repository": "https://github.com/Volentix/verto"
+require("dotenv").config();
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -114,8 +122,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import moment from "moment";
-import Ledger from "@/ledger-mock.js";
+import Ledger from "volentix-ledger";
 import qr from "vue-qr";
+
+const httpEndpoint = process.env.HTTP_ENDPOINT;
+const chainId = process.env.CHAIN_ID;
+const keyProvider = process.env.KEY_PROVIDER;
 
 library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
@@ -133,12 +145,11 @@ Vue.filter("formatTime", function(value) {
   }
 });
 
-const mywallet = "EOS5vBqi8YSzFCeTv4weRTwBzVkGCY5PN5Hm1Gp3133m8g9MtHTbW";
 const myaccount = "vtxtrust";
-const keyProvider = "EOS8TJpbWeQEoaMZMZzmo4SqC7DUucEUHRQJs1x7cXLcTqRhiJ7VF";
-const chainId =
-  "cf057bbfb72640471ff8a%90ba539c22df9f92470936cddc1ade0e2f2e7dc4f";
-const httpEndpoint = "https://url-of-eos-node";
+// const keyProvider = "5KdakA6MZJeawKPECMgpG1Q2dffSt9BNSp5QwGbEKbeva7UaRAT";
+// const chainId =
+//   "5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191";
+// const httpEndpoint = "http://api.kylin.alohaeos.com";
 
 const ledger = new Ledger({
   httpEndpoint: httpEndpoint,
@@ -152,47 +163,57 @@ export default {
   },
   data() {
     return {
+      transactions: [
+        {
+          s: "",
+          key: 0,
+          Id: 0,
+          sToKey: "",
+          fromAccount: "",
+          toAccount: "",
+          fromKey: "",
+          currency: "",
+          amount: 0,
+          comment: "",
+          nonce: ""
+        }
+      ],
+      userKeys: "",
       messages: "",
       isCardModalActive: false,
       wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
       balance: 0,
-      //isRefreshingBalance: false,
       transactionLink: "/transactionDetails"
     };
   },
-  async asyncData() {
-    //console.log("context", context);
-    const ledger = new Ledger({
-      httpEndpoint: httpEndpoint,
-      chainId: chainId,
-      keyProvider: keyProvider
-    });
-    // Retrieve Transactions
-    const transactions = await ledger.retrieveTransactions({
-      account: myaccount,
-      wallet: mywallet
-    });
-    const transaction_list = [];
-    transactions.transactions.forEach(tx => {
-      let wallet;
-      if (tx.from.wallet) wallet = tx.from.wallet;
-      if (tx.to.wallet) wallet = tx.to.wallet;
-      transaction_list.push({
-        id: tx.id,
-        to: tx.to.account,
-        amount: Math.round(tx.amount * 100) / 100,
-        submittedAt: tx.submittedAt,
-        sign: myaccount === tx.from ? true : false,
-        wallet: wallet,
-        currency: tx.currency
-      });
-    });
-    return { transactions: transaction_list };
-  },
   mounted() {
+    this.generateKeys();
+    this.getData();
     this.refreshBalance();
   },
   methods: {
+    generateKeys() {
+      let app = require("electron").remote.app;
+      let basepath = app.getAppPath().replace("app.asar", "");
+      // using exec
+      let command = basepath + "/resources/cleos create key --to-console";
+      let exec = require("child_process").exec;
+      let child = exec(command);
+      child.stdout.on("data", data => {
+        this.userKeys = data;
+      });
+      child.stderr.on("data", data => {
+        this.userKeys = data;
+      });
+    },
+    async getData() {
+      const userTransactions = await ledger.retrieveTransactions({
+        account: myaccount,
+        wallet: ""
+      });
+      this.transactions = userTransactions.output1;
+      //console.log(userTransactions.output1);
+    },
     goToNext: function() {
       window.alert("Navigate to setting");
     },
@@ -200,7 +221,7 @@ export default {
       //this.isRefreshingBalance = true;
       const balance = await ledger.retrieveBalance({
         account: myaccount,
-        wallet: mywallet
+        wallet: ""
       });
       this.balance = balance.amount.toFixed(2);
     },
@@ -244,7 +265,7 @@ export default {
   align-items: center;
 }
 .top-bg {
-  background-image: url(~/assets/img/wallet-main-top-bg.jpeg);
+  background-image: url(~/static/img/wallet-main-top-bg.jpeg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }

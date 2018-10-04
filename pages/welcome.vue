@@ -14,7 +14,7 @@
         <div class="box has-text-white is-radiusless is-shadowless">
           <div class="is-size-1">WELCOME TO</div>
           <div class="logo p-b-sm p-l-lg p-r-lg">
-            <img src="~/assets/img/white-logo-with-text.png" >
+            <img src="~/static/img/white-logo-with-text.png" >
           </div>
           <div class="p-t-md p-b-lg is-size-5">{{ subtitle_message }}</div>
           <div class="is-size-5 p-b-sm">{{ join_message }}</div>
@@ -54,7 +54,7 @@ export default {
 <style scoped>
 .wallet-background {
   height: 100vh;
-  background-image: url(~/assets/img/wallet-bg.jpeg);
+  background-image: url(~/static/img/wallet-bg.jpeg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
