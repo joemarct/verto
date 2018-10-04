@@ -3,7 +3,7 @@
     <div class="hero-head">
       <div class="container">
         <div class="navbar-brand p-l-xl p-t-lg">
-          <img src="~/assets/img/verto-dark.png" alt="Logo">
+          <img src="~/static/img/verto-dark.png" alt="Logo">
         </div>
       </div>
     </div>

@@ -128,7 +128,7 @@ export default {
   width: 100%;
 }
 .has-blur-background {
-  background-image: url(~/assets/img/transaction-back-screen.jpg);
+  background-image: url(~/static/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
