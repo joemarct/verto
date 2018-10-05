@@ -1,32 +1,29 @@
 <template>
   <section class="hero is-fullheight wallet-background">
-    <div class="hero-head">
-      <div class="container is-invisible">
-        <div class="level is-mobile p-lg">
-          <div class="level-item has-text-centered is-marginless">
-            <a class="p-t-lg p-b-lg button is-fullwidth is-primary">&nbsp;</a>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="hero-body is-paddingless">
-      <div class="container p-l-lg p-r-lg has-text-centered">
-        <div class="box has-text-white is-radiusless is-shadowless">
-          <div class="is-size-1">WELCOME TO</div>
+      <div class="container p-l-lg p-r-lg p-t-xl has-text-centered">
+        <div class="box has-text-white is-radiusless is-shadowless m-t-lg">
+          <div class="is-size-3">WELCOME TO</div>
           <div class="logo p-b-sm p-l-lg p-r-lg">
             <img src="~/static/img/white-logo-with-text.png" >
           </div>
-          <div class="p-t-md p-b-lg is-size-5">{{ subtitle_message }}</div>
-          <div class="is-size-5 p-b-sm">{{ join_message }}</div>
+          <div class="p-t-md p-b-lg is-size-6">{{ subtitle_message }}</div>
+          <div class="is-size-6">{{ join_message }}</div>
         </div>
       </div>
     </div>
-    <div class="hero-foot">
-      <div class="container p-b-md">
-        <div class="level is-mobile p-lg">
-          <div class="level-item has-text-centered is-marginless">
-            <a class="p-t-lg p-b-lg button is-fullwidth is-primary" @click="goToTerms" >Create Your Wallet</a>
-          </div>
+    <div class="hero-foot p-b-xl">
+      <div class="container">
+        <div class="level p-l-lg p-r-lg">
+          <form>
+            <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Paste your key here">
+            <!-- <router-link :to="{ name: 'main', params: { publicKey } }"> -->
+            <div class="level-item has-text-centered is-marginless">
+              <a class="p-t-lg button is-fullwidth is-primary" @click="goToMain"> Submit </a>
+            </div>
+            <!-- </router-link> -->
+          </form>
+          <a class="has-text-white is-size-5 is-pulled-right has-text-weight-bold" @click="generateKey"> If you don't have a key, click here </a>
         </div>
       </div>
     </div>
@@ -39,13 +36,18 @@ export default {
     return {
       subtitle_message:
         "Verto is your gateway to Volentix, with Verto, you can purchase VTX, the native token of the Volentix ecosystem.",
-      join_message: "We're glad you've joined us."
+      join_message: "We're glad you've joined us.",
+      publicKey: ""
     };
   },
   methods: {
-    goToTerms: function() {
-      console.log("terms:", this);
-      this.$router.push({ path: "terms_conditions" });
+    goToMain: function() {
+      let key = this.publicKey;
+      this.$router.push({ name: "main", params: { key } });
+    },
+    generateKey: function() {
+      //console.log("terms:", this);
+      this.$router.push({ path: "generateKey" });
     }
   }
 };

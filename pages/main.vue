@@ -4,6 +4,11 @@
       <Div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
+            <div class="is-pulled-left is-vcentered is-flex m-t-md">
+              <router-link to="/welcome">
+                <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
+              </router-link>
+            </div>
             <img src="~/static/img/wallet-logo.png" class="logo">
             <div class="is-pulled-right is-vcentered is-flex m-t-md">
               <router-link to="/settings">
@@ -53,13 +58,7 @@
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
-          <div class="p-l-md p-r-md m-t-s p-b-none is-size-7 has-text-grey-light">
-            <p> Generated keys: </p>
-            <p> {{ userKeys }} </p>
-          </div>
-        </div>
-        <div class="columns is-marginless p-b-md">
-          <div class="p-l-md p-r-md m-t-lg p-b-none is-size-4 has-text-grey-light">
+          <div class="p-l-md p-r-md m-t-md p-b-none is-size-4 has-text-grey-light">
             Transaction History
           </div>
           <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
@@ -181,35 +180,41 @@ export default {
       userKeys: "",
       messages: "",
       isCardModalActive: false,
-      wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
+      //wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
+      wallet: "",
       balance: 0,
       transactionLink: "/transactionDetails"
     };
   },
   mounted() {
-    this.generateKeys();
+    this.setWallet();
     this.getData();
     this.refreshBalance();
   },
   methods: {
-    generateKeys() {
-      let app = require("electron").remote.app;
-      let basepath = app.getAppPath().replace("app.asar", "");
-      // using exec
-      let command = basepath + "/resources/cleos create key --to-console";
-      let exec = require("child_process").exec;
-      let child = exec(command);
-      child.stdout.on("data", data => {
-        this.userKeys = data;
-      });
-      child.stderr.on("data", data => {
-        this.userKeys = data;
-      });
+    // generateKeys() {
+    //   let app = require("electron").remote.app;
+    //   let basepath = app.getAppPath().replace("app.asar", "");
+    //   // using exec
+    //   let command = basepath + "/resources/cleos create key --to-console";
+    //   let exec = require("child_process").exec;
+    //   let child = exec(command);
+    //   child.stdout.on("data", data => {
+    //     this.userKeys = data;
+    //   });
+    //   child.stderr.on("data", data => {
+    //     this.userKeys = data;
+    //   });
+    // },
+    setWallet: function() {
+      this.wallet = this.$route.params.key;
     },
     async getData() {
+      //this.wallet = this.$route.params.key;
+      console.log("wallet var " + this.wallet);
       const userTransactions = await ledger.retrieveTransactions({
         account: myaccount,
-        wallet: ""
+        wallet: this.wallet
       });
       this.transactions = userTransactions.output1;
       //console.log(userTransactions.output1);
@@ -221,7 +226,7 @@ export default {
       //this.isRefreshingBalance = true;
       const balance = await ledger.retrieveBalance({
         account: myaccount,
-        wallet: ""
+        wallet: this.wallet
       });
       this.balance = balance.amount.toFixed(2);
     },
