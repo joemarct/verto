@@ -18,7 +18,7 @@ export default {
     if (this.is_login) {
       this.$router.push({ path: "home" });
     } else {
-      this.$router.push({ path: "main" });
+      this.$router.push({ path: "welcome" });
     }
   }
 };
