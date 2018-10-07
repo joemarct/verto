@@ -31,6 +31,7 @@ console.log(`Nuxt working on ${_NUXT_URL_}`);
 */
 let win = null; // Current window
 const electron = require("electron");
+var Menu = electron.Menu;
 const path = require("path");
 const app = electron.app;
 const width = 380;
@@ -42,6 +43,45 @@ const newWin = () => {
     height: height,
     icon: path.join(__dirname, "static/icon.png")
   });
+  // Create the Application's main menu
+  var template = [
+    {
+      label: "Application",
+      submenu: [
+        {
+          label: "About Application",
+          selector: "orderFrontStandardAboutPanel:"
+        },
+        {
+          type: "separator"
+        },
+        {
+          label: "Quit",
+          accelerator: "Command+Q",
+          click: function() {
+            app.quit();
+          }
+        }
+      ]
+    },
+    {
+      label: "Edit",
+      submenu: [
+        { label: "Undo", accelerator: "CmdOrCtrl+Z", selector: "undo:" },
+        { label: "Redo", accelerator: "Shift+CmdOrCtrl+Z", selector: "redo:" },
+        { type: "separator" },
+        { label: "Cut", accelerator: "CmdOrCtrl+X", selector: "cut:" },
+        { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
+        { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
+        {
+          label: "Select All",
+          accelerator: "CmdOrCtrl+A",
+          selector: "selectAll:"
+        }
+      ]
+    }
+  ];
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
   // win.maximize();
   win.on("closed", () => (win = null));
   if (config.dev) {
