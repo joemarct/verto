@@ -145,10 +145,6 @@ Vue.filter("formatTime", function(value) {
 });
 
 const myaccount = "vtxtrust";
-// const keyProvider = "5KdakA6MZJeawKPECMgpG1Q2dffSt9BNSp5QwGbEKbeva7UaRAT";
-// const chainId =
-//   "5fff1dae8dc8e2fc4d5b23b2c7665c97f9e9d8edf2b6485a86ba311c25639191";
-// const httpEndpoint = "http://api.kylin.alohaeos.com";
 
 const ledger = new Ledger({
   httpEndpoint: httpEndpoint,
@@ -180,7 +176,6 @@ export default {
       userKeys: "",
       messages: "",
       isCardModalActive: false,
-      //wallet: "123dbdstsdfwe23234df9948sdfdse8b8dweb8sdfwe8df8we",
       wallet: "",
       balance: 0,
       transactionLink: "/transactionDetails"
@@ -192,20 +187,6 @@ export default {
     this.refreshBalance();
   },
   methods: {
-    // generateKeys() {
-    //   let app = require("electron").remote.app;
-    //   let basepath = app.getAppPath().replace("app.asar", "");
-    //   // using exec
-    //   let command = basepath + "/resources/cleos create key --to-console";
-    //   let exec = require("child_process").exec;
-    //   let child = exec(command);
-    //   child.stdout.on("data", data => {
-    //     this.userKeys = data;
-    //   });
-    //   child.stderr.on("data", data => {
-    //     this.userKeys = data;
-    //   });
-    // },
     setWallet: function() {
       this.wallet = this.$route.params.key;
     },
@@ -217,7 +198,7 @@ export default {
         wallet: this.wallet
       });
       this.transactions = userTransactions.output1;
-      //console.log(userTransactions.output1);
+      console.log(userTransactions.output1);
     },
     goToNext: function() {
       window.alert("Navigate to setting");
