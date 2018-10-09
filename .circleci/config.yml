@@ -15,6 +15,7 @@ jobs:
           command: |
                 sudo apt-get update
                 sudo apt-get install libxss1
+                sudo apt -y install libgconf2-4
                 sudo apt-get install libgtk-3-dev
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
