@@ -12,7 +12,9 @@ jobs:
           command: 'sudo npm install -g npm@latest'
       - run:
           name: install libs
-          command: sudo apt-get install libgtk-3-dev
+          command: |
+                apt-get update
+                sudo apt-get install libgtk-3-dev
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
