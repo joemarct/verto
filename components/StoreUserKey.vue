@@ -2,17 +2,7 @@
   <div class="hero is-fullheight is-paddingless has-blur-background">
     <div class="hero-head p-t-sm">
       <div class="p-t-xl p-l-lg">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/generateKey">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
-        </div>
         <img src="~/static/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-        <div class="is-pulled-right is-vcentered is-flex m-t-md p-r-lg">
-          <router-link to="/settings">
-            <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-aqua" flip="horizontal"/>
-          </router-link>
-        </div>
       </div>
       <div class="p-t-lg p-l-lg has-text-aqua is-size-4">
         <span>
@@ -54,17 +44,17 @@
         </label>
         <br>
         <input id="copy" v-model="checkedOptions" type="checkbox" value="c" @click="checkOptions">
-        <label class="checkbox">
+        <label for="checkbox">
           Copy
         </label>
         <br>
         <input id="qr" v-model="checkedOptions" type="checkbox" value="d" @click="checkOptions">
-        <label class="checkbox">
+        <label for="checkbox">
           QR code
         </label>
         <br>
         <input id="writing" v-model="checkedOptions" type="checkbox" value="e" @click="checkOptions">
-        <label class="checkbox">
+        <label for="checkbox">
           Writing
         </label>
       </div>
@@ -104,7 +94,7 @@
     </b-modal>
     <b-modal :active.sync="keysAreStored">
       <div class="card">
-        <div class="card-content">
+        <div class="card-content storekeys">
           <p>
             Make sure you saved your keys. You will not see your keys again. You can't access your wallet without them.
           </p>
@@ -119,8 +109,11 @@
           <p>
             Public key: {{ publicKey }}
           </p>
+          <a class="button is-primary m-t-lg is-size-6 is-one-third" @click="keysAreStored = false">
+            <p class="p-l-md p-r-md has-text-white">Cancel</p>
+          </a>
           <router-link :to="{ name: 'signUpWithGatewayProvider', params: { key: publicKey }}">
-            <a class="button is-primary m-t-lg is-size-5">
+            <a class="button is-primary m-t-lg is-size-6 m-l-md">
               <p class="p-l-md p-r-md has-text-white">I saved my keys</p>
             </a>
           </router-link>
@@ -207,6 +200,9 @@ export default {
 </script>
 
 <style>
+.storekeys {
+  border: solid 0.3rem red;
+}
 .card-content {
   word-wrap: break-word;
 }
