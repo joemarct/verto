@@ -17,17 +17,32 @@
       <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
         Sign Up with Gateway Provider
       </p>
+      <div class="control has-text-white is-size-5 p-t-lg p-l-lg">
+        <label class="radio">
+          <input v-model="selectedProvider" type="radio" name="zixipay" value="https://www.zixipay.com/">
+          Zixipay
+        </label>
+        <br>
+        <label class="radio m-t-sm">
+          <input v-model="selectedProvider" type="radio" name="blocktopus" value="https://blocktopus.io/">
+          Blocktopus
+        </label>
+      </div>
       <div class="p-l-lg p-r-lg">
         <router-link :to="{ name: 'main', params: {key: $route.params.key} }">
-          <a class="button is-primary m-t-xl is-size-5">
-            <p class="p-l-md p-r-md has-text-white">Later</p>
+          <a class="button is-primary m-t-lg is-size-5">
+            <p class="p-l-md p-r-md has-text-white">Not now</p>
           </a>
         </router-link>
-        <router-link :to="{ name: 'userCredentials', params: {key: $route.params.key} }">
-          <a class="button is-primary m-t-xl m-l-md is-size-5">
+        <router-link :to="{ name: 'userCredentials', params: {provider: selectedProvider, key: $route.params.key} }">
+          <a class="button is-primary m-t-lg is-size-5">
             <p class="p-l-md p-r-md has-text-white">Next</p>
           </a>
         </router-link>
+        <!-- <router-link :to="{ path: 'userCredentials', params: {key: $route.params.key} }"> -->
+        <!-- <a :href="selectedProvider" class="button is-primary m-t-lg m-l-md is-size-5">
+          <p class="p-l-md p-r-md has-text-white">Next</p>
+        </a> -->
       </div>
     </div>
   </div>
@@ -46,7 +61,13 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faSyncAlt, faArrowLeft, faSlidersH);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-export default {};
+export default {
+  data() {
+    return {
+      selectedProvider: ""
+    };
+  }
+};
 </script>
 
 <style>

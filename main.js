@@ -79,6 +79,29 @@ const newWin = () => {
           selector: "selectAll:"
         }
       ]
+    },
+    {
+      label: "View",
+      submenu: [
+        {
+          role: "reload"
+        },
+        {
+          label: "DevTools",
+          role: "toggledevtools"
+        },
+        {
+          type: "separator"
+        },
+        {
+          label: "developer tools",
+          click: function(item, focusedWindow) {
+            if (focusedWindow) {
+              focusedWindow.toggleDevTools();
+            }
+          }
+        }
+      ]
     }
   ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));

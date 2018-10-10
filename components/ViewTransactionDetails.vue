@@ -9,11 +9,11 @@
               <div class="is-size-custom-header has-text-centered">
                 <p class="has-text-aqua">Transaction Record</p>
               </div>
-              <router-link to="/main">
+              <router-link :to="{ name: 'main', params: { key: $route.params.wallet } }">
                 <span class="icon is-size-6 has-text-white m-l-sm"><i class="fas fa-arrow-left"/></span>
               </router-link>
               <div class="m-t-sm p-b-md is-size-vtx-amount has-text-centered">
-                <p class="has-text-light">+ {{ $route.params.transaction.amount }} VTX</p>
+                <p class="has-text-light">+ {{ $route.params.transaction.amount }}</p>
               </div>
               <!-- <br> -->
               <span class="icon is-size-3 has-text-aqua" style="position: absolute; margin-left: 10rem; margin-top: -0.2rem;"><i class="fas fa-check-circle"/></span>
@@ -24,23 +24,23 @@
           <p class="is-size-5 has-text-grey p-t-md p-l-sm">From:</p>
           <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
-            <span class="size-font-wallet has-text-white p-l-sm"> VTXtrust </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromAccount }} </span>
           </div>
-          <b-tooltip :label="$route.params.transaction.wallet" position="is-bottom" type="is-white">
+          <b-tooltip :label="$route.params.transaction.fromKey" position="is-bottom" type="is-white">
             <div class="wallet-address">
               <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
-              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
+              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromKey }} </span>
             </div>
           </b-tooltip>
           <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
           <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
-            <span class="size-font-wallet has-text-white p-l-sm"> VTXdistrib </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.toAccount }} </span>
           </div>
-          <b-tooltip :label="$route.params.transaction.wallet" position="is-bottom" type="is-white">
+          <b-tooltip :label="$route.params.transaction.sToKey" position="is-bottom" type="is-white">
             <div class="wallet-address">
               <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
-              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.wallet }} </span>
+              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.sToKey }} </span>
             </div>
           </b-tooltip>
         </div>
@@ -49,7 +49,7 @@
             <div class="level-left">
               <div>
                 <p class="is-size-5 has-text-grey p-t-sm p-l-sm">Transaction #:</p>
-                <p class="size-smaller has-text-white p-l-sm"> {{ $route.params.transaction.id }} </p>
+                <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.Id }} </p>
                 <br>
                 <p class="is-size-5 has-text-grey p-l-sm">Block #:</p>
                 <p class="is-size-6 has-text-white p-l-sm">56952231</p>
@@ -65,7 +65,7 @@
                 </div>
               </div>
             </div>
-            <div class="level-right">
+            <!-- <div class="level-right">
               <div>
                 <p>
                   <qr :size="120" :margin="5" :text="$route.params.transaction.id" class="has-text-centered"/>
@@ -74,7 +74,7 @@
                   <a class="button copy-button is-small is-primary is-rounded"> Copy URL </a>
                 </p>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
