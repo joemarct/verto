@@ -14,11 +14,8 @@
           </router-link>
         </div>
       </div>
-      <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
-        Sign Up with Gateway Provider
-      </p>
-
-      <div class="m-t-lg p-l-lg p-r-lg has-text-white">
+      <iframe src="https://test.volentix.blocktopus.io/token_buyers/sign_in?verto_public_address=verto_public"/>
+      <!-- <div class="m-t-lg p-l-lg p-r-lg has-text-white">
         <p class="has-text-grey-light is-size-6">
           Coming soon (in development)
         </p>
@@ -27,7 +24,7 @@
             <p class="p-l-md p-r-md">Next</p>
           </a>
         </router-link>
-      </div>
+      </div> -->
 
     </div>
   </div>
@@ -46,10 +43,31 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faSyncAlt, faArrowLeft, faSlidersH);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-export default {};
+export default {
+  data() {
+    return {
+      blocktopusSigningLink: ""
+    };
+  },
+  mounted() {
+    this.generateLink();
+  },
+  methods: {
+    generateLink() {
+      this.blocktopusSigningLink =
+        "https://test.volentix.blocktopus.io/token_buyers/sign_in?verto_public_address=" +
+        this.$route.params.key;
+      console.log(this.blocktopusSigningLink);
+    }
+  }
+};
 </script>
 
 <style>
+iframe {
+  width: 100%;
+  height: 90vh;
+}
 .button {
   border-radius: 0.6rem;
   width: 9rem;

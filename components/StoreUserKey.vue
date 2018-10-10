@@ -14,30 +14,35 @@
           </router-link>
         </div>
       </div>
-      <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
+      <div class="p-t-lg p-l-lg has-text-aqua is-size-4">
+        <span>
+          Store Keys
+        </span>
+        <span class="m-l-xxl">
+          <a @click="isCardModalActive = true">
+            F.A.Q.
+          </a>
+        </span>
+      </div>
+      <!-- <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
         Store Keys
-      </p>
-      <div class="column list-item font-gibson has-text-white">
-        <p class="is-size-6 has-text-grey p-t-md p-l-sm">Active:</p>
-        <div class="wallet-address">
-          <span class="is-size-7 has-text-aqua p-l-sm">Private: </span>
-          <span class="size-font-wallet has-text-white p-l-sm"> {{ activePrivateKey }} </span>
-        </div>
-        <div class="wallet-address">
-          <span class="is-size-7 has-text-aqua p-l-sm">Public: </span>
-          <span class="size-font-wallet has-text-white p-l-sm"> {{ activePublicKey }} </span>
-        </div>
-        <p class="is-size-6 has-text-grey p-t-sm p-l-sm">Owner:</p>
-        <div class="wallet-address">
-          <span class="is-size-7 has-text-aqua p-l-sm">Private: </span>
-          <span class="size-font-wallet has-text-white p-l-sm"> {{ ownerPrivateKey }} </span>
-        </div>
-        <div class="wallet-address">
-          <span class="is-size-7 has-text-aqua p-l-sm">Public: </span>
-          <span class="size-font-wallet has-text-white p-l-sm"> {{ ownerPublicKey }} </span>
-        </div>
+      </p> -->
+      <div class="column list-item font-gibson has-text-white p-b-lg">
+        <a @click="isKeyModalActive = true">
+          <div class="wallet-address">
+            <span class="is-size-7 has-text-aqua p-l-sm">Private: </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> {{ privateKey }} </span>
+          </div>
+          <div class="wallet-address">
+            <span class="is-size-7 has-text-aqua p-l-sm">Public: </span>
+            <span class="size-font-wallet has-text-white p-l-sm"> {{ publicKey }} </span>
+          </div>
+        </a>
       </div>
       <div class="p-t-lg p-l-md has-text-white is-size-6">
+        <p class="p-b-md">
+          Please select at least one option to save your keys:
+        </p>
         <input id="print" v-model="checkedOptions" type="checkbox" value="a" @click="checkOptions">
         <label for="print">
           Print to file
@@ -69,6 +74,59 @@
         </a>
       </div>
     </div>
+    <b-modal :active.sync="isKeyModalActive">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            Make sure you save your keys.
+          </p>
+          <br>
+          <p>
+            Private key: {{ privateKey }}
+          </p>
+          <br>
+          <p>
+            Public key: {{ publicKey }}
+          </p>
+        </div>
+      </div>
+    </b-modal>
+    <b-modal :active.sync="isCardModalActive">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            You can import your keys into EOS wallet.
+            You need to save your private key to be able to access your wallet.
+            You need your public key to make a transaction.
+          </p>
+        </div>
+      </div>
+    </b-modal>
+    <b-modal :active.sync="keysAreStored">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            Make sure you saved your keys. You will not see your keys again. You can't access your wallet without them.
+          </p>
+          <p>
+            Your keys:
+          </p>
+          <br>
+          <p>
+            Private key: {{ privateKey }}
+          </p>
+          <br>
+          <p>
+            Public key: {{ publicKey }}
+          </p>
+          <router-link :to="{ name: 'signUpWithGatewayProvider', params: { key: publicKey }}">
+            <a class="button is-primary m-t-lg is-size-5">
+              <p class="p-l-md p-r-md has-text-white">I saved my keys</p>
+            </a>
+          </router-link>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -88,22 +146,23 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
   data() {
     return {
-      activePrivateKey: "",
-      activePublicKey: "",
-      ownerPrivateKey: "",
-      ownerPublicKey: "",
+      privateKey: "",
+      publicKey: "",
       disableButton: true,
       checkedOptions: [],
       goToNextPage: false,
-      checkedNumber: 0
+      checkedNumber: 0,
+      isCardModalActive: false,
+      isKeyModalActive: false,
+      keysAreStored: false
     };
   },
   mounted() {
-    this.generateActiveKeys();
-    this.generateOwnerKeys();
+    this.generateKeys();
+    //this.generateOwnerKeys();
   },
   methods: {
-    generateActiveKeys() {
+    generateKeys() {
       let app = require("electron").remote.app;
       let basepath = app.getAppPath().replace("app.asar", "");
       // using exec
@@ -114,27 +173,9 @@ export default {
         let outputArray = data.split("\n");
         let privateKeyArray = outputArray[0].split(" ");
         let publicKeyArray = outputArray[1].split(" ");
-        this.activePrivateKey = privateKeyArray[2];
-        this.activePublicKey = publicKeyArray[2];
+        this.privateKey = privateKeyArray[2];
+        this.publicKey = publicKeyArray[2];
         //console.log(data.split("\n"));
-      });
-      child.stderr.on("data", data => {
-        this.userKeys = data;
-      });
-    },
-    generateOwnerKeys() {
-      let app = require("electron").remote.app;
-      let basepath = app.getAppPath().replace("app.asar", "");
-      // using exec
-      let command = basepath + "/resources/cleos create key --to-console";
-      let exec = require("child_process").exec;
-      let child = exec(command);
-      child.stdout.on("data", data => {
-        let outputArray = data.split("\n");
-        let privateKeyArray = outputArray[0].split(" ");
-        let publicKeyArray = outputArray[1].split(" ");
-        this.ownerPrivateKey = privateKeyArray[2];
-        this.ownerPublicKey = publicKeyArray[2];
       });
       child.stderr.on("data", data => {
         this.userKeys = data;
@@ -145,11 +186,12 @@ export default {
         window.alert("Select at least one option to save your keys");
       } else {
         //this.$router.push({ path: "signUpWithGatewayProvider" });
-        let key = this.activePublicKey;
-        this.$router.push({
-          name: "signUpWithGatewayProvider",
-          params: { key }
-        });
+        //let key = this.publicKey;
+        this.keysAreStored = true;
+        // this.$router.push({
+        //   name: "signUpWithGatewayProvider",
+        //   params: { key }
+        // });
       }
     },
     checkOptions() {
@@ -165,6 +207,9 @@ export default {
 </script>
 
 <style>
+.card-content {
+  word-wrap: break-word;
+}
 .size-font-wallet {
   font-size: 0.6rem;
 }
@@ -209,6 +254,7 @@ export default {
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
   width: 100vw;
+  padding-bottom: 2rem !important;
 }
 .hero-foot {
   border-top: solid 1px rgba(55, 202, 189, 0.3);

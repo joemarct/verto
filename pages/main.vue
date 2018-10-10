@@ -58,37 +58,44 @@
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
-          <div class="p-l-md p-r-md m-t-md p-b-none is-size-4 has-text-grey-light">
-            Transaction History
-          </div>
-          <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
-            <router-link :to="{ name: 'transactionDetails', params: { transaction } }">
-              <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                  <div class="columns is-marginless">
-                    <div class="column is-paddingless">
-                      <div class="level is-mobile has-text-white">
-                        <div class="level-left">
-                          <!-- {{ transaction.submittedAt | formatDate }} -->
-                          Date
-                        </div>
-                        <div class="level-right">
-                          Time
+          <div v-if="hasTransactions">
+            <div class="p-l-md p-r-md m-t-md p-b-none is-size-4 has-text-grey-light">
+              Transaction History
+            </div>
+            <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
+              <router-link :to="{ name: 'transactionDetails', params: { transaction, wallet } }">
+                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+                  <div class="column is-6 is-paddingless is-size-7 font-calibri">
+                    <div class="columns is-marginless">
+                      <div class="column is-paddingless">
+                        <div class="level is-mobile has-text-white">
+                          <div class="level-left">
+                            <!-- {{ transaction.submittedAt | formatDate }} -->
+                            Date
+                          </div>
+                          <div class="level-right">
+                            Time
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="column is-paddingless">
-                      <div class="wallet-address has-text-grey-light" >
-                        NO: {{ transaction.sToKey }}
+                      <div class="column is-paddingless">
+                        <div class="wallet-address has-text-grey-light" >
+                          NO: {{ transaction.sToKey }}
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
+                    {{ transaction.amount > 0 ? '+' : '' }} {{ transaction.amount }} VTX
+                  </div>
                 </div>
-                <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
-                  {{ transaction.amount > 0 ? '+' : '' }} {{ transaction.amount }} VTX
-                </div>
-              </div>
-            </router-link>
+              </router-link>
+            </div>
+          </div>
+          <div v-else>
+            <p class="has-text-grey is-size-5 m-l-lg has-text-weight-bold">
+              You have no transactions
+            </p>
           </div>
         </div>
       </div>
@@ -178,7 +185,8 @@ export default {
       isCardModalActive: false,
       wallet: "",
       balance: 0,
-      transactionLink: "/transactionDetails"
+      transactionLink: "/transactionDetails",
+      hasTransactions: true
     };
   },
   mounted() {
@@ -191,25 +199,28 @@ export default {
       this.wallet = this.$route.params.key;
     },
     async getData() {
-      //this.wallet = this.$route.params.key;
-      console.log("wallet var " + this.wallet);
+      //console.log("wallet: " + this.wallet);
       const userTransactions = await ledger.retrieveTransactions({
         account: myaccount,
         wallet: this.wallet
       });
-      this.transactions = userTransactions.output1;
       console.log(userTransactions.output1);
+      if (userTransactions.output1.length > 0) {
+        this.transactions = userTransactions.output1;
+      } else {
+        this.hasTransactions = false;
+      }
     },
     goToNext: function() {
       window.alert("Navigate to setting");
     },
     async refreshBalance() {
-      //this.isRefreshingBalance = true;
       const balance = await ledger.retrieveBalance({
-        account: myaccount,
+        account: "vtxtrust",
         wallet: this.wallet
       });
       this.balance = balance.amount.toFixed(2);
+      //console.log("balance: ", balance);
     },
     removeToast: function() {
       this.isCopied = false;
