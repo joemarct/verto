@@ -19,12 +19,12 @@
         </label>
       </div>
       <div class="p-l-lg p-r-lg">
-        <router-link :to="{ name: 'main', params: {key: $route.params.key} }">
+        <router-link to="/main">
           <a class="button is-primary m-t-lg is-size-5">
             <p class="p-l-md p-r-md has-text-white">Not now</p>
           </a>
         </router-link>
-        <router-link :to="{ name: 'userCredentials', params: {provider: selectedProvider, key: $route.params.key} }">
+        <router-link :to="{ name: 'userCredentials', params: {provider: selectedProvider} }">
           <a class="button is-primary m-t-lg m-l-md is-size-5">
             <p class="p-l-md p-r-md has-text-white">Next</p>
           </a>

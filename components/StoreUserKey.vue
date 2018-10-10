@@ -112,7 +112,7 @@
           <a class="button is-primary m-t-lg is-size-6 is-one-third" @click="keysAreStored = false">
             <p class="p-l-md p-r-md has-text-white">Cancel</p>
           </a>
-          <router-link :to="{ name: 'signUpWithGatewayProvider', params: { key: publicKey }}">
+          <router-link to="/signUpWithGatewayProvider">
             <a class="button is-primary m-t-lg is-size-6 m-l-md">
               <p class="p-l-md p-r-md has-text-white">I saved my keys</p>
             </a>
@@ -168,6 +168,7 @@ export default {
         let publicKeyArray = outputArray[1].split(" ");
         this.privateKey = privateKeyArray[2];
         this.publicKey = publicKeyArray[2];
+        this.$store.commit("save", this.publicKey);
         //console.log(data.split("\n"));
       });
       child.stderr.on("data", data => {

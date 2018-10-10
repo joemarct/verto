@@ -43,10 +43,10 @@ export default {
   methods: {
     goToMain: function() {
       let key = this.publicKey;
-      this.$router.push({ name: "main", params: { key } });
+      this.$store.commit("save", key);
+      this.$router.push({ name: "main" });
     },
     generateKey: function() {
-      //console.log("terms:", this);
       this.$router.push({ path: "generateKey" });
     }
   }
