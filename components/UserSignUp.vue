@@ -3,18 +3,22 @@
     <div class="hero-head p-t-sm">
       <div class="p-t-xl p-l-lg">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/generateKey">
+          <router-link to="/signUpWithGatewayProvider">
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
           </router-link>
         </div>
         <img src="~/static/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-        <div class="is-pulled-right is-vcentered is-flex m-t-md p-r-lg">
-          <router-link to="/settings">
-            <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-aqua" flip="horizontal"/>
-          </router-link>
+      </div>
+      <div v-if="$route.params.provider === 'blocktopus'">
+        <iframe :src="blocktopusSigningLink"/>
+      </div>
+      <div v-else>
+        <div class="hero-body has-text-grey-light is-size-5">
+          <p>
+            Zixipay is not available yet.
+          </p>
         </div>
       </div>
-      <iframe src="https://test.volentix.blocktopus.io/token_buyers/sign_in?verto_public_address=verto_public"/>
       <!-- <div class="m-t-lg p-l-lg p-r-lg has-text-white">
         <p class="has-text-grey-light is-size-6">
           Coming soon (in development)

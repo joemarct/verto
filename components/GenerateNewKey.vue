@@ -8,11 +8,6 @@
           </router-link>
         </div>
         <img src="~/static/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-        <div class="is-pulled-right is-vcentered is-flex m-t-md p-r-lg">
-          <router-link to="/settings">
-            <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-aqua" flip="horizontal"/>
-          </router-link>
-        </div>
       </div>
       <p class="p-t-lg p-l-lg has-text-aqua is-size-4">
         Generate New Key
