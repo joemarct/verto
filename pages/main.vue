@@ -48,9 +48,6 @@
                 <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
               </a>
             </div>
-            <!-- <span v-show="isCopied" class="copied-toast is-size-5 has-background-white has-text-centered p-l-md p-r-md">
-              Copied
-            </span> -->
           </div>
         </div>
       </Div>
@@ -196,7 +193,7 @@ export default {
   },
   methods: {
     setWallet: function() {
-      this.wallet = this.$route.params.key;
+      this.wallet = this.$store.state.userKey;
     },
     async getData() {
       //console.log("wallet: " + this.wallet);
@@ -249,15 +246,6 @@ export default {
   padding: 0.3rem 0.6rem;
   border-radius: 0.5rem;
 }
-/* .transaction_list .tooltip:after {
-  left: 35%;
-}
-.transaction_list .tooltip:before {
-  left: 35%;
-} */
-/* .transaction_list .columns {
-  width: 75%;
-} */
 .is-vcentered {
   align-items: center;
 }
