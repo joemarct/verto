@@ -16,13 +16,27 @@
         <p class="has-text-grey-light is-size-6">
           Generate key
         </p>
-        <router-link to="storeKeys">
-          <a class="button m-t-md is-fullwidth m-t-xl is-size-5">
-            <p class="p-l-md p-r-md">Generate Key</p>
-          </a>
-        </router-link>
+        <!-- <router-link to="/storeKeys"> -->
+        <a :class="{'is-primary': deviceIsDisconnected, 'is-disabled': !deviceIsDisconnected}" class="button m-t-md is-fullwidth m-t-xl is-size-5" @click="checkUserConnection">
+          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Generate Key</p>
+        </a>
+        <!-- </router-link> -->
       </div>
     </div>
+    <b-modal :active.sync="checkYourConnection">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            Make sure your device is disconnected from the Internet and Bluetooth
+          </p>
+        </div>
+        <div class="has-text-centered close-button p-md">
+          <a class="m-t-lg is-size-6" @click="checkYourConnection = false; deviceIsDisconnected = true">
+            <p class="p-l-md p-r-md">Close</p>
+          </a>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -38,27 +52,55 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(faSyncAlt, faArrowLeft, faSlidersH);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
-export default {};
+export default {
+  data() {
+    return {
+      checkYourConnection: false,
+      deviceIsDisconnected: false
+    };
+  },
+  methods: {
+    checkUserConnection() {
+      if (!this.deviceIsDisconnected) {
+        let command = "networksetup -setairportpower airport off";
+        let exec = require("child_process").exec;
+        exec(command);
+        this.checkYourConnection = true;
+      } else {
+        this.$router.push("storeKeys");
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
+.card {
+  border-radius: 0.6rem;
+}
+.close-button {
+  border-top: solid 0.1rem rgba(55, 202, 189, 0.3);
+}
+.close-button p {
+  color: #223435;
+}
 .button {
   border-radius: 0.5rem;
 }
 .button p {
   color: #223435;
 }
-.button {
+.button is-disabled {
   background-color: hsl(0, 0%, 71%);
   border-color: hsl(0, 0%, 71%);
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 .is-size-custom-header {
   font-size: 1.7rem;
 }
 .logo {
   height: 3.3rem;
-  border-top: solid 0.2rem rgba(55, 202, 189, 0.3);
+  border-top: solid 0.2rem rgba(55, 202, 189);
 }
 .is-size-vtx-amount {
   font-size: 2.7rem;
