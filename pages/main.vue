@@ -237,7 +237,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .notices.is-top {
   top: 18rem !important;
   left: 18.5rem;
