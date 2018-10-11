@@ -1,8 +1,8 @@
 {
   "name": "verto",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
-  "author": "Shawn Lauzon <shawn@volentixlabs.com>",
+  "author": "Volentix Labs <volentix.io>",
   "private": true,
   "main": "main.js",
   "build": {
