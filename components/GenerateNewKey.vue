@@ -16,11 +16,9 @@
         <p class="has-text-grey-light is-size-6">
           Generate key
         </p>
-        <!-- <router-link to="/storeKeys"> -->
         <a :class="{'is-primary': deviceIsDisconnected, 'is-disabled': !deviceIsDisconnected}" class="button m-t-md is-fullwidth m-t-xl is-size-5" @click="checkUserConnection">
           <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Generate Key</p>
         </a>
-        <!-- </router-link> -->
       </div>
     </div>
     <b-modal :active.sync="checkYourConnection">

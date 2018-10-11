@@ -83,7 +83,7 @@
                     </div>
                   </div>
                   <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
-                    {{ transaction.amount > 0 ? '+' : '' }} {{ transaction.amount }} VTX
+                    {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount }} VTX
                   </div>
                 </div>
               </router-link>
@@ -97,6 +97,12 @@
         </div>
       </div>
     </div>
+    <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
+    <router-link to="/getVtx">
+      <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
+        <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
+      </a>
+    </router-link>
     <div class="hero-foot">
       <div class="container has-background-darklightgreen p-t-md p-b-md">
         &nbsp;
@@ -111,9 +117,9 @@
 </template>
 
 <script>
-//require("update-electron-app")();
+require("update-electron-app")();
 //to enable automated updates add to package.json: "repository": "https://github.com/Volentix/verto"
-require("dotenv").config();
+//require("dotenv").config();
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -232,6 +238,11 @@ export default {
         message: "Copied",
         duration: 2000
       });
+    },
+    openZixipay() {
+      const shell = require("electron").shell;
+      event.preventDefault();
+      shell.openExternal("https://zixipay.com");
     }
   }
 };

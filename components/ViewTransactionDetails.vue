@@ -13,7 +13,7 @@
                 <span class="icon is-size-6 has-text-white m-l-sm"><i class="fas fa-arrow-left"/></span>
               </router-link>
               <div class="m-t-sm p-b-md is-size-vtx-amount has-text-centered">
-                <p class="has-text-light">+ {{ $route.params.transaction.amount }}</p>
+                <p class="has-text-light"> {{ $route.params.transaction.amount > 0 ? '+' : '' }}{{ $route.params.transaction.amount }} VTX</p>
               </div>
               <!-- <br> -->
               <span class="icon is-size-3 has-text-aqua" style="position: absolute; margin-left: 10rem; margin-top: -0.2rem;"><i class="fas fa-check-circle"/></span>
