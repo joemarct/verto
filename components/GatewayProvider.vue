@@ -35,6 +35,20 @@
         </a> -->
       </div>
     </div>
+    <b-modal :active.sync="connectionIsBackOn">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            Make sure your connection is back on
+          </p>
+        </div>
+        <div class="has-text-centered close-button p-md">
+          <a class="m-t-lg is-size-6" @click="connectionIsBackOn = false">
+            <p class="p-l-md p-r-md">Ok</p>
+          </a>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -54,16 +68,28 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
   data() {
     return {
-      selectedProvider: ""
+      selectedProvider: "",
+      connectionIsBackOn: true
     };
+  },
+  mounted() {
+    let command = "networksetup -setairportpower en0 on";
+    let exec = require("child_process").exec;
+    exec(command);
   }
 };
 </script>
 
 <style>
+.card {
+  border-radius: 0.6rem;
+}
 .button {
   border-radius: 0.6rem;
   width: 9rem;
+}
+.close-button {
+  border-top: solid 0.1rem rgba(55, 202, 189, 0.3);
 }
 .button {
   background-color: hsl(0, 0%, 71%);
