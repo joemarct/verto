@@ -4,7 +4,7 @@
       <div class="container has-text-centered">
         <div class="box has-text-white is-radiusless is-shadowless">
           <div class="is-size-3">WELCOME TO</div>
-          <div class="logo p-l-lg p-r-lg">
+          <div class="logo-welcome p-l-lg p-r-lg">
             <img src="~/static/img/white-logo-with-text.png" >
           </div>
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
@@ -79,7 +79,7 @@ export default {
   padding-bottom: 1.5rem;
   border-radius: 0.5rem;
 }
-.logo img {
+.logo-welcome img {
   width: 100%;
   max-width: 320px;
 }

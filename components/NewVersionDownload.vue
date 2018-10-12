@@ -47,7 +47,7 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {};
 </script>
 
-<style>
+<style scoped>
 .button {
   border-radius: 0.6rem;
 }

@@ -45,7 +45,7 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {};
 </script>
 
-<style>
+<style scoped>
 .is-size-custom-header {
   font-size: 1.7rem;
 }
