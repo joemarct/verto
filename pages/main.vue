@@ -138,7 +138,6 @@ import qr from "vue-qr";
 
 const httpEndpoint = process.env.HTTP_ENDPOINT;
 const chainId = process.env.CHAIN_ID;
-const keyProvider = process.env.KEY_PROVIDER;
 
 library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
@@ -160,8 +159,7 @@ const myaccount = "vtxtrust";
 
 const ledger = new Ledger({
   httpEndpoint: httpEndpoint,
-  chainId: chainId,
-  keyProvider: keyProvider
+  chainId: chainId
 });
 
 export default {
