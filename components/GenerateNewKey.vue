@@ -88,7 +88,7 @@ export default {
 .button p {
   color: #223435;
 }
-.button is-disabled {
+.button.is-disabled {
   background-color: hsl(0, 0%, 71%);
   border-color: hsl(0, 0%, 71%);
   /* cursor: pointer; */

@@ -21,12 +21,12 @@
       <div class="p-l-lg p-r-lg">
         <router-link to="/main">
           <a class="button is-primary m-t-lg is-size-5">
-            <p class="p-l-md p-r-md has-text-white">Not now</p>
+            <p class="p-l-md p-r-md">Not now</p>
           </a>
         </router-link>
         <router-link :to="{ name: 'userCredentials', params: {provider: selectedProvider} }">
           <a class="button is-primary m-t-lg m-l-md is-size-5">
-            <p class="p-l-md p-r-md has-text-white">Next</p>
+            <p class="p-l-md p-r-md">Next</p>
           </a>
         </router-link>
         <!-- <router-link :to="{ path: 'userCredentials', params: {key: $route.params.key} }"> -->
@@ -80,7 +80,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   border-radius: 0.6rem;
 }
@@ -88,13 +88,11 @@ export default {
   border-radius: 0.6rem;
   width: 9rem;
 }
+.button p {
+  color: #223435;
+}
 .close-button {
   border-top: solid 0.1rem rgba(55, 202, 189, 0.3);
-}
-.button {
-  background-color: hsl(0, 0%, 71%);
-  border-color: hsl(0, 0%, 71%);
-  cursor: pointer;
 }
 .is-size-custom-header {
   font-size: 1.7rem;

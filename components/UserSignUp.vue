@@ -76,11 +76,6 @@ iframe {
   border-radius: 0.6rem;
   width: 9rem;
 }
-.button {
-  background-color: hsl(0, 0%, 71%);
-  border-color: hsl(0, 0%, 71%);
-  cursor: pointer;
-}
 .is-size-custom-header {
   font-size: 1.7rem;
 }

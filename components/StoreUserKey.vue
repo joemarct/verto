@@ -33,34 +33,47 @@
         <p class="p-b-md">
           Please select at least one option to save your keys:
         </p>
-        <input id="print" v-model="checkedOptions" type="checkbox" value="a" @click="checkOptions">
-        <label for="print">
-          Print to file
-        </label>
-        <br>
-        <input id="save" v-model="checkedOptions" type="checkbox" value="b" @click="checkOptions">
-        <label for="save">
-          Save to file
-        </label>
-        <br>
-        <input id="copy" v-model="checkedOptions" type="checkbox" value="c" @click="checkOptions">
-        <label for="checkbox">
-          Copy
-        </label>
-        <br>
-        <input id="qr" v-model="checkedOptions" type="checkbox" value="d" @click="checkOptions">
-        <label for="checkbox">
-          QR code
-        </label>
-        <br>
-        <input id="writing" v-model="checkedOptions" type="checkbox" value="e" @click="checkOptions">
-        <label for="checkbox">
-          Writing
-        </label>
+        <div class="p-l-sm">
+          <b-checkbox v-model="checkedOptions" native-value="print" @change.native="checkOptions">
+            Print to file
+          </b-checkbox>
+          <b-tooltip label="Your keys will be printed. You need to have a printer for this option." position="is-top" size="is-small" type="is-white" multilined animated>
+            <font-awesome-icon icon="question-circle" class="is-size-6 option-explanation m-l-sm"/>
+          </b-tooltip>
+          <br>
+          <b-checkbox v-model="checkedOptions" native-value="saveToFile" @change.native="checkOptions">
+            Save to file
+          </b-checkbox>
+          <b-tooltip label="Your keys will be saved in a text file on your machine." position="is-top" size="is-small" type="is-white" multilined animated>
+            <font-awesome-icon icon="question-circle" class="is-size-6 option-explanation m-l-sm"/>
+          </b-tooltip>
+          <!-- </div> -->
+          <br>
+          <b-checkbox v-model="checkedOptions" native-value="copy" @change.native="checkOptions">
+            Copy
+          </b-checkbox>
+          <b-tooltip label="Your keys will be copied to the clipboard." position="is-top" size="is-small" type="is-white" multilined animated>
+            <font-awesome-icon icon="question-circle" class="is-size-6 option-explanation m-l-sm"/>
+          </b-tooltip>
+          <br>
+          <b-checkbox v-model="checkedOptions" native-value="qrcode" @change.native="checkOptions">
+            QR code
+          </b-checkbox>
+          <b-tooltip label="QR code will be generated for your keys." position="is-top" size="is-small" type="is-white" multilined animated>
+            <font-awesome-icon icon="question-circle" class="is-size-6 option-explanation m-l-sm"/>
+          </b-tooltip>
+          <br>
+          <b-checkbox v-model="checkedOptions" native-value="write" @change.native="checkOptions">
+            Writing
+          </b-checkbox>
+          <b-tooltip label="You have to write down your keys. It is your responsibility to save the keys." position="is-top" size="is-small" type="is-white" multilined animated>
+            <font-awesome-icon icon="question-circle" class="is-size-6 option-explanation m-l-sm"/>
+          </b-tooltip>
+        </div>
       </div>
-      <div class="p-l-lg p-r-lg has-text-white">
+      <div class="p-l-lg p-r-lg has-text-dark">
         <a :disabled="disableButton" class="button is-primary m-t-md is-fullwidth m-t-xl is-size-5" @click="goToNext">
-          <p class="p-l-md p-r-md has-text-white">Next</p>
+          <p class="p-l-md p-r-md">Next</p>
         </a>
       </div>
     </div>
@@ -110,11 +123,11 @@
             Public key: {{ publicKey }}
           </p>
           <a class="button is-primary m-t-lg is-size-6 is-one-third" @click="keysAreStored = false">
-            <p class="p-l-md p-r-md has-text-white">Cancel</p>
+            <p class="p-l-md p-r-md">Cancel</p>
           </a>
           <router-link to="/signUpWithGatewayProvider">
             <a class="button is-primary m-t-lg is-size-6 m-l-md">
-              <p class="p-l-md p-r-md has-text-white">I saved my keys</p>
+              <p class="p-l-md p-r-md">I saved my keys</p>
             </a>
           </router-link>
         </div>
@@ -129,11 +142,12 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faSyncAlt,
   faArrowLeft,
-  faSlidersH
+  faSlidersH,
+  faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faSyncAlt, faArrowLeft, faSlidersH);
+library.add(faSyncAlt, faArrowLeft, faSlidersH, faQuestionCircle);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
@@ -152,7 +166,6 @@ export default {
   },
   mounted() {
     this.generateKeys();
-    //this.generateOwnerKeys();
   },
   methods: {
     generateKeys() {
@@ -169,7 +182,6 @@ export default {
         this.privateKey = privateKeyArray[2];
         this.publicKey = publicKeyArray[2];
         this.$store.commit("save", this.publicKey);
-        //console.log(data.split("\n"));
       });
       child.stderr.on("data", data => {
         this.userKeys = data;
@@ -179,18 +191,14 @@ export default {
       if (this.disableButton === true) {
         window.alert("Select at least one option to save your keys");
       } else {
-        //this.$router.push({ path: "signUpWithGatewayProvider" });
-        //let key = this.publicKey;
         this.keysAreStored = true;
-        // this.$router.push({
-        //   name: "signUpWithGatewayProvider",
-        //   params: { key }
-        // });
       }
     },
-    checkOptions() {
-      this.checkedNumber += 1;
-      if (this.checkedOptions.length >= 0) {
+    checkOptions(event) {
+      event.target.checked
+        ? (this.checkedNumber += 1)
+        : (this.checkedNumber -= 1);
+      if (this.checkedNumber > 0) {
         this.disableButton = false;
       } else {
         this.disableButton = true;
@@ -201,6 +209,22 @@ export default {
 </script>
 
 <style>
+.option-explanation {
+  color: rgba(55, 202, 189, 0.3);
+  cursor: pointer;
+}
+.control-label:hover {
+  color: #00d1b2;
+}
+.control-label {
+  padding-top: 0.1rem;
+}
+.option-explanation:hover {
+  color: #00d1b2;
+}
+.button p {
+  color: #223435;
+}
 .storekeys {
   border: solid 0.3rem red;
 }
@@ -212,11 +236,6 @@ export default {
 }
 .button {
   border-radius: 0.6rem;
-}
-.button {
-  background-color: hsl(0, 0%, 71%);
-  border-color: hsl(0, 0%, 71%);
-  cursor: pointer;
 }
 .is-size-custom-header {
   font-size: 1.7rem;

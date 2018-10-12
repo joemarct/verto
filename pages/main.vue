@@ -98,11 +98,13 @@
       </div>
     </div>
     <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <router-link to="/getVtx">
-      <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
-        <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
-      </a>
-    </router-link>
+    <div class="has-background-darkgreen">
+      <router-link to="/getVtx">
+        <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
+          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
+        </a>
+      </router-link>
+    </div>
     <div class="hero-foot">
       <div class="container has-background-darklightgreen p-t-md p-b-md">
         &nbsp;
@@ -117,9 +119,9 @@
 </template>
 
 <script>
-require("update-electron-app")();
+//require("update-electron-app")();
 //to enable automated updates add to package.json: "repository": "https://github.com/Volentix/verto"
-//require("dotenv").config();
+require("dotenv").config();
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
