@@ -5,6 +5,12 @@ const http = require("http");
 const { Nuxt, Builder } = require("nuxt");
 let config = require("./nuxt.config.js");
 config.rootDir = __dirname; // for electron-builder
+// Auto updater
+const { autoUpdater } = require("electron-updater");
+const log = require("electron-log");
+log.transports.file.level = "debug";
+autoUpdater.logger = log;
+autoUpdater.checkForUpdatesAndNotify();
 // Init Nuxt.js
 const nuxt = new Nuxt(config);
 const builder = new Builder(nuxt);

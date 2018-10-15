@@ -42,7 +42,6 @@
 </template>
 
 <script>
-require("update-electron-app")();
 export default {
   data() {
     return {
