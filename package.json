@@ -5,6 +5,7 @@
   "author": "Volentix Labs <volentix.io>",
   "private": true,
   "main": "main.js",
+  "repository": "https://github.com/Volentix/verto",
   "build": {
     "appId": "io.volentix.verto",
     "directories": {
@@ -12,12 +13,17 @@
     },
     "extraResources": [
       "./resources/**"
-    ]
+    ],
+    "win": {
+      "target": "nsis"
+    }
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
     "start": "electron .",
     "build": "nuxt build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
+    "build:win": "nuxt build && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --win",
+    "build:linux": "nuxt build && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --linux",
     "lint": "eslint --ext .js,.vue .",
     "lintfix": "eslint --fix --ext .js,.vue .",
     "precommit": "lint-staged",

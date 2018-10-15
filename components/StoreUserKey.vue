@@ -133,6 +133,28 @@
         </div>
       </div>
     </b-modal>
+    <b-modal :active.sync="saveKeys" class="modal-qr">
+      <p class="image is-1by1 qr-modal">
+        <qr :size="200" :margin="25" :text="userKeys" class="has-text-centered"/>
+      </p>
+    </b-modal>
+    <b-modal :active.sync="writeKeysDown">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            Write down your keys.
+          </p>
+          <br>
+          <p>
+            Private key: {{ privateKey }}
+          </p>
+          <br>
+          <p>
+            Public key: {{ publicKey }}
+          </p>
+        </div>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -146,11 +168,15 @@ import {
   faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import qr from "vue-qr";
 
 library.add(faSyncAlt, faArrowLeft, faSlidersH, faQuestionCircle);
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
+  components: {
+    qr
+  },
   data() {
     return {
       privateKey: "",
@@ -161,7 +187,10 @@ export default {
       checkedNumber: 0,
       isCardModalActive: false,
       isKeyModalActive: false,
-      keysAreStored: false
+      keysAreStored: false,
+      saveKeys: false,
+      userKeys: "",
+      writeKeysDown: false
     };
   },
   mounted() {
@@ -202,9 +231,36 @@ export default {
       }
     },
     checkOptions(event) {
-      event.target.checked
-        ? (this.checkedNumber += 1)
-        : (this.checkedNumber -= 1);
+      //console.log(event.target.value);
+      if (event.target.checked) {
+        if (event.target.value == "print") {
+          window.print();
+        } else if (event.target.value == "copy") {
+          const { clipboard } = require("electron");
+          clipboard.writeText(
+            "Private key: " +
+              this.privateKey +
+              "; Public key: " +
+              this.publicKey
+          );
+          this.$toast.open({
+            message: "Copied to clipboard",
+            type: "is-light"
+          });
+        } else if (event.target.value == "qrcode") {
+          this.userKeys = "Private key: " + this.privateKey;
+          this.userKeys += "\nPublic key: " + this.publicKey;
+          this.saveKeys = true;
+        } else if (event.target.value == "write") {
+          this.writeKeysDown = true;
+        }
+        this.checkedNumber += 1;
+      } else {
+        this.checkedNumber -= 1;
+      }
+      // event.target.checked
+      //   ? (this.checkedNumber += 1)
+      //   : (this.checkedNumber -= 1);
       if (this.checkedNumber > 0) {
         this.disableButton = false;
       } else {
