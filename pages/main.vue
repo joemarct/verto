@@ -119,8 +119,6 @@
 </template>
 
 <script>
-//require("update-electron-app")();
-//to enable automated updates add to package.json: "repository": "https://github.com/Volentix/verto"
 require("dotenv").config();
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
