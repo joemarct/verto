@@ -1,6 +1,6 @@
 {
   "name": "verto",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "author": "Volentix Labs <volentix.io>",
   "main": "main.js",
