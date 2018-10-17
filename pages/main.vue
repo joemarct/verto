@@ -23,7 +23,7 @@
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
                   <div class="level-right is-size-5 has-text-white">
-                    <font-awesome-icon icon="sync-alt" @click="refreshBalance"/>
+                    <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshBalance"/>
                   </div>
                 </div>
               </div>
@@ -67,11 +67,10 @@
                       <div class="column is-paddingless">
                         <div class="level is-mobile has-text-white">
                           <div class="level-left">
-                            <!-- {{ transaction.submittedAt | formatDate }} -->
-                            Date
+                            {{ transaction.timestamp | formatDate }}
                           </div>
                           <div class="level-right">
-                            Time
+                            {{ transaction.timestamp | formatTime }}
                           </div>
                         </div>
                       </div>
@@ -83,7 +82,7 @@
                     </div>
                   </div>
                   <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
-                    {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.amount }} VTX
+                    {{ transaction.iVal > 0 ? '+' : '' }}{{ transaction.iVal }}.{{ transaction.fVal }} VTX
                   </div>
                 </div>
               </router-link>
@@ -119,7 +118,7 @@
 </template>
 
 <script>
-require("dotenv").config();
+//require("dotenv").config();
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -134,8 +133,8 @@ import moment from "moment";
 import Ledger from "volentix-ledger";
 import qr from "vue-qr";
 
-const httpEndpoint = process.env.HTTP_ENDPOINT;
-const chainId = process.env.CHAIN_ID;
+//const httpEndpoint = process.env.HTTP_ENDPOINT;
+//const chainId = process.env.CHAIN_ID;
 
 library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
@@ -143,21 +142,21 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.filter("formatDate", function(value) {
   if (value) {
-    return moment(String(value)).format("MMM DD, YYYY");
+    return moment(value).format("MMM DD, YYYY");
   }
 });
 
 Vue.filter("formatTime", function(value) {
   if (value) {
-    return moment(String(value)).format("h:mm A");
+    return moment(value).format("h:mm A");
   }
 });
 
 const myaccount = "vtxtrust";
 
 const ledger = new Ledger({
-  httpEndpoint: httpEndpoint,
-  chainId: chainId
+  httpEndpoint: "http://api.kylin.alohaeos.com",
+  chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
 });
 
 export default {
@@ -177,8 +176,11 @@ export default {
           fromKey: "",
           currency: "",
           amount: 0,
+          iVal: null,
+          fVal: null,
           comment: "",
-          nonce: ""
+          nonce: "",
+          timestamp: 0
         }
       ],
       userKeys: "",
@@ -208,8 +210,15 @@ export default {
       console.log(userTransactions.output1);
       if (userTransactions.output1.length > 0) {
         this.transactions = userTransactions.output1;
+        this.getDate();
       } else {
         this.hasTransactions = false;
+      }
+    },
+    getDate() {
+      for (let i = 0; i < this.transactions.length; i++) {
+        this.transactions[i].timestamp =
+          parseInt(this.transactions[i].timestamp) / 1000;
       }
     },
     goToNext: function() {
@@ -217,11 +226,10 @@ export default {
     },
     async refreshBalance() {
       const balance = await ledger.retrieveBalance({
-        account: "vtxtrust",
+        account: myaccount,
         wallet: this.wallet
       });
       this.balance = balance.amount.toFixed(2);
-      //console.log("balance: ", balance);
     },
     removeToast: function() {
       this.isCopied = false;

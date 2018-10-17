@@ -52,15 +52,15 @@
                 <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.Id }} </p>
                 <br>
                 <p class="is-size-5 has-text-grey p-l-sm">Block #:</p>
-                <p class="is-size-6 has-text-white p-l-sm">56952231</p>
+                <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.tbn }} </p>
                 <br>
                 <p class="is-size-5 has-text-grey p-l-sm">Transaction Time:</p>
                 <div class="level is-mobile">
                   <div class="level-left">
-                    <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.submittedAt | formatDate }} </p>
+                    <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.timestamp | formatDate }} </p>
                   </div>
                   <div class="level-right">
-                    <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.submittedAt | formatTime }} </p>
+                    <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.timestamp | formatTime }} </p>
                   </div>
                 </div>
               </div>
