@@ -118,7 +118,7 @@
 </template>
 
 <script>
-//require("dotenv").config();
+require("dotenv").config();
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
@@ -133,8 +133,8 @@ import moment from "moment";
 import Ledger from "volentix-ledger";
 import qr from "vue-qr";
 
-//const httpEndpoint = process.env.HTTP_ENDPOINT;
-//const chainId = process.env.CHAIN_ID;
+const httpEndpoint = process.env.HTTP_ENDPOINT;
+const chainId = process.env.CHAIN_ID;
 
 library.add(faSlidersH, faSyncAlt, faCopy, faArrowLeft, faCheckCircle);
 
@@ -155,8 +155,8 @@ Vue.filter("formatTime", function(value) {
 const myaccount = "vtxtrust";
 
 const ledger = new Ledger({
-  httpEndpoint: "http://api.kylin.alohaeos.com",
-  chainId: "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f"
+  httpEndpoint: httpEndpoint,
+  chainId: chainId
 });
 
 export default {

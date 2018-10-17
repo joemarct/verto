@@ -13,7 +13,7 @@
           <form>
             <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Paste your key here">
             <div class="level-item has-text-centered is-marginless">
-              <a class="p-t-lg button is-fullwidth is-primary" @click="goToMain"> Submit </a>
+              <a class="p-t-lg button is-fullwidth is-primary" @click="goToMain"> Submit it </a>
             </div>
           </form>
           <div>
