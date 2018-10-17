@@ -1,6 +1,6 @@
 {
   "name": "verto",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "author": "Volentix Labs <volentix.io>",
   "main": "main.js",
@@ -40,7 +40,7 @@
     "test:e2e": "mocha",
     "pack": "electron-packager . --overwrite --no-prune --out=bin",
     "build:dir": "nuxt build && CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --dir",
-    "publish": "build -p always"
+    "publish": "nuxt build && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -p always"
   },
   "lint-staged": {
     "*.{js,vue,css}": [
