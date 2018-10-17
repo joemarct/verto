@@ -10,7 +10,9 @@ const { autoUpdater } = require("electron-updater");
 const log = require("electron-log");
 log.transports.file.level = "debug";
 autoUpdater.logger = log;
-autoUpdater.checkForUpdatesAndNotify();
+autoUpdater.logger.transports.file.level = "info";
+log.info("App starting...");
+
 // Init Nuxt.js
 const nuxt = new Nuxt(config);
 const builder = new Builder(nuxt);
@@ -139,6 +141,7 @@ const newWin = () => {
     };
     pollServer();
   } else {
+    autoUpdater.checkForUpdatesAndNotify();
     return win.loadURL(_NUXT_URL_);
   }
 };
