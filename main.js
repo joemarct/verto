@@ -5,13 +5,6 @@ const http = require("http");
 const { Nuxt, Builder } = require("nuxt");
 let config = require("./nuxt.config.js");
 config.rootDir = __dirname; // for electron-builder
-// Auto updater
-const { autoUpdater } = require("electron-updater");
-const log = require("electron-log");
-log.transports.file.level = "debug";
-autoUpdater.logger = log;
-autoUpdater.logger.transports.file.level = "info";
-log.info("App starting...");
 
 // Init Nuxt.js
 const nuxt = new Nuxt(config);
@@ -141,12 +134,19 @@ const newWin = () => {
     };
     pollServer();
   } else {
-    log.info("Updater initialize.");
-    console.log("Updater initialize.");
-    autoUpdater.checkForUpdatesAndNotify();
     return win.loadURL(_NUXT_URL_);
   }
 };
 app.on("ready", newWin);
 app.on("window-all-closed", () => app.quit());
 app.on("activate", () => win === null && newWin());
+//autoUpdater
+const { autoUpdater } = require("electron-updater");
+autoUpdater.on("update-downloaded", () => {
+  autoUpdater.quitAndInstall();
+});
+app.on("ready", () => {
+  if (process.env.NODE_ENV === "production") {
+    autoUpdater.checkForUpdates();
+  }
+});
