@@ -141,6 +141,8 @@ const newWin = () => {
     };
     pollServer();
   } else {
+    log.info("Updater initialize.");
+    console.log("Updater initialize.");
     autoUpdater.checkForUpdatesAndNotify();
     return win.loadURL(_NUXT_URL_);
   }
