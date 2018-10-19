@@ -58,7 +58,7 @@ export default {
       this.$router.push({ name: "main" });
     },
     generateKey: function() {
-      this.$router.push({ path: "generateKey" });
+      this.$router.push({ path: "keepYourKeysSafe" });
     }
   }
 };
