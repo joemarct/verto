@@ -137,6 +137,16 @@ const newWin = () => {
     return win.loadURL(_NUXT_URL_);
   }
 };
+
+// const { autoUpdater } = require("electron-updater");
+// if (process.env.NODE_ENV === "production") {
+//   window.alert("test updates");
+//   autoUpdater.checkForUpdates();
+//   autoUpdater.on("update-downloaded", () => {
+//     autoUpdater.quitAndInstall();
+//   });
+// }
+
 app.on("ready", newWin);
 app.on("window-all-closed", () => app.quit());
 app.on("activate", () => win === null && newWin());

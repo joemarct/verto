@@ -81,7 +81,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-4 m-l-md">
+                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-5 m-l-md">
                     {{ transaction.iVal > 0 ? '+' : '' }}{{ transaction.iVal }}.{{ transaction.fVal }} VTX
                   </div>
                 </div>
