@@ -18,13 +18,13 @@
         <div class="control p-md has-text-centered">
           <!-- <form method="POST" action="https://zixipay.com/sci/form"> -->
           <form method="POST">
-            <input type="hidden" class="input m-b-md" name="merchant" value="M123456">
+            <input type="text" class="input m-b-md" name="merchant" placeholder="Merchant" value="merch123">
             <input type="hidden" class="input m-b-md" name="description" value="Testing payment">
             <input type="text" class="input m-b-md" name="amount" placeholder="Amount of VTX">
-            <input type="hidden" class="input m-b-md" name="currency" value="USD">
-            <input type="hidden" class="input m-b-md" name="custom" value="order number abc">
-            <input :value="this.$store.state.userKey" type="text" class="input m-b-md" name="hash">
-            <a class="button m-t-md is-size-5 is-primary is-centered">
+            <input type="text" class="input m-b-md" name="currency" value="USD">
+            <input type="text" class="input m-b-md" name="custom" value="VTXabc123">
+            <input type="hidden" class="input m-b-md" name="hash">
+            <a class="button m-t-md is-size-5 is-primary is-centered" @click="createHash">
               <p class="p-l-sm p-r-sm is-size-5">Get VTX</p>
             </a>
           </form>
@@ -36,7 +36,34 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      userKeys: "",
+      messages: "",
+      isCardModalActive: false,
+      wallet: "",
+      balance: 0,
+      transactionLink: "/transactiondetails",
+      hasTransactions: true
+    };
+  },
+  methods: {
+    createHash() {
+      // console.log(
+      //   this.$axios.post(
+      //     "https://cf-dev.volentix.io/public/api/zixipay-create-hash/",
+      //     {
+      //       merchant: "merch123",
+      //       custom: this.$store.state.userKey,
+      //       amount: 123,
+      //       currency: "USD"
+      //     }
+      //   )
+      // );
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -58,7 +85,7 @@ input {
   font-size: 2.7rem;
 }
 .has-blur-background {
-  background-image: url(~@/assets/img/transaction-back-screen.jpg);
+  background-image: url(~/static/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
