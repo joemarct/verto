@@ -37,13 +37,11 @@
           <div class="field m-t-sm">
             <textarea v-model="textInput" class="textarea" placeholder="Type the text from above in this field" @keyup="checkText"/>
           </div>
-          <router-link to="congratsScreen">
-            <div class="has-text-dark is-pulled-right m-t-md">
-              <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
-                <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
-              </a>
-            </div>
-          </router-link>
+          <div class="has-text-dark is-pulled-right m-t-md">
+            <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
+            </a>
+          </div>
         </div>
 
 
