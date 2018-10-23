@@ -1,12 +1,11 @@
-# verto
-
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Volentix/verto.svg?columns=all)](https://waffle.io/Volentix/verto)
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![MIT](https://img.shields.io/github/license/mashape/apistatus.svg)](https://choosealicense.com/licenses/mit/)
+<!-- [![CircleCI](https://circleci.com/gh/4ban/verto.svg?style=svg&circle-token=ee8228f3ac89322eecf608beac7bac06cbd636c7)](https://circleci.com/gh/4ban/verto) -->
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://github.com/Volentix/verto/blob/master/LICENSE)
+[![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Volentix/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![Open Source Love](https://badges.frapsoft.com/os/v3/open-source.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+
+# Verto
 
 > A multi-currency crypto wallet with initial support for EOS & VTX
 
@@ -22,38 +21,42 @@ the wallet actually hold EOS tokens.
 ## Table of Contents
 
 - [Install](#install)
-- [Usage](#usage)
 - [Maintainers](#maintainers)
 - [Contribute](#contribute)
 - [License](#license)
 
-## Install
+### Install
 
-- Node
-- NPM 5.x or Yarn
+- Node >=10.2.0
+- NPM >=6.4 or Yarn
 
 ``` bash
 # install dependencies
-$ npm install # Or yarn install
+npm install
+#or
+yarn install
 
-# development with vue devtools
-$ npm run dev
+# Run application with hot reload
+npm run dev
 
-# build for production
-$ npm run build
+# build electron application for production
+npm run build
+
+# Run all tests
+npm test
+
+# Run unit tests
+npm run unit
+
+# Run e2e tests
+npm run e2e
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js](https://github.com/nuxt/nuxt.js), [Electron.js](https://electronjs.org/), and [electron-builder](https://www.electron.build/).
-
-## Usage
+### Maintainers
 
 TBD
 
-## Maintainers
-
-[@shawnlauzon](https://github.com/shawnlauzon)
-
-## Contribute
+### Contribute
 
 Verto is a project which was originally created by Volentix Labs, but is owned and
 maintained by the Volentix community. We actively support and appreciate anyone

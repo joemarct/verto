@@ -1,25 +1,34 @@
 module.exports = {
   root: true,
+  parser: 'babel-eslint',
+  parserOptions: {
+    sourceType: 'module'
+  },
   env: {
     browser: true,
-    node: true,
-    jest: true
+    node: true
   },
-  parserOptions: {
-    parser: "babel-eslint"
+  extends: 'standard',
+  globals: {
+    __static: true
   },
-  extends: [
-    "eslint:recommended",
-    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
-    // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    "plugin:vue/recommended",
-    "plugin:prettier/recommended"
+  plugins: [
+    'html'
   ],
-  // required to lint *.vue files
-  plugins: ["vue"],
-  // add your custom rules here
-  rules: {
-    "no-console": "off",
-    "vue/max-attributes-per-line": "off"
+  'rules': {
+    // allow semicolon avoiding
+    'semi': 0,
+    // allow single quotes
+    'quotes': 0,
+    // allow space before function parents
+    'space-before-function-paren': 0,
+    // allow unused variables
+    'no-unused-vars': 0,
+    // allow paren-less arrow functions
+    'arrow-parens': 0,
+    // allow async-await
+    'generator-star-spacing': 0,
+    // allow debugger during development
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
-};
+}
