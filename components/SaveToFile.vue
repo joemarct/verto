@@ -31,7 +31,7 @@
           </b-checkbox>
         </div>
 
-        <router-link to="congratsScreen">
+        <router-link to="choosePassword">
           <div class="has-text-dark level-right m-l-sm m-r-lg m-t-xxl">
             <a :disabled="isEnabled" class="button m-t-md is-size-5 green is-pulled-right">
               <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
@@ -75,6 +75,7 @@
 
 
 <script>
+import sjcl from "sjcl";
 export default {
   data() {
     return {
@@ -95,6 +96,17 @@ export default {
       } else {
         this.isEnabled = true;
       }
+    },
+    encrypt() {
+      let fs = require("fs");
+      let encr = sjcl.encrypt("password", "EOS123");
+      console.log(sjcl.decrypt("password", encr));
+      fs.writeFile("key.txt", encr, function(err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("saved");
+      });
     }
   }
 };
