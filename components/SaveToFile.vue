@@ -30,44 +30,10 @@
             The longer the password the better
           </b-checkbox>
         </div>
-
-        <router-link to="choosePassword">
-          <div class="has-text-dark level-right m-l-sm m-r-lg m-t-xxl">
-            <a :disabled="isEnabled" class="button m-t-md is-size-5 green is-pulled-right">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
-            </a>
-          </div>
-        </router-link>
-      <!-- <div class="container font-gibson p-l-sm p-r-sm">
-        <p class="is-size-4 font-gibson-semibold">
-          File Storage
-        </p>
-        <p class="m-t-sm has-text-weight-bold">
-          The process is as follows:
-        </p>
-        <br>
-        <p class="m-l-md">
-          <ol>
-            <li>
-              The application will turn off wifi and bluetooth.
-            </li>
-            <li>
-              You will choose a directory, preferably on a usb or other offline storage mechanic.
-            </li>
-            <li>
-              Prompted for password and confirmation password
-            </li>
-            <li>
-              Submit
-            </li>
-          </ol>
-        </p>
-        <router-link to="saveToFile">
-          <a class="button m-t-md is-size-5 aqua is-pulled-right green m-t-xxl">
-            <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Next</p>
-          </a>
-        </router-link>
-      </div> -->
+        <br><br>
+        <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right m-t-xxl" @click="choosePassword">
+          <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
+        </a>
       </div>
     </div>
   </section>
@@ -75,11 +41,10 @@
 
 
 <script>
-import sjcl from "sjcl";
 export default {
   data() {
     return {
-      isEnabled: true,
+      isDisabled: true,
       checkedPass: [],
       checkedAnswers: 0
     };
@@ -92,21 +57,15 @@ export default {
         this.checkedAnswers--;
       }
       if (this.checkedAnswers === 2) {
-        this.isEnabled = false;
+        this.isDisabled = false;
       } else {
-        this.isEnabled = true;
+        this.isDisabled = true;
       }
     },
-    encrypt() {
-      let fs = require("fs");
-      let encr = sjcl.encrypt("password", "EOS123");
-      console.log(sjcl.decrypt("password", encr));
-      fs.writeFile("key.txt", encr, function(err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("saved");
-      });
+    choosePassword() {
+      if (!this.isDisabled) {
+        this.$router.push("choosePassword");
+      }
     }
   }
 };
@@ -126,6 +85,7 @@ export default {
 .hero-body.save-file-storage .button.green {
   background-color: #00a6a6 !important;
   border-radius: 0.5rem;
+  border: solid #00a6a6 1pt !important;
 }
 .hero-body.save-file-storage .button.green p {
   color: #ffffff !important;

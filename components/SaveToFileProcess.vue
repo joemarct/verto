@@ -29,7 +29,7 @@
           </ol>
         </p>
         <router-link to="saveToFile">
-          <a class="button m-t-md is-size-5 aqua is-pulled-right green m-t-xxl">
+          <a class="button m-t-md is-size-5 is-pulled-right green m-t-xxl">
             <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Next</p>
           </a>
         </router-link>
@@ -61,6 +61,7 @@ export default {};
 .hero-body.save-to-file .button.green {
   background-color: #00a6a6 !important;
   border-radius: 0.5rem;
+  border: solid #00a6a6 1pt !important;
 }
 .hero-body.save-to-file .button.green p {
   color: #ffffff !important;

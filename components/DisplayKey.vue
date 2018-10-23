@@ -7,7 +7,7 @@
     </div>
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
-        <b-checkbox native-value="write">
+        <b-checkbox native-value="write" @change.native="checkClicked">
           I understand that I will never see my private key again
         </b-checkbox>
 
@@ -28,18 +28,18 @@
 
         <div class="m-t-md">
           <p class="is-size-6">
-            Type the following in the textfield below:
+            Type the following text in the textfield below:
           </p>
           <br>
           <p>
             {{ requiredText }}
           </p>
           <div class="field m-t-sm">
-            <textarea v-model="textInput" class="textarea" placeholder="Type here" @keyup="checkText"/>
+            <textarea v-model="textInput" class="textarea" placeholder="Type the text from above in this field" @keyup="checkText"/>
           </div>
           <router-link to="congratsScreen">
             <div class="has-text-dark is-pulled-right m-t-md">
-              <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right">
+              <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
                 <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
               </a>
             </div>
@@ -63,25 +63,14 @@ export default {
       privateKey: "",
       publicKey: "",
       requiredText: "Key copied",
-      textInput: ""
+      textInput: "",
+      clicked: false
     };
   },
   mounted() {
     this.generateKeys();
   },
   methods: {
-    checkAnswers(event) {
-      if (event.target.checked) {
-        this.checkedAnswers++;
-      } else {
-        this.checkedAnswers--;
-      }
-      if (this.checkedAnswers === 3) {
-        this.disableButton = false;
-      } else {
-        this.disableButton = true;
-      }
-    },
     generateKeys() {
       const ecc = require("eosjs-ecc");
       ecc.randomKey().then(privateKey => {
@@ -91,10 +80,23 @@ export default {
       });
     },
     checkText() {
-      if (this.textInput === this.requiredText) {
+      if (this.textInput === this.requiredText && this.clicked) {
         this.isDisabled = false;
       } else {
         this.isDisabled = true;
+      }
+    },
+    checkClicked() {
+      this.clicked = !this.clicked;
+      if (this.textInput === this.requiredText && this.clicked) {
+        this.isDisabled = false;
+      } else {
+        this.isDisabled = true;
+      }
+    },
+    goToCongratsScreen() {
+      if (!this.isDisabled) {
+        this.$router.push("congratsScreen");
       }
     }
   }
