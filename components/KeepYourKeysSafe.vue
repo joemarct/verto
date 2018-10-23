@@ -1,11 +1,11 @@
 <template>
   <section>
-    <div class="hero-head safe-keys p-lg p-t-xl">
+    <div class="hero-head safe-keys p-md">
       <div class="has-text-centered">
-        <iframe src="https://www.youtube.com/embed/CUSy7bVnnVg" frameborder="0" allowfullscreen/>
+        <img src="~/static/img/saveKeys.png">
       </div>
     </div>
-    <div class="hero-body safe-keys p-t-sm">
+    <div class="hero-body safe-keys">
       <div class="container font-gibson">
         <p class="is-size-4 font-gibson-semibold">
           Keep your keys safe
@@ -54,7 +54,10 @@ export default {};
 }
 .hero-body.safe-keys .font-gibson {
   color: #78849e;
-  font-size: 12pt;
+  font-size: 11pt;
+}
+.hero-body.safe-keys .button {
+  border-radius: 0.7rem;
 }
 iframe {
   width: 100%;

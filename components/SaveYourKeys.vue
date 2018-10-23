@@ -39,19 +39,15 @@
         </div>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
-            <router-link to="saveToFileProcess">
-              <a :disabled="canEnableButtons" class="button m-t-md is-size-5 aqua">
-                <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Save to file</p>
-              </a>
-            </router-link>
+            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="saveToFileProcess">
+              <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Save to file</p>
+            </a>
           </div>
-          <router-link to="writeDownProcess">
-            <div class="has-text-dark level-right m-l-sm m-r-lg">
-              <a :disabled="canEnableButtons" class="button m-t-md is-size-5 green">
-                <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">I'll write it down</p>
-              </a>
-            </div>
-          </router-link>
+          <div class="has-text-dark level-right m-l-sm m-r-lg">
+            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 green" @click="writeDownProcess">
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">I'll write it down</p>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -64,7 +60,7 @@ export default {
   data() {
     return {
       checkedQuiz: [],
-      canEnableButtons: true,
+      buttonsAreDisabled: true,
       quizOptions: 0
     };
   },
@@ -76,9 +72,19 @@ export default {
         this.quizOptions--;
       }
       if (this.quizOptions === 3) {
-        this.canEnableButtons = false;
+        this.buttonsAreDisabled = false;
       } else {
-        this.canEnableButtons = true;
+        this.buttonsAreDisabled = true;
+      }
+    },
+    saveToFileProcess() {
+      if (!this.buttonsAreDisabled) {
+        this.$router.push("saveToFileProcess");
+      }
+    },
+    writeDownProcess() {
+      if (!this.buttonsAreDisabled) {
+        this.$router.push("writeDownProcess");
       }
     }
   }
@@ -100,9 +106,11 @@ export default {
 }
 .hero-body.save-your-keys .button.green {
   background-color: #00a6a6 !important;
+  border: solid #00a6a6 1pt !important;
 }
 .hero-body.save-your-keys .button.aqua {
   background-color: #2cfee6 !important;
+  border: solid #2cfee6 1pt !important;
 }
 .hero-body.save-your-keys .font-gibson {
   color: #78849e;

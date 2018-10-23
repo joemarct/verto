@@ -15,7 +15,10 @@
         <br>
         <div class="field">
           <div class="control">
-            <input v-model="userFile" class="input m-b-md is-medium" type="input" placeholder="File">
+            <!-- <input v-model="userFile" class="input m-b-md is-medium" type="input" placeholder="File"> -->
+            <!-- <a class="button choose-file m-t-md is-size-5 is-fullwidth m-b-md" @click="chooseFile">
+              <p class="p-l-sm p-r-sm is-size-6 font-gibson-semibold second">{{ filePath }}</p>
+            </a> -->
             <div v-if="notMatchingPass">
               <p class="has-text-danger m-t-md">
                 Passwords should match
@@ -30,11 +33,10 @@
             Please fill all the fields above
           </p>
         </div>
-        {{ test }}
-        <!-- <router-link to="congratsScreen"> -->
-        <div class="has-text-dark level-right m-l-sm m-r-lg m-t-xxl">
+        <br><br>
+        <div class="has-text-dark m-t-xxl">
           <a class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
-            <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
+            <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
           </a>
         </div>
       </div>
@@ -56,7 +58,8 @@ export default {
       publicKey: "",
       notMatchingPass: false,
       fillAllFields: false,
-      test: ""
+      test: "",
+      filePath: "Choose file"
     };
   },
   mounted() {
@@ -69,21 +72,18 @@ export default {
   },
   methods: {
     encrypt() {
-      if (
-        this.userFile.length > 0 &&
-        this.userPassword.length > 0 &&
-        this.checkPassword.length > 0
-      ) {
+      const { dialog } = require("electron").remote;
+      this.notMatchingPass = false;
+      this.fillAllFields = false;
+      if (this.userPassword.length > 0 && this.checkPassword.length > 0) {
         if (this.userPassword === this.checkPassword) {
           let fs = require("fs");
           let encr = sjcl.encrypt(this.userPassword, this.privateKey);
-          console.log(sjcl.decrypt(this.userPassword, encr));
           this.test = sjcl.decrypt(this.userPassword, encr);
 
-          const { dialog } = require("electron").remote;
           var savePath = dialog.showSaveDialog({
-            title: "Save your key",
-            defaultPath: this.userFile
+            title: "Choose file"
+            // defaultPath: this.userFile
           });
           fs.writeFile(savePath, encr, function(err) {
             if (err) {
@@ -91,6 +91,8 @@ export default {
             }
           });
           this.$router.push("congratsScreen");
+        } else {
+          this.notMatchingPass = true;
         }
       } else {
         this.fillAllFields = true;
@@ -113,6 +115,10 @@ export default {
 }
 .hero-body.choose-password .button.green {
   background-color: #00a6a6 !important;
+  border: solid #00a6a6 1pt !important;
+  border-radius: 0.5rem;
+}
+.hero-body.choose-password .choose-file {
   border-radius: 0.5rem;
 }
 .hero-body.choose-password .button.green p {

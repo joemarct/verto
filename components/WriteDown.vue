@@ -57,29 +57,7 @@
 
 
 <script>
-export default {
-  data() {
-    return {
-      checkedQuiz: [],
-      canEnableButtons: true,
-      quizOptions: 0
-    };
-  },
-  methods: {
-    enableButtons(event) {
-      if (event.target.checked) {
-        this.quizOptions++;
-      } else {
-        this.quizOptions--;
-      }
-      if (this.quizOptions === 3) {
-        this.canEnableButtons = false;
-      } else {
-        this.canEnableButtons = true;
-      }
-    }
-  }
-};
+export default {};
 </script>
 
 <style scoped>
