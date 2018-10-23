@@ -23,7 +23,7 @@
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
                   <div class="level-right is-size-5 has-text-white">
-                    <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshBalance"/>
+                    <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
                   </div>
                 </div>
               </div>
@@ -249,6 +249,10 @@ export default {
       const shell = require("electron").shell;
       event.preventDefault();
       shell.openExternal("https://zixipay.com");
+    },
+    refreshContent() {
+      this.refreshBalance();
+      this.getData();
     }
   }
 };

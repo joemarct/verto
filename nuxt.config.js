@@ -68,6 +68,6 @@ module.exports = {
     ]
   },
   dev: process.env.NODE_ENV === "DEV",
-  modules: ["@nuxtjs/axios", "@nuxtjs/bulma"],
+  modules: ["@nuxtjs/bulma"],
   plugins: ["~/plugins/vueqr", "~/plugins/vue-clipboard", "~/plugins/buefy"]
 };
