@@ -240,7 +240,7 @@ export default {
   align-items: center;
 }
 .top-bg {
-  background-image: url(~@/assets/img/wallet-main-top-bg.jpeg);
+  background-image: url(~@/assets/img/wallet-main-top-bg.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
