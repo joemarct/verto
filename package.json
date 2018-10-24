@@ -67,6 +67,7 @@
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/bulma": "^1.2.0",
     "ajv": "^6.5.3",
+    "axios": "^0.18.0",
     "buefy": "^0.6.7",
     "dotenv": "^6.0.0",
     "electron-log": "^2.2.17",

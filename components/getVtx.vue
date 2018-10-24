@@ -38,6 +38,8 @@
 <script>
 import Vue from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import api from "@/config/api";
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
   data() {
@@ -53,17 +55,16 @@ export default {
   },
   methods: {
     createHash() {
-      // console.log(
-      //   this.$axios.post(
-      //     "https://cf-dev.volentix.io/public/api/zixipay-create-hash/",
-      //     {
-      //       merchant: "merch123",
-      //       custom: this.$store.state.userKey,
-      //       amount: 123,
-      //       currency: "USD"
-      //     }
-      //   )
-      // );
+      let hashResult = api().post(
+        "https://cf-dev.volentix.io/public/api/zixipay-create-hash/",
+        {
+          merchant: "merch123",
+          custom: this.$store.state.userKey,
+          amount: 123,
+          currency: "USD"
+        }
+      );
+      console.log(hashResult);
     }
   }
 };
