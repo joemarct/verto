@@ -24,3 +24,6 @@ dist
 bin
 
 resources
+
+#github token
+electron-builder.yml

@@ -147,16 +147,44 @@ const newWin = () => {
 //   });
 // }
 
-app.on("ready", newWin);
-app.on("window-all-closed", () => app.quit());
-app.on("activate", () => win === null && newWin());
-//autoUpdater
+//app.on("ready", newWin);
+// app.on("window-all-closed", () => app.quit());
+// app.on("activate", () => win === null && newWin());
+// //autoUpdater
+// const { autoUpdater } = require("electron-updater");
+// autoUpdater.on("update-downloaded", () => {
+//   autoUpdater.quitAndInstall();
+// });
+// app.on("ready", () => {
+//   if (process.env.NODE_ENV === "production") {
+//     autoUpdater.checkForUpdates();
+//   }
+// });
+
+//const { ipcMain } = require("electron");
 const { autoUpdater } = require("electron-updater");
+//let win; // this will store the window object
+
+// creates the default window
+// function createDefaultWindow() {
+//     win = new BrowserWindow({width: 900, height: 680});
+//     win.loadURL(`file://${__dirname}/index.html`);
+//     win.on('closed', () => app.quit());
+//   return win;
+// }
+app.on("ready", newWin);
+// when the app is loaded create a BrowserWindow and check for updates
+app.on("ready", function() {
+  autoUpdater.checkForUpdates();
+});
+
+// when the update has been downloaded and is ready to be installed, notify the BrowserWindow
 autoUpdater.on("update-downloaded", () => {
+  win.webContents.send("updateReady");
   autoUpdater.quitAndInstall();
+  //process.exit(1);
 });
-app.on("ready", () => {
-  if (process.env.NODE_ENV === "production") {
-    autoUpdater.checkForUpdates();
-  }
-});
+
+// ipcMain.on("quitAndInstall", () => {
+//   autoUpdater.quitAndInstall();
+// });
