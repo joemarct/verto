@@ -63,10 +63,11 @@ app.on('activate', () => {
  * support auto updating. Code Signing with a valid certificate is required.
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html#auto-updating
  */
-// autoUpdater.on('update-downloaded', () => {
-//   autoUpdater.quitAndInstall()
-// })
+app.on('ready', () => {
+  autoUpdater.checkForUpdates()
+})
 
-// app.on('ready', () => {
-//   if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
-// })
+autoUpdater.on('update-downloaded', () => {
+  mainWindow.webContents.send("updateReady")
+  autoUpdater.quitAndInstall()
+})
