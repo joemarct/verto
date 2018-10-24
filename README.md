@@ -1,6 +1,6 @@
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Volentix/verto.svg?columns=all)](https://waffle.io/Volentix/verto)
 
-<!-- [![CircleCI](https://circleci.com/gh/4ban/verto.svg?style=svg&circle-token=ee8228f3ac89322eecf608beac7bac06cbd636c7)](https://circleci.com/gh/4ban/verto) -->
+[![CircleCI](https://circleci.com/gh/Volentix/verto.svg?style=svg&circle-token=7c57e7bb9edf739b9df19dca906c25a569045c82)](https://circleci.com/gh/Volentix/verto)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://github.com/Volentix/verto/blob/master/LICENSE)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Volentix/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
