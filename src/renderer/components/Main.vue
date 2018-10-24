@@ -125,11 +125,7 @@ const chainId = process.env.CHAIN_ID
 const httpEndpoint = process.env.HTTP_ENDPOINT
 
 const myaccount = "vtxtrust";
-
-const ledger = new Ledger({
-  httpEndpoint: httpEndpoint,
-  chainId: chainId
-});
+let ledger = {};
 
 export default {
   data() {
@@ -162,6 +158,11 @@ export default {
     };
   },
   mounted() {
+    ledger = new Ledger({
+      httpEndpoint: httpEndpoint,
+      chainId: chainId
+    });
+
     this.setWallet();
     this.getData();
     this.refreshBalance();
