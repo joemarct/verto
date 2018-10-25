@@ -1,10 +1,9 @@
 {
   "name": "verto",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "author": "Volentix Labs <volentix.io>",
   "main": "main.js",
-  "repository": "https://github.com/Volentix/verto",
   "build": {
     "appId": "io.volentix.verto",
     "directories": {
@@ -26,6 +25,7 @@
       }
     ]
   },
+  "repository": "https://github.com/Volentix/verto",
   "scripts": {
     "dev": "cross-env NODE_ENV=DEV electron .",
     "start": "electron .",
@@ -94,7 +94,7 @@
     "chai": "^4.1.2",
     "cross-env": "^5.1.4",
     "electron": "^2.0.4",
-    "electron-builder": "^20.8.1",
+    "electron-builder": "^20.26.0",
     "electron-devtools-installer": "^2.2.3",
     "electron-packager": "^12.1.2",
     "eslint": "^4.19.1",
