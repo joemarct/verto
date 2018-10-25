@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
@@ -54,17 +56,17 @@ export default {
         "https://volentix-cf.tekstackapps.com/public/api/zixipay-create-hash/",
         {
           merchant: "",
-          //custom: this.$store.state.userKey,
+          // custom: this.$store.state.userKey,
           custom: "",
           amount: 123,
           currency: "USD"
         }
       );
       const res = await hashResult;
-      //console.log("Value: ", res);
+      // console.log("Value: ", res);
       this.userHash = res.data.hash;
-      //console.log(this.userHash);
-      //let userHash;
+      // console.log(this.userHash);
+      // let userHash;
       // let a = hashResult.then(function(value) {
       //   //this.hash = value.data.hash;
       //   //console.log(value.data.hash);
@@ -73,14 +75,14 @@ export default {
       //   //buyVtx();
       // });
       // console.log(a);
-      //console.log(userHash);
-      //console.log(hashResult.resolve());
+      // console.log(userHash);
+      // console.log(hashResult.resolve());
       this.buyVtx();
     },
     async buyVtx() {
       let buyResult = await axios.post("https://zixipay.com/sci/form", {
         merchant: "",
-        //custom: this.$store.state.userKey,
+        // custom: this.$store.state.userKey,
         custom: "",
         amount: 123,
         currency: "USD",
@@ -114,7 +116,7 @@ input {
   font-size: 2.7rem;
 }
 .has-blur-background {
-  background-image: url(~/static/img/transaction-back-screen.jpg);
+  background-image: url(~@/assets/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
