@@ -1,0 +1,38 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/verto
+    # The primary container is an instance of the first image listed. The job's commands run in this container.
+    docker:
+      - image: circleci/node:10.0.0
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - run:
+          name: install libs
+          command: |
+                sudo apt-get update
+                sudo apt-get install libxss1
+                sudo apt -y install libgconf2-4
+                sudo apt-get install libnss3-dev
+                sudo apt-get install libasound2
+                sudo apt-get install libgtk-3-dev
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Test
+          command: npm start test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
