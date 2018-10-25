@@ -1,5 +1,7 @@
 # verto
 
+This is unused prototype from Oct 2018.
+
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/Volentix/verto.svg?columns=all)](https://waffle.io/Volentix/verto)
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
