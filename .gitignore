@@ -24,3 +24,6 @@ dist
 bin
 
 resources
+
+#Config for releases
+electron-builder.yml
