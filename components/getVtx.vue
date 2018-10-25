@@ -38,32 +38,58 @@
 <script>
 import Vue from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import axios from "axios";
+//import api from "@/config/api";
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 export default {
   data() {
     return {
-      userKeys: "",
-      messages: "",
-      isCardModalActive: false,
-      wallet: "",
-      balance: 0,
-      transactionLink: "/transactionDetails",
-      hasTransactions: true
+      userHash: ""
     };
   },
   methods: {
-    createHash() {
-      // console.log(
-      //   this.$axios.post(
-      //     "https://cf-dev.volentix.io/public/api/zixipay-create-hash/",
-      //     {
-      //       merchant: "merch123",
-      //       custom: this.$store.state.userKey,
-      //       amount: 123,
-      //       currency: "USD"
-      //     }
-      //   )
-      // );
+    async createHash() {
+      let hashResult = await axios.post(
+        "https://volentix-cf.tekstackapps.com/public/api/zixipay-create-hash/",
+        {
+          merchant: "",
+          //custom: this.$store.state.userKey,
+          custom: "",
+          amount: 123,
+          currency: "USD"
+        }
+      );
+      const res = await hashResult;
+      //console.log("Value: ", res);
+      this.userHash = res.data.hash;
+      //console.log(this.userHash);
+      //let userHash;
+      // let a = hashResult.then(function(value) {
+      //   //this.hash = value.data.hash;
+      //   //console.log(value.data.hash);
+      //   return value.data.hash;
+      //   //let userHash = value.data.hash;
+      //   //buyVtx();
+      // });
+      // console.log(a);
+      //console.log(userHash);
+      //console.log(hashResult.resolve());
+      this.buyVtx();
+    },
+    async buyVtx() {
+      let buyResult = await axios.post("https://zixipay.com/sci/form", {
+        merchant: "",
+        //custom: this.$store.state.userKey,
+        custom: "",
+        amount: 123,
+        currency: "USD",
+        hash: this.userHash
+      });
+      console.log(buyResult);
+      // hashResult.then(function(value) {
+      //   this.hash = value.data.hash;
+      // });
     }
   }
 };

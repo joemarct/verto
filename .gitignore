@@ -25,5 +25,5 @@ bin
 
 resources
 
-#github token
+#Config for releases
 electron-builder.yml
