@@ -18,6 +18,8 @@
     "build": "node .electron-vue/build.js && electron-builder",
     "build:mac": "node .electron-vue/build.js && electron-builder --mac",
     "build:win": "node .electron-vue/build.js && electron-builder --win",
+    "build:linux": "node .electron-vue/build.js && electron-builder --linux deb",
+    "build:all": "node .electron-vue/build.js && electron-builder --mwl",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
@@ -63,7 +65,7 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/icon.icns",
+      "icon": "build/icons/mac/icon.icns",
       "target": [
         "zip",
         "mas",
@@ -71,10 +73,11 @@
       ]
     },
     "win": {
+      "icon": "build/icons/windows/icon.ico",
       "target": "nsis"
     },
     "linux": {
-      "icon": "build/icons"
+      "icon": "build/icons/linux/icon.png"
     },
     "publish": [
       {
@@ -91,11 +94,11 @@
     "@xkeshi/vue-qrcode": "^1.0.0",
     "axios": "^0.18.0",
     "buefy": "^0.6.7",
-    "dotenv": "^6.1.0",
+    "dotenv-webpack": "^1.5.7",
     "electron-updater": "^3.1.2",
     "moment": "^2.22.2",
     "sjcl": "^1.0.7",
-    "volentix-ledger": "^0.2.56",
+    "volentix-ledger": "^0.2.58",
     "vue": "^2.5.17",
     "vue-clipboard2": "^0.2.1",
     "vue-electron": "^1.0.6",
