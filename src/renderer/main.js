@@ -13,6 +13,11 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+const { app } = require('electron').remote
+
+Vue.prototype.$appVersion = app.getVersion();
+Vue.prototype.$appName = app.getName();
+
 library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

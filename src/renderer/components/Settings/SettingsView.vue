@@ -41,8 +41,8 @@
 export default {
   data() {
     return {
-      appVersion: "0.0.0",
-      appName: "verto"
+      appVersion: this.$appVersion,
+      appName: this.$appName
     };
   },
   mounted() {

@@ -106,7 +106,7 @@
     </div>
     <div class="hero-foot">
       <div class="container has-background-darklightgreen p-t-md p-b-md">
-        &nbsp;
+        {{ appName }}: {{ appVersion }}
       </div>
     </div>
     <b-modal :active.sync="isCardModalActive" class="modal-qr">
@@ -119,7 +119,6 @@
 
 <script>
 import Ledger from "volentix-ledger";
-require('dotenv').config()
 
 const chainId = process.env.CHAIN_ID
 const httpEndpoint = process.env.HTTP_ENDPOINT
@@ -154,7 +153,9 @@ export default {
       wallet: "",
       balance: 0,
       transactionLink: "/transactiondetails",
-      hasTransactions: true
+      hasTransactions: true,
+      appVersion: this.$appVersion,
+      appName: this.$appName
     };
   },
   mounted() {
@@ -177,9 +178,9 @@ export default {
         account: myaccount,
         wallet: this.wallet
       });
-      console.log(userTransactions.output1);
-      if (userTransactions.output1.length > 0) {
-        this.transactions = userTransactions.output1;
+      // console.log(userTransactions.transactions);
+      if (userTransactions.transactions.length > 0) {
+        this.transactions = userTransactions.transactions;
         this.getDate();
       } else {
         this.hasTransactions = false;
@@ -199,6 +200,7 @@ export default {
         account: myaccount,
         wallet: this.wallet
       });
+      // console.log(balance);
       this.balance = balance.amount.toFixed(2);
     },
     removeToast: function() {
