@@ -9,6 +9,7 @@
 
 > A multi-currency cross-blockchain peer-to-peer wallet with initial support for 
 VTX Bitcoin Bitcoincash Dash EOS Ethereum Litecoin and Neo
+
 Verto is being built as a multi-currency wallet
 for use with the VDex decentralized exchange,
 and intends to facilitate personal custody and
