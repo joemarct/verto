@@ -7,16 +7,18 @@
 
 # Verto
 
-> A multi-currency crypto wallet with initial support for EOS & VTX
-
-Verto is a wallet which will connect closely with VDex, the Volentix decentralized
-cryptocurrency exchange. Users with their funds in Verto will be able to maintain
-custody of their private keys and their funds in Verto, while being able to buy and
-sell crypto without depositing their own funds in the exchange.
-
-The goal of the first version of Verto is to hold VTX, which is the native currency
-of the [Volentix ecosystem](https://volentix.io). VTX is a currency based on EOS, and so
-the wallet actually hold EOS tokens.
+> A multi-currency cross-blockchain peer-to-peer wallet with initial support for 
+VTX Bitcoin Bitcoincash Dash EOS Ethereum Litecoin and Neo
+Verto is being built as a multi-currency wallet
+for use with the VDex decentralized exchange,
+and intends to facilitate personal custody and
+local management of private and public keys
+in peer-to-peer transactions, with the goal of
+eliminating the risks of devastating losses of
+stake associated with traumatic failures of central
+operators. 
+Verto plans to employ a system of smart contracts to maintain the state between two
+trading clients, the simplest operations being accomplished with atomic swaps [Volentix ecosystem](https://volentix.io). 
 
 ## Table of Contents
 
