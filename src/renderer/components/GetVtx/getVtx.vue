@@ -14,15 +14,72 @@
           Buy VTX
         </p>
       </div>
+      <div class="container has-background-darklightgreen has-text-white p-t-md p-b-md">
+        <table style="width:100%">
+          <tr>
+            <td>
+              VTX Sold: 
+            </td>
+            <td align="right">
+              {{ summaryData.vtx_sold }} 
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Bonus Round: 
+            </td>
+            <td align="right">
+              {{ summaryData.round }} 
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Bonus Amount: 
+            </td>
+            <td>
+              {{ summaryData.bonus }}% 
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Price: 
+            </td>
+            <td>
+              {{ summaryData.priceInBtc }} BTC
+            </td>
+          </tr>
+          <tr v-if="this.summaryData.has_additional_bonus">
+            <td>
+              Additional Bonuses: 
+            </td>
+            <td>
+              &nbsp;
+            </td>
+          </tr>
+          <tr v-for="data in summaryData.additional_bonus" v-if="data.bonus != 0">
+            <td>
+              {{ data.symbol }} 
+            </td>
+            <td align="right">
+              {{ data.bonus }} %
+            </td>
+          </tr>
+        </table>
+      </div>
       <div class="field">
         <div class="control p-md has-text-centered">
           <!-- <form method="POST" action="https://zixipay.com/sci/form"> -->
           <form method="POST">
-            <input type="text" class="input m-b-md" name="merchant" placeholder="Merchant" value="merch123">
+            <input type="hidden" class="input m-b-md" name="merchant" placeholder="Merchant" value="M903342">
             <input type="hidden" class="input m-b-md" name="description" value="Testing payment">
-            <input type="text" class="input m-b-md" name="amount" placeholder="Amount of VTX">
-            <input type="text" class="input m-b-md" name="currency" value="USD">
-            <input type="text" class="input m-b-md" name="custom" value="VTXabc123">
+            <input type="text" class="input m-b-md" name="amount" placeholder="Amount">
+            <select class="input m-b-md" name="currency">
+              <option value="BTC">Bitcoin</option>
+              <option value="ETH">Ethereum</option>
+              <option value="EUR">Euro</option>
+              <option value="USD">US Dollar</option>
+            </select>
+            <input type="text" class="input m-b-md" name="custom" value="this.$store.state.userKey">
             <input type="hidden" class="input m-b-md" name="hash">
             <a class="button m-t-md is-size-5 is-primary is-centered" @click="createHash">
               <p class="p-l-sm p-r-sm is-size-5">Get VTX</p>
@@ -47,7 +104,8 @@ export default {
       wallet: "",
       balance: 0,
       transactionLink: "/transactiondetails",
-      hasTransactions: true
+      hasTransactions: true,
+      summaryData: {}
     };
   },
   methods: {
@@ -55,7 +113,7 @@ export default {
       let hashResult = await axios.post(
         "https://volentix-cf.tekstackapps.com/public/api/zixipay-create-hash/",
         {
-          merchant: "",
+          merchant: "M903342",
           // custom: this.$store.state.userKey,
           custom: "",
           amount: 123,
@@ -92,7 +150,26 @@ export default {
       // hashResult.then(function(value) {
       //   this.hash = value.data.hash;
       // });
+    },
+    async getSummaryData() {
+      let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
+      console.log(results.data);
+      this.summaryData = results.data;
+      this.summaryData.priceInBtc = this.summaryData.current_price / 100000000;
+      this.summaryData.has_additional_bonus = false;
+      let i;
+      for (i = 0; i < this.summaryData.additional_bonus.length; i++) {
+        const bonus = this.summaryData.additional_bonus[i];
+        if (bonus.bonus !== 0) {
+          this.summaryData.has_additional_bonus = true;
+          break;
+        }
+      }
+      console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" + JSON.stringify(this.summaryData));
     }
+  },
+  created: function() {
+    this.getSummaryData();
   }
 };
 </script>

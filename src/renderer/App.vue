@@ -61,6 +61,7 @@
 $light-green: rgba(55, 202, 189, 0.3);
 $dark-green: #152223;
 $dark-light-green: #1A4A48;
+$white: #f4f4f2;
 
 body,
 html {
@@ -118,6 +119,9 @@ html {
 
 .has-text-lightgreen {
   color: $light-green;
+}
+.has-text-white {
+  color: $white;
 }
 
 .has-text-darklightgreen {
