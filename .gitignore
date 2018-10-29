@@ -13,7 +13,6 @@ thumbs.db
 !.gitkeep
 .vscode
 .env
-.github
 # binaries
 src/renderer/resources/mac/cleos
 src/renderer/resources/linux/cleos
