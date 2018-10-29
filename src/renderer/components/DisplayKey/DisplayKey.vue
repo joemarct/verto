@@ -27,6 +27,20 @@
         </div>
 
         <div class="m-t-md">
+          <p>
+            Give Your Key A Name
+          </p>
+          <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Name">
+          <div v-if="keyalreadyused">
+            <p class="has-text-danger m-t-md">
+              The name or the key has already been used.
+            </p>
+          </div>
+          <div v-if="keynameempty">
+            <p class="has-text-danger m-t-md">
+              You must provide a name for your key.
+            </p>
+          </div>
           <p class="is-size-6">
             Type the following text in the textfield below:
           </p>
@@ -59,7 +73,10 @@ export default {
       publicKey: "",
       requiredText: "Key copied",
       textInput: "",
-      clicked: false
+      clicked: false,
+      keynameempty: false,
+      keyalreadyused: false,
+      keyname: ""
     };
   },
   mounted() {
@@ -90,9 +107,36 @@ export default {
       }
     },
     goToCongratsScreen() {
-      if (!this.isDisabled) {
-        this.$router.push("congratsscreen");
+      if (this.isDisabled) {
+        return;
       }
+      this.keynameempty = false;
+      this.keyalreadyused = false;
+      if (this.keyname === "") {
+        this.keynameempty = true;
+        return;
+      }
+      let fs = require("fs");
+      let path = require("path")
+      let electron = require("electron")
+      let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
+      const databack = fs.readFileSync(filePath, 'utf-8');
+      const config = JSON.parse(databack);
+      if (!config.keys) {
+        config.keys = [];
+      }
+      let i;
+      for (i = 0; i < config.keys.length; i++) {
+        const key = config.keys[i];
+        if (key.name.toLowerCase() === this.keyname.toLowerCase()) {
+          this.keyalreadyused = true;
+          return;
+        }
+      }
+      config.keys.push({name: this.keyname, key: this.publicKey});
+      fs.writeFile(filePath, JSON.stringify(config), 'utf-8', () => {
+        this.$router.push("congratsscreen");
+      });
     }
   }
 };

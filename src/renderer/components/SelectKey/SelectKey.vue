@@ -26,7 +26,7 @@
           </div>
           <div v-if="keyalreadysaved">
             <p class="has-text-danger m-t-md">
-              The name or the key has already been saved.
+              The name or the key has already been used.
             </p>
           </div>
         </div>
@@ -91,16 +91,16 @@ export default {
     addpublickey: function() {
       this.keyalreadysaved = false;
       this.missingInput = false;
+      if (this.keyname === "" || this.publicKey === "") {
+        this.missingInput = true;
+        return;
+      }
       let fs = require("fs");
       let path = require("path")
       let electron = require("electron")
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
       const databack = fs.readFileSync(filePath, 'utf-8');
       const config = JSON.parse(databack);
-      if (this.keyname === "" || this.publicKey === "") {
-        this.missingInput = true;
-        return;
-      }
       if (!config.keys) {
         config.keys = [];
       }

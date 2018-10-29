@@ -9,15 +9,6 @@
           </div>
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
           <div class="is-size-6 m-t-md">{{ join_message }}</div>
-          <!--
-          <form>
-            <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Paste your key here">
-            <div class="level-item has-text-centered is-marginless">
-              <a class="p-t-lg button is-fullwidth is-primary" @click="goToMain"> Submit </a>
-            </div>
-          </form>
-          -->
-          
           <form>
             <input v-model="password" class="input m-b-sm" type="password" placeholder="Password">
             <div class="level-item has-text-centered is-marginless">
@@ -34,32 +25,15 @@
               The Password Is Incorrect.
             </p>
           </div>
+          <br>
           <div>
-            <a class="has-text-white is-size-6 is-pulled-right has-text-weight-bold" @click="generateKey">
-              If you don't have a key, click here
-            </a>
-          </div>
-          <div>
-            <a class="has-text-white is-size-6 is-pulled-right has-text-weight-bold" @click="createwalletpassword">
-              createwalletpassword
+            <a class="has-text-white is-size-6 is-pulled-center has-text-weight-bold" @click="createwalletpassword">
+              Create Wallet Password
             </a>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="hero-foot p-b-xl">
-      <div class="container">
-        <div class="level p-l-lg p-r-lg">
-          <form>
-            <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Paste your public key here">
-            <div class="level-item has-text-centered is-marginless">
-              <a class="p-t-lg button is-fullwidth is-primary" @click="goToMain"> Submit </a>
-            </div>
-          </form>
-          <a class="has-text-white is-size-5 is-pulled-right has-text-weight-bold" @click="generateKey"> If you don't have a key, click here </a>
-        </div>
-      </div>
-    </div> -->
   </section>
 </template>
 
@@ -104,9 +78,6 @@ export default {
       let key = this.publicKey;
       this.$store.commit("save", key);
       this.$router.push({ path: "main" });
-    },
-    generateKey: function() {
-      this.$router.push({ path: "keepyourkeyssafe" });
     },
     createwalletpassword: function() {
       console.log(JSON.parse(window.localStorage.getItem('userPassword')))
