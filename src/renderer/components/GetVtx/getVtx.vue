@@ -12,7 +12,7 @@
       <div class="field">
         <div class="control p-md has-text-centered">
           <!-- <form method="POST" action="https://zixipay.com/sci/form"> -->
-          <form method="POST">
+          <form method="POST" id="zixiform" action="https://zixipay.com/sci/form" >
             <div class="container has-background-darklightgreen has-text-white p-t-md p-b-md">
               <table style="width:100%">
                 <tr>
@@ -66,17 +66,18 @@
               </table>
             </div>
             <br>
-            <input type="hidden" class="input m-b-md" name="merchant" placeholder="Merchant" value="M903342">
-            <input type="hidden" class="input m-b-md" name="description" value="Testing payment">
+            <input type="hidden" name="merchant" placeholder="Merchant" value="M903342">
+            <input type="hidden" name="description" value="Testing payment">
             <input type="number" class="input m-b-md" name="amount" placeholder="0" v-model.number="amount" @change="calculateVtx">
-            <select class="input m-b-md" name="currency" v-model="currency" @change="changeCurrency">
+            <select class="input m-b-md" v-model="currency" @change="changeCurrency">
               <option value="BTC">Bitcoin</option>
               <option value="ETH">Ethereum</option>
               <option value="EUR">Euro</option>
               <option value="USD">US Dollar</option>
             </select>
-            <input type="hidden" class="input m-b-md" name="custom" v-model="this.$store.state.userKey">
-            <input type="hidden" class="input m-b-md" v-model="userHash">
+            <input type="hidden" name="currency" v-model="currency">
+            <input type="hidden" name="custom" v-model="this.$store.state.userKey">
+            <input type="hidden" name="hash" v-model="userHash">
 
             <div class="container has-background-darklightgreen has-text-white p-t-md p-b-md">
               <table style="width:100%">
@@ -115,7 +116,7 @@
               </table>
             </div>
 
-            <a class="button m-t-md is-size-5 is-primary is-centered" @click="createHash">
+            <a class="button m-t-md is-size-5 is-primary is-centered" @click="buyVtx">
               <p class="p-l-sm p-r-sm is-size-5">Get VTX</p>
             </a>
           </form>
@@ -151,7 +152,6 @@ export default {
   methods: {
     async changeCurrency() {
       let url = "https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=" + this.currency;
-      console.log(url);
       let results = await axios.get(url);
       let key = 'price_' + this.currency.toLowerCase();
       this.rateAmount = results.data[0][key];
@@ -175,47 +175,28 @@ export default {
         this.calculatedVtx.total = this.calculatedVtx.vtxPreBonus + this.calculatedVtx.additionalBonus + this.calculatedVtx.additionalBonus
       }
     },
-    async createHash() {
+    async buyVtx() {
       let hashResult = await axios.post(
         "https://volentix-cf.tekstackapps.com/public/api/zixipay-create-hash/",
         {
           merchant: "M903342",
           custom: this.$store.state.userKey,
-          // custom: "",
           amount: this.amount,
           currency: this.currency
         }
       );
       const res = await hashResult;
-      // console.log("Value: ", res);
       this.userHash = res.data.hash;
-      // console.log(this.userHash);
-      // let userHash;
-      // let a = hashResult.then(function(value) {
-      //   //this.hash = value.data.hash;
-      //   //console.log(value.data.hash);
-      //   return value.data.hash;
-      //   //let userHash = value.data.hash;
-      //   //buyVtx();
-      // });
-      // console.log(a);
-      // console.log(this.userHash);
-      // console.log(hashResult.resolve());
-      // this.buyVtx();
-    },
-    async buyVtx() {
-      let buyResult = await axios.post("https://zixipay.com/sci/form", {
-        merchant: "M903342",
-        // custom: this.$store.state.userKey,
-        custom: "",
-        amount: 123,
-        currency: "BTC",
-        hash: this.userHash
-      });
-      console.log(buyResult);
-      // hashResult.then(function(value) {
-      //   this.hash = value.data.hash;
-      // });
+      const form = document.getElementById("zixiform");
+      form.hash.value = this.userHash
+      /*
+      console.log("Hash2 : " + form.hash.value);
+      console.log("merchant : " + form.merchant.value);
+      console.log("custom : " + form.custom.value);
+      console.log("amount : " + form.amount.value);
+      console.log("currency : " + form.currency.value);
+      */
+      document.getElementById("zixiform").submit();
     },
     async getSummaryData() {
       let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
