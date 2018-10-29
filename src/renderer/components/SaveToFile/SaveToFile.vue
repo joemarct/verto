@@ -22,16 +22,21 @@
         </p>
         <br>
         <div class="p-l-sm">
-          <b-checkbox v-model="checkedPass" native-value="first" @change.native="enableButton">
-            Generated passwords are better
+          <b-checkbox v-model="checkedPass1" native-value="first">
+            Generated passwords with random patterns are better.
           </b-checkbox>
           <br>
-          <b-checkbox v-model="checkedPass" native-value="second" @change.native="enableButton">
+          <b-checkbox v-model="checkedPass2" native-value="second">
             The longer the password the better
           </b-checkbox>
         </div>
+        <div v-if="answerincorrect">
+          <p class="has-text-danger m-t-md">
+            One, or both, of the answers are incorrect.
+          </p>
+        </div>
         <br><br>
-        <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right m-t-xxl" @click="choosePassword">
+        <a class="button m-t-md is-size-5 green is-pulled-right m-t-xxl" @click="choosePassword">
           <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
         </a>
       </div>
@@ -43,28 +48,18 @@
 export default {
   data() {
     return {
-      isDisabled: true,
-      checkedPass: [],
-      checkedAnswers: 0
+      checkedPass1: false,
+      checkedPass2: false,
+      answerincorrect: false
     };
   },
   methods: {
-    enableButton(event) {
-      if (event.target.checked) {
-        this.checkedAnswers++;
-      } else {
-        this.checkedAnswers--;
-      }
-      if (this.checkedAnswers === 2) {
-        this.isDisabled = false;
-      } else {
-        this.isDisabled = true;
-      }
-    },
     choosePassword() {
-      if (!this.isDisabled) {
-        this.$router.push("/choosepassword");
+      if (this.checkedPass1 && !this.checkedPass2) {
+        this.answerincorrect = true;
+        return;
       }
+      this.$router.push("/choosepassword");
     }
   }
 };
