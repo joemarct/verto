@@ -15,10 +15,20 @@
         <br>
         <div class="field">
           <div class="control">
-            <!-- <input v-model="userFile" class="input m-b-md is-medium" type="input" placeholder="File"> -->
-            <!-- <a class="button choose-file m-t-md is-size-5 is-fullwidth m-b-md" @click="chooseFile">
-              <p class="p-l-sm p-r-sm is-size-6 font-gibson-semibold second">{{ filePath }}</p>
-            </a> -->
+            <p>
+              Give Your Key A Name
+            </p>
+            <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Name">
+            <div v-if="nokeyname">
+              <p class="has-text-danger m-t-md">
+                You must provide a key name.
+              </p>
+            </div>
+            <div v-if="keyalreadyused">
+              <p class="has-text-danger m-t-md">
+                The name or the key has already been used.
+              </p>
+            </div>
             <div v-if="notMatchingPass">
               <p class="has-text-danger m-t-md">
                 Passwords should match
@@ -59,14 +69,17 @@ export default {
       notMatchingPass: false,
       fillAllFields: false,
       test: "",
-      filePath: "Choose file"
+      filePath: "Choose file",
+      keyname: "",
+      keyalreadyused: false,
+      nokeyname: false
     };
   },
   mounted() {
     const ecc = require("eosjs-ecc");
     ecc.randomKey().then(privateKey => {
-      this.privateKey = privateKey; // wif
-      this.publicKey = ecc.privateToPublic(privateKey); // EOSkey...
+      this.privateKey = privateKey;
+      this.publicKey = ecc.privateToPublic(privateKey);
       this.$store.commit("save", this.publicKey);
     });
   },
@@ -75,21 +88,46 @@ export default {
       const { dialog } = require("electron").remote;
       this.notMatchingPass = false;
       this.fillAllFields = false;
+      this.keyalreadyused = false;
+      this.nokeyname = false;
+      if (this.keyname === "") {
+        this.nokeyname = true;
+        return;
+      }
       if (this.userPassword.length > 0 && this.checkPassword.length > 0) {
         if (this.userPassword === this.checkPassword) {
           let fs = require("fs");
           let encr = sjcl.encrypt(this.userPassword, this.privateKey);
           this.test = sjcl.decrypt(this.userPassword, encr);
+          let path = require("path")
+          let electron = require("electron")
+          let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
+          const databack = fs.readFileSync(filePath, 'utf-8');
+          const config = JSON.parse(databack);
+          if (!config.keys) {
+            config.keys = [];
+          }
+          let i;
+          for (i = 0; i < config.keys.length; i++) {
+            const key = config.keys[i];
+            if (key.name.toLowerCase() === this.keyname.toLowerCase()) {
+              this.keyalreadyused = true;
+              return;
+            }
+          }
           var savePath = dialog.showSaveDialog({
             title: "Choose file"
-            // defaultPath: this.userFile
           });
+          config.keys.push({name: this.keyname, key: this.publicKey});
+          fs.writeFileSync(filePath, JSON.stringify(config), 'utf-8');
+          const router = this.$router;
           fs.writeFile(savePath, encr, function(err) {
             if (err) {
               this.test = "Error while saving a file. Try again later.";
+            } else {
+              router.push("congratsscreen");
             }
           });
-          this.$router.push("/congratsscreen");
         } else {
           this.notMatchingPass = true;
         }
