@@ -3,6 +3,7 @@ dist/electron/*
 dist/web/*
 build/*
 dist/
+.nuxt/
 !build/icons
 coverage
 node_modules/
