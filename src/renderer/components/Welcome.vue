@@ -80,7 +80,6 @@ export default {
       this.$router.push({ path: "main" });
     },
     createwalletpassword: function() {
-      console.log(JSON.parse(window.localStorage.getItem('userPassword')))
       this.$router.push({ path: "createwalletpassword" });
     }
   }

@@ -61,8 +61,9 @@ export default {
           let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
           var out = sjcl.hash.sha256.hash(this.userPassword)
           const data = {password: sjcl.codec.hex.fromBits(out)}
+          const router = this.$router;
           fs.writeFile(filePath, JSON.stringify(data), 'utf-8', () => {
-            console.log("Written to the file")
+            router.push({ path: "selectkey" });
           });
         } else {
           this.notMatchingPass = true;
