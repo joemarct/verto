@@ -130,6 +130,16 @@ export default new Router({
       path: '/choosepassword',
       name: 'ChoosePassword',
       component: require('@/components/ChoosePassword').default
+    },
+    {
+      path: '/createwalletpassword',
+      name: 'createwalletpassword',
+      component: require('@/components/CreateWalletPassword').default
+    },
+    {
+      path: '/selectkey',
+      name: 'selectkey',
+      component: require('@/components/SelectKey').default
     }
   ]
 })

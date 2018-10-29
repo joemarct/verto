@@ -9,19 +9,41 @@
           </div>
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
           <div class="is-size-6 m-t-md">{{ join_message }}</div>
-
+          <!--
           <form>
             <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Paste your key here">
             <div class="level-item has-text-centered is-marginless">
               <a class="p-t-lg button is-fullwidth is-primary" @click="goToMain"> Submit </a>
             </div>
           </form>
+          -->
+          
+          <form>
+            <input v-model="password" class="input m-b-sm" type="password" placeholder="Password">
+            <div class="level-item has-text-centered is-marginless">
+              <a class="p-t-lg button is-fullwidth is-primary" @click="login"> Login </a>
+            </div>
+          </form>
+          <div v-if="nopassword">
+            <p class="has-text-danger m-t-md">
+              No Password Has Been Set For The Wallet. Please Create A Password First.
+            </p>
+          </div>
+          <div v-if="incorrectPassword">
+            <p class="has-text-danger m-t-md">
+              The Password Is Incorrect.
+            </p>
+          </div>
           <div>
             <a class="has-text-white is-size-6 is-pulled-right has-text-weight-bold" @click="generateKey">
               If you don't have a key, click here
             </a>
           </div>
-
+          <div>
+            <a class="has-text-white is-size-6 is-pulled-right has-text-weight-bold" @click="createwalletpassword">
+              createwalletpassword
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -42,16 +64,42 @@
 </template>
 
 <script>
+import sjcl from "sjcl";
+
 export default {
   data() {
     return {
       subtitle_message:
         "Verto is your gateway to Volentix, with Verto, you can purchase VTX, the native token of the Volentix ecosystem.",
       join_message: "We're glad you've joined us.",
-      publicKey: ""
+      publicKey: "",
+      password: "",
+      nopassword: false,
+      incorrectPassword: false
     };
   },
   methods: {
+    login: function() {
+      this.incorrectPassword = false;
+      this.nopassword = false;
+      let fs = require("fs");
+      let path = require("path")
+      let electron = require("electron")
+      let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
+      if (!fs.existsSync(filePath)) {
+        this.nopassword = true;
+      } else {
+        const out = sjcl.hash.sha256.hash(this.password)
+        const passwordhash = sjcl.codec.hex.fromBits(out);
+        const databack = fs.readFileSync(filePath, 'utf-8');
+        const config = JSON.parse(databack);
+        if (config.password === passwordhash) {
+          this.$router.push({ path: "selectkey" });
+        } else {
+          this.incorrectPassword = true
+        }
+      }
+    },
     goToMain: function() {
       let key = this.publicKey;
       this.$store.commit("save", key);
@@ -59,6 +107,10 @@ export default {
     },
     generateKey: function() {
       this.$router.push({ path: "keepyourkeyssafe" });
+    },
+    createwalletpassword: function() {
+      console.log(JSON.parse(window.localStorage.getItem('userPassword')))
+      this.$router.push({ path: "createwalletpassword" });
     }
   }
 };

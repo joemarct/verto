@@ -27,6 +27,12 @@
             Get VTX
           </router-link>
         </span>
+        <br>
+        <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/selectkey">
+            Key Manager
+          </router-link>
+        </span>
       </div>
     </div>
     <div class="hero-foot">
