@@ -23,6 +23,12 @@
         </span>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/whitelist">
+            Whitelist
+          </router-link>
+        </span>
+        <br>
+        <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/getvtx">
             Get VTX
           </router-link>

@@ -20,7 +20,10 @@ const router = new Router({
     {
       path: '/main',
       name: 'Main',
-      component: require('@/components/Main').default
+      component: require('@/components/Main').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/home',
@@ -192,6 +195,32 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/whitelist',
+      name: 'whitelist',
+      component: require('@/components/Whitelist').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/zixipay',
+      name: 'zixipay',
+      component: require('@/components/Zixipay').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/failure',
+      name: 'failure',
+      component: require('@/components/Failure').default
+    },
+    {
+      path: '/success',
+      name: 'success',
+      component: require('@/components/Success').default
     }
   ]
 });

@@ -52,6 +52,15 @@ export default {
       incorrectPassword: false
     };
   },
+  mounted() {
+    let fs = require("fs");
+    let path = require("path")
+    let electron = require("electron")
+    let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  },
   methods: {
     login: function() {
       this.incorrectPassword = false;

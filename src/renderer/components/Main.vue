@@ -147,7 +147,6 @@ export default {
           timestamp: 0
         }
       ],
-      userKeys: "",
       messages: "",
       isCardModalActive: false,
       wallet: "",

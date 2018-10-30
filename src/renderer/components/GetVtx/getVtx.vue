@@ -133,7 +133,6 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      userKeys: "",
       messages: "",
       isCardModalActive: false,
       wallet: "",
@@ -189,13 +188,12 @@ export default {
       this.userHash = res.data.hash;
       const form = document.getElementById("zixiform");
       form.hash.value = this.userHash
-      /*
-      console.log("Hash2 : " + form.hash.value);
-      console.log("merchant : " + form.merchant.value);
-      console.log("custom : " + form.custom.value);
-      console.log("amount : " + form.amount.value);
-      console.log("currency : " + form.currency.value);
-      */
+      let fs = require("fs");
+      let path = require("path")
+      let electron = require("electron")
+      let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
+      fs.writeFileSync(filePath, this.$store.state.userKey, 'utf-8');
+      const databack = fs.readFileSync(filePath, 'utf-8');
       document.getElementById("zixiform").submit();
     },
     async getSummaryData() {
