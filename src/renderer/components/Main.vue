@@ -105,7 +105,7 @@
       </router-link>
     </div>
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-t-md p-b-md">
+      <div class="container has-background-darklightgreen p-md">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
@@ -292,6 +292,9 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
+}
+.hero-foot {
+  border-top: none;
 }
 .hero.is-fullheight .hero-body {
   flex: 1;

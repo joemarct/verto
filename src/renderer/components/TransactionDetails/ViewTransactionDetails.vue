@@ -19,17 +19,19 @@
           </div>
         </div>
         <div class="column list-item font-gibson has-text-white">
-          <p class="is-size-5 has-text-grey p-t-md p-l-sm">From:</p>
-          <div class="wallet-address">
-            <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
-            <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromAccount }} </span>
-          </div>
-          <b-tooltip :label="$route.params.transaction.fromKey" position="is-bottom" type="is-white">
+          <div v-if="$route.params.transaction.fromAccount && $route.params.transaction.fromKey">
+            <p class="is-size-5 has-text-grey p-t-md p-l-sm">From:</p>
             <div class="wallet-address">
-              <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
-              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromKey }} </span>
+              <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
+              <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromAccount }} </span>
             </div>
-          </b-tooltip>
+            <b-tooltip :label="$route.params.transaction.fromKey" position="is-bottom" type="is-white">
+              <div class="wallet-address">
+                <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
+                <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromKey }} </span>
+              </div>
+            </b-tooltip>
+          </div>
           <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
           <div class="wallet-address">
             <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>

@@ -10,7 +10,7 @@ import router from './router'
 import store from './store'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const { app } = require('electron').remote
@@ -18,7 +18,7 @@ const { app } = require('electron').remote
 Vue.prototype.$appVersion = app.getVersion();
 Vue.prototype.$appName = app.getName();
 
-library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft)
+library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.component(VueQrcode.name, VueQrcode)
