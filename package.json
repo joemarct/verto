@@ -15,16 +15,15 @@
     "url": "https://github.com/Volentix/verto/issues"
   },
   "scripts": {
-    "build": "node .electron-vue/build.js && electron-builder",
+    "build": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder",
     "build:mac": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --mac",
-    "build:win": "node .electron-vue/build.js && electron-builder --win",
+    "build:win": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --win",
     "build:linux": "node .electron-vue/build.js && electron-builder --linux deb",
-    "build:all": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --mwl",
+    "build:all": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -mwl",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
-    "build:sign": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder",
-    "release": "node .electron-vue/build.js && electron-builder -p",
+    "release": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -p",
     "dev": "node .electron-vue/dev-runner.js",
     "e2e": "npm run pack && mocha test/e2e",
     "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src test",
@@ -65,19 +64,18 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/mac/icon.icns",
+      "icon": "icons/mac/icon.icns",
       "target": [
         "zip",
-        "mas",
         "dmg"
       ]
     },
     "win": {
-      "icon": "build/icons/windows/icon.ico",
+      "icon": "icons/windows/icon.ico",
       "target": "nsis"
     },
     "linux": {
-      "icon": "build/icons/linux/icon.png"
+      "icon": "icons/linux/icon.png"
     },
     "publish": [
       {
