@@ -221,6 +221,14 @@ const router = new Router({
       path: '/success',
       name: 'success',
       component: require('@/components/Success').default
+    },
+    {
+      path: '/changepassword',
+      name: 'changepassword',
+      component: require('@/components/ChangePassword').default,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

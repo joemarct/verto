@@ -44,6 +44,11 @@
             Logout
           </span>
         </div>
+        <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/changepassword">
+            Change Password
+          </router-link>
+        </span>
       </div>
     </div>
     <div class="hero-foot">
