@@ -68,16 +68,12 @@ export default {
         const databack = fs.readFileSync(filePath, 'utf-8');
         const config = JSON.parse(databack);
         if (config.password === passwordhash) {
+          this.$store.dispatch("login", true);
           this.$router.push({ path: "selectkey" });
         } else {
           this.incorrectPassword = true
         }
       }
-    },
-    goToMain: function() {
-      let key = this.publicKey;
-      this.$store.commit("save", key);
-      this.$router.push({ path: "main" });
     },
     createwalletpassword: function() {
       this.$router.push({ path: "createwalletpassword" });

@@ -172,7 +172,7 @@ export default {
             break;
           }
         }
-        this.calculatedVtx.total = this.calculatedVtx.vtxPreBonus + this.calculatedVtx.additionalBonus + this.calculatedVtx.additionalBonus
+        this.calculatedVtx.total = this.calculatedVtx.vtxPreBonus + this.calculatedVtx.bonusVtx + this.calculatedVtx.additionalBonus
       }
     },
     async buyVtx() {

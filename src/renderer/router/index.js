@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Welcome from '@/components/Welcome.vue'
+import store from '../store/index.js'
 // import Main from '@/components/Main.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '*',
@@ -29,7 +30,10 @@ export default new Router({
     {
       path: '/settings',
       name: 'Settings',
-      component: require('@/components/Settings').default
+      component: require('@/components/Settings').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/checkforupdates',
@@ -49,7 +53,10 @@ export default new Router({
     {
       path: '/transactiondetails',
       name: 'TransactionDetails',
-      component: require('@/components/TransactionDetails').default
+      component: require('@/components/TransactionDetails').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/downloadversion',
@@ -59,52 +66,82 @@ export default new Router({
     {
       path: '/congratsscreen',
       name: 'CongratsScreen',
-      component: require('@/components/CongratsScreen').default
+      component: require('@/components/CongratsScreen').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/displaykey',
       name: 'DisplayKey',
-      component: require('@/components/DisplayKey').default
+      component: require('@/components/DisplayKey').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/generatekey',
       name: 'GenerateKey',
-      component: require('@/components/GenerateKey').default
+      component: require('@/components/GenerateKey').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/getvtx',
       name: 'GetVtx',
-      component: require('@/components/GetVtx').default
+      component: require('@/components/GetVtx').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/keepyourkeyssafe',
       name: 'KeepYourKeysSafe',
-      component: require('@/components/KeepYourKeysSafe').default
+      component: require('@/components/KeepYourKeysSafe').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/savetofile',
       name: 'SaveToFile',
-      component: require('@/components/SaveToFile').default
+      component: require('@/components/SaveToFile').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/savetofileprocess',
       name: 'SaveToFileProcess',
-      component: require('@/components/SaveToFileProcess').default
+      component: require('@/components/SaveToFileProcess').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/saveyourkeys',
       name: 'SaveYourKeys',
-      component: require('@/components/SaveYourKeys').default
+      component: require('@/components/SaveYourKeys').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/signupwithgatewayprovider',
       name: 'SignUpWithGatewayProvider',
-      component: require('@/components/SignUpWithGatewayProvider').default
+      component: require('@/components/SignUpWithGatewayProvider').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/storekeys',
       name: 'StoreKeys',
-      component: require('@/components/StoreKeys').default
+      component: require('@/components/StoreKeys').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/termsconditions',
@@ -114,22 +151,34 @@ export default new Router({
     {
       path: '/usercredentials',
       name: 'UserCredentials',
-      component: require('@/components/UserCredentials').default
+      component: require('@/components/UserCredentials').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/writedownprocess',
       name: 'WriteDownProcess',
-      component: require('@/components/WriteDownProcess').default
+      component: require('@/components/WriteDownProcess').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/writeyourkey',
       name: 'WriteYourKey',
-      component: require('@/components/WriteYourKey').default
+      component: require('@/components/WriteYourKey').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/choosepassword',
       name: 'ChoosePassword',
-      component: require('@/components/ChoosePassword').default
+      component: require('@/components/ChoosePassword').default,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/createwalletpassword',
@@ -139,7 +188,25 @@ export default new Router({
     {
       path: '/selectkey',
       name: 'selectkey',
-      component: require('@/components/SelectKey').default
+      component: require('@/components/SelectKey').default,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
+});
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.state.loggedin === false) {
+      next({
+        path: '/welcome',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 })
+export default router;

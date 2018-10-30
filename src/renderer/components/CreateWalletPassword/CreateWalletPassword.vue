@@ -62,7 +62,9 @@ export default {
           var out = sjcl.hash.sha256.hash(this.userPassword)
           const data = {password: sjcl.codec.hex.fromBits(out)}
           const router = this.$router;
+          const store = this.$store;
           fs.writeFile(filePath, JSON.stringify(data), 'utf-8', () => {
+            store.dispatch("login", true);
             router.push({ path: "selectkey" });
           });
         } else {
