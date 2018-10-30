@@ -1,6 +1,6 @@
 {
-  "name": "verto",
-  "version": "0.0.1",
+  "name": "Verto",
+  "version": "0.0.2",
   "author": "Volentix Labs <volentix.io>",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "main": "./dist/electron/main.js",
@@ -15,16 +15,15 @@
     "url": "https://github.com/Volentix/verto/issues"
   },
   "scripts": {
-    "build": "node .electron-vue/build.js && electron-builder",
-    "build:mac": "node .electron-vue/build.js && electron-builder --mac",
-    "build:win": "node .electron-vue/build.js && electron-builder --win",
+    "build": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder",
+    "build:mac": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --mac",
+    "build:win": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --win",
     "build:linux": "node .electron-vue/build.js && electron-builder --linux deb",
-    "build:all": "node .electron-vue/build.js && electron-builder --mwl",
+    "build:all": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -mwl",
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
-    "build:sign": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder",
-    "release": "node .electron-vue/build.js && electron-builder -p",
+    "release": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -p always",
     "dev": "node .electron-vue/dev-runner.js",
     "e2e": "npm run pack && mocha test/e2e",
     "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src test",
@@ -38,7 +37,7 @@
     "modulesfix": "npm cache clean--force && rm - rf node_modules && npm i"
   },
   "build": {
-    "productName": "verto",
+    "productName": "Verto",
     "appId": "io.volentix.verto",
     "directories": {
       "output": "build"
@@ -65,19 +64,19 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/mac/icon.icns",
+      "icon": "icons/mac/icon.icns",
       "target": [
         "zip",
-        "mas",
         "dmg"
       ]
     },
     "win": {
-      "icon": "build/icons/windows/icon.ico",
+      "icon": "icons/windows/icon.ico",
       "target": "nsis"
     },
     "linux": {
-      "icon": "build/icons/linux/icon.png"
+      "icon": "icons/linux",
+      "target": "deb"
     },
     "publish": [
       {
@@ -98,7 +97,7 @@
     "electron-updater": "^3.1.2",
     "moment": "^2.22.2",
     "sjcl": "^1.0.7",
-    "volentix-ledger": "^0.2.60",
+    "volentix-ledger": "^0.2.62",
     "vue": "^2.5.17",
     "vue-clipboard2": "^0.2.1",
     "vue-electron": "^1.0.6",
