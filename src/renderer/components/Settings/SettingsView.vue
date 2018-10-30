@@ -33,6 +33,11 @@
             Key Manager
           </router-link>
         </span>
+        <div @click="logout">
+          <span class="p-l-lg has-text-white is-size-5">
+            Logout
+          </span>
+        </div>
       </div>
     </div>
     <div class="hero-foot">
@@ -52,6 +57,12 @@ export default {
     };
   },
   mounted() {
+  },
+  methods: {
+    logout: function() {
+      this.$store.dispatch("login", false);
+      this.$router.push({ path: "welcome" });
+    }
   }
 };
 </script>
