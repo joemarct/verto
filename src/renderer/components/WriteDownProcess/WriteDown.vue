@@ -60,15 +60,9 @@ export default {};
 </script>
 
 <style scoped>
-.control-label:hover {
-  color: #2cfee6 !important;
-}
 .hero-body.save-your-keys {
   background-color: #ffffff !important;
   padding-top: 0.3rem !important;
-}
-.hero-head.save-your-keys {
-  background-color: #ffffff !important;
 }
 .hero-body.save-your-keys .font-gibson-semibold {
   color: #454f63;

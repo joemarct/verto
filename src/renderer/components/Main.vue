@@ -105,7 +105,7 @@
       </router-link>
     </div>
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-t-md p-b-md">
+      <div class="container has-background-darklightgreen p-md">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
@@ -178,7 +178,7 @@ export default {
         account: myaccount,
         wallet: this.wallet
       });
-      // console.log(userTransactions.transactions);
+      console.log(userTransactions.transactions);
       if (userTransactions.transactions.length > 0) {
         this.transactions = userTransactions.transactions;
         this.getDate();
@@ -292,6 +292,9 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
+}
+.hero-foot {
+  border-top: none;
 }
 .hero.is-fullheight .hero-body {
   flex: 1;

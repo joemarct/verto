@@ -15,12 +15,12 @@
           <div class="generated-keys p-md">
             <a @click="isKeyModalActive = true">
               <div class="wallet-address">
-                <span class="is-size-7 has-text-aqua p-l-sm">Private: </span>
-                <span class="size-font-wallet has-text-white p-l-sm"> {{ privateKey }} </span>
+                <span class="is-size-6 has-text-aqua p-l-sm">Private: </span>
+                <span class="is-size-7 has-text-white p-l-sm"> {{ privateKey }} </span>
               </div>
               <div class="wallet-address p-t-sm">
-                <span class="is-size-7 has-text-aqua p-l-sm">Public: </span>
-                <span class="size-font-wallet has-text-white p-l-sm"> {{ publicKey }} </span>
+                <span class="is-size-6 has-text-aqua p-l-sm">Public: </span>
+                <span class="is-size-7 has-text-white p-l-sm"> {{ publicKey }} </span>
               </div>
             </a>
           </div>
@@ -50,7 +50,7 @@
           <div class="field m-t-sm">
             <textarea v-model="textInput" class="textarea" placeholder="Type the text from above in this field" @keyup="checkText"/>
           </div>
-          <div class="has-text-dark is-pulled-right m-t-md">
+          <div class="has-text-dark is-pulled-right">
             <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
               <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
             </a>

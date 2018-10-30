@@ -3,9 +3,9 @@
     <div class="hero-body congrats p-t-md">
       <div class="container font-gibson m-t-xl">
         <img src="~@/assets/img/congratsScreen.png">
-        <div class="m-t-md">
+        <div>
           <router-link to="/main">
-            <a class="button m-t-md is-size-5 green is-fullwidth">
+            <a class="button is-size-5 green is-fullwidth">
               <p class="p-l-sm p-r-sm is-size-5 font-gibson-semibold">Continue</p>
             </a>
           </router-link>
@@ -34,7 +34,7 @@ export default {};
   background-color: #00a6a6 !important;
   border: solid #00a6a6 2pt !important;
   border-radius: 0.6rem;
-  margin-top: 4rem !important;
-  height: 3rem;
+  margin-top: 3rem !important;
+  height: 3.5rem;
 }
 </style>
