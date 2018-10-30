@@ -70,6 +70,7 @@ app.on('ready', () => {
 })
 
 autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send("updateReady")
-  autoUpdater.quitAndInstall()
+  mainWindow.webContents.send("updateReady");
+  autoUpdater.quitAndInstall();
+  process.exit(1);
 })
