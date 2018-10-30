@@ -75,7 +75,8 @@
       "target": "nsis"
     },
     "linux": {
-      "icon": "icons/linux/icon.png"
+      "icon": "icons/linux",
+      "target": "deb"
     },
     "publish": [
       {
