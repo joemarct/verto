@@ -13,35 +13,35 @@
         <div class="control p-md has-text-centered">
           <!-- <form method="POST" action="https://zixipay.com/sci/form"> -->
           <form method="POST" id="zixiform" action="https://zixipay.com/sci/form" >
-            <div class="container has-background-darklightgreen has-text-white p-t-md p-b-md">
+            <div class="container has-text-white p-md">
               <table style="width:100%">
                 <tr>
                   <td>
-                    VTX Sold: 
+                    VTX Sold:
                   </td>
                   <td align="right">
-                    {{ summaryData.vtx_sold }} 
+                    {{ summaryData.vtx_sold }}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Bonus Round: 
+                    Bonus Round:
                   </td>
                   <td align="right">
-                    {{ summaryData.round }} 
+                    {{ summaryData.round }}
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Bonus Amount: 
+                    Bonus Amount:
                   </td>
                   <td>
-                    {{ summaryData.bonus }}% 
+                    {{ summaryData.bonus }}%
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    Price: 
+                    Price:
                   </td>
                   <td>
                     {{ summaryData.priceInBtc }} BTC
@@ -49,7 +49,7 @@
                 </tr>
                 <tr v-if="this.summaryData.has_additional_bonus">
                   <td>
-                    Additional Bonuses: 
+                    Additional Bonuses:
                   </td>
                   <td>
                     &nbsp;
@@ -57,7 +57,7 @@
                 </tr>
                 <tr v-for="data in summaryData.additional_bonus" v-if="data.bonus != 0">
                   <td>
-                    {{ data.symbol }} 
+                    {{ data.symbol }}
                   </td>
                   <td align="right">
                     {{ data.bonus }} %
@@ -79,11 +79,11 @@
             <input type="hidden" name="custom" v-model="this.$store.state.userKey">
             <input type="hidden" name="hash" v-model="userHash">
 
-            <div class="container has-background-darklightgreen has-text-white p-t-md p-b-md">
+            <div class="container has-text-white p-md">
               <table style="width:100%">
                 <tr>
                   <td>
-                    Pre-Bonus 
+                    Pre-Bonus
                   </td>
                   <td align="right">
                     {{ calculatedVtx.vtxPreBonus.toFixed(4) }}
@@ -91,7 +91,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Bonus 
+                    Bonus
                   </td>
                   <td align="right">
                     {{ calculatedVtx.bonusVtx.toFixed(4) }}
@@ -99,7 +99,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Additional Bonus 
+                    Additional Bonus
                   </td>
                   <td align="right">
                     {{ calculatedVtx.additionalBonus.toFixed(4) }}
@@ -107,7 +107,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Total 
+                    Total
                   </td>
                   <td align="right">
                     {{ calculatedVtx.total.toFixed(4) }}

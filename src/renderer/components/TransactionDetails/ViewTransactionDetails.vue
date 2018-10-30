@@ -51,9 +51,6 @@
                 <p class="is-size-5 has-text-grey p-t-sm p-l-sm">Transaction #:</p>
                 <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.Id }} </p>
                 <br>
-                <p class="is-size-5 has-text-grey p-l-sm">Block #:</p>
-                <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.tbn }} </p>
-                <br>
                 <p class="is-size-5 has-text-grey p-l-sm">Transaction Time:</p>
                 <div class="level is-mobile">
                   <div class="level-left">
@@ -63,6 +60,15 @@
                     <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.timestamp | formatTime }} </p>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="level-right m-r-xl">
+              <div>
+                <p class="is-size-5 has-text-grey p-l-sm">Block #:</p>
+                <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.tbn }} </p>
+                <br>
+                <p class="is-size-5 has-text-grey p-l-sm">Prefix #:</p>
+                <p class="is-size-6 has-text-white p-l-sm"> {{ $route.params.transaction.tbp }} </p>
               </div>
             </div>
           </div>

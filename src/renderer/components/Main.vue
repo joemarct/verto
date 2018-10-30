@@ -178,7 +178,7 @@ export default {
         account: myaccount,
         wallet: this.wallet
       });
-      // console.log(userTransactions.transactions);
+      console.log(userTransactions.transactions);
       if (userTransactions.transactions.length > 0) {
         this.transactions = userTransactions.transactions;
         this.getDate();
