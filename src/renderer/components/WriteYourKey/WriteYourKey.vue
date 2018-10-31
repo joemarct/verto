@@ -40,11 +40,9 @@
             <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Back</p>
           </a>
         </router-link>
-        <router-link to="/displaykey">
-          <a :disabled="disableButton" class="button m-t-md is-size-5 is-pulled-right green">
-            <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Next</p>
-          </a>
-        </router-link>
+        <a :disabled="disableButton" @click="disableWiFi" class="button m-t-md is-size-5 is-pulled-right green">
+          <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Next</p>
+        </a>
       </div>
     </div>
   </section>
@@ -70,6 +68,14 @@ export default {
         this.disableButton = false;
       } else {
         this.disableButton = true;
+      }
+    },
+    disableWiFi() {
+      if (!this.disableButton) {
+        let command = "networksetup -setairportpower airport off";
+        let exec = require("child_process").exec;
+        exec(command);
+        this.$router.push("/displaykey");
       }
     }
   }

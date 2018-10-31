@@ -16,7 +16,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    let command = "networksetup -setairportpower en0 on";
+    let exec = require("child_process").exec;
+    exec(command);
+  }
+};
 </script>
 
 <style scoped>

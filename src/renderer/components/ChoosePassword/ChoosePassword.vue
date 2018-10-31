@@ -44,7 +44,7 @@
           </p>
         </div>
         <br><br>
-        <div class="has-text-dark m-t-xxl">
+        <div class="has-text-dark m-b-md m-t-xl">
           <a class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
             <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
           </a>
