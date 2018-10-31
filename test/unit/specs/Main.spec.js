@@ -10,7 +10,7 @@ describe('Main.vue', () => {
     assert.typeOf(Main.data, 'function')
     const defaultData = Main.data()
     assert.equal(defaultData.wallet, '')
-    assert.equal(defaultData.balance, '0')
+    assert.equal(defaultData.balance, '0.00')
     assert.isFalse(defaultData.isCardModalActive)
     assert.equal(defaultData.transactionLink, "/transactiondetails")
   })
