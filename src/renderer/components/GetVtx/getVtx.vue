@@ -192,8 +192,8 @@ export default {
       let path = require("path")
       let electron = require("electron")
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
-      fs.writeFileSync(filePath, this.$store.state.userKey, 'utf-8');
-      const databack = fs.readFileSync(filePath, 'utf-8');
+      let datatoStore = {currentKey: this.$store.state.userKey, keys: this.$store.state.keys};
+      fs.writeFileSync(filePath, JSON.stringify(datatoStore), 'utf-8');
       document.getElementById("zixiform").submit();
     },
     async getSummaryData() {

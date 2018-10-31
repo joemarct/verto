@@ -16,8 +16,9 @@ export default {
     let path = require("path")
     let electron = require("electron")
     let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
-    const address = fs.readFileSync(filePath, 'utf-8');
-    this.$store.commit("save", address);
+    const config = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    this.$store.commit("save", config.currentKey);
+    this.$store.dispatch("setKeys", config.keys);
     fs.unlinkSync(filePath);
     this.$store.dispatch("login", true);
     this.$router.push({ path: "main" });
