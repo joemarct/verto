@@ -26,9 +26,16 @@
             The second choice is to encrypt your key in a password protected  file.
           </li>
         </ol>
+        <br>
+        <br>
         <router-link to="/saveyourkeys">
           <a class="is-primary button m-t-md is-size-5 is-pulled-right">
-            <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Next</p>
+            <p class="p-l-md p-r-md is-size-6">Next</p>
+          </a>
+        </router-link>
+        <router-link to="/SelectKey">
+          <a class="is-primary button m-t-md is-size-5 is-pulled-left">
+            <p class="p-l-md p-r-md is-size-6">Back</p>
           </a>
         </router-link>
       </div>
@@ -41,12 +48,12 @@ export default {};
 </script>
 
 <style scoped>
-.hero-head.safe-keys {
-  background-color: #ffffff !important;
-}
 .hero-body.safe-keys {
   background-color: #ffffff !important;
   padding-top: 0 !important;
+}
+.hero-head.safe-keys {
+  background-color: #ffffff !important;
 }
 .hero-body.safe-keys .font-gibson-semibold {
   color: #454f63;

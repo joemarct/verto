@@ -45,6 +45,11 @@
             </li>
           </ol>
         </p>
+        <router-link to="/saveyourkeys">
+          <a class="button m-t-md is-size-5 is-pulled-left green">
+            <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Back</p>
+          </a>
+        </router-link>
         <router-link to="/writeyourkey">
           <a class="button m-t-md is-size-5 is-pulled-right green">
             <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Next</p>
@@ -60,6 +65,10 @@ export default {};
 </script>
 
 <style scoped>
+.hero-head.save-your-keys {
+  background-color: #ffffff !important;
+  /* padding-top: 0.3rem !important; */
+}
 .hero-body.save-your-keys {
   background-color: #ffffff !important;
   padding-top: 0.3rem !important;

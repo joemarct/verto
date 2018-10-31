@@ -18,7 +18,7 @@
             <p>
               Give Your Key A Name
             </p>
-            <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Name">
+            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Name">
             <div v-if="nokeyname">
               <p class="has-text-danger m-t-md">
                 You must provide a key name.
@@ -34,7 +34,7 @@
                 Passwords should match
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="Password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Password">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
           </div>
         </div>

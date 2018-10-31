@@ -35,6 +35,11 @@
             I understand that Volentix and/or partners never have access to my private key
           </b-checkbox>
         </div>
+        <router-link to="/writedownprocess">
+          <a class="button m-t-md is-size-5 is-pulled-left green">
+            <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Back</p>
+          </a>
+        </router-link>
         <router-link to="/displaykey">
           <a :disabled="disableButton" class="button m-t-md is-size-5 is-pulled-right green">
             <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7 has-text-white">Next</p>

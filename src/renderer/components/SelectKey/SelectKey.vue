@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     openMain: function(address) {
-      console.log("ADDRESS: " + address);
+      // console.log("ADDRESS: " + address);
       this.$store.commit("save", address);
       this.$router.push({ path: "main" });
     },
@@ -105,7 +105,7 @@ export default {
         return;
       }
       this.existingKeys = config.keys;
-      console.log(this.existingKeys)
+      // console.log(this.existingKeys)
     },
     addpublickey: function() {
       this.keyalreadysaved = false;
@@ -136,6 +136,9 @@ export default {
       fs.writeFile(filePath, JSON.stringify(config), 'utf-8', () => {
         console.log("Written to the file")
       });
+      this.showAddKey = !this.showAddKey;
+      this.keyname = "";
+      this.publicKey = "";
     },
     generateKey: function() {
       this.$router.push({ path: "keepyourkeyssafe" });
@@ -220,7 +223,7 @@ export default {
 }
 .hero-body.select-key .keys-container {
   overflow-y: scroll;
-  height: 90vw;
+  height: 50vh;
 }
 .hero-body.select-key .key:hover {
   color: hsl(171, 100%, 41%) !important;

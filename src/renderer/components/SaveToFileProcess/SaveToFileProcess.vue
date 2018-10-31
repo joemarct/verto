@@ -28,6 +28,11 @@
             </li>
           </ol>
         </p>
+        <router-link to="/saveyourkeys">
+          <a class="button m-t-md is-size-5 is-pulled-left green m-t-xxl">
+            <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Back</p>
+          </a>
+        </router-link>
         <router-link to="/savetofile">
           <a class="button m-t-md is-size-5 is-pulled-right green m-t-xxl">
             <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Next</p>

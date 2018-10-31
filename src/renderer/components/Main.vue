@@ -4,11 +4,11 @@
       <div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
-            <div class="is-pulled-left is-vcentered is-flex m-t-md">
+            <!-- <div class="is-pulled-left is-vcentered is-flex m-t-md">
               <router-link to="/welcome">
                 <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
               </router-link>
-            </div>
+            </div> -->
             <img src="~@/assets/img/wallet-logo.png" class="logo">
             <div class="is-pulled-right is-vcentered is-flex m-t-md">
               <router-link to="/settings">
@@ -177,7 +177,7 @@ export default {
         account: myaccount,
         wallet: this.wallet
       });
-      console.log(userTransactions.transactions);
+      // console.log(userTransactions.transactions);
       if (userTransactions.transactions.length > 0) {
         this.transactions = userTransactions.transactions;
         this.getDate();

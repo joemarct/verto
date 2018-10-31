@@ -57,6 +57,23 @@
           </div>
         </div>
       </div>
+      <b-modal :active.sync="isKeyModalActive">
+      <div class="card">
+        <div class="card-content">
+          <p>
+            Write down your keys.
+          </p>
+          <br>
+          <p>
+            Private key: {{ privateKey }}
+          </p>
+          <br>
+          <p>
+            Public key: {{ publicKey }}
+          </p>
+        </div>
+      </div>
+    </b-modal>
     </div>
   </section>
 </template>

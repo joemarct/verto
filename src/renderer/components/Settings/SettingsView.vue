@@ -12,15 +12,15 @@
       <p class="p-t-lg has-text-aqua is-size-4">
         Settings
       </p>
-      <div class="p-t-xl">
-        <div class="is-size-5 has-text-white is-pulled-left">
+      <div class="p-t-md settings-list">
+        <!-- <div class="is-size-5 has-text-white is-pulled-left">
           <font-awesome-icon icon="sync-alt" class="fa-xs"/>
-        </div>
-        <span class="p-l-md has-text-white is-size-5">
+        </div> -->
+        <!-- <span class="p-l-md has-text-white is-size-5">
           <router-link to="/checkforupdates">
             Check for Updates
           </router-link>
-        </span>
+        </span> -->
         <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/whitelist">
@@ -39,16 +39,17 @@
             Key Manager
           </router-link>
         </span>
-        <div @click="logout">
-          <span class="p-l-lg has-text-white is-size-5">
-            Logout
-          </span>
-        </div>
+        <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/changepassword">
             Change Password
           </router-link>
         </span>
+        <div @click="logout">
+          <span class="p-l-lg has-text-white is-size-5">
+            Logout
+          </span>
+        </div>
       </div>
     </div>
     <div class="hero-foot">
@@ -79,6 +80,10 @@ export default {
 </script>
 
 <style>
+.settings-list span:hover {
+  color: hsl(171, 100%, 41%) !important;
+  cursor: pointer;
+}
 .is-size-custom-header {
   font-size: 1.7rem;
 }

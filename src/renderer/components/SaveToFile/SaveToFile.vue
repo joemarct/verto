@@ -36,6 +36,11 @@
           </p>
         </div>
         <br><br>
+        <router-link to="/savetofileprocess">
+          <a class="button m-t-md is-size-5 is-pulled-left green m-t-xxl">
+            <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Back</p>
+          </a>
+        </router-link>
         <a class="button m-t-md is-size-5 green is-pulled-right m-t-xxl" @click="choosePassword">
           <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
         </a>
