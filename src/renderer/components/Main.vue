@@ -115,9 +115,11 @@
       </div>
     </div>
     <b-modal :active.sync="isCardModalActive" class="modal-qr">
-      <p class="image is-1by1 qr-modal">
-        <qrcode :value="wallet" :options="{ size: 200 }" class="has-text-centered"></qrcode>
-      </p>
+      <div class="card-content has-text-centered">
+        <p class="image qr-modal">
+          <qrcode :value="wallet" :options="{ size: 220 }" class="has-text-centered"></qrcode>
+        </p>
+      </div>
     </b-modal>
   </section>
 </template>
