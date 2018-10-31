@@ -34,16 +34,21 @@
                 Passwords should match
               </p>
             </div>
+            <div v-if="fillAllFields">
+              <p class="has-text-danger m-t-md">
+                Please fill all the fields above
+              </p>
+            </div>
             <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Password">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
+            <div v-if="incorrectPassword">
+              <p class="has-text-danger m-t-md">
+                The Wallet Password Is Incorrect.
+              </p>
+            </div>
+            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" placeholder="Wallet Password">
           </div>
         </div>
-        <div v-if="fillAllFields">
-          <p class="has-text-danger m-t-md">
-            Please fill all the fields above
-          </p>
-        </div>
-        <br><br>
         <div class="has-text-dark m-t-xxl">
           <a class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
             <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
@@ -72,7 +77,8 @@ export default {
       filePath: "Choose file",
       keyname: "",
       keyalreadyused: false,
-      nokeyname: false
+      nokeyname: false,
+      incorrectPassword: false
     };
   },
   mounted() {
@@ -90,6 +96,7 @@ export default {
       this.fillAllFields = false;
       this.keyalreadyused = false;
       this.nokeyname = false;
+      this.incorrectPassword = false;
       if (this.keyname === "") {
         this.nokeyname = true;
         return;
@@ -97,15 +104,16 @@ export default {
       if (this.userPassword.length > 0 && this.checkPassword.length > 0) {
         if (this.userPassword === this.checkPassword) {
           let fs = require("fs");
-          let encr = sjcl.encrypt(this.userPassword, this.privateKey);
-          this.test = sjcl.decrypt(this.userPassword, encr);
           let path = require("path")
           let electron = require("electron")
           let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
           const databack = fs.readFileSync(filePath, 'utf-8');
-          const config = JSON.parse(databack);
-          if (!config.keys) {
-            config.keys = [];
+          let config = {};
+          try {
+            config = JSON.parse(sjcl.decrypt(this.walletpassword, databack));
+          } catch (error) {
+            this.incorrectPassword = true
+            return;
           }
           let i;
           for (i = 0; i < config.keys.length; i++) {
@@ -118,16 +126,13 @@ export default {
           var savePath = dialog.showSaveDialog({
             title: "Choose file"
           });
+          // TODO: Need some error checking here.
           config.keys.push({name: this.keyname, key: this.publicKey});
-          fs.writeFileSync(filePath, JSON.stringify(config), 'utf-8');
-          const router = this.$router;
-          fs.writeFile(savePath, encr, function(err) {
-            if (err) {
-              this.test = "Error while saving a file. Try again later.";
-            } else {
-              router.push("congratsscreen");
-            }
-          });
+          fs.writeFileSync(savePath, sjcl.encrypt(this.walletpassword, this.privateKey));
+          fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
+          this.$store.commit("save", this.publicKey);
+          this.$store.dispatch("setKeys", config.keys);
+          this.$router.push("congratsscreen");
         } else {
           this.notMatchingPass = true;
         }

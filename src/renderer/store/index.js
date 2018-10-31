@@ -9,7 +9,8 @@ export default new Vuex.Store({
   // strict: process.env.NODE_ENV !== 'production',
   state: {
     userKey: "",
-    loggedin: false
+    loggedin: false,
+    keys: []
   },
   actions: {
     save({
@@ -19,6 +20,9 @@ export default new Vuex.Store({
     },
     login(context, bool) {
       context.commit("LOGIN", bool);
+    },
+    setKeys(context, newkeys) {
+      context.commit("KEYS", newkeys);
     }
   },
   mutations: {
@@ -27,6 +31,9 @@ export default new Vuex.Store({
     },
     LOGIN(state, bool) {
       state.loggedin = bool;
+    },
+    KEYS(state, newkeys) {
+      state.keys = newkeys;
     }
   }
 })

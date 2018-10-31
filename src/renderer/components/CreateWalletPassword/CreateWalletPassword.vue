@@ -59,13 +59,12 @@ export default {
           let path = require("path")
           let electron = require("electron")
           let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
-          var out = sjcl.hash.sha256.hash(this.userPassword)
-          const data = {password: sjcl.codec.hex.fromBits(out)}
+          const payload = JSON.stringify({keys: [{"name": "First", "key": "EOS8hdL4KK7QPxFLZpCgAA3RjyW3qq5kape4KJNjcbPy2r5FtutiG"}]});
           const router = this.$router;
           const store = this.$store;
-          fs.writeFile(filePath, JSON.stringify(data), 'utf-8', () => {
-            store.dispatch("login", true);
-            router.push({ path: "selectkey" });
+          fs.writeFile(filePath, sjcl.encrypt(this.userPassword, payload), 'utf-8', () => {
+            store.dispatch("login", false);
+            router.push({ path: "welcome" });
           });
         } else {
           this.notMatchingPass = true;

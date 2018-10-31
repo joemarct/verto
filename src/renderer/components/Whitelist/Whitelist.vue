@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     signup: function() {
-      console.log("Save Password : " + this.currency);
       this.$router.push("zixipay")
     }
   }

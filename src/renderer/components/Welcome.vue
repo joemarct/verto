@@ -75,11 +75,12 @@ export default {
         const out = sjcl.hash.sha256.hash(this.password)
         const passwordhash = sjcl.codec.hex.fromBits(out);
         const databack = fs.readFileSync(filePath, 'utf-8');
-        const config = JSON.parse(databack);
-        if (config.password === passwordhash) {
+        try {
+          const config = JSON.parse(sjcl.decrypt(this.password, databack));
+          this.$store.dispatch("setKeys", config.keys);
           this.$store.dispatch("login", true);
           this.$router.push({ path: "selectkey" });
-        } else {
+        } catch (error) {
           this.incorrectPassword = true
         }
       }

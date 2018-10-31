@@ -24,22 +24,28 @@
         </div>
         <div v-if="showAddKey">
           <form>
+            <div v-if="keyalreadysaved">
+              <p class="has-text-danger m-t-md">
+                The name or the key has already been used.
+              </p>
+            </div>
+            <div v-if="missingInput">
+              <p class="has-text-danger m-t-md">
+                You must supply both a name and the key.
+              </p>
+            </div>
             <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Key Name">
             <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Paste your key here">
+            <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Wallet Password">
+            <div v-if="incorrectPassword">
+              <p class="has-text-danger m-t-md">
+                The Password Is Incorrect.
+              </p>
+            </div>
             <div class="level-item has-text-centered is-marginless">
                 <a class="button is-fullwidth is-primary has-text-white" @click="addpublickey"> Submit </a>
             </div>
           </form>
-          <div v-if="missingInput">
-            <p class="has-text-danger m-t-md">
-              You must supply both a name and the key.
-            </p>
-          </div>
-          <div v-if="keyalreadysaved">
-            <p class="has-text-danger m-t-md">
-              The name or the key has already been used.
-            </p>
-          </div>
         </div>
         <br>
         <div>
@@ -48,13 +54,37 @@
           <p class="m-t-lg font-gibson-semibold is-size-5">
             Select A Key
           </p>
+          <div v-if="showdeletekeypassword">
+            <div v-if="incorrectdeletekeypassword">
+              <p class="has-text-danger m-t-md">
+                The Password Is Incorrect.
+              </p>
+            </div>
+            <input v-model="deletekeypassword" class="input m-b-sm" type="password" placeholder="Wallet Password">
+            <div class="level is-mobile m-t-md">
+              <div class="has-text-dark level-left">
+                <a class="button m-t-md green is-centered has-text-white" @click="cancelDeleteKey">
+                  <p class="is-size-6">
+                    Cancel
+                  </p>
+                </a>
+              </div>
+              <div class="has-text-dark level-right">
+                <a class="button m-t-md green is-centered has-text-white" @click="removeKey">
+                  <p>
+                    Delete
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
           <div class="keys-container">
             <ul>
               <div v-for="key in existingKeys" class="keys-list m-t-md">
                 <li>
                   <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
                   <a class="is-size-6 m-md key" @click="openMain(key.key)"> {{ key.name }} </a>
-                  <a @click="deleteKey(key.key)">
+                  <a @click="deleteKey(key.name)">
                     <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
                   </a>
                 </li>
@@ -82,32 +112,25 @@ export default {
       showAddKey: false,
       missingInput: false,
       keyalreadysaved: false,
-      existingKeys: []
+      existingKeys: [],
+      incorrectPassword: false,
+      walletpassword: "",
+      showdeletekeypassword: false,
+      deletekeypassword: "",
+      keyfordelete: "",
+      incorrectdeletekeypassword: false
     };
   },
   mounted() {
-    this.retrieveKeys();
+    this.existingKeys = this.$store.state.keys;
   },
   methods: {
     openMain: function(address) {
-      // console.log("ADDRESS: " + address);
       this.$store.commit("save", address);
       this.$router.push({ path: "main" });
     },
-    retrieveKeys() {
-      let fs = require("fs");
-      let path = require("path")
-      let electron = require("electron")
-      let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
-      const databack = fs.readFileSync(filePath, 'utf-8');
-      const config = JSON.parse(databack);
-      if (!config.keys) {
-        return;
-      }
-      this.existingKeys = config.keys;
-      // console.log(this.existingKeys)
-    },
     addpublickey: function() {
+      this.incorrectPassword = false;
       this.keyalreadysaved = false;
       this.missingInput = false;
       if (this.keyname === "" || this.publicKey === "") {
@@ -119,9 +142,12 @@ export default {
       let electron = require("electron")
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
       const databack = fs.readFileSync(filePath, 'utf-8');
-      const config = JSON.parse(databack);
-      if (!config.keys) {
-        config.keys = [];
+      let config = {};
+      try {
+        config = JSON.parse(sjcl.decrypt(this.walletpassword, databack));
+      } catch (error) {
+        this.incorrectPassword = true
+        return;
       }
       let i;
       for (i = 0; i < config.keys.length; i++) {
@@ -132,75 +158,52 @@ export default {
         }
       }
       config.keys.push({name: this.keyname, key: this.publicKey});
+      this.$store.dispatch("setKeys", config.keys);
+      this.existingKeys = this.$store.state.keys;
+      fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
+      this.walletpassword = "";
       this.existingKeys = config.keys;
-      fs.writeFile(filePath, JSON.stringify(config), 'utf-8', () => {
-        console.log("Written to the file")
-      });
-      this.showAddKey = !this.showAddKey;
-      this.keyname = "";
-      this.publicKey = "";
+      this.showAddKey = false;
     },
     generateKey: function() {
       this.$router.push({ path: "keepyourkeyssafe" });
     },
     deleteKey(key) {
+      this.keyfordelete = key;
+      this.showdeletekeypassword = true;
+    },
+    cancelDeleteKey() {
+      this.keyfordelete = "";
+      this.deletekeypassword = "";
+      this.showdeletekeypassword = false;
+    },
+    removeKey() {
+      this.incorrectdeletekeypassword = false;
       let fs = require("fs");
       let path = require("path")
       let electron = require("electron")
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
       const databack = fs.readFileSync(filePath, 'utf-8');
-      const config = JSON.parse(databack);
-      // console.log("Old config: " + config);
+      let config = {};
+      try {
+        config = JSON.parse(sjcl.decrypt(this.deletekeypassword, databack));
+      } catch (error) {
+        this.incorrectdeletekeypassword = true
+        return;
+      }
       let keyIndex;
-      let newKeysArray = {password: config.password, keys: []};
+      let newKeysArray = [];
       for (let i = 0; i < config.keys.length; i++) {
-        if (config.keys[i].key !== key) {
-          newKeysArray.keys.push({name: config.keys[i].name, key: config.keys[i].key});
-          // keyIndex = i;
+        if (config.keys[i].name !== this.keyfordelete) {
+          newKeysArray.push({name: config.keys[i].name, key: config.keys[i].key});
         }
       }
-      fs.writeFile(filePath, JSON.stringify(newKeysArray), 'utf-8', () => {
-        console.log("Deleted")
-      });
-      for (let i = 0; i < this.existingKeys.length; i++) {
-        if (this.existingKeys[i].key === key) {
-          // newKeysArray.keys.push({name: config.keys[i].name, key: config.keys[i].key});
-          keyIndex = i;
-        }
-      }
-      this.existingKeys.splice(keyIndex, 1);
-      // console.log("Updated config, deleting" + keyIndex + " element: " + this.existingKeys);
-      // this.retrieveKeys();
-      // console.log(newKeysArray);
-    },
-    savePassword: function() {
-      this.notMatchingPass = false;
-      this.fillAllFields = false;
-      if (this.userPassword.length > 0 && this.checkPassword.length > 0) {
-        if (this.userPassword === this.checkPassword) {
-          let fs = require("fs");
-          let path = require("path")
-          let electron = require("electron")
-          let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
-          let out = sjcl.hash.sha256.hash(this.userPassword)
-          const data = {password: sjcl.codec.hex.fromBits(out)}
-          fs.writeFile(filePath, JSON.stringify(data), 'utf-8', () => {
-            console.log("Written to the file")
-            /*
-            fs.readFile(filePath, 'utf-8', function read(err, databack) {
-              if (err) {
-                throw err;
-              }
-              console.log(databack);
-            });
-            */
-          });
-        } else {
-          this.notMatchingPass = true;
-        }
-      } else {
-        this.fillAllFields = true;
-      }
+      config.keys = newKeysArray;
+      fs.writeFileSync(filePath, sjcl.encrypt(this.deletekeypassword, JSON.stringify(config)), 'utf-8');
+      this.existingKeys = newKeysArray;
+      this.keyfordelete = "";
+      this.deletekeypassword = "";
+      this.showdeletekeypassword = false;
     }
   }
 };

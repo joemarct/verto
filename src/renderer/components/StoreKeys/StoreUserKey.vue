@@ -187,23 +187,6 @@ export default {
         this.publicKey = ecc.privateToPublic(privateKey); // EOSkey...
         this.$store.commit("save", this.publicKey);
       });
-      // let app = require("electron").remote.app;
-      // let basepath = app.getAppPath().replace("app.asar", "");
-      // // using exec
-      // let command = basepath + "/resources/cleos create key --to-console";
-      // let exec = require("child_process").exec;
-      // let child = exec(command);
-      // child.stdout.on("data", data => {
-      //   let outputArray = data.split("\n");
-      //   let privateKeyArray = outputArray[0].split(" ");
-      //   let publicKeyArray = outputArray[1].split(" ");
-      //   this.privateKey = privateKeyArray[2];
-      //   this.publicKey = publicKeyArray[2];
-      //   this.$store.commit("save", this.publicKey);
-      // });
-      // child.stderr.on("data", data => {
-      //   this.userKeys = data;
-      // });
     },
     goToNext() {
       if (this.disableButton === true) {
@@ -213,7 +196,6 @@ export default {
       }
     },
     checkOptions(event) {
-      // console.log(event.target.value);
       if (event.target.checked) {
         if (event.target.value === "print") {
           window.print();

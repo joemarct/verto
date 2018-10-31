@@ -7,8 +7,8 @@
     </div>
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
-        <b-checkbox native-value="write" @change.native="checkClicked">
-          I understand that I will never see my private key again
+        <b-checkbox native-value="write" v-model="isEnabled">
+          I understand that the private key is not stored in Verto and cannot be recovered.
         </b-checkbox>
 
         <div class="column display-keys font-gibson has-text-white p-md m-t-md">
@@ -29,7 +29,6 @@
           <p>
             Give Your Key A Name
           </p>
-          <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Name">
           <div v-if="keyalreadyused">
             <p class="has-text-danger m-t-md">
               The name or the key has already been used.
@@ -40,18 +39,15 @@
               You must provide a name for your key.
             </p>
           </div>
-          <p class="is-size-6">
-            Type the following text in the textfield below:
-          </p>
-          <br>
-          <p>
-            {{ requiredText }}
-          </p>
-          <div class="field m-t-sm">
-            <textarea v-model="textInput" class="textarea" placeholder="Type the text from above in this field" @keyup="checkText"/>
+          <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Name">
+          <div v-if="incorrectPassword">
+            <p class="has-text-danger m-t-md">
+              The Password Is Incorrect.
+            </p>
           </div>
+          <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Wallet Password">
           <div class="has-text-dark is-pulled-right">
-            <a :disabled="isDisabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
+            <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
               <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
             </a>
           </div>
@@ -79,10 +75,12 @@
 </template>
 
 <script>
+import sjcl from "sjcl";
+
 export default {
   data() {
     return {
-      isDisabled: true,
+      isEnabled: false,
       checkedAnswers: 0,
       isKeyModalActive: false,
       privateKey: "",
@@ -92,7 +90,9 @@ export default {
       clicked: false,
       keynameempty: false,
       keyalreadyused: false,
-      keyname: ""
+      keyname: "",
+      walletpassword: "",
+      incorrectPassword: false
     };
   },
   mounted() {
@@ -107,27 +107,13 @@ export default {
         this.$store.commit("save", this.publicKey);
       });
     },
-    checkText() {
-      if (this.textInput === this.requiredText && this.clicked) {
-        this.isDisabled = false;
-      } else {
-        this.isDisabled = true;
-      }
-    },
-    checkClicked() {
-      this.clicked = !this.clicked;
-      if (this.textInput === this.requiredText && this.clicked) {
-        this.isDisabled = false;
-      } else {
-        this.isDisabled = true;
-      }
-    },
     goToCongratsScreen() {
-      if (this.isDisabled) {
+      if (!this.isEnabled) {
         return;
       }
       this.keynameempty = false;
       this.keyalreadyused = false;
+      this.incorrectPassword = false;
       if (this.keyname === "") {
         this.keynameempty = true;
         return;
@@ -137,9 +123,12 @@ export default {
       let electron = require("electron")
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
       const databack = fs.readFileSync(filePath, 'utf-8');
-      const config = JSON.parse(databack);
-      if (!config.keys) {
-        config.keys = [];
+      let config = {};
+      try {
+        config = JSON.parse(sjcl.decrypt(this.walletpassword, databack));
+      } catch (error) {
+        this.incorrectPassword = true
+        return;
       }
       let i;
       for (i = 0; i < config.keys.length; i++) {
@@ -150,9 +139,10 @@ export default {
         }
       }
       config.keys.push({name: this.keyname, key: this.publicKey});
-      fs.writeFile(filePath, JSON.stringify(config), 'utf-8', () => {
-        this.$router.push("congratsscreen");
-      });
+      this.$store.dispatch("setKeys", config.keys);
+      fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
+      this.$store.commit("save", this.publicKey);
+      this.$router.push("congratsscreen");
     }
   }
 };
