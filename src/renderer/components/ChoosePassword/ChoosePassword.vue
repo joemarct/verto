@@ -49,7 +49,13 @@
             <input v-model="walletpassword" class="input is-medium m-t-md" type="password" placeholder="Wallet Password">
           </div>
         </div>
-        <div class="has-text-dark m-t-xxl">
+        <div v-if="fillAllFields">
+          <p class="has-text-danger m-t-md">
+            Please fill all the fields above
+          </p>
+        </div>
+        <br><br>
+        <div class="has-text-dark m-b-md m-t-xl">
           <a class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
             <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
           </a>
@@ -78,7 +84,8 @@ export default {
       keyname: "",
       keyalreadyused: false,
       nokeyname: false,
-      incorrectPassword: false
+      incorrectPassword: false,
+      walletpassword: ""
     };
   },
   mounted() {

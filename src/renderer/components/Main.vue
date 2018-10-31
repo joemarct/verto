@@ -22,7 +22,7 @@
                 <p class="is-marginless is-size-3 has-text-white font-gibson"> {{ balance }} VTX </p>
                 <div class="level is-mobile is-size-5 font-gibson">
                   <div class="level-left has-text-primary" >0.0323 BTC</div>
-                  <div class="level-right is-size-5 has-text-white">
+                  <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
                   </div>
                 </div>
@@ -55,6 +55,11 @@
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
+          <div v-if="loadingData" class="p-l-lg p-r-md m-t-md is-size-4 has-text-grey-light">
+            <p>
+              Loading data...
+            </p>
+          </div>
           <div v-if="hasTransactions">
             <div class="p-l-md p-r-md m-t-md p-b-none is-size-4 has-text-grey-light">
               Transaction History
@@ -88,7 +93,7 @@
               </router-link>
             </div>
           </div>
-          <div v-else>
+          <div v-if="noTransactions">
             <p class="has-text-grey is-size-5 m-l-lg has-text-weight-bold">
               You have no transactions
             </p>
@@ -110,9 +115,11 @@
       </div>
     </div>
     <b-modal :active.sync="isCardModalActive" class="modal-qr">
-      <p class="image is-1by1 qr-modal">
-        <qrcode :value="wallet" :options="{ size: 200 }" class="has-text-centered"></qrcode>
-      </p>
+      <div class="card-content has-text-centered">
+        <p class="image qr-modal">
+          <qrcode :value="wallet" :options="{ size: 220 }" class="has-text-centered"></qrcode>
+        </p>
+      </div>
     </b-modal>
   </section>
 </template>
@@ -150,11 +157,13 @@ export default {
       messages: "",
       isCardModalActive: false,
       wallet: "",
-      balance: 0,
+      balance: "0.00",
       transactionLink: "/transactiondetails",
-      hasTransactions: true,
+      hasTransactions: false,
+      noTransactions: false,
       appVersion: this.$appVersion,
-      appName: this.$appName
+      appName: this.$appName,
+      loadingData: true
     };
   },
   mounted() {
@@ -172,17 +181,21 @@ export default {
       this.wallet = this.$store.state.userKey;
     },
     async getData() {
+      this.hasTransactions = false;
+      this.noTransactions = false;
+      this.loadingData = true;
       // console.log("wallet: " + this.wallet);
       const userTransactions = await ledger.retrieveTransactions({
         account: myaccount,
         wallet: this.wallet
       });
-      // console.log(userTransactions.transactions);
+      this.loadingData = false;
       if (userTransactions.transactions.length > 0) {
         this.transactions = userTransactions.transactions;
+        this.hasTransactions = true;
         this.getDate();
       } else {
-        this.hasTransactions = false;
+        this.noTransactions = true;
       }
     },
     getDate() {
@@ -191,10 +204,8 @@ export default {
           parseInt(this.transactions[i].timestamp) / 1000;
       }
     },
-    goToNext: function() {
-      window.alert("Navigate to setting");
-    },
     async refreshBalance() {
+      this.balance = "0.00";
       const balance = await ledger.retrieveBalance({
         account: myaccount,
         wallet: this.wallet
