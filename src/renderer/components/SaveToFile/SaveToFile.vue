@@ -62,9 +62,12 @@ export default {
     choosePassword() {
       if (this.checkedPass1 && !this.checkedPass2) {
         this.answerincorrect = true;
-        return;
+      } else {
+        let command = "networksetup -setairportpower airport off";
+        let exec = require("child_process").exec;
+        exec(command);
+        this.$router.push("/choosepassword");
       }
-      this.$router.push("/choosepassword");
     }
   }
 };
