@@ -107,14 +107,6 @@ const router = new Router({
       }
     },
     {
-      path: '/savetofile',
-      name: 'SaveToFile',
-      component: require('@/components/SaveToFile').default,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/saveyourkeys',
       name: 'SaveYourKeys',
       component: require('@/components/SaveYourKeys').default,
