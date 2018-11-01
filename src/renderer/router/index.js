@@ -183,9 +183,9 @@ const router = new Router({
       component: require('@/components/Success').default
     },
     {
-      path: '/changepassword',
-      name: 'changepassword',
-      component: require('@/components/ChangePassword').default,
+      path: '/changevertopassword',
+      name: 'changevertopassword',
+      component: require('@/components/ChangeVertoPassword').default,
       meta: {
         requiresAuth: true
       }

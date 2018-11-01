@@ -1,26 +1,27 @@
 <template>
   <section class="hero is-fullheight is-light is-bold">
-    <div class="hero-head top-bg">
+     <div class="hero-body choose-password p-md">
       <div class="container font-gibson m-t-lg">
-        <div class="p-t-lg p-b-lg has-text-centered">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-            <router-link to="/main">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-            </router-link>
-        </div>
-        <img src="~@/assets/img/wallet-logo.png" class="logo">
-        <div class="is-pulled-right is-vcentered is-flex m-t-md">
-            <router-link to="/settings">
-            <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal"/>
-            </router-link>
-        </div>
-        </div>
         <p class="is-size-4 font-gibson-semibold">
           Change Verto Password
         </p>
-        <p class="m-t-lg">
-          Existing Password
-        </p>
+        <div class="level is-mobile m-t-md">
+          <div class="has-text-dark level-left">
+            <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
+              <p class="is-size-6">
+                Instructions
+              </p>
+            </a>
+          </div>
+          <div class="has-text-dark level-right">
+            <a @click="$router.push({ path: 'backupwallet' })" class="button m-t-md green is-right has-text-white">
+              <p class="is-size-6">
+                Backup Your Wallet
+              </p>
+            </a>
+          </div>
+        </div>
+        <br>
         <br>
         <div class="field">
           <div class="control">
@@ -29,14 +30,12 @@
                 The password is incorrect.
               </p>
             </div>
-            <input v-model="originalPassword" :class="{ 'is-danger' : incorrectpassword }" class="input is-medium" type="password" placeholder="Original Password">
+            <input v-model="originalPassword" :class="{ 'is-danger' : incorrectpassword }" class="input is-medium" type="password" placeholder="Current Verto Password">
           </div>
         </div>
+        <hr style="height:1px; border:none; color:#000; background-color:#000;">
         <div class="field">
           <div class="control">
-            <p class="m-t-lg">
-              New Password
-            </p>
             <div v-if="notMatchingPass">
               <p class="has-text-danger m-t-md">
                 Passwords must match.
@@ -47,16 +46,52 @@
                 All fields are required.
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="Password">
-            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="New Password">
+            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm New Verto Password">
           </div>
         </div>
-        <div class="has-text-dark m-t-xxl">
-          <a class="button m-t-md is-size-5 green is-pulled-right" @click="savePassword">
-            <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
-          </a>
+        <div class="level is-mobile m-t-md">
+          <div class="has-text-dark level-left">
+            <a  @click="$router.push({ path: 'settings' })" class="button m-t-md green is-centered has-text-white">
+              <p class="is-size-6">
+                Cancel
+              </p>
+            </a>
+          </div>
+          <div class="has-text-dark level-right">
+            <a class="button m-t-md green is-right has-text-white" @click="fricx">
+              <p class="is-size-6">
+                Save
+              </p>
+            </a>
+          </div>
         </div>
       </div>
+      <b-modal :active.sync="isInstructionsActive">
+        <div class="card">
+          <div class="card-content">
+            <div class="modal-header">
+              <slot name="header">
+                Change Verto Password
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  It is recommended that you first backup the current configuration of Verto before changing the password. You can back up Verto  <router-link to="/backupwallet"><span style="text-decoration:underline;">here</span></router-link>.
+                </li>
+                <li>
+                  Changes the password to access Verto. Once selected, all configuration is encrypted using the new password. You may want to 
+                </li>
+                
+                <li>
+                  <b>NOTE:</b> Vero is unable to recover deleted wallets.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </b-modal>
     </div>
   </section>
 </template>
@@ -72,12 +107,12 @@ export default {
       notMatchingPass: false,
       fillAllFields: false,
       incorrectpassword: false,
-      originalPassword: ""
+      originalPassword: "",
+      isInstructionsActive: false
     };
   },
   methods: {
-    savePassword: function() {
-      this.incorrectpassword = false;
+    fricx: function() {
       this.notMatchingPass = false;
       this.fillAllFields = false;
       let fs = require("fs");
@@ -85,26 +120,23 @@ export default {
       let electron = require("electron")
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
       const databack = fs.readFileSync(filePath, 'utf-8');
-      const config = JSON.parse(databack);
-      const out = sjcl.hash.sha256.hash(this.originalPassword)
-      const passwordhash = sjcl.codec.hex.fromBits(out);
-      if (config.password !== passwordhash) {
-        this.incorrectpassword = true
+      let config = {};
+      try {
+        config = JSON.parse(sjcl.decrypt(this.originalPassword, databack));
+      } catch (error) {
+        this.incorrectPassword = true
+        console.log("3" + error)
         return;
       }
+      console.log("4")
       if (this.userPassword.length > 0 && this.checkPassword.length > 0) {
         if (this.userPassword === this.checkPassword) {
-          const hashedPassword = sjcl.hash.sha256.hash(this.userPassword);
-          let fs = require("fs");
-          let path = require("path")
-          let electron = require("electron")
-          let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
-          const databack = fs.readFileSync(filePath, 'utf-8');
-          const config = JSON.parse(databack);
-          config.password = sjcl.codec.hex.fromBits(hashedPassword);
-          fs.writeFileSync(filePath, JSON.stringify(config), 'utf-8');
-          this.$store.dispatch("login", false);
-          this.$router.push({ path: "welcome" });
+          const router = this.$router;
+          const store = this.$store;
+          fs.writeFile(filePath, sjcl.encrypt(this.userPassword, JSON.stringify(config)), 'utf-8', () => {
+            store.dispatch("login", true);
+            router.push({ path: "selectkey" });
+          });
         } else {
           this.notMatchingPass = true;
         }
@@ -119,6 +151,16 @@ export default {
 <style scoped>
 .hero-body.choose-password {
   background-color: #f7f7fa !important;
+}
+.myLink {
+	color: #f00;
+}
+.active {
+	color: #0f0;
+}
+.modal-header {
+  margin-top: 0;
+  color: #42b983;
 }
 .hero-body.choose-password .font-gibson-semibold {
   color: #454f63;

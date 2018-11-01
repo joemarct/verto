@@ -79,8 +79,6 @@ export default {
       if (!fs.existsSync(filePath)) {
         this.nopassword = true;
       } else {
-        const out = sjcl.hash.sha256.hash(this.password)
-        const passwordhash = sjcl.codec.hex.fromBits(out);
         const databack = fs.readFileSync(filePath, 'utf-8');
         try {
           const config = JSON.parse(sjcl.decrypt(this.password, databack));

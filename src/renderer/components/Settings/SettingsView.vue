@@ -44,7 +44,7 @@
         <br>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/changepassword">
+          <router-link to="/changevertopassword">
             Change Password
           </router-link>
         </span>
