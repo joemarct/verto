@@ -115,14 +115,6 @@ const router = new Router({
       }
     },
     {
-      path: '/savetofileprocess',
-      name: 'SaveToFileProcess',
-      component: require('@/components/SaveToFileProcess').default,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/saveyourkeys',
       name: 'SaveYourKeys',
       component: require('@/components/SaveYourKeys').default,

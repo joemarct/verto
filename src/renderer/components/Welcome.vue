@@ -10,12 +10,6 @@
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
           <div v-if="hasPassword">
             <div class="is-size-6 m-t-md">Welcome Back!</div>
-            <form>
-              <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
-              <div class="level-item has-text-centered is-marginless">
-                <a class="p-t-lg button is-fullwidth is-primary" @click="login"> Login </a>
-              </div>
-            </form>
             <div v-if="nopassword">
               <p class="has-text-danger m-t-md">
                 No Password Has Been Set For The Wallet. Please Create A Password First.
@@ -26,6 +20,12 @@
                 The Password Is Incorrect.
               </p>
             </div>
+            <form>
+              <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
+              <div class="level-item has-text-centered is-marginless">
+                <a class="p-t-lg button is-fullwidth is-primary" @click="login"> Login </a>
+              </div>
+            </form>
           </div>
           <div v-if="!hasPassword">
             <div class="is-size-6 m-t-md">{{ join_message }}</div>
