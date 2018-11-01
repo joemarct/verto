@@ -16,7 +16,7 @@
         </div>
         </div>
         <p class="is-size-4 font-gibson-semibold">
-          Change Wallet Password
+          Change Verto Password
         </p>
         <p class="m-t-lg">
           Existing Password

@@ -29,8 +29,8 @@
           </div>
           <div v-if="!hasPassword">
             <div class="is-size-6 m-t-md">{{ join_message }}</div>
-            <a class="p-t-lg button is-fullwidth is-primary" @click="createwalletpassword">
-              Create Wallet Password
+            <a class="p-t-lg button is-fullwidth is-primary" @click="createvertopassword">
+              Create Verto Password
             </a>
           </div>
         </div>
@@ -92,8 +92,8 @@ export default {
         }
       }
     },
-    createwalletpassword: function() {
-      this.$router.push({ path: "createwalletpassword" });
+    createvertopassword: function() {
+      this.$router.push({ path: "createvertopassword" });
     }
   }
 };

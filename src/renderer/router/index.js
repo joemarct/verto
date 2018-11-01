@@ -152,9 +152,9 @@ const router = new Router({
       }
     },
     {
-      path: '/createwalletpassword',
-      name: 'createwalletpassword',
-      component: require('@/components/CreateWalletPassword').default
+      path: '/createvertopassword',
+      name: 'createvertopassword',
+      component: require('@/components/CreateVertoPassword').default
     },
     {
       path: '/selectkey',

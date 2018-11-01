@@ -62,6 +62,14 @@
             Logout
           </span>
         </div>
+        <hr>
+        <a class="p-l-lg has-text-white is-size-5" @click="openTelegram">
+          <!--<font-awesome-icon icon="telegram" class="fa-sm has-text-white m-l-sm"/>-->
+          Telegram
+        </a>
+        <a class="p-l-lg has-text-white is-size-5" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">
+          Send Mail
+        </a>        
       </div>
     </div>
     <div class="hero-foot">
@@ -83,6 +91,10 @@ export default {
   mounted() {
   },
   methods: {
+    openTelegram: function() {
+      var open = require("open");
+      open("http://t.me/volentix");
+    },
     logout: function() {
       this.$store.dispatch("login", false);
       this.$store.dispatch("setKeys", []);

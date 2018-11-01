@@ -40,7 +40,7 @@
         </div>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
-            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="disableWiFi('/choosePassword')">
+            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="disableWiFi('/choosePassword ')">
               <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Save to file</p>
             </a>
           </div>

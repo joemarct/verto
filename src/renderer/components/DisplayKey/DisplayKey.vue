@@ -4,7 +4,11 @@
       <p class="is-size-4 font-gibson-semibold">
         Display Key
       </p>
-      <a @click="isInstructionsActive = true">Instructions</a>
+      <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
+        <p class="is-size-6">
+          Instructions
+        </p>
+      </a>
     </div>
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
@@ -46,7 +50,7 @@
               The Password Is Incorrect.
             </p>
           </div>
-          <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Wallet Password">
+          <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Verto Password">
           <div class="has-text-dark is-pulled-right">
             <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
               <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>

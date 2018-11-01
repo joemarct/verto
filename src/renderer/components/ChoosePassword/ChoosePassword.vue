@@ -3,9 +3,13 @@
     <div class="hero-body choose-password p-md">
       <div class="container font-gibson m-t-lg">
         <p class="is-size-4 font-gibson-semibold">
-          File Storage 
+          Encrypted File Storage 
         </p>
-        <a @click="isInstructionsActive = true">Instructions</a>
+        <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
+          <p class="is-size-6">
+            Instructions
+          </p>
+        </a>
         <br>
         <b-checkbox native-value="write" v-model="isEnabled">
           I understand that the private key is not stored in Verto and cannot be recovered.
@@ -38,10 +42,10 @@
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
             <div v-if="incorrectPassword">
               <p class="has-text-danger m-t-md">
-                The Wallet Password Is Incorrect.
+                The Verto Password Is Incorrect.
               </p>
             </div>
-            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" placeholder="Wallet Password">
+            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" placeholder="Verto Password">
           </div>
         </div>
         <div v-if="fillAllFields">

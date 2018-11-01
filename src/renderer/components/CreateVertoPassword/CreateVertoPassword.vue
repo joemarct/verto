@@ -3,12 +3,14 @@
     <div class="hero-body choose-password p-md">
       <div class="container font-gibson m-t-lg">
         <p class="is-size-4 font-gibson-semibold">
-          Create Wallet Password
+          Create Verto Password
         </p>
+        <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
+          <p class="is-size-6">
+            Instructions
+          </p>
+        </a>
         <br>
-        <p class="m-t-lg">
-          This password will only unlock your wallet. You should choose separate passwords for the protection of your keys.
-        </p>
         <br>
         <div class="field">
           <div class="control">
@@ -17,8 +19,8 @@
                 Passwords must match.
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="Password">
-            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="Verto Password">
+            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm Verto password">
           </div>
         </div>
         <div v-if="fillAllFields">
@@ -33,6 +35,56 @@
           </a>
         </div>
       </div>
+      <b-modal :active.sync="isInstructionsActive">
+        <div class="card">
+          <div class="card-content">
+            <div class="modal-header">
+              <slot name="header">
+                Add Wallet
+              </slot>
+            </div>
+            <div>
+              Verto only supports the ability to add public keys. To add a wallet, simply provide a name, the wallet address, and the Verto password to add your wallet.
+            </div>
+            <br>
+            <div class="modal-header">
+              <slot name="header">
+                Create Wallet
+              </slot>
+            </div>
+            <div>
+              Create public/private key pairs for a new wallet. Note that <b>ONLY</b> the public key is stored in Verto. You are responsible for the management of your own private key, its storage, and security.
+            </div>
+            <br>
+            <div class="modal-header">
+              <slot name="header">
+                Wallets
+              </slot>
+            </div>
+            <div>
+              Choose to open a wallet by simple clicking on its name.
+            </div>
+            <div class="modal-header">
+              <slot name="header">
+                Delete Wallet
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  Click on the 'Trash' icon <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
+                </li>
+                <li>
+                  Enter your password.
+                </li>
+                <li>
+                  <b>NOTE:</b> Vero is unable to recover deleted wallets.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </b-modal>
     </div>
   </section>
 </template>
@@ -46,7 +98,8 @@ export default {
       userPassword: "",
       checkPassword: "",
       notMatchingPass: false,
-      fillAllFields: false
+      fillAllFields: false,
+      isInstructionsActive: false
     };
   },
   methods: {
@@ -63,8 +116,8 @@ export default {
           const router = this.$router;
           const store = this.$store;
           fs.writeFile(filePath, sjcl.encrypt(this.userPassword, payload), 'utf-8', () => {
-            store.dispatch("login", false);
-            router.push({ path: "welcome" });
+            store.dispatch("login", true);
+            router.push({ path: "selectkey" });
           });
         } else {
           this.notMatchingPass = true;
@@ -80,6 +133,10 @@ export default {
 <style scoped>
 .hero-body.choose-password {
   background-color: #f7f7fa !important;
+}
+.modal-header {
+  margin-top: 0;
+  color: #42b983;
 }
 .hero-body.choose-password .font-gibson-semibold {
   color: #454f63;
