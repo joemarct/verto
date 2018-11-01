@@ -160,22 +160,6 @@ const router = new Router({
       }
     },
     {
-      path: '/writedownprocess',
-      name: 'WriteDownProcess',
-      component: require('@/components/WriteDownProcess').default,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/writeyourkey',
-      name: 'WriteYourKey',
-      component: require('@/components/WriteYourKey').default,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/choosepassword',
       name: 'ChoosePassword',
       component: require('@/components/ChoosePassword').default,
@@ -199,14 +183,6 @@ const router = new Router({
     {
       path: '/whitelist',
       name: 'whitelist',
-      component: require('@/components/Whitelist').default,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/zixipay',
-      name: 'zixipay',
       component: require('@/components/Zixipay').default,
       meta: {
         requiresAuth: true

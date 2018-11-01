@@ -59,7 +59,7 @@ export default {
           let path = require("path")
           let electron = require("electron")
           let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
-          const payload = JSON.stringify({keys: [{"name": "First", "key": "EOS8hdL4KK7QPxFLZpCgAA3RjyW3qq5kape4KJNjcbPy2r5FtutiG"}]});
+          const payload = JSON.stringify({keys: []});
           const router = this.$router;
           const store = this.$store;
           fs.writeFile(filePath, sjcl.encrypt(this.userPassword, payload), 'utf-8', () => {

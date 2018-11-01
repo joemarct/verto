@@ -73,6 +73,7 @@ export default {
   methods: {
     logout: function() {
       this.$store.dispatch("login", false);
+      this.$store.dispatch("setKeys", []);
       this.$router.push({ path: "welcome" });
     }
   }

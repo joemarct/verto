@@ -4,6 +4,7 @@
       <p class="is-size-4 font-gibson-semibold">
         Display Key
       </p>
+      <a @click="isInstructionsActive = true">Recommendations &amp; Best Practices</a>
     </div>
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
@@ -54,22 +55,84 @@
         </div>
       </div>
       <b-modal :active.sync="isKeyModalActive">
-      <div class="card">
-        <div class="card-content">
-          <p>
-            Write down your keys.
-          </p>
-          <br>
-          <p>
-            Private key: {{ privateKey }}
-          </p>
-          <br>
-          <p>
-            Public key: {{ publicKey }}
-          </p>
+        <div class="card">
+          <div class="card-content">
+            <p>
+              Write down your keys.
+            </p>
+            <br>
+            <p>
+              Private key: {{ privateKey }}
+            </p>
+            <br>
+            <p>
+              Public key: {{ publicKey }}
+            </p>
+          </div>
         </div>
-      </div>
-    </b-modal>
+      </b-modal>
+      <b-modal :active.sync="isInstructionsActive">
+        <div class="card">
+          <div class="card-content">
+            <div class="modal-header">
+              <slot name="header">
+                Recommended
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  Use a good pen that will not smudge or fade over time.
+                </li>
+                <li>
+                  Use good paper that will last.
+                </li>
+                <li>
+                  If you want to take a photo, use a non-digital platform such as 35mm or Polaroid.
+                </li>
+              </ul>
+            </div>
+            <br>
+            <div class="modal-header">
+              <slot name="header">
+                Once Completed
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  Look for a warm, safe, secure, dry place such as a bank safety deposit box.
+                </li>
+                <li>
+                  Add provisions to your will on who and how the transfer of your wallet will be conducted.
+                </li>
+              </ul>
+            </div>
+            <br>
+            <div class="modal-header">
+              <slot name="header">
+                Do Not
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  Fold the paper.
+                </li>
+                <li>
+                  Share with anyone.
+                </li>
+                <li>
+                  Take a picture with your cell phone.
+                </li>
+                <li>
+                  Take a screenshot.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </b-modal>
     </div>
   </section>
 </template>
@@ -92,7 +155,8 @@ export default {
       keyalreadyused: false,
       keyname: "",
       walletpassword: "",
-      incorrectPassword: false
+      incorrectPassword: false,
+      isInstructionsActive: false
     };
   },
   mounted() {
@@ -153,6 +217,10 @@ export default {
   background-color: #162929;
   border-radius: 0.6rem;
   padding: 1rem !important;
+}
+.modal-header {
+  margin-top: 0;
+  color: #42b983;
 }
 .generated-keys {
   background-color: #1a4a48;

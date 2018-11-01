@@ -6,6 +6,9 @@
           Key Manager
         </p>
         <br>
+        <a @click="openvideo()">
+          Watch Video
+        </a>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a class="button m-t-md green is-centered has-text-white" @click="showAddKey = !showAddKey">
@@ -125,6 +128,10 @@ export default {
     this.existingKeys = this.$store.state.keys;
   },
   methods: {
+    openvideo: function() {
+      var open = require("open");
+      open("https://www.youtube.com/embed/u8qDkInJHaI");
+    },
     openMain: function(address) {
       this.$store.commit("save", address);
       this.$router.push({ path: "main" });

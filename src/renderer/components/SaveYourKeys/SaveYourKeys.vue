@@ -6,24 +6,21 @@
           Keep your keys safe
         </p>
         <p class="m-t-sm">
-          Regarless of your selection above, you will need to plan a strategy for the physical storage of your private key. This storage strategy
+          You will need to plan a strategy for the physical storage of your private key. This storage strategy
           should include long term thinking, including:
         </p>
         <br>
         <p>
-          Physical Security: Vaults of any kind that provide the protection you are seeking. Think of somewhere you know its safe from
+          <b>Physical Security:</b> Vaults of any kind that provide the protection you are seeking. Think of somewhere you know its safe from
           theft as well as the elements. In some cases, you will choose a bank or lawyer.
           In others you may prefer to bury it in your backyard. The choice is yours.
         </p>
         <br>
         <p>
-          Legacy: Things happen. Life ends. You need to plan for the transference of your wallet to someone you else. In some cases that may
-          be through a will, while in others it becomes a scavanger hunt. The choice is yours.
+          <b>Legacy:</b> Things happen. Life ends. You need to plan for the transference of your wallet to someone else. In some cases that may
+          be a will, while in others it becomes a scavanger hunt. The choice is yours.
         </p>
         <br>
-        <p>
-          Quiz
-        </p>
         <div class="p-l-sm">
           <b-checkbox v-model="checkedQuiz" native-value="first" @change.native="enableButtons">
             I agree with the Terms &amp; Conditions
@@ -36,15 +33,19 @@
           <b-checkbox v-model="checkedQuiz" native-value="third" @change.native="enableButtons">
             I understand that Volentix and/or partners never have access to my private key
           </b-checkbox>
+          <br>
+          <b-checkbox v-model="checkedQuiz" native-value="fourth" @change.native="enableButtons">
+            I understand WIFI will be disabled temporarily during the generation of keys
+          </b-checkbox>
         </div>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
-            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="saveToFileProcess">
+            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="disableWiFi('/choosePassword')">
               <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Save to file</p>
             </a>
           </div>
           <div class="has-text-dark level-right m-l-sm m-r-lg">
-            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 green" @click="writeDownProcess">
+            <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 green" @click="disableWiFi('/displaykey')">
               <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">I'll write it down</p>
             </a>
           </div>
@@ -64,13 +65,21 @@ export default {
     };
   },
   methods: {
+    disableWiFi(url) {
+      if (!this.disableButton) {
+        let command = "networksetup -setairportpower airport off";
+        let exec = require("child_process").exec;
+        exec(command);
+        this.$router.push(url);
+      }
+    },
     enableButtons(event) {
       if (event.target.checked) {
         this.quizOptions++;
       } else {
         this.quizOptions--;
       }
-      if (this.quizOptions === 3) {
+      if (this.quizOptions === 4) {
         this.buttonsAreDisabled = false;
       } else {
         this.buttonsAreDisabled = true;
@@ -79,11 +88,6 @@ export default {
     saveToFileProcess() {
       if (!this.buttonsAreDisabled) {
         this.$router.push("/savetofileprocess");
-      }
-    },
-    writeDownProcess() {
-      if (!this.buttonsAreDisabled) {
-        this.$router.push("/writedownprocess");
       }
     }
   }
