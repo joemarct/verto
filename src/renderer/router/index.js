@@ -205,6 +205,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/backupwallet',
+      name: 'backupwallet',
+      component: require('@/components/BackupWallet').default,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

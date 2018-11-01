@@ -4,7 +4,7 @@
       <p class="is-size-4 font-gibson-semibold">
         Display Key
       </p>
-      <a @click="isInstructionsActive = true">Recommendations &amp; Best Practices</a>
+      <a @click="isInstructionsActive = true">Instructions</a>
     </div>
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
@@ -82,13 +82,13 @@
             <div>
               <ul>
                 <li>
-                  Use a good pen that will not smudge or fade over time.
+                  * Use a good pen that will not smudge or fade over time.
                 </li>
                 <li>
-                  Use good paper that will last.
+                  * Use good paper that will last.
                 </li>
                 <li>
-                  If you want to take a photo, use a non-digital platform such as 35mm or Polaroid.
+                  * If you want to take a photo, use a non-digital platform such as 35mm or Polaroid.
                 </li>
               </ul>
             </div>
@@ -101,10 +101,10 @@
             <div>
               <ul>
                 <li>
-                  Look for a warm, safe, secure, dry place such as a bank safety deposit box.
+                  * Look for a warm, safe, secure, dry place such as a bank safety deposit box.
                 </li>
                 <li>
-                  Add provisions to your will on who and how the transfer of your wallet will be conducted.
+                  * Add provisions to your will on who and how the transfer of your wallet will be conducted.
                 </li>
               </ul>
             </div>
@@ -117,16 +117,16 @@
             <div>
               <ul>
                 <li>
-                  Fold the paper.
+                  * Fold the paper.
                 </li>
                 <li>
-                  Share with anyone.
+                  * Share with anyone.
                 </li>
                 <li>
-                  Take a picture with your cell phone.
+                  * Take a picture with your cell phone.
                 </li>
                 <li>
-                  Take a screenshot.
+                  * Take a screenshot.
                 </li>
               </ul>
             </div>

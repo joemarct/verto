@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Price:
+                    Current VTX Price:
                   </td>
                   <td>
                     {{ summaryData.priceInBtc }} BTC

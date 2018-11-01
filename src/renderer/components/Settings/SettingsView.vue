@@ -28,11 +28,13 @@
           </router-link>
         </span>
         <br>
+        <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/getvtx">
             Get VTX
           </router-link>
         </span>
+        <br>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/selectkey">
@@ -40,11 +42,21 @@
           </router-link>
         </span>
         <br>
+        <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/changepassword">
             Change Password
           </router-link>
         </span>
+        <br>
+        <br>
+        <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/backupwallet">
+            Backup Wallet
+          </router-link>
+        </span>
+        <br>
+        <br>
         <div @click="logout">
           <span class="p-l-lg has-text-white is-size-5">
             Logout

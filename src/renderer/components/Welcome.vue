@@ -8,26 +8,28 @@
             <img src="~@/assets/img/white-logo-with-text.png" >
           </div>
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
-          <div class="is-size-6 m-t-md">{{ join_message }}</div>
-          <form>
-            <input v-model="password" class="input m-b-sm" type="password" placeholder="Password">
-            <div class="level-item has-text-centered is-marginless">
-              <a class="p-t-lg button is-fullwidth is-primary" @click="login"> Login </a>
+          <div v-if="hasPassword">
+            <div class="is-size-6 m-t-md">Welcome Back!</div>
+            <form>
+              <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
+              <div class="level-item has-text-centered is-marginless">
+                <a class="p-t-lg button is-fullwidth is-primary" @click="login"> Login </a>
+              </div>
+            </form>
+            <div v-if="nopassword">
+              <p class="has-text-danger m-t-md">
+                No Password Has Been Set For The Wallet. Please Create A Password First.
+              </p>
             </div>
-          </form>
-          <div v-if="nopassword">
-            <p class="has-text-danger m-t-md">
-              No Password Has Been Set For The Wallet. Please Create A Password First.
-            </p>
+            <div v-if="incorrectPassword">
+              <p class="has-text-danger m-t-md">
+                The Password Is Incorrect.
+              </p>
+            </div>
           </div>
-          <div v-if="incorrectPassword">
-            <p class="has-text-danger m-t-md">
-              The Password Is Incorrect.
-            </p>
-          </div>
-          <br>
-          <div>
-            <a class="has-text-white is-size-6 is-pulled-center has-text-weight-bold" @click="createwalletpassword">
+          <div v-if="!hasPassword">
+            <div class="is-size-6 m-t-md">{{ join_message }}</div>
+            <a class="p-t-lg button is-fullwidth is-primary" @click="createwalletpassword">
               Create Wallet Password
             </a>
           </div>
@@ -49,7 +51,8 @@ export default {
       publicKey: "",
       password: "",
       nopassword: false,
-      incorrectPassword: false
+      incorrectPassword: false,
+      hasPassword: false
     };
   },
   mounted() {
@@ -59,6 +62,10 @@ export default {
     let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
+    }
+    if (fs.existsSync(path.join(electron.remote.app.getPath('userData'), '/verto.config'))) {
+      this.hasPassword = true;
+      console.log("You are here.")
     }
   },
   methods: {

@@ -3,22 +3,15 @@
     <div class="hero-body choose-password p-md">
       <div class="container font-gibson m-t-lg">
         <p class="is-size-4 font-gibson-semibold">
-          File Storage
+          File Storage 
         </p>
-        <p class="is-size-6 font-gibson has-text-weight-bold m-t-sm">
-          Warning
-        </p>
+        <a @click="isInstructionsActive = true">Instructions</a>
         <br>
-        <p class="m-t-lg">
-          It's recommended to save your keys file on a removable storage
-        </p>
-        <br>
+        <b-checkbox native-value="write" v-model="isEnabled">
+          I understand that the private key is not stored in Verto and cannot be recovered.
+        </b-checkbox>
         <div class="field">
           <div class="control">
-            <p>
-              Give Your Key A Name
-            </p>
-            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Name">
             <div v-if="nokeyname">
               <p class="has-text-danger m-t-md">
                 You must provide a key name.
@@ -39,7 +32,9 @@
                 Please fill all the fields above
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Password">
+            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Name">
+            
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Choose Password">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
             <div v-if="incorrectPassword">
               <p class="has-text-danger m-t-md">
@@ -56,11 +51,67 @@
         </div>
         <br><br>
         <div class="has-text-dark m-b-md m-t-xl">
-          <a class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
+          <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
             <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
           </a>
         </div>
       </div>
+      <b-modal :active.sync="isInstructionsActive">
+        <div class="card">
+          <div class="card-content">
+            <div class="modal-header">
+              <slot name="header">
+                Recommended
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  * Store on an external drive, wallet, or usb key.
+                </li>
+              </ul>
+            </div>
+            <br>
+            <div class="modal-header">
+              <slot name="header">
+                Once Completed
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  * Look for a warm, safe, secure, dry place such as a bank safety deposit box.
+                </li>
+                <li>
+                  * Add provisions to your will on who and how the transfer of your wallet will be conducted.
+                </li>
+              </ul>
+            </div>
+            <br>
+            <div class="modal-header">
+              <slot name="header">
+                Do Not
+              </slot>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  * Store it on your computers local drive.
+                </li>
+                <li>
+                  * Share with anyone.
+                </li>
+                <li>
+                  * Email it.
+                </li>
+                <li>
+                  * Store on the cloud.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </b-modal>
     </div>
   </section>
 </template>
@@ -71,7 +122,7 @@ import sjcl from "sjcl";
 export default {
   data() {
     return {
-      isEnabled: true,
+      isEnabled: false,
       userFile: "",
       userPassword: "",
       checkPassword: "",
@@ -85,7 +136,8 @@ export default {
       keyalreadyused: false,
       nokeyname: false,
       incorrectPassword: false,
-      walletpassword: ""
+      walletpassword: "",
+      isInstructionsActive: false
     };
   },
   mounted() {
@@ -154,6 +206,10 @@ export default {
 <style scoped>
 .hero-body.choose-password {
   background-color: #f7f7fa !important;
+}
+.modal-header {
+  margin-top: 0;
+  color: #42b983;
 }
 .hero-body.choose-password .font-gibson-semibold {
   color: #454f63;
