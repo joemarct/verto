@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import KeepYourKeysSafe from "@/components/SelectKey/SelectKey.vue";
+import KeepYourKeysSafe from "@/components/WalletManager/WalletManager.vue";
 export default {
   components: {
     KeepYourKeysSafe

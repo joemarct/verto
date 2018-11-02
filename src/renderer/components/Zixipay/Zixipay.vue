@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     signup: function() {
-      this.$router.push("selectkey")
+      this.$router.push("walletmanager")
     }
   }
 };

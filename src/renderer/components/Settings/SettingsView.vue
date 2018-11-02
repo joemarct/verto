@@ -37,8 +37,8 @@
         <br>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/selectkey">
-            Key Manager
+          <router-link to="/walletmanager">
+            Wallet Manager
           </router-link>
         </span>
         <br>

@@ -175,17 +175,16 @@ export default {
     });
 
     this.setWallet();
-    this.getData();
     this.refreshBalance();
+    this.getTransactionHistory();
   },
   methods: {
     setWallet: function() {
       this.wallet = this.$store.state.userKey;
     },
-    async getData() {
+    async getTransactionHistory() {
       this.hasTransactions = false;
       this.noTransactions = false;
-      this.loadingData = true;
       // console.log("wallet: " + this.wallet);
       const userTransactions = await ledger.retrieveTransactions({
         account: myaccount,
@@ -207,6 +206,7 @@ export default {
       }
     },
     async refreshBalance() {
+      this.loadingData = true;
       this.balance = "0.00";
       this.currentBtcValue = 0.00
       const balance = await ledger.retrieveBalance({
@@ -242,7 +242,7 @@ export default {
     },
     refreshContent() {
       this.refreshBalance();
-      this.getData();
+      this.getTransactionHistory();
     }
   }
 };

@@ -157,9 +157,9 @@ const router = new Router({
       component: require('@/components/CreateVertoPassword').default
     },
     {
-      path: '/selectkey',
-      name: 'selectkey',
-      component: require('@/components/SelectKey').default,
+      path: '/walletmanager',
+      name: 'walletmanager',
+      component: require('@/components/WalletManager').default,
       meta: {
         requiresAuth: true
       }

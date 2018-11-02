@@ -33,7 +33,7 @@
             <p class="p-l-md p-r-md is-size-6">Next</p>
           </a>
         </router-link>
-        <router-link to="/SelectKey">
+        <router-link to="/walletmanager">
           <a class="is-primary button m-t-md is-size-5 is-pulled-left">
             <p class="p-l-md p-r-md is-size-6">Back</p>
           </a>

@@ -117,7 +117,7 @@ export default {
           const store = this.$store;
           fs.writeFile(filePath, sjcl.encrypt(this.userPassword, payload), 'utf-8', () => {
             store.dispatch("login", true);
-            router.push({ path: "selectkey" });
+            router.push({ path: "walletmanager" });
           });
         } else {
           this.notMatchingPass = true;

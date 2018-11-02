@@ -84,7 +84,7 @@ export default {
           const config = JSON.parse(sjcl.decrypt(this.password, databack));
           this.$store.dispatch("setKeys", config.keys);
           this.$store.dispatch("login", true);
-          this.$router.push({ path: "selectkey" });
+          this.$router.push({ path: "walletmanager" });
         } catch (error) {
           this.incorrectPassword = true
         }
