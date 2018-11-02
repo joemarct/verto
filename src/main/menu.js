@@ -59,8 +59,8 @@ module.exports = function (app, shell) {
         { role: 'zoomout' },
         { type: 'separator' },
         { role: 'togglefullscreen' },
-        { type: 'separator' },
-        { role: 'toggledevtools' }
+        { type: 'separator' }
+        // { role: 'toggledevtools' }
       ]
     },
     {
