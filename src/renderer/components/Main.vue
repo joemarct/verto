@@ -21,7 +21,7 @@
               <div>
                 <p class="is-marginless is-size-3 has-text-white font-gibson"> {{ balance }} VTX </p>
                 <div class="level is-mobile is-size-5 font-gibson">
-                  <div class="level-left has-text-primary" >0.0323 BTC</div>
+                  <p class="level-left has-text-primary" >{{ currentBtcValue.toFixed(4) }} BTC</p>
                   <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
                   </div>
@@ -126,6 +126,7 @@
 
 <script>
 import Ledger from "volentix-ledger";
+import axios from 'axios'
 
 const chainId = process.env.CHAIN_ID
 const httpEndpoint = process.env.HTTP_ENDPOINT
@@ -163,7 +164,8 @@ export default {
       noTransactions: false,
       appVersion: this.$appVersion,
       appName: this.$appName,
-      loadingData: true
+      loadingData: true,
+      currentBtcValue: 0.0
     };
   },
   mounted() {
@@ -206,12 +208,18 @@ export default {
     },
     async refreshBalance() {
       this.balance = "0.00";
+      this.currentBtcValue = 0.00
       const balance = await ledger.retrieveBalance({
         account: myaccount,
         wallet: this.wallet
       });
       // console.log(balance);
       this.balance = balance.amount.toFixed(2);
+      if (this.balance > 0) {
+        let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
+        // console.log(JSON.stringify());
+        this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
+      }
     },
     removeToast: function() {
       this.isCopied = false;

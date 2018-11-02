@@ -59,7 +59,7 @@
             </a>
           </div>
           <div class="has-text-dark level-right">
-            <a class="button m-t-md green is-right has-text-white" @click="fricx">
+            <a class="button m-t-md green is-right has-text-white" @click="updatePassword">
               <p class="is-size-6">
                 Save
               </p>
@@ -112,7 +112,7 @@ export default {
     };
   },
   methods: {
-    fricx: function() {
+    updatePassword: function() {
       this.notMatchingPass = false;
       this.fillAllFields = false;
       let fs = require("fs");
