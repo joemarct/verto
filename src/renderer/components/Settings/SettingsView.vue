@@ -74,7 +74,7 @@
     </div>
     <div class="hero-foot">
       <div class="has-text-grey-light is-size-7 p-b-md p-t-md p-l-md">
-        {{ appName }}: {{ appVersion }} Test Updates
+        {{ appName }}: {{ appVersion }}
       </div>
     </div>
   </div>
