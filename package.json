@@ -1,6 +1,6 @@
 {
   "name": "Verto",
-  "version": "0.0.1",
+  "version": "0.9.0",
   "author": "Volentix Labs <volentix.io>",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "main": "./dist/electron/main.js",
@@ -23,7 +23,7 @@
     "build:dir": "node .electron-vue/build.js && electron-builder --dir",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
-    "release": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -p always",
+    "release": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder -mwl -p always",
     "release:win": "node .electron-vue/build.js && CSC_IDENTITY_AUTO_DISCOVERY=true electron-builder --win -p always",
     "dev": "node .electron-vue/dev-runner.js",
     "e2e": "npm run pack && mocha test/e2e",
