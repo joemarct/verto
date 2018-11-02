@@ -145,7 +145,7 @@ const router = new Router({
     },
     {
       path: '/choosepassword',
-      name: 'ChoosePassword',
+      name: 'choosepassword',
       component: require('@/components/ChoosePassword').default,
       meta: {
         requiresAuth: true
