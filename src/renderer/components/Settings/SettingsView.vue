@@ -69,12 +69,12 @@
         </a>
         <a class="p-l-lg has-text-white is-size-5" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">
           Send Mail
-        </a>        
+        </a>
       </div>
     </div>
     <div class="hero-foot">
       <div class="has-text-grey-light is-size-7 p-b-md p-t-md p-l-md">
-        {{ appName }}: {{ appVersion }}
+        {{ appName }}: {{ appVersion }} Test Updates
       </div>
     </div>
   </div>
