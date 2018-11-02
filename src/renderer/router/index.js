@@ -167,7 +167,7 @@ const router = new Router({
     {
       path: '/whitelist',
       name: 'whitelist',
-      component: require('@/components/Zixipay').default,
+      component: require('@/components/Whitelist').default,
       meta: {
         requiresAuth: true
       }
@@ -197,6 +197,11 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/blocktopusconfirm',
+      name: 'blocktopusconfirm',
+      component: require('@/components/BlocktopusConfirm').default
     }
   ]
 });

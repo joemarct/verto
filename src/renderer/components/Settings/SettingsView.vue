@@ -20,7 +20,14 @@
           <router-link to="/checkforupdates">
             Check for Updates
           </router-link>
-        </span> -->
+        </span> 
+        <br>
+        <span class="p-l-lg has-text-white is-size-5">
+          <a class="p-l-lg has-text-white is-size-5" v-bind:href="blocktopusUrl">
+            Whitelist
+          </a>
+        </span>
+        -->
         <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/whitelist">
@@ -77,7 +84,7 @@
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
-  </div>
+  </div> 
 </template>
 
 <script>
@@ -85,12 +92,17 @@ export default {
   data() {
     return {
       appVersion: this.$appVersion,
-      appName: this.$appName
+      appName: this.$appName,
+      blocktopusUrl: 'https://volentix.blocktopus.io/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey
     };
   },
   mounted() {
   },
   methods: {
+    checkBlocktopus: function() {
+      console.log(this.blocktopusUrl)
+      console.log(__dirname)
+    },
     openTelegram: function() {
       var open = require("open");
       open("http://t.me/volentix");
@@ -103,7 +115,6 @@ export default {
   }
 };
 </script>
-
 <style>
 .settings-list span:hover {
   color: hsl(171, 100%, 41%) !important;

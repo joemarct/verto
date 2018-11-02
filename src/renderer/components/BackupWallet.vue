@@ -63,6 +63,7 @@ export default {
       const electron = require("electron")
       const filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
       fs.writeFileSync(savePath, fs.readFileSync(filePath, 'utf-8'));
+      this.$router.push({ path: "settings" })
     }
   }
 };
