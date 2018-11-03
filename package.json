@@ -1,6 +1,6 @@
 {
   "name": "Verto",
-  "version": "0.8.8",
+  "version": "0.8.0",
   "author": "Volentix Labs <volentix.io>",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "main": "./dist/electron/main.js",
@@ -70,7 +70,21 @@
       "target": [
         "zip",
         "dmg"
-      ]
+      ],
+      "extendInfo": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        },
+        "NSExceptionDomains": {
+          "localhost": {
+            "NSTemporaryExceptionAllowsInsecureHTTPSLoads": false,
+            "NSIncludesSubdomains": false,
+            "NSTemporaryExceptionAllowsInsecureHTTPLoads": true,
+            "NSTemporaryExceptionMinimumTLSVersion": "1.0",
+            "NSTemporaryExceptionRequiresForwardSecrecy": false
+          }
+        }
+      }
     },
     "win": {
       "icon": "icons/windows/icon.ico",
