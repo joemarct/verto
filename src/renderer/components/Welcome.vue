@@ -33,11 +33,11 @@
               Create Verto Password
             </a>
           </div>
-          <div>
+        </div>
+        <div class="logger">
             Logger:
             <div id="messages"></div>
           </div>
-        </div>
       </div>
     </div>
   </section>
@@ -127,5 +127,9 @@ export default {
 .logo-welcome img {
   width: 100%;
   max-width: 320px;
+}
+.logger {
+  overflow: scroll;
+  background-color: white;
 }
 </style>
