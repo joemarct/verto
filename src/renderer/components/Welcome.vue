@@ -35,7 +35,6 @@
           </div>
         </div>
         <div class="logger">
-            Logger:
             <div id="messages"></div>
           </div>
       </div>
