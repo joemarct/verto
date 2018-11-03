@@ -72,5 +72,5 @@ app.on('ready', () => {
 autoUpdater.on('update-downloaded', () => {
   mainWindow.webContents.send("updateReady");
   autoUpdater.quitAndInstall();
-  process.exit(1);
+  //process.exit(1);
 })
