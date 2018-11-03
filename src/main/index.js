@@ -83,25 +83,12 @@ function sendStatusToWindow(text) {
   log.info(text);
   mainWindow.webContents.send('message', text);
 }
-
-autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
-})
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.');
-})
-autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.');
+  sendStatusToWindow('Update available. Once the download is complete you will need to quit and restart Verto.');
 })
 autoUpdater.on('error', (err) => {
   sendStatusToWindow('Error in auto-updater. ' + err);
 })
-autoUpdater.on('download-progress', (progressObj) => {
-  let logMes = "Download speed: " + progressObj.bytesPerSecond;
-  logMes = logMes + ' - Downloaded ' + progressObj.percent + '%';
-  logMes = logMes + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(logMes);
-})
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded');
+  sendStatusToWindow('Restart Verto to open the latest version!');
 });

@@ -35,8 +35,8 @@
           </div>
         </div>
         <div class="logger">
-            <div id="messages"></div>
-          </div>
+          <div id="messages"></div>
+        </div>
       </div>
     </div>
   </section>
