@@ -5,7 +5,7 @@
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "main": "./dist/electron/main.js",
   "private": true,
-  "homepage": "https://volentix.io/",
+  "homepage": "https://github.com/Volentix/verto",
   "license": "MIT",
   "repository": {
     "type": "git",
