@@ -23,7 +23,7 @@
             <form>
               <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
               <div class="level-item has-text-centered is-marginless">
-                <a class="p-t-lg button is-fullwidth is-danger" @click="login"> Login </a>
+                <a class="p-t-lg button is-fullwidth is-success" @click="login"> Login </a>
               </div>
             </form>
           </div>
