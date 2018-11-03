@@ -130,5 +130,7 @@ export default {
 .logger {
   overflow: scroll;
   background-color: white;
+  color: #000000;
+  height: 150px;
 }
 </style>

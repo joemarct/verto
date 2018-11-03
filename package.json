@@ -1,6 +1,6 @@
 {
   "name": "Verto",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "author": "Volentix Labs <volentix.io>",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "main": "./dist/electron/main.js",
