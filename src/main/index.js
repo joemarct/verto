@@ -2,6 +2,7 @@
 
 import { app, BrowserWindow, Menu, shell } from 'electron'
 import { autoUpdater } from 'electron-updater'
+const log = require('electron-log');
 
 // Add the menu module
 const menu = require('./menu')
@@ -63,14 +64,44 @@ app.on('activate', () => {
  * support auto updating. Code Signing with a valid certificate is required.
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html#auto-updating
  */
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
+
 app.on('ready', () => {
   if (process.env.NODE_ENV === "production") {
-    autoUpdater.checkForUpdates();
+    autoUpdater.checkForUpdatesAndNotify();
   }
 })
 
-autoUpdater.on('update-downloaded', () => {
-  mainWindow.webContents.send("updateReady");
-  autoUpdater.quitAndInstall();
-  // process.exit(1);
+// autoUpdater.on('update-downloaded', () => {
+//   mainWindow.webContents.send("updateReady");
+//   autoUpdater.quitAndInstall();
+//   // process.exit(1);
+// })
+function sendStatusToWindow(text) {
+  log.info(text);
+  mainWindow.webContents.send('message', text);
+}
+
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('Checking for update...');
 })
+autoUpdater.on('update-available', (info) => {
+  sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (info) => {
+  sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (err) => {
+  sendStatusToWindow('Error in auto-updater. ' + err);
+})
+autoUpdater.on('download-progress', (progressObj) => {
+  let logMes = "Download speed: " + progressObj.bytesPerSecond;
+  logMes = logMes + ' - Downloaded ' + progressObj.percent + '%';
+  logMes = logMes + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(logMes);
+})
+autoUpdater.on('update-downloaded', (info) => {
+  sendStatusToWindow('Update downloaded');
+});

@@ -33,6 +33,10 @@
               Create Verto Password
             </a>
           </div>
+          <div>
+            Logger:
+            <div id="messages"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -41,6 +45,14 @@
 
 <script>
 import sjcl from "sjcl";
+
+const {ipcRenderer} = require('electron');
+ipcRenderer.on('message', function(event, text) {
+  var container = document.getElementById('messages');
+  var message = document.createElement('div');
+  message.innerHTML = text;
+  container.appendChild(message);
+})
 
 export default {
   data() {
