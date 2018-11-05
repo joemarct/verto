@@ -186,17 +186,22 @@ export default {
       this.hasTransactions = false;
       this.noTransactions = false;
       // console.log("wallet: " + this.wallet);
-      const userTransactions = await ledger.retrieveTransactions({
-        account: myaccount,
-        wallet: this.wallet
-      });
-      this.loadingData = false;
-      if (userTransactions.transactions.length > 0) {
-        this.transactions = userTransactions.transactions;
-        this.hasTransactions = true;
-        this.getDate();
-      } else {
+      try {
+        const userTransactions = await ledger.retrieveTransactions({
+          account: myaccount,
+          wallet: this.wallet
+        });
+        this.loadingData = false;
+        if (userTransactions.transactions.length > 0) {
+          this.transactions = userTransactions.transactions;
+          this.hasTransactions = true;
+          this.getDate();
+        } else {
+          this.noTransactions = true;
+        }
+      } catch (error) {
         this.noTransactions = true;
+        this.loadingData = false;
       }
     },
     getDate() {
@@ -209,16 +214,21 @@ export default {
       this.loadingData = true;
       this.balance = "0.00";
       this.currentBtcValue = 0.00
-      const balance = await ledger.retrieveBalance({
-        account: myaccount,
-        wallet: this.wallet
-      });
-      // console.log(balance);
-      this.balance = balance.amount.toFixed(2);
-      if (this.balance > 0) {
-        let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
-        // console.log(JSON.stringify());
-        this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
+      try {
+        const balance = await ledger.retrieveBalance({
+          account: myaccount,
+          wallet: this.wallet
+        });
+        // console.log(balance);
+        this.balance = balance.amount.toFixed(2);
+        if (this.balance > 0) {
+          let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
+          // console.log(JSON.stringify());
+          this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
+        }
+      } catch (error) {
+        this.noTransactions = true;
+        this.loadingData = false;
       }
     },
     removeToast: function() {
