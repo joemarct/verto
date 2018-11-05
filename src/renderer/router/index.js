@@ -199,9 +199,9 @@ const router = new Router({
       }
     },
     {
-      path: '/blocktopusconfirm',
-      name: 'blocktopusconfirm',
-      component: require('@/components/BlocktopusConfirm').default
+      path: '/venueassignaddress',
+      name: 'venueassignaddress',
+      component: require('@/components/VenueAssignAddress').default
     }
   ]
 });

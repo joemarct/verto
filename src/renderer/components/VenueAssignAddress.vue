@@ -10,78 +10,15 @@
         <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
       <p class="p-t-lg has-text-aqua is-size-4">
-        Settings
+        Venue Assign Address
       </p>
       <div class="p-t-md settings-list">
-        <!-- <div class="is-size-5 has-text-white is-pulled-left">
-          <font-awesome-icon icon="sync-alt" class="fa-xs"/>
-        </div> -->
-        <!-- <span class="p-l-md has-text-white is-size-5">
-          <router-link to="/checkforupdates">
-            Check for Updates
-          </router-link>
-        </span> 
         <br>
         <span class="p-l-lg has-text-white is-size-5">
-          <a class="p-l-lg has-text-white is-size-5" v-bind:href="blocktopusUrl">
-            Whitelist
-          </a>
-        </span>
-        -->
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/whitelist">
-            Whitelist
+          <router-link to="/settings">
+            Settings
           </router-link>
         </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/getvtx">
-            Get VTX
-          </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/walletmanager">
-            Wallet Manager
-          </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/changevertopassword">
-            Change Password
-          </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/backupwallet">
-            Backup Wallet
-          </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/venueassignaddress">
-            Assign Address To Venue Account
-          </router-link>
-        </span>
-        <div @click="logout">
-          <span class="p-l-lg has-text-white is-size-5">
-            Logout
-          </span>
-        </div>
-        <hr>
-        <a class="p-l-lg has-text-white is-size-5" @click="openTelegram">
-          <!--<font-awesome-icon icon="telegram" class="fa-sm has-text-white m-l-sm"/>-->
-          Telegram
-        </a>
-        <a class="p-l-lg has-text-white is-size-5" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">
-          Send Mail
-        </a>
       </div>
     </div>
     <div class="hero-foot">

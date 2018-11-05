@@ -1,15 +1,20 @@
 <template>
   <section>
-    <div class="hero-head p-md save-your-keys">
-      <p class="is-size-4 font-gibson-semibold">
-        Display Key
-      </p>
-      <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
-        <p class="is-size-6">
-          Instructions
-        </p>
+  <div class="hero is-fullheight is-paddingless has-blur-background">
+    <div class="hero-head p-t-sm p-l-lg">
+      <div class="p-t-xl">
+        <div class="is-pulled-left is-vcentered is-flex m-t-md">
+          <router-link to="/saveyourkeys">
+            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
+          </router-link>
+        </div>
+        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
+      </div>
+      <a @click="isInstructionsActive = true">
+        <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
       </a>
-    </div>
+      <br>
+      <br>
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
         <b-checkbox native-value="write" v-model="isEnabled">
@@ -143,6 +148,8 @@
           </div>
         </div>
       </b-modal>
+    </div>
+    </div>
     </div>
   </section>
 </template>

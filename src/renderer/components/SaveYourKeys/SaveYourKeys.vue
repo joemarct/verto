@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     disableWiFi(url) {
-      if (!this.disableButton) {
+      if (!this.buttonsAreDisabled) {
         let command = "networksetup -setairportpower airport off";
         let exec = require("child_process").exec;
         exec(command);
@@ -83,11 +83,6 @@ export default {
         this.buttonsAreDisabled = false;
       } else {
         this.buttonsAreDisabled = true;
-      }
-    },
-    saveToFileProcess() {
-      if (!this.buttonsAreDisabled) {
-        this.$router.push("/savetofileprocess");
       }
     }
   }

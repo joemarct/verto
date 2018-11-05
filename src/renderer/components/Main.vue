@@ -201,6 +201,8 @@ export default {
           this.noTransactions = true;
         }
       } catch (error) {
+        console.log("1!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log(error)
         this.noTransactions = true;
         this.loadingData = false;
       }
@@ -221,6 +223,7 @@ export default {
           wallet: this.wallet
         },
         "vltxtgevtxtr");
+        console.log("Balance: " + JSON.stringify(balance))
         // console.log(balance);
         this.balance = balance.amount.toFixed(2);
         if (this.balance > 0) {
@@ -229,6 +232,7 @@ export default {
           this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
         }
       } catch (error) {
+        console.log("2@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         this.noTransactions = true;
         this.loadingData = false;
       }

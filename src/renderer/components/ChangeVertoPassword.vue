@@ -1,26 +1,19 @@
 <template>
-  <section class="hero is-fullheight is-light is-bold">
-     <div class="hero-body choose-password p-md">
-      <div class="container font-gibson m-t-lg">
-        <p class="is-size-4 font-gibson-semibold">
-          Change Verto Password
-        </p>
-        <div class="level is-mobile m-t-md">
-          <div class="has-text-dark level-left">
-            <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
-              <p class="is-size-6">
-                Instructions
-              </p>
-            </a>
-          </div>
-          <div class="has-text-dark level-right">
-            <a @click="$router.push({ path: 'backupwallet' })" class="button m-t-md green is-right has-text-white">
-              <p class="is-size-6">
-                Backup Your Wallet
-              </p>
-            </a>
-          </div>
+  <section>
+  <div class="hero is-fullheight is-paddingless has-blur-background">
+    <div class="hero-head p-t-sm p-l-lg">
+      <div class="p-t-xl">
+        <div class="is-pulled-left is-vcentered is-flex m-t-md">
+          <router-link to="/settings">
+            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
+          </router-link>
         </div>
+        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
+      </div>
+        <a @click="isInstructionsActive = true">
+          <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
+        </a>
+        <br>
         <br>
         <br>
         <div class="field">
