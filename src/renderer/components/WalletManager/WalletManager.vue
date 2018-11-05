@@ -1,7 +1,7 @@
 <template>
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
+    <div class="hero-head p-t-sm p-l-lg p-r-md">
       <div class="p-t-xl">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
           <router-link to="/settings">
