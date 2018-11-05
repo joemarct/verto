@@ -68,9 +68,6 @@
             </a>
           </div>
         </div>
-        <div class="has-text-dark m-b-md m-t-xl">
-          
-        </div>
       </div>
       <b-modal :active.sync="isInstructionsActive">
         <div class="card">
