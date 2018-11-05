@@ -46,7 +46,7 @@
                 All fields are required.
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="New Password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="New Verto Password">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm New Verto Password">
           </div>
         </div>

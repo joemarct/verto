@@ -4,17 +4,40 @@
       <p class="is-size-4 font-gibson-semibold">
         Backup Wallet
       </p>
-      <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
+      <div class="level is-mobile m-t-md">
+        <div class="has-text-dark level-left">
+          <a @click="isInstructionsActive = true" class="button m-t-md green is-centered has-text-white">
+            <p class="is-size-6">
+              Instructions
+            </p>
+          </a>
+        </div>
+      </div>
+      <br>
+      <input disabled="disabled" v-model="savePath" class="input m-t-md" type="text" placeholder="">
+      <a @click="selectFolder" class="button m-t-md green is-centered has-text-white">
         <p class="is-size-6">
-          Instructions
+          Select Folder
         </p>
       </a>
       <br>
-      <a @click="backupVerto" class="button m-t-md green is-centered has-text-white">
-        <p class="is-size-6">
-          Backup Verto
-        </p>
-      </a>
+       <div class="level is-mobile m-t-md">
+          <div class="has-text-dark level-left">
+            <a  @click="$router.push({ path: 'settings' })" class="button m-t-md green is-centered has-text-white">
+              <p class="is-size-6">
+                Cancel
+              </p>
+            </a>
+          </div>
+          <div class="has-text-dark level-right">
+            <a :disabled="!enableBackup" @click="backupVerto" class="button m-t-md green is-centered has-text-white">
+              <p class="is-size-6">
+                Backup Wallet
+              </p>
+            </a>
+          </div>
+        </div>
+      
       <b-modal :active.sync="isInstructionsActive">
         <div class="card">
           <div class="card-content">
@@ -26,7 +49,16 @@
             <div>
               <ul>
                 <li>
-                  TODO
+                  Simple tooling to back up your wallet in order to restore or open on another device. Simply:
+                </li>
+                <li>
+                  * Select a directory to back up the wallet to.
+                </li>
+                <li>
+                  * Verto will back up the wallet with the name 'verto' + the date + '.config'
+                </li>
+                <li>
+                  * Select 'Backup Wallet'
                 </li>
               </ul>
             </div>
@@ -44,25 +76,29 @@ export default {
   data() {
     return {
       isInstructionsActive: false,
-      directoryPath: ""
+      savePath: "",
+      enableBackup: false
     };
   },
   mounted() {
   },
   methods: {
-    backupVerto: function() {
+    selectFolder: function() {
       const { dialog } = require("electron").remote;
       const dateFormat = require('dateformat');
       const selectedPath = dialog.showOpenDialog({
         title: "Choose file",
         properties: ['openDirectory']
       });
-      const savePath = selectedPath + '/verto.' + dateFormat(new Date(), "yyyy.mm.dd.h.MM.ss") + '.config';
+      this.savePath = selectedPath + '/verto.' + dateFormat(new Date(), "yyyy.mm.dd.h.MM.ss") + '.config';
+      this.enableBackup = true;
+    },
+    backupVerto: function() {
       const fs = require("fs");
       const path = require("path")
       const electron = require("electron")
       const filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
-      fs.writeFileSync(savePath, fs.readFileSync(filePath, 'utf-8'));
+      fs.writeFileSync(this.savePath, fs.readFileSync(filePath, 'utf-8'));
       this.$router.push({ path: "settings" })
     }
   }
@@ -70,59 +106,113 @@ export default {
 </script>
 
 <style scoped>
-.display-keys {
-  background-color: #162929;
-  border-radius: 0.6rem;
-  padding: 1rem !important;
+.hero-body.choose-password {
+  background-color: #f7f7fa !important;
+}
+.myLink {
+	color: #f00;
+}
+.active {
+	color: #0f0;
 }
 .modal-header {
   margin-top: 0;
   color: #42b983;
 }
-.generated-keys {
-  background-color: #1a4a48;
-  border-radius: 0.6rem;
-  border: solid #3acce1 1.2pt;
-  overflow-wrap: break-word;
-}
-.hero-body.save-your-keys {
-  background-color: #f7f7fa !important;
-  padding-top: 0.3rem !important;
-}
-.hero-head.save-your-keys {
-  background-color: #f7f7fa !important;
-}
-.save-your-keys .font-gibson-semibold {
+.hero-body.choose-password .font-gibson-semibold {
   color: #454f63;
 }
-.hero-body.save-your-keys p.font-gibson-semibold.second {
-  color: #ffffff;
-}
-.hero-body.save-your-keys .button.green {
-  background-color: #00a6a6 !important;
-}
-.hero-body.save-your-keys .button.aqua {
-  background-color: #2cfee6 !important;
-}
-.hero-body.save-your-keys .font-gibson {
+.hero-body.choose-password .font-gibson {
   color: #78849e;
-  font-size: 10.5pt;
+  font-size: 11pt;
 }
-.hero-body.save-your-keys .button {
-  border-radius: 0.7rem;
+.hero-body.choose-password .button.green {
+  background-color: #00a6a6 !important;
+  border: solid #00a6a6 1pt !important;
+  border-radius: 0.5rem;
+}
+.hero-body.choose-password .choose-file {
+  border-radius: 0.5rem;
+}
+.hero-body.choose-password .button.green p {
+  color: #ffffff !important;
 }
 .b-checkbox {
   margin-top: 0.6rem;
 }
-.level-left .button {
-  width: 10rem;
-  height: 3rem;
+.hero-body.choose-password input {
+  border-radius: 0.5rem;
 }
-.level-right .button {
-  width: 10rem;
-  height: 3rem;
+.notices.is-top {
+  top: 18rem !important;
+  left: 18.5rem;
 }
-.container {
-  width: 10rem;
+.notices .toast {
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
 }
+.is-vcentered {
+  align-items: center;
+}
+.top-bg {
+  background-image: url(~@/assets/img/wallet-main-top-bg.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.dark-blue-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(41, 137, 216, 0) 0%,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(34, 52, 53, 1) 100%
+  );
+}
+.w-main-b-graident {
+  background: linear-gradient(
+    to bottom,
+    rgba(34, 52, 53, 1) 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 80%,
+    rgba(255, 255, 255, 0) 90%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+}
+.wallet-address {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1px;
+}
+.line-height-md {
+  line-height: 1rem;
+}
+.logo {
+  height: 3.5rem;
+}
+.list-item {
+  border-bottom: solid 1px rgba(55, 202, 189, 0.3);
+  width: 100vw;
+}
+.hero-body {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  align-items: flex-start !important;
+}
+.hero-body > .container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+.hero-foot {
+  border-top: none;
+}
+.hero.is-fullheight .hero-body {
+  flex: 1;
+}
+.hero.is-fullheight {
+  height: 100vh;
+}
+
 </style>

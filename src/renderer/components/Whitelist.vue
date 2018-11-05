@@ -1,6 +1,6 @@
 <template>
   <section>
-    <a class="button is-fullwidth is-primary has-text-white" @click="$router.push('settings')">Back To Verto</a>
+    <a class="button is-fullwidth is-primary has-text-white" @click="$router.push('settings')">&lt;--- &nbsp;&nbsp;Back To Verto</a>
     <iframe :src="zixipayLink"/>
   </section>
 </template>

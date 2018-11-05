@@ -36,10 +36,10 @@
                 Please fill all the fields above
               </p>
             </div>
-            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Name">
+            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Wallet Name">
             
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Choose Password">
-            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Choose Wallet Password">
+            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm Wallet password">
             <div v-if="incorrectPassword">
               <p class="has-text-danger m-t-md">
                 The Verto Password Is Incorrect.
@@ -54,10 +54,22 @@
           </p>
         </div>
         <br><br>
+        <div class="level is-mobile m-t-md">
+          <div class="has-text-dark level-left">
+            <a  @click="$router.push({ path: 'walletmanager' })" class="button m-t-md green is-centered has-text-white">
+              <p class="is-size-6">
+                Cancel
+              </p>
+            </a>
+          </div>
+          <div class="has-text-dark level-right">
+            <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
+            </a>
+          </div>
+        </div>
         <div class="has-text-dark m-b-md m-t-xl">
-          <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
-            <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
-          </a>
+          
         </div>
       </div>
       <b-modal :active.sync="isInstructionsActive">

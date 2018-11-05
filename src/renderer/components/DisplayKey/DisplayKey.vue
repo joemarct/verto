@@ -31,9 +31,6 @@
           </div>
         </div>
         <div class="m-t-md">
-          <p>
-            Give Your Key A Name
-          </p>
           <div v-if="keyalreadyused">
             <p class="has-text-danger m-t-md">
               The name or the key has already been used.
@@ -44,18 +41,27 @@
               You must provide a name for your key.
             </p>
           </div>
-          <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Name">
+          <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Wallet Name">
           <div v-if="incorrectPassword">
             <p class="has-text-danger m-t-md">
               The Password Is Incorrect.
             </p>
           </div>
           <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Verto Password">
-          <div class="has-text-dark is-pulled-right">
-            <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Next</p>
+          <div class="level is-mobile m-t-md">
+          <div class="has-text-dark level-left">
+            <a  @click="$router.push({ path: 'walletmanager' })" class="button m-t-md green is-centered has-text-white">
+              <p class="is-size-6">
+                Cancel
+              </p>
             </a>
           </div>
+          <div class="has-text-dark level-right">
+            <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
+            </a>
+          </div>
+        </div>
         </div>
       </div>
       <b-modal :active.sync="isKeyModalActive">

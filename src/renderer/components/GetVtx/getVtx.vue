@@ -66,14 +66,13 @@
               </table>
             </div>
             <br>
-            <input type="hidden" name="merchant" placeholder="Merchant" value="M903342">
+            <input type="hidden" name="merchant" placeholder="Merchant" value="faka_merchant_id">
             <input type="hidden" name="description" value="Testing payment">
             <input type="number" class="input m-b-md" name="amount" placeholder="0" v-model.number="amount" @change="calculateVtx">
             <select class="input m-b-md" v-model="currency" @change="changeCurrency">
               <option value="BTC">Bitcoin</option>
               <option value="ETH">Ethereum</option>
-              <option value="EUR">Euro</option>
-              <option value="USD">US Dollar</option>
+              <option value="EOS">EOS</option>
             </select>
             <input type="hidden" name="currency" v-model="currency">
             <input type="hidden" name="custom" v-model="this.$store.state.userKey">
@@ -115,10 +114,11 @@
                 </tr>
               </table>
             </div>
-
-            <a class="button m-t-md is-size-5 is-primary is-centered" @click="buyVtx">
-              <p class="p-l-sm p-r-sm is-size-5">Get VTX</p>
-            </a>
+            <div class="level-item has-text-centered is-marginless">
+              <a :disabled="true" class="button is-fullwidth is-primary has-text-white" @click="buyVtx">
+                Comming Soon
+              </a>
+            </div>
           </form>
         </div>
       </div>
@@ -178,7 +178,7 @@ export default {
       let hashResult = await axios.post(
         "https://volentix-cf.tekstackapps.com/public/api/zixipay-create-hash/",
         {
-          merchant: "M903342",
+          merchant: "faka_merchant_id",
           custom: this.$store.state.userKey,
           amount: this.amount,
           currency: this.currency
@@ -186,6 +186,7 @@ export default {
       );
       const res = await hashResult;
       this.userHash = res.data.hash;
+      console.log("HASH RESULTS: " + this.userHash)
       const form = document.getElementById("zixiform");
       form.hash.value = this.userHash
       let fs = require("fs");
@@ -194,7 +195,7 @@ export default {
       let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
       let datatoStore = {currentKey: this.$store.state.userKey, keys: this.$store.state.keys};
       fs.writeFileSync(filePath, JSON.stringify(datatoStore), 'utf-8');
-      document.getElementById("zixiform").submit();
+      // document.getElementById("zixiform").submit();
     },
     async getSummaryData() {
       let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
