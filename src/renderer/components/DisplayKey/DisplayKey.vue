@@ -4,7 +4,7 @@
     <div class="hero-head p-t-sm p-l-lg">
       <div class="p-t-xl">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/saveyourkeys">
+          <router-link to="/keepyourkeyssafe">
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
           </router-link>
         </div>
