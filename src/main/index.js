@@ -34,7 +34,8 @@ function createWindow () {
     icon: `file://${__dirname}/static/icon.png`,
     backgroundColor: "#ffffff",
     center: true,
-    vibrancy: "appearance-based"
+    vibrancy: "appearance-based",
+    webPreferences: {webSecurity: false}
   })
   mainWindow.loadURL(winURL)
   mainWindow.on('closed', () => {

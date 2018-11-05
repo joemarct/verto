@@ -172,7 +172,8 @@ export default {
     ledger = new Ledger({
       httpEndpoint: httpEndpoint,
       chainId: chainId
-    });
+    },
+    process.env.LEDGER_ACCOUNT_NAME);
 
     this.setWallet();
     this.refreshBalance();
@@ -218,7 +219,8 @@ export default {
         const balance = await ledger.retrieveBalance({
           account: myaccount,
           wallet: this.wallet
-        });
+        },
+        "vltxtgevtxtr");
         // console.log(balance);
         this.balance = balance.amount.toFixed(2);
         if (this.balance > 0) {

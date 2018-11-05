@@ -117,7 +117,7 @@
     "moment": "^2.22.2",
     "open": "0.0.5",
     "sjcl": "^1.0.7",
-    "volentix-ledger": "^0.2.63",
+    "volentix-ledger": "^0.2.64",
     "vue": "^2.5.17",
     "vue-clipboard2": "^0.2.1",
     "vue-electron": "^1.0.6",
