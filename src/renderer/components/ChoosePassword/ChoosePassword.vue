@@ -12,8 +12,7 @@
       </div>
       <a @click="isInstructionsActive = true">
         <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
-      </a>
-      
+      </a> 
         <b-checkbox native-value="write" v-model="isEnabled" class="has-text-white">
           I understand that the private key is not stored in Verto and cannot be recovered.
         </b-checkbox>

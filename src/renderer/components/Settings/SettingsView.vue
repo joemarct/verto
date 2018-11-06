@@ -35,7 +35,6 @@
           </router-link>
         </span>
         -->
-        <br>
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/whitelist">
             Whitelist
@@ -70,6 +69,12 @@
           </router-link>
         </span>
         <br>
+        <br>
+        <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/venueassignaddress">
+            Assign Address To Venue Account
+          </router-link>
+        </span>
         <br>
         <div @click="logout">
           <span class="p-l-lg has-text-white is-size-5">
