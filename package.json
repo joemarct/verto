@@ -1,6 +1,6 @@
 {
   "name": "Verto",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "author": "Volentix Labs <volentix.io>",
   "description": "A multi-currency crypto wallet with initial support for EOS & VTX",
   "main": "./dist/electron/main.js",
@@ -88,7 +88,8 @@
     },
     "win": {
       "icon": "icons/windows/icon.ico",
-      "target": "nsis"
+      "target": "nsis",
+      "publisherName": "Volentix Labs, Inc."
     },
     "linux": {
       "icon": "icons/linux",
@@ -113,7 +114,7 @@
     "dateformat": "^3.0.3",
     "dotenv-webpack": "^1.5.7",
     "electron-log": "^2.2.17",
-    "electron-updater": "^3.1.2",
+    "electron-updater": "^3.1.6",
     "moment": "^2.22.2",
     "open": "0.0.5",
     "sjcl": "^1.0.7",
@@ -144,8 +145,8 @@
     "css-loader": "^0.28.11",
     "del": "^3.0.0",
     "devtron": "^1.4.0",
-    "electron": "^3.0.5",
-    "electron-builder": "^20.28.4",
+    "electron": "^3.0.8",
+    "electron-builder": "^20.31.2",
     "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.2.4",
     "eslint": "^4.19.1",
