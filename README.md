@@ -55,6 +55,10 @@ npm run unit
 npm run e2e
 ```
 
+### Official EOS List
+
+> https://www.eosdocs.io/resources/apiendpoints/
+
 ### Maintainers
 
 TBD
