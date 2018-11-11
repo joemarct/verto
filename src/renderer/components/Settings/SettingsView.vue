@@ -71,6 +71,13 @@
         </span>
         <br>
         <br>
+        <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/pendingtransactions">
+            Pending Transactions
+          </router-link>
+        </span>
+        <br>
+        <br>
         <div @click="logout">
           <span class="p-l-lg has-text-white is-size-5">
             Logout

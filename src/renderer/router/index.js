@@ -205,6 +205,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/pendingtransactions',
+      name: 'pendingtransactions',
+      component: require('@/components/PendingTransactions').default,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });
