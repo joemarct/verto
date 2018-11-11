@@ -207,9 +207,9 @@ const router = new Router({
       }
     },
     {
-      path: '/pendingtransactions',
-      name: 'pendingtransactions',
-      component: require('@/components/PendingTransactions').default,
+      path: '/getVtxtransactionhistory',
+      name: 'getVtxtransactionhistory',
+      component: require('@/components/GetVtxTransactionHistory').default,
       meta: {
         requiresAuth: true
       }

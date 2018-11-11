@@ -72,8 +72,8 @@
         <br>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
-          <router-link to="/pendingtransactions">
-            Pending Transactions
+          <router-link to="/getVtxtransactionhistory">
+            Get VTX Transaction History
           </router-link>
         </span>
         <br>

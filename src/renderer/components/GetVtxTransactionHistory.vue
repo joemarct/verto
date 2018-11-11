@@ -20,7 +20,7 @@
             <div class="level-left has-text-centered">
               <div>
                 <div class="level is-mobile is-size-5 font-gibson">
-                  <p class="level-left has-text-primary" >Pending Transactions</p>
+                  <p class="level-left has-text-primary" >Get VTX History</p>
                   <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
                   </div>
@@ -275,7 +275,9 @@ export default {
       loadingData: true,
       currentBtcValue: 0.0,
       isTransactionDetailsActive: false,
-      currentTransaction: {}
+      currentTransaction: {
+        'native_currency': ""
+      }
     };
   },
   mounted() {
