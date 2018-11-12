@@ -15,7 +15,7 @@ export default {
       email: "",
       amount: 0,
       currency: 'BTC',
-      zixipayLink: 'https://volentix.blocktopus.io/token_buyers/sign_up?verto_address=' + this.$store.state.userKey
+      zixipayLink: 'https://volentix.blocktopus.io/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey
     };
   },
   methods: {
