@@ -257,6 +257,7 @@ import axios from 'axios'
 
 const chainId = process.env.CHAIN_ID
 const httpEndpoint = process.env.HTTP_ENDPOINT
+const crowdfundUrl = process.env.CROWDFUND_URL
 
 const myaccount = "vtxtrust";
 let ledger = {};
@@ -289,7 +290,7 @@ export default {
       this.wallet = this.$store.state.userKey;
     },
     async getPendingTransactions() {
-      let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/investor-transactions?verto_public_address=" + this.wallet);
+      let results = await axios.get(crowdfundUrl + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
       console.log("Pending Transactions Tlength: " + this.transactions.length);
       console.log(JSON.stringify(results.data));
       this.loadingData = false;

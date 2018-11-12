@@ -192,6 +192,7 @@ export default {
           account: myaccount,
           wallet: this.wallet
         });
+        console.log(JSON.stringify(userTransactions, null, 2))
         this.loadingData = false;
         if (userTransactions.transactions.length > 0) {
           this.transactions = userTransactions.transactions;
@@ -227,12 +228,11 @@ export default {
         // console.log(balance);
         this.balance = balance.amount.toFixed(2);
         if (this.balance > 0) {
-          let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
+          let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/summary/");
           // console.log(JSON.stringify());
           this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
         }
       } catch (error) {
-        console.log("2@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         this.noTransactions = true;
         this.loadingData = false;
       }
