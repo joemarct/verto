@@ -87,7 +87,7 @@
                     </div>
                   </div>
                   <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-5 m-l-md">
-                    {{ transaction.amount >= 0 ? '+' : '' }}{{ transaction.iVal }}.{{ transaction.fVal }} VTX
+                    {{ parseFloat(transaction.amount) >= 0 ? '+' : '' }}{{ parseFloat(transaction.amount).toFixed(2) }} VTX
                   </div>
                 </div>
               </router-link>
@@ -196,12 +196,14 @@ export default {
         if (userTransactions.transactions.length > 0) {
           this.transactions = userTransactions.transactions;
           this.hasTransactions = true;
+          this.noTransactions = false;
           this.getDate();
         } else {
           this.noTransactions = true;
         }
+        console.log(this.transactions)
       } catch (error) {
-        console.log("1!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        // console.log("1!!!!!!!!!!!!!!!!!!!!!!!!!!")
         console.log(error)
         this.noTransactions = true;
         this.loadingData = false;
@@ -225,15 +227,16 @@ export default {
         "vltxtgevtxtr");
         console.log("Balance: " + JSON.stringify(balance))
         // console.log(balance);
-        this.balance = balance.amount.toFixed(2);
+        this.balance = parseFloat(balance.amount).toFixed(2);
+        console.log("new balance: " + this.balance);
         if (this.balance > 0) {
           let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
           // console.log(JSON.stringify());
           this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
         }
       } catch (error) {
-        console.log("2@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        this.noTransactions = true;
+        // console.log("2@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        // this.noTransactions = true;
         this.loadingData = false;
       }
     },
