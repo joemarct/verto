@@ -60,7 +60,7 @@
             </p>
           </div>
           <div v-if="hasTransactions">
-            <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
+            <div v-if="showalltransactions" v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
               <a @click="transactionDetails(transaction)">
                 <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
                   <div class="column is-6 is-paddingless is-size-7 font-calibri">
@@ -89,6 +89,38 @@
                   </div>
                 </div>
               </a>
+            </div>
+            <div v-if="showconvertedtransactions" v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
+              <div v-if="isConvertedTransaction(transaction)">
+                <a @click="transactionDetails(transaction)">
+                  <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
+                    <div class="column is-6 is-paddingless is-size-7 font-calibri">
+                      <div class="columns is-marginless">
+                        <div class="column is-paddingless">
+                          <div class="level is-mobile has-text-white">
+                            <div class="level-left">
+                              {{ transaction.native_transaction_time | formatDate }}
+                            </div>
+                            <div class="level-right">
+                              {{ transaction.native_transaction_time | formatTime }}
+                            </div>
+                          </div>
+                        </div> 
+                        <div class="column is-paddingless">
+                          <div class="level is-mobile has-text-white">
+                            <div class="level-left">
+                              {{ transaction.status }}
+                            </div>
+                            <div class="level-right">
+                              {{ transaction.vtx_amount }} VTX
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
           <div v-if="noTransactions">
@@ -276,6 +308,8 @@ export default {
       loadingData: true,
       currentBtcValue: 0.0,
       isTransactionDetailsActive: false,
+      showalltransactions: false,
+      showconvertedtransactions: true,
       currentTransaction: {
         'native_currency': ""
       }
@@ -286,6 +320,9 @@ export default {
     this.getPendingTransactions();
   },
   methods: {
+    isConvertedTransaction: function(transaction) {
+      return transaction.status === 'CONVERTED';
+    },
     setWallet: function() {
       this.wallet = this.$store.state.userKey;
     },
