@@ -23,8 +23,8 @@
                   <select class="input m-b-md" v-model="transactionFilter" @change="changeTransactionFilter">
                     <option value="CONVERTED">Pending</option>
                     <option value="CANCELLED">Cancelled</option>
+                    <option value="CONFIRMED">Confirmed</option>
                     <option value="COMPLETED">Completed</option>
-                    <option value="RECEIVED">Received</option>
                   </select>
                   <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
@@ -64,22 +64,27 @@
               Loading data...
             </p>
           </div>
-          <div v-if="hasTransactions">
-            <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
-              <div v-if="doesMatchFilterTransaction(transaction)">
+          <div v-if="hasTransactions"> 
+            <div v-if="doesMatchFilterTransaction(transaction)" v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
+              <div v-if="isConvertedTransaction(transaction)">
                 <a @click="transactionDetails(transaction)">
-                  <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                    <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                      <div class="columns is-marginless">
-                        <div class="column is-paddingless">
-                          <div class="level is-mobile has-text-white">
-                            <div class="level-left">
-                              <p class="text-white">{{ transaction.native_transaction_time | formatDate }}&nbsp; &nbsp;&nbsp;&nbsp;{{ transaction.native_transaction_time | formatTime }}&nbsp; &nbsp;&nbsp;&nbsp;{{ transaction.vtx_amount }} VTX</p>
+                  <div class="p-l-md">
+                    <div class="columns is-marginless">
+                      <div  class="">
+                        <div class="level has-text-white">
+                          <div class="level-left">
+                            <div class="block">
+                              <p class="digit">{{ transaction.vtx_amount }} VTX</p>
+                              <p class="text">&nbsp;</p>
                             </div>
-                          </div>
-                        </div> 
-                        <div v-if="isConvertedTransaction(transaction)" class="column is-paddingless">
-                          <div class="level is-mobile has-text-white">
+                            <div class="block">
+                              <p class="digit">&nbsp;</p>
+                              <p class="text">&nbsp;</p>
+                            </div>
+                            <div class="block">
+                              <p class="digit">&nbsp;</p>
+                              <p class="text">&nbsp;</p>
+                            </div>
                             <div class="block">
                               <p class="digit">{{ transaction.days | two_digits }}</p>
                               <p class="text">Days</p>
@@ -88,20 +93,44 @@
                               <p class="digit">{{ transaction.hours | two_digits }}</p>
                               <p class="text">Hours</p>
                             </div>
-                            <div class="level-left">
+                            <div class="block">
+                              <p class="digit">{{ transaction.minutes | two_digits }}</p>
+                              <p class="text">Minutes</p>
+                            </div>
+                            <div class="block">
+                              <p class="digit">{{ transaction.seconds | two_digits }}</p>
+                              <p class="text">Seconds</p>
+                            </div>
+                            <div v-if="!isManualInput(transaction)">
                               <div class="block">
-                                <p class="digit">{{ transaction.minutes | two_digits }}</p>
-                                <p class="text">Minutes</p>
-                              </div>
-                            
-                              <div class="block">
-                                <p class="digit">{{ transaction.seconds | two_digits }}</p>
-                                <p class="text">Seconds</p>
+                                <p class="digit">{{ transaction.confirmations_count }}/6</p>
+                                <p class="text">Blocks Validated</p>
                               </div>
                             </div>
                           </div>
-                          <div class="level-right">
-                            {{ transaction.vtx_amount }} VTX
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div v-if="!isConvertedTransaction(transaction)">
+                <a @click="transactionDetails(transaction)">
+                  <div class="p-l-md">
+                    <div class="columns is-marginless">
+                      <div  class="">
+                        <div class="level has-text-white">
+                          <div class="level-left">
+                            <div class="block">
+                              <p class="digit">{{ transaction.vtx_amount }} VTX</p>
+                              <p class="text">&nbsp;</p>
+                            </div>
+                          </div>
+                          <div v-if="transaction.status === 'CANCELLED'" class="level-left">
+                            <div class="block">
+                              <p class="digit">{{ transaction.native_transaction_time | formatDate}} {{ transaction.native_transaction_time | formatTime}}</p>
+                              <p class="text">Canceled On</p>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -119,16 +148,8 @@
         </div>
       </div>
     </div>
-    <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <div class="has-background-darkgreen">
-      <router-link to="/getvtx">
-        <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
-          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
-        </a>
-      </router-link>
-    </div>
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md">
+      <div class="has-background-darklightgreen">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
@@ -330,7 +351,9 @@ export default {
     startInterval: function(transaction) {
       const self = this;
       this.interval = setInterval(() => {
-        self.changeTransactionFilter();
+        if (self.transactionFilter === "CONVERTED") {
+          self.changeTransactionFilter();
+        }
       }, 1000);
     },
     isConvertedTransaction: function(transaction) {
@@ -344,6 +367,9 @@ export default {
       }
       return transaction.status === 'CONVERTED';
     },
+    isManualInput: function(transaction) {
+      return transaction.entry_path === 'manual';
+    },
     doesMatchFilterTransaction: function(transaction) {
       return transaction.status === this.transactionFilter;
     },
@@ -353,6 +379,7 @@ export default {
     async getPendingTransactions() {
       const results = await axios.get(crowdfundUrl + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
       this.serverResults = results.data
+      console.log(JSON.stringify(this.serverResults));
       this.changeTransactionFilter();
     },
     transactionDetails(transaction) {
@@ -480,6 +507,7 @@ export default {
 }
 .hero-foot {
   border-top: none;
+  color: #f4f4f4;
 }
 .hero.is-fullheight .hero-body {
   flex: 1;
