@@ -20,7 +20,12 @@
             <div class="level-left has-text-centered">
               <div>
                 <div class="level is-mobile is-size-5 font-gibson">
-                  <p class="level-left has-text-primary" >Get VTX History</p>
+                  <select class="input m-b-md" v-model="transactionFilter" @change="changeTransactionFilter">
+                    <option value="CONVERTED">Pending</option>
+                    <option value="CANCELLED">Cancelled</option>
+                    <option value="COMPLETED">Completed</option>
+                    <option value="RECEIVED">Received</option>
+                  </select>
                   <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
                   </div>
@@ -60,38 +65,8 @@
             </p>
           </div>
           <div v-if="hasTransactions">
-            <div v-if="showalltransactions" v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
-              <a @click="transactionDetails(transaction)">
-                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                  <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                    <div class="columns is-marginless">
-                      <div class="column is-paddingless">
-                        <div class="level is-mobile has-text-white">
-                          <div class="level-left">
-                            {{ transaction.native_transaction_time | formatDate }}
-                          </div>
-                          <div class="level-right">
-                            {{ transaction.native_transaction_time | formatTime }}
-                          </div>
-                        </div>
-                      </div> 
-                      <div class="column is-paddingless">
-                        <div class="level is-mobile has-text-white">
-                          <div class="level-left">
-                            {{ transaction.status }}
-                          </div>
-                          <div class="level-right">
-                            {{ transaction.vtx_amount }} VTX
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </div>
-            <div v-if="showconvertedtransactions" v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
-              <div v-if="isConvertedTransaction(transaction)">
+            <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
+              <div v-if="doesMatchFilterTransaction(transaction)">
                 <a @click="transactionDetails(transaction)">
                   <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
                     <div class="column is-6 is-paddingless is-size-7 font-calibri">
@@ -99,21 +74,34 @@
                         <div class="column is-paddingless">
                           <div class="level is-mobile has-text-white">
                             <div class="level-left">
-                              {{ transaction.native_transaction_time | formatDate }}
-                            </div>
-                            <div class="level-right">
-                              {{ transaction.native_transaction_time | formatTime }}
+                              <p class="text-white">{{ transaction.native_transaction_time | formatDate }}&nbsp; &nbsp;&nbsp;&nbsp;{{ transaction.native_transaction_time | formatTime }}&nbsp; &nbsp;&nbsp;&nbsp;{{ transaction.vtx_amount }} VTX</p>
                             </div>
                           </div>
                         </div> 
-                        <div class="column is-paddingless">
+                        <div v-if="isConvertedTransaction(transaction)" class="column is-paddingless">
                           <div class="level is-mobile has-text-white">
+                            <div class="block">
+                              <p class="digit">{{ transaction.days | two_digits }}</p>
+                              <p class="text">Days</p>
+                            </div>
+                            <div class="block">
+                              <p class="digit">{{ transaction.hours | two_digits }}</p>
+                              <p class="text">Hours</p>
+                            </div>
                             <div class="level-left">
-                              {{ transaction.status }}
+                              <div class="block">
+                                <p class="digit">{{ transaction.minutes | two_digits }}</p>
+                                <p class="text">Minutes</p>
+                              </div>
+                            
+                              <div class="block">
+                                <p class="digit">{{ transaction.seconds | two_digits }}</p>
+                                <p class="text">Seconds</p>
+                              </div>
                             </div>
-                            <div class="level-right">
-                              {{ transaction.vtx_amount }} VTX
-                            </div>
+                          </div>
+                          <div class="level-right">
+                            {{ transaction.vtx_amount }} VTX
                           </div>
                         </div>
                       </div>
@@ -308,38 +296,64 @@ export default {
       loadingData: true,
       currentBtcValue: 0.0,
       isTransactionDetailsActive: false,
-      showalltransactions: false,
-      showconvertedtransactions: true,
+      transactionFilter: 'CONVERTED',
+      serverResults: [],
+      now: Date.now(),
       currentTransaction: {
         'native_currency': ""
-      }
+      },
+      interval: null
     };
   },
   mounted() {
     this.setWallet();
     this.getPendingTransactions();
+    this.startInterval();
+  },
+  destroyed() {
+    clearInterval(this.interval);
   },
   methods: {
+    changeTransactionFilter: function() {
+      this.loadingData = false;
+      if (this.serverResults.length <= 0) {
+        this.transactions = [];
+        this.hasTransactions = false;
+        this.noTransactions = true;
+        return;
+      }
+      this.transactions = [];
+      this.transactions = this.serverResults;
+      this.hasTransactions = true;
+      this.noTransactions = false;
+    },
+    startInterval: function(transaction) {
+      const self = this;
+      this.interval = setInterval(() => {
+        self.changeTransactionFilter();
+      }, 1000);
+    },
     isConvertedTransaction: function(transaction) {
+      if (transaction.status === 'CONVERTED') {
+        const timeish = Math.trunc(Date.parse(transaction.countdown_time_ends) / 1000)
+        const now = Math.trunc((new Date()).getTime() / 1000);
+        transaction.days = Math.trunc((timeish - now) / 60 / 60 / 24);
+        transaction.hours = Math.trunc((timeish - now) / 60 / 60) % 24;
+        transaction.minutes = Math.trunc((timeish - now) / 60) % 60;
+        transaction.seconds = (timeish - now) % 60;
+      }
       return transaction.status === 'CONVERTED';
+    },
+    doesMatchFilterTransaction: function(transaction) {
+      return transaction.status === this.transactionFilter;
     },
     setWallet: function() {
       this.wallet = this.$store.state.userKey;
     },
     async getPendingTransactions() {
-      let results = await axios.get(crowdfundUrl + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
-      console.log("Pending Transactions Tlength: " + this.transactions.length);
-      console.log(JSON.stringify(results.data));
-      this.loadingData = false;
-      if (results.data.length > 0) {
-        this.transactions = results.data;
-        this.hasTransactions = true;
-        this.noTransactions = false;
-      } else {
-        this.transactions = [];
-        this.hasTransactions = false;
-        this.noTransactions = true;
-      }
+      const results = await axios.get(crowdfundUrl + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
+      this.serverResults = results.data
+      this.changeTransactionFilter();
     },
     transactionDetails(transaction) {
       this.currentTransaction = transaction;
@@ -367,6 +381,37 @@ export default {
 </script>
 
 <style scoped>
+.block {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+.text-white {
+    color: #f4f4f4;
+    font-size: 15px;
+    font-family: 'Roboto Condensed', serif;
+    font-weight: 400;
+    margin-top:0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+.text {
+    color: #1abc9c;
+    font-size: 15px;
+    font-family: 'Roboto Condensed', serif;
+    font-weight: 400;
+    margin-top:0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+.digit {
+    color: #ecf0f1;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'Roboto', serif;
+    margin: 0px;
+    text-align: center;
+}
 .td-align-right {
   text-align: right; 
   display:block
