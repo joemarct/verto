@@ -33,7 +33,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     useContentSize: true,
     resizable: true,
-    fullscreen: true,
+    // fullscreen: true,
     // titleBarStyle: 'hidden',
     title: "Verto wallet",
     icon: `file://${__dirname}/static/icon.png`,
@@ -42,6 +42,7 @@ function createWindow() {
     vibrancy: "appearance-based",
     webPreferences: { webSecurity: false }
   })
+  mainWindow.maximize()
   mainWindow.loadURL(winURL)
   mainWindow.on('closed', () => {
     mainWindow = null
