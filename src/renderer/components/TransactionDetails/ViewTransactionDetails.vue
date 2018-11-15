@@ -13,7 +13,7 @@
                 <span class="icon is-size-6 has-text-white m-l-sm"><font-awesome-icon icon="arrow-left" class="is-size-7 has-text-white"/></span>
               </router-link>
               <div class="m-t-sm p-b-md is-size-vtx-amount has-text-centered">
-                <p class="has-text-light"> {{ $route.params.transaction.iVal >= 0 ? '+' : '-' }}{{ $route.params.transaction.iVal }}.{{ $route.params.transaction.fVal }} VTX</p>
+                <p class="has-text-light"> {{ parseFloat($route.params.transaction.amount) >= 0 ? '+' : '-' }}{{ parseFloat($route.params.transaction.amount).toFixed(2) }} VTX</p>
               </div>
             </div>
           </div>
@@ -25,12 +25,12 @@
               <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
               <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromAccount }} </span>
             </div>
-            <b-tooltip :label="$route.params.transaction.fromKey" position="is-bottom" type="is-white">
+            <!-- <b-tooltip :label="$route.params.transaction.fromKey" position="is-bottom" type="is-white">
               <div class="wallet-address">
                 <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
                 <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromKey }} </span>
               </div>
-            </b-tooltip>
+            </b-tooltip> -->
           </div>
           <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
           <div class="wallet-address">

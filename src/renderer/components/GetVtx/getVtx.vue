@@ -116,7 +116,7 @@
             </div>
             <div class="level-item has-text-centered is-marginless">
               <a :disabled="true" class="button is-fullwidth is-primary has-text-white" @click="buyVtx">
-                Comming Soon
+                Coming Soon
               </a>
             </div>
           </form>

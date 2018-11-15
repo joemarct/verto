@@ -1,6 +1,12 @@
 'use strict'
 
-import { app, BrowserWindow, Menu, shell } from 'electron'
+import {
+  app,
+  BrowserWindow,
+  Menu,
+  shell,
+  Notification
+} from 'electron'
 import { autoUpdater } from 'electron-updater'
 const log = require('electron-log');
 
@@ -20,7 +26,7 @@ const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
 
-function createWindow () {
+function createWindow() {
   /**
    * Initial window options
    */
@@ -34,7 +40,7 @@ function createWindow () {
     backgroundColor: "#ffffff",
     center: true,
     vibrancy: "appearance-based",
-    webPreferences: {webSecurity: false}
+    webPreferences: { webSecurity: false }
   })
   mainWindow.loadURL(winURL)
   mainWindow.on('closed', () => {
@@ -42,6 +48,8 @@ function createWindow () {
   })
   Menu.setApplicationMenu(Menu.buildFromTemplate(vertoMenu))
 }
+
+app.setAppUserModelId("io.volentix.verto")
 
 app.on('ready', createWindow)
 
