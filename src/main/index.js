@@ -26,7 +26,8 @@ function createWindow () {
    */
   mainWindow = new BrowserWindow({
     useContentSize: true,
-    resizable: false,
+    resizable: true,
+    fullscreen: true,
     // titleBarStyle: 'hidden',
     title: "Verto wallet",
     icon: `file://${__dirname}/static/icon.png`,

@@ -1,15 +1,15 @@
 <template>
-  <section class="hero is-fullheight wallet-background">
-    <div class="hero-body">
+  <section class="hero is-fullheight wallet-background has-text-centered">
+    <div class="hero-body has-text-centered">
       <div class="container has-text-centered">
         <div class="box has-text-white is-radiusless is-shadowless">
           <div class="is-size-3">WELCOME TO</div>
           <div class="logo-welcome p-l-lg p-r-lg">
             <img src="~@/assets/img/white-logo-with-text.png" >
           </div>
-          <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
+          <div class="m-t-md is-size-4">{{ subtitle_message }}</div>
           <div v-if="hasPassword">
-            <div class="is-size-6 m-t-md">Welcome Back!</div>
+            <div class="is-size-4 m-t-lg">Welcome Back!</div>
             <div v-if="nopassword">
               <p class="has-text-danger m-t-md">
                 No Password Has Been Set For The Wallet. Please Create A Password First.
@@ -21,9 +21,9 @@
               </p>
             </div>
             <form>
-              <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
-              <div class="level-item has-text-centered is-marginless">
-                <a class="p-t-lg button is-fullwidth is-success" @click="login"> Login </a>
+              <input  v-model="password" class="input m-b-sm is-medium" type="password" placeholder="Password">
+              <div class="level-item has-text-centered is-marginless p-t-md">
+                <a class="p-t-lg button is-medium is-primary" @click="login"> Login </a>
               </div>
             </form>
           </div>
@@ -113,6 +113,8 @@ export default {
   background-repeat: no-repeat;
 }
 .box {
+  margin: 0 auto;
+  width: 50%;
   background-color: rgba(0, 0, 0, 0.42);
 }
 .button {
