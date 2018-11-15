@@ -74,37 +74,41 @@
                         <div class="level has-text-white">
                           <div class="level-left">
                             <div class="block">
-                              <p class="digit">{{ transaction.vtx_amount }} VTX</p>
-                              <p class="text">&nbsp;</p>
+                              <p class="digit">VTX</p>
+                              <p class="text">{{ transaction.vtx_amount }}</p>
                             </div>
                             <div class="block">
                               <p class="digit">&nbsp;</p>
                               <p class="text">&nbsp;</p>
                             </div>
                             <div class="block">
+                              <p class="digit">Pool</p>
+                              <p class="text">{{ transaction.pool }}</p>
+                            </div>
+                            <div class="block">
                               <p class="digit">&nbsp;</p>
                               <p class="text">&nbsp;</p>
                             </div>
                             <div class="block">
-                              <p class="digit">{{ transaction.days | two_digits }}</p>
-                              <p class="text">Days</p>
+                              <p class="digit">Days</p>
+                              <p class="text">{{ transaction.days | two_digits }}</p>
                             </div>
                             <div class="block">
-                              <p class="digit">{{ transaction.hours | two_digits }}</p>
-                              <p class="text">Hours</p>
+                              <p class="digit">Hours</p>
+                              <p class="text">{{ transaction.hours | two_digits }}</p>
                             </div>
                             <div class="block">
-                              <p class="digit">{{ transaction.minutes | two_digits }}</p>
-                              <p class="text">Minutes</p>
+                              <p class="digit">Minutes</p>
+                              <p class="text">{{ transaction.minutes | two_digits }}</p>
                             </div>
                             <div class="block">
-                              <p class="digit">{{ transaction.seconds | two_digits }}</p>
-                              <p class="text">Seconds</p>
+                              <p class="digit">Seconds</p>
+                              <p class="text">{{ transaction.seconds | two_digits }}</p>
                             </div>
                             <div v-if="!isManualInput(transaction)">
                               <div class="block">
-                                <p class="digit">{{ transaction.confirmations_count }}/6</p>
-                                <p class="text">Blocks Validated</p>
+                                <p class="digit">Blocks Validated</p>
+                                <p class="text">{{ transaction.confirmations_count }}/6</p>
                               </div>
                             </div>
                           </div>
@@ -122,14 +126,38 @@
                         <div class="level has-text-white">
                           <div class="level-left">
                             <div class="block">
-                              <p class="digit">{{ transaction.vtx_amount }} VTX</p>
-                              <p class="text">&nbsp;</p>
+                              <p class="digit"> VTX</p>
+                              <p class="text">{{ transaction.vtx_amount }}</p>
                             </div>
                           </div>
+                            <div class="block">
+                              <p class="digit">&nbsp;</p>
+                              <p class="text">&nbsp;</p>
+                            </div>
+                            <div class="block">
+                              <p class="digit">Pool</p>
+                              <p class="text">{{ transaction.pool }}</p>                              
+                            </div>
+                            <div class="block">
+                              <p class="digit">&nbsp;</p>
+                              <p class="text">&nbsp;</p>
+                            </div>
                           <div v-if="transaction.status === 'CANCELLED'" class="level-left">
                             <div class="block">
-                              <p class="digit">{{ transaction.native_transaction_time | formatDate}} {{ transaction.native_transaction_time | formatTime}}</p>
-                              <p class="text">Canceled On</p>
+                              <p class="digit">Canceled On</p>
+                              <p class="text">{{ transaction.native_transaction_time | formatDate}} {{ transaction.native_transaction_time | formatTime}}</p>
+                            </div>
+                          </div>
+                          <div v-if="transaction.status === 'CONFIRMED'" class="level-left">
+                            <div class="block">
+                              <p class="digit">Confirmed On</p>
+                              <p class="text">{{ transaction.confirmation_time | formatDate}} {{ transaction.confirmation_time | formatTime}}</p>
+                            </div>
+                          </div>
+                          <div v-if="transaction.status === 'COMPLETED'" class="level-left">
+                            <div class="block">
+                              <p class="digit">Completed On</p>
+                              <p class="text">{{ transaction.approved_time | formatDate}} {{ transaction.approved_time | formatTime}}</p>
                             </div>
                           </div>
                         </div>
@@ -424,7 +452,7 @@ export default {
 }
 .text {
     color: #1abc9c;
-    font-size: 15px;
+    font-size: 20px;
     font-family: 'Roboto Condensed', serif;
     font-weight: 400;
     margin-top:0px;
@@ -433,7 +461,7 @@ export default {
 }
 .digit {
     color: #ecf0f1;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 100;
     font-family: 'Roboto', serif;
     margin: 0px;
