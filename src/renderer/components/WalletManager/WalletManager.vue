@@ -285,6 +285,10 @@ export default {
 .hero-body.select-key {
   background-color: #f7f7fa !important;
 }
+.hero-head {
+  width: 40rem;
+  margin: 0 auto;
+}
 .modal-header {
   margin-top: 0;
   color: #42b983;

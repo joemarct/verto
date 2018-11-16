@@ -268,6 +268,13 @@ export default {
 </script>
 
 <style scoped>
+/* .hero {
+  width: 50rem;
+  margin: 0 auto;
+} */
+.hero .container {
+  width: 50rem !important;
+}
 .notices.is-top {
   top: 18rem !important;
   left: 18.5rem;
@@ -322,7 +329,7 @@ export default {
   position: relative;
   top: 0;
   bottom: 0;
-  width: 100%;
+  /* width: 100%; */
   align-items: flex-start !important;
 }
 .hero-body > .container {
