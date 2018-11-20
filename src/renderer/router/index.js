@@ -62,6 +62,14 @@ const router = new Router({
       }
     },
     {
+      path: '/associatewithblocktopus',
+      name: 'AssociateWithBlocktopus',
+      component: require('@/components/AssociateWithBlocktopus').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/downloadversion',
       name: 'DownloadVersion',
       component: require('@/components/DownloadVersion').default

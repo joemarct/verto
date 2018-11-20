@@ -1,6 +1,6 @@
 <template>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
+    <div class="hero-head p-l-lg">
       <div class="p-t-xl">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
           <router-link to="/main">
@@ -20,7 +20,7 @@
           <router-link to="/checkforupdates">
             Check for Updates
           </router-link>
-        </span> 
+        </span>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
           <a class="p-l-lg has-text-white is-size-5" v-bind:href="blocktopusUrl">
@@ -39,6 +39,13 @@
         <span class="p-l-lg has-text-white is-size-5">
           <router-link to="/whitelist">
             Whitelist
+          </router-link>
+        </span>
+        <br>
+        <br>
+        <span class="p-l-lg has-text-white is-size-5">
+          <router-link to="/associatewithblocktopus">
+            Associate with Blocktopus
           </router-link>
         </span>
         <br>
@@ -98,7 +105,7 @@
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
-  </div> 
+  </div>
 </template>
 
 <script>
