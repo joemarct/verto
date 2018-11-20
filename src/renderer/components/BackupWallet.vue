@@ -1,7 +1,7 @@
 <template>
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
+    <div class="hero-head p-t-sm p-l-lg" style="width:50%; margin: 0 auto">
       <div class="p-t-xl">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
           <router-link to="/settings">
@@ -37,7 +37,7 @@
             </a>
           </div>
         </div>
-      
+
       <b-modal :active.sync="isInstructionsActive">
         <div class="card">
           <div class="card-content">

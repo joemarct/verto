@@ -14,92 +14,141 @@
           <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
         </a>
         <br>
-        <div class="level is-mobile m-t-md">
-          <div class="has-text-dark level-left">
-            <a class="button m-t-md green is-centered has-text-white" @click="showAddKey = !showAddKey">
-              <p class="is-size-6">
-                Add Wallet
-              </p>
-            </a>
+        <div class="columns">
+          <div class="column is-one-third">
+            <div class="left-nav-bar has-text-white">
+             <span class="p-l-lg has-text-white is-size-5">
+                <router-link to="/whitelist">
+                  Whitelist
+                </router-link>
+              </span>
+              <br>
+              <br>
+              <span class="p-l-lg has-text-white is-size-5">
+                <router-link to="/walletmanager">
+                  Wallet Manager
+                </router-link>
+              </span>
+              <br>
+              <br>
+              <span class="p-l-lg has-text-white is-size-5">
+                <router-link to="/changevertopassword">
+                  Change Password
+                </router-link>
+              </span>
+              <br>
+              <br>
+              <div @click="logout">
+                <span class="p-l-lg has-text-white is-size-5">
+                  Logout
+                </span>
+              </div>
+              <hr>
+              <a class="p-l-lg has-text-white is-size-5" @click="openTelegram">
+                <!--<font-awesome-icon icon="telegram" class="fa-sm has-text-white m-l-sm"/>-->
+                Telegram
+              </a>
+              <br>
+              <br>
+              <a class="p-l-lg has-text-white is-size-5" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">
+                Send Mail
+              </a>
+            </div>
           </div>
-          <div class="has-text-dark level-right">
-            <a class="button m-t-md green is-centered has-text-white" @click="generateKey">
-              <p>
-                Create Wallet
-              </p>
-            </a>
-          </div>
-        </div>
-        <div v-if="showAddKey">
-          <form>
-            <div v-if="keyalreadysaved">
-              <p class="has-text-danger m-t-md">
-                The name or the wallet has already been used.
-              </p>
-            </div>
-            <div v-if="missingInput">
-              <p class="has-text-danger m-t-md">
-                You must supply both a name and the public key for the wallet.
-              </p>
-            </div>
-            <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Wallet Name">
-            <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Wallet Public Key Here">
-            <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Verto Password">
-            <div v-if="incorrectPassword">
-              <p class="has-text-danger m-t-md">
-                The Password Is Incorrect.
-              </p>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <a class="button is-fullwidth is-primary has-text-white" @click="addpublickey"> Submit </a>
-            </div>
-          </form>
-        </div>
-        <div v-if="existingKeys.length > 0">
-          <p class="m-t-lg font-gibson-semibold is-size-5 has-text-white">
-            Wallets
-          </p>
-          <div v-if="showdeletekeypassword">
-            <div v-if="incorrectdeletekeypassword">
-              <p class="has-text-danger m-t-md">
-                The Password Is Incorrect.
-              </p>
-            </div>
-            <input v-model="deletekeypassword" class="input m-b-sm" type="password" placeholder="Verto Password">
-            <div v-if="lastwarningBeforeDelete">
-              <p class="has-text-danger m-t-md">
-                Verto cannot recoved the wallet once deleted. Press the delete button again for final deletion.
-              </p>
-            </div>
+          <div class="column">
+            <div class="wallets-list">
             <div class="level is-mobile m-t-md">
               <div class="has-text-dark level-left">
-                <a class="button m-t-md green is-centered has-text-white" @click="cancelDeleteKey">
-                  <p class="is-size-6">
-                    Cancel
+                <a class="button m-t-md green is-centered has-text-white" @click="showAddKey = !showAddKey">
+                  <p class="is-size-5">
+                    Add Wallet
                   </p>
                 </a>
               </div>
               <div class="has-text-dark level-right">
-                <a class="button m-t-md green is-centered has-text-white" @click="removeKey">
-                  <p>
-                    Delete
+                <a class="button m-t-md green is-centered has-text-white" @click="generateKey">
+                  <p class="is-size-5">
+                    Create Wallet
                   </p>
                 </a>
               </div>
             </div>
-          </div>
-          <div class="keys-container">
-            <ul>
-              <div v-for="key in existingKeys" class="keys-list m-t-md">
-                <li>
-                  <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
-                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
-                  <a @click="deleteKey(key.name)">
-                    <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
-                  </a>
-                </li>
+            <div v-if="showAddKey">
+              <form>
+                <div v-if="keyalreadysaved">
+                  <p class="has-text-danger m-t-md">
+                    The name or the wallet has already been used.
+                  </p>
+                </div>
+                <div v-if="missingInput">
+                  <p class="has-text-danger m-t-md">
+                    You must supply both a name and the public key for the wallet.
+                  </p>
+                </div>
+                <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Wallet Name">
+                <input v-model="publicKey" class="input m-b-sm" type="text" placeholder="Wallet Public Key Here">
+                <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Verto Password">
+                <div v-if="incorrectPassword">
+                  <p class="has-text-danger m-t-md">
+                    The Password Is Incorrect.
+                  </p>
+                </div>
+                <div class="level-item has-text-centered is-marginless">
+                    <a class="button is-fullwidth is-primary has-text-white" @click="addpublickey"> Submit </a>
+                </div>
+              </form>
+            </div>
+            <div v-if="existingKeys.length > 0">
+              <div class="has-text-centered">
+                <p class="m-t-lg font-gibson-semibold is-size-3 has-text-white">
+                  Wallets
+                </p>
               </div>
-            </ul>
+              <br>
+              <div v-if="showdeletekeypassword">
+                <div v-if="incorrectdeletekeypassword">
+                  <p class="has-text-danger m-t-md">
+                    The Password Is Incorrect.
+                  </p>
+                </div>
+                <input v-model="deletekeypassword" class="input m-b-sm" type="password" placeholder="Verto Password">
+                <div v-if="lastwarningBeforeDelete">
+                  <p class="has-text-danger m-t-md is-size-5">
+                    Verto cannot recover the wallet once deleted. Press the delete button again for final deletion.
+                  </p>
+                </div>
+                <div class="level is-mobile m-t-md">
+                  <div class="has-text-dark level-left">
+                    <a class="button m-t-md green is-centered has-text-white" @click="cancelDeleteKey">
+                      <p class="is-size-5">
+                        Cancel
+                      </p>
+                    </a>
+                  </div>
+                  <div class="has-text-dark level-right">
+                    <a class="button m-t-md green is-centered has-text-white" @click="removeKey">
+                      <p class="is-size-5">
+                        Delete
+                      </p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="keys-container">
+                <ul>
+                  <div v-for="key in existingKeys" class="keys-list m-t-md">
+                    <li>
+                      <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
+                      <a class="is-size-5 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
+                      <a @click="deleteKey(key.name)">
+                        <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
+                      </a>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>
@@ -276,6 +325,19 @@ export default {
       } else {
         this.lastwarningBeforeDelete = true;
       }
+    },
+    checkBlocktopus: function() {
+      console.log(this.blocktopusUrl)
+      console.log(__dirname)
+    },
+    openTelegram: function() {
+      var open = require("open");
+      open("http://t.me/volentix");
+    },
+    logout: function() {
+      this.$store.dispatch("login", false);
+      this.$store.dispatch("setKeys", []);
+      this.$router.push({ path: "welcome" });
     }
   }
 };
@@ -286,8 +348,16 @@ export default {
   background-color: #f7f7fa !important;
 }
 .hero-head {
-  width: 40rem;
-  margin: 0 auto;
+  width: 100%;
+}
+.hero-head .left-nav-bar{
+  width: 15rem;
+  height: 100%;
+  border-right: solid 1px rgba(55, 202, 189, 0.3);
+}
+.hero-head .wallets-list{
+  width: 25rem;
+  height: 100%;
 }
 .modal-header {
   margin-top: 0;
@@ -308,14 +378,14 @@ export default {
   overflow-y: scroll;
   height: 50vh;
 }
-.hero-body.select-key .key:hover {
+.keys-list .key:hover {
   color: hsl(171, 100%, 41%) !important;
 }
-.hero-body.select-key .trash-bin:hover {
+.keys-list .trash-bin:hover {
   color: hsl(171, 100%, 41%) !important;
   cursor: pointer;
 }
-.hero-body.select-key .button.green {
+.green {
   background-color: #00a6a6 !important;
   border: solid #00a6a6 1pt !important;
   border-radius: 0.5rem;

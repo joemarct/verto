@@ -1,7 +1,7 @@
 <template>
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
+    <div class="hero-head p-t-sm p-l-lg" style="width: 50%; margin: 0 auto">
       <div class="p-t-xl">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
           <router-link to="/settings">
@@ -74,9 +74,9 @@
                   It is recommended that you first backup the current configuration of Verto before changing the password. You can back up Verto  <router-link to="/backupwallet"><span style="text-decoration:underline;">here</span></router-link>.
                 </li>
                 <li>
-                  Changes the password to access Verto. Once selected, all configuration is encrypted using the new password. You may want to 
+                  Changes the password to access Verto. Once selected, all configuration is encrypted using the new password. You may want to
                 </li>
-                
+
                 <li>
                   <b>NOTE:</b> Vero is unable to recover deleted wallets.
                 </li>

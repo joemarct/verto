@@ -1,5 +1,66 @@
 <template>
   <section class="hero is-fullheight is-light is-bold" >
+    <div class="columns">
+      <div class="column is-one-quarter menu-has-background-darkgreen">
+        <div class="left-nav-bar has-text-white p-t-xl">
+          <span class="p-l-lg has-text-white is-size-5">
+            <router-link to="/whitelist">
+              Whitelist
+            </router-link>
+          </span>
+          <br>
+          <br>
+          <span class="p-l-lg has-text-white is-size-5">
+            <router-link to="/getvtx">
+              Get VTX
+            </router-link>
+          </span>
+          <br>
+          <br>
+          <span class="p-l-lg has-text-white is-size-5">
+            <router-link to="/walletmanager">
+              Wallet Manager
+            </router-link>
+          </span>
+          <br>
+          <br>
+          <span class="p-l-lg has-text-white is-size-5">
+            <router-link to="/changevertopassword">
+              Change Password
+            </router-link>
+          </span>
+          <br>
+          <br>
+          <span class="p-l-lg has-text-white is-size-5">
+            <router-link to="/backupwallet">
+              Backup Wallet
+            </router-link>
+          </span>
+          <br>
+          <br>
+          <span class="p-l-lg has-text-white is-size-5">
+            <router-link to="/getVtxtransactionhistory">
+              Get VTX Transaction History
+            </router-link>
+          </span>
+          <br>
+          <br>
+            <span class="p-l-lg has-text-white is-size-5" @click="logout">
+              Logout
+            </span>
+          <hr>
+          <a class="p-l-lg has-text-white is-size-5" @click="openTelegram">
+            <!--<font-awesome-icon icon="telegram" class="fa-sm has-text-white m-l-sm"/>-->
+            Telegram
+          </a>
+          <br>
+          <br>
+          <a class="p-l-lg has-text-white is-size-5" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">
+            Send Mail
+          </a>
+        </div>
+      </div>
+    <div class="column main-info">
     <div class="hero-head top-bg">
       <div class="container dark-blue-gradient">
         <div class="container p-l-lg p-r-lg p-b-md">
@@ -19,8 +80,8 @@
           <div class="p-b-md level is-mobile">
             <div class="level-left has-text-centered">
               <div>
-                <p class="is-marginless is-size-3 has-text-white font-gibson"> {{ balance }} VTX </p>
-                <div class="level is-mobile is-size-5 font-gibson">
+                <p class="is-marginless is-size-2 has-text-white font-gibson"> {{ balance }} VTX </p>
+                <div class="level is-mobile is-size-4 font-gibson">
                   <p class="level-left has-text-primary" >{{ currentBtcValue.toFixed(4) }} BTC</p>
                   <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
@@ -54,7 +115,6 @@
     </div>
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
-        <div class="columns is-marginless p-b-md">
           <div v-if="loadingData" class="p-l-lg p-r-md m-t-md is-size-4 has-text-grey-light">
             <p>
               Loading data...
@@ -66,27 +126,25 @@
             </div>
             <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
               <router-link :to="{ name: 'TransactionDetails', params: { transaction, wallet } }">
-                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                  <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                    <div class="columns is-marginless">
-                      <div class="column is-paddingless">
-                        <div class="level is-mobile has-text-white">
-                          <div class="level-left">
-                            {{ transaction.timestamp | formatDate }}
-                          </div>
-                          <div class="level-right">
-                            {{ transaction.timestamp | formatTime }}
-                          </div>
+                <div class="level is-mobile transaction-history p-t-md p-b-md p-r-md p-l-md">
+                  <div class="is-size-6 font-calibri level-left">
+                      <div class="level is-mobile has-text-white">
+                        <div class="level-left">
+                          {{ transaction.timestamp | formatDate }}
+                        </div>
+                        <div class="level-right m-l-md">
+                          {{ transaction.timestamp | formatTime }}
                         </div>
                       </div>
-                      <div class="column is-paddingless">
-                        <div class="wallet-address has-text-grey-light" >
+                      <br>
+                      <br>
+                        <!-- <div class="wallet-address has-text-grey-light m-t-xl is-size-7" >
+                          <p>
                           NO: {{ transaction.sToKey }}
-                        </div>
-                      </div>
-                    </div>
+                          </p>
+                        </div> -->
                   </div>
-                  <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-5 m-l-md">
+                  <div class="level-right has-text-primary is-size-4 m-l-md">
                     {{ parseFloat(transaction.amount) >= 0 ? '+' : '' }}{{ parseFloat(transaction.amount).toFixed(2) }} VTX
                   </div>
                 </div>
@@ -98,19 +156,18 @@
               You have no transactions
             </p>
           </div>
-        </div>
       </div>
     </div>
     <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <div class="has-background-darkgreen">
+    <!-- <div class="has-background-darkgreen">
       <router-link to="/getvtx">
         <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
           <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
         </a>
       </router-link>
-    </div>
+    </div> -->
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md">
+      <div class="container has-background-darklightgreen p-md has-text-white">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
@@ -121,6 +178,8 @@
         </p>
       </div>
     </b-modal>
+    </div>
+    </div>
   </section>
 </template>
 
@@ -236,7 +295,7 @@ export default {
           this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
         }
       } catch (error) {
-        this.noTransactions = true;
+        // this.noTransactions = true;
         this.loadingData = false;
       }
     },
@@ -262,18 +321,30 @@ export default {
     refreshContent() {
       this.refreshBalance();
       this.getTransactionHistory();
+    },
+    checkBlocktopus: function() {
+      console.log(this.blocktopusUrl)
+      console.log(__dirname)
+    },
+    openTelegram: function() {
+      var open = require("open");
+      open("http://t.me/volentix");
+    },
+    logout: function() {
+      this.$store.dispatch("login", false);
+      this.$store.dispatch("setKeys", []);
+      this.$router.push({ path: "welcome" });
     }
   }
 };
 </script>
 
 <style scoped>
-/* .hero {
-  width: 50rem;
-  margin: 0 auto;
-} */
+.hero {
+  height: 100%;
+}
 .hero .container {
-  width: 50rem !important;
+  width: 100% !important;
 }
 .notices.is-top {
   top: 18rem !important;
@@ -309,6 +380,9 @@ export default {
     rgba(0, 0, 0, 0.5) 100%
   );
 }
+.menu-has-background-darkgreen {
+  background-color:rgba(34, 52, 53, 1);
+}
 .wallet-address {
   white-space: nowrap;
   overflow: hidden;
@@ -323,7 +397,7 @@ export default {
 }
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
-  width: 100vw;
+  /* width: 100vw; */
 }
 .hero-body {
   position: relative;
@@ -345,5 +419,11 @@ export default {
 }
 .hero.is-fullheight {
   height: 100vh;
+}
+.column.main-info {
+  padding-left: 0 !important;
+}
+.transaction-history {
+  width: 50rem !important;
 }
 </style>

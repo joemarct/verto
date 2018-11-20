@@ -63,7 +63,7 @@
           </div>
           <div class="has-text-dark level-right">
             <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
+              <p class="p-l-sm p-r-sm is-size-6 font-gibson-semibold second">Save</p>
             </a>
           </div>
         </div>
@@ -248,7 +248,13 @@ export default {
 .hero-body.save-your-keys {
   background-color: #f7f7fa !important;
   padding-top: 0.3rem !important;
+  width: 50%;
+  margin: 0 auto;
 }
+/* .hero-body.save-your-keys {
+  background-color: #f7f7fa !important;
+  padding-top: 0.3rem !important;
+} */
 .hero-head.save-your-keys {
   background-color: #f7f7fa !important;
 }
@@ -266,7 +272,7 @@ export default {
 }
 .hero-body.save-your-keys .font-gibson {
   color: #78849e;
-  font-size: 10.5pt;
+  font-size: 12pt;
 }
 .hero-body.save-your-keys .button {
   border-radius: 0.7rem;

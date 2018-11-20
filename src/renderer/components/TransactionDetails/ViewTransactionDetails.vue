@@ -1,9 +1,6 @@
 <template>
-  <div class="hero-body is-paddingless has-blur-background font-gibson">
-    <div class="gradient-wrapper">&nbsp;</div>
-    <div class="container">
-      <div class="columns is-marginless p-b-md">
-        <div>
+  <div class="hero-body has-blur-background font-gibson">
+    <div class="container p-r-lg">
           <div class="top-layer">
             <div class="column list-item">
               <div class="is-size-custom-header has-text-centered">
@@ -16,13 +13,12 @@
                 <p class="has-text-light"> {{ parseFloat($route.params.transaction.amount) >= 0 ? '+' : '-' }}{{ parseFloat($route.params.transaction.amount).toFixed(2) }} VTX</p>
               </div>
             </div>
-          </div>
         </div>
         <div class="column list-item font-gibson has-text-white">
           <div v-if="$route.params.transaction.fromAccount && $route.params.transaction.fromKey">
-            <p class="is-size-5 has-text-grey p-t-md p-l-sm">From:</p>
+            <p class="is-size-4 has-text-grey p-t-md p-l-sm">From:</p>
             <div class="wallet-address">
-              <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
+              <span class="is-size-5 has-text-aqua p-l-sm">Account: </span>
               <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.fromAccount }} </span>
             </div>
             <!-- <b-tooltip :label="$route.params.transaction.fromKey" position="is-bottom" type="is-white">
@@ -32,19 +28,18 @@
               </div>
             </b-tooltip> -->
           </div>
-          <p class="is-size-5 has-text-grey p-t-sm p-l-sm">To:</p>
+          <p class="is-size-4 has-text-grey p-t-sm p-l-sm">To:</p>
           <div class="wallet-address">
-            <span class="is-size-7 has-text-aqua p-l-sm">Account: </span>
+            <span class="is-size-5 has-text-aqua p-l-sm">Account: </span>
             <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.toAccount }} </span>
           </div>
           <b-tooltip :label="$route.params.transaction.sToKey" position="is-bottom" type="is-white">
             <div class="wallet-address">
-              <span class="is-size-7 has-text-aqua p-l-sm">Wallet: </span>
+              <span class="is-size-5 has-text-aqua p-l-sm">Wallet: </span>
               <span class="size-font-wallet has-text-white p-l-sm"> {{ $route.params.transaction.sToKey }} </span>
             </div>
           </b-tooltip>
         </div>
-        <div class="column">
           <div class="level is-mobile">
             <div class="level-left">
               <div>
@@ -72,8 +67,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -90,16 +83,19 @@ export default {
 </script>
 
 <style scoped>
+.hero-body {
+  width: 100%;
+}
 .tooltip {
-  width: 95%;
+  width: 55%;
 }
-.tooltip:before {
+/* .tooltip:before {
   margin-left: 0.5rem;
-}
+} */
 .tooltip:after {
   width: 22rem;
   font-size: 0.7rem;
-  margin-left: 0.5rem;
+  /* margin-left: 0.5rem; */
 }
 .wallet-address {
   white-space: nowrap;
@@ -112,13 +108,10 @@ export default {
   text-overflow: ellipsis;
 }
 .is-size-custom-header {
-  font-size: 1.7rem;
+  font-size: 2rem;
 }
 .is-size-vtx-amount {
   font-size: 2.7rem;
-}
-.copy-button {
-  width: 100%;
 }
 .has-blur-background {
   background-image: url(~@/assets/img/transaction-back-screen.jpg);
@@ -129,7 +122,7 @@ export default {
   color: #2cfee6;
 }
 .size-font-wallet {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 .size-smaller {
   font-size: 0.75rem;
@@ -142,6 +135,6 @@ export default {
 }
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
-  width: 100vw;
+  width: 90vw;
 }
 </style>

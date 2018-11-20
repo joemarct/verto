@@ -1,7 +1,7 @@
 <template>
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
+    <div class="hero-head p-t-sm p-l-lg" style="width:50%; margin: 0 auto">
       <div class="p-t-xl">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
           <router-link to="/keepyourkeyssafe">
@@ -13,10 +13,13 @@
       <a @click="isInstructionsActive = true">
         <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
       </a>
-      
-        <b-checkbox native-value="write" v-model="isEnabled" class="has-text-white">
+        <br>
+        <br>
+        <b-checkbox native-value="write" v-model="isEnabled" class="has-text-white is-size-5">
           I understand that the private key is not stored in Verto and cannot be recovered.
         </b-checkbox>
+        <br>
+        <br>
         <div class="field">
           <div class="control">
             <div v-if="nokeyname">
@@ -40,7 +43,7 @@
               </p>
             </div>
             <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Wallet Name">
-            
+
             <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Choose Wallet Password">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm Wallet password">
             <div v-if="incorrectPassword">

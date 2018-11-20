@@ -41,12 +41,12 @@
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="disableWiFi('/choosepassword')">
-              <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Save to file</p>
+              <p class="p-l-sm p-r-sm font-gibson-semibold is-size-6">Save to file</p>
             </a>
           </div>
           <div class="has-text-dark level-right m-l-sm m-r-lg">
             <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 green" @click="disableWiFi('/displaykey')">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">I'll write it down</p>
+              <p class="p-l-sm p-r-sm is-size-6 font-gibson-semibold second">I'll write it down</p>
             </a>
           </div>
         </div>
@@ -95,6 +95,8 @@ export default {
 }
 .hero-body.save-your-keys {
   background-color: #ffffff !important;
+  width: 50%;
+  margin: 0 auto;
 }
 .hero-body.save-your-keys .font-gibson-semibold {
   color: #454f63;
@@ -112,7 +114,7 @@ export default {
 }
 .hero-body.save-your-keys .font-gibson {
   color: #78849e;
-  font-size: 10.5pt;
+  font-size: 12pt;
 }
 .hero-body.save-your-keys .button {
   border-radius: 0.7rem;

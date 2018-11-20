@@ -1,20 +1,20 @@
 <template>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm">
+    <div class="hero-head p-t-lg" style="margin: 0 auto">
       <div class="p-l-lg m-t-md">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
+        <div class="is-pulled-left is-vcentered is-flex m-t-md has-text-centered">
           <router-link to="/main">
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
           </router-link>
         </div>
         <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
-      <div class="field">
+      <div class="field has-text-centered">
         <div class="control p-md has-text-centered">
           <!-- <form method="POST" action="https://zixipay.com/sci/form"> -->
           <form method="POST" id="zixiform" action="https://zixipay.com/sci/form" >
-            <div class="container has-text-white p-md">
-              <table style="width:100%">
+            <div class="container has-text-white p-md is-size-5">
+              <table style="width:60%">
                 <tr>
                   <td>
                     VTX Sold:
@@ -69,7 +69,7 @@
             <input type="hidden" name="merchant" placeholder="Merchant" value="faka_merchant_id">
             <input type="hidden" name="description" value="Testing payment">
             <input type="number" class="input m-b-md" name="amount" placeholder="0" v-model.number="amount" @change="calculateVtx">
-            <select class="input m-b-md" v-model="currency" @change="changeCurrency">
+            <select class="input m-b-md is-size-5" v-model="currency" @change="changeCurrency">
               <option value="BTC">Bitcoin</option>
               <option value="ETH">Ethereum</option>
               <option value="EOS">EOS</option>
@@ -78,8 +78,8 @@
             <input type="hidden" name="custom" v-model="this.$store.state.userKey">
             <input type="hidden" name="hash" v-model="userHash">
 
-            <div class="container has-text-white p-md">
-              <table style="width:100%">
+            <div class="container has-text-white p-md is-size-5">
+              <table style="width:70%">
                 <tr>
                   <td>
                     Pre-Bonus
@@ -240,5 +240,8 @@ input {
   background-image: url(~@/assets/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+.field {
+  width: 40rem;
 }
 </style>

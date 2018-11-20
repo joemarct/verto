@@ -51,9 +51,14 @@ export default {};
 .hero-body.safe-keys {
   background-color: #ffffff !important;
   padding-top: 0 !important;
+  width:50%;
+  margin: 0 auto;
+  height: 100%;
 }
 .hero-head.safe-keys {
   background-color: #ffffff !important;
+  width:50%;
+  margin: 0 auto;
 }
 .hero-body.safe-keys .font-gibson-semibold {
   color: #454f63;
@@ -64,8 +69,5 @@ export default {};
 }
 .hero-body.safe-keys .button {
   border-radius: 0.7rem;
-}
-iframe {
-  width: 100%;
 }
 </style>
