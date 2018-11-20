@@ -1,7 +1,7 @@
 <template>
   <div class="hero is-fullheight is-paddingless has-blur-background">
     <div class="hero-head p-l-lg">
-      <div class="p-t-xl">
+      <div class="p-t-lg">
         <div class="is-pulled-left is-vcentered is-flex m-t-md">
           <router-link to="/main">
             <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
@@ -12,7 +12,7 @@
       <p class="p-t-lg has-text-aqua is-size-4">
         Settings
       </p>
-      <div class="p-t-md settings-list">
+      <div class="p-t-s settings-list">
         <!-- <div class="is-size-5 has-text-white is-pulled-left">
           <font-awesome-icon icon="sync-alt" class="fa-xs"/>
         </div> -->
@@ -36,56 +36,42 @@
         </span>
         -->
         <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        <div class="p-l-lg has-text-white is-size-5">
           <router-link to="/whitelist">
             Whitelist
           </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/associatewithblocktopus">
             Associate with Blocktopus
           </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/getvtx">
             Get VTX
           </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/walletmanager">
             Wallet Manager
           </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/changevertopassword">
             Change Password
           </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/backupwallet">
             Backup Wallet
           </router-link>
-        </span>
-        <br>
-        <br>
-        <span class="p-l-lg has-text-white is-size-5">
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/getVtxtransactionhistory">
             Get VTX Transaction History
           </router-link>
-        </span>
-        <br>
-        <br>
-        <div @click="logout">
+        </div>
+        <div class="p-t-md" @click="logout">
           <span class="p-l-lg has-text-white is-size-5">
             Logout
           </span>
@@ -137,7 +123,7 @@ export default {
 };
 </script>
 <style>
-.settings-list span:hover {
+.settings-list div:hover {
   color: hsl(171, 100%, 41%) !important;
   cursor: pointer;
 }
