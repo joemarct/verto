@@ -77,7 +77,8 @@
         "fold": "Plier le papier.",
         "share": "Partager avec n'importe qui.",
         "picture": "Prendre une photo avec votre téléphone portable.",
-        "screenshot": "Prendre une capture d'écran."
+        "screenshot": "Prendre une capture d'écran.",
+        "copied": "Clé copiée"
     },
     "CongratsScreen": {
         "continue": "Continuez"
