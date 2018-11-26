@@ -10,7 +10,7 @@
         <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
       <p class="p-t-lg has-text-aqua is-size-4">
-        Settings
+        {{ $t('SettingsView.settings') }}
       </p>
       <div class="p-t-s settings-list">
         <!-- <div class="is-size-5 has-text-white is-pulled-left">
@@ -18,13 +18,13 @@
         </div> -->
         <!-- <span class="p-l-md has-text-white is-size-5">
           <router-link to="/checkforupdates">
-            Check for Updates
+            {{ $t('SettingsView.updates') }}
           </router-link>
         </span>
         <br>
         <span class="p-l-lg has-text-white is-size-5">
           <a class="p-l-lg has-text-white is-size-5" v-bind:href="blocktopusUrl">
-            Whitelist
+            {{ $t('SettingsView.whitelist') }}
           </a>
         </span>
 
@@ -37,52 +37,57 @@
         -->
         <br>
         <div class="p-l-lg has-text-white is-size-5">
+          <router-link to="/language">
+            {{ $t('SettingsView.language') }}
+          </router-link>
+        </div>
+        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/whitelist">
-            Whitelist
+            {{ $t('SettingsView.whitelist') }}
           </router-link>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/associatewithblocktopus">
-            Associate with Blocktopus
+            {{ $t('SettingsView.blocktopus') }}
           </router-link>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/getvtx">
-            Get VTX
+            {{ $t('Main.getvtx') }}
           </router-link>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/walletmanager">
-            Wallet Manager
+            {{ $t('SettingsView.manager') }}
           </router-link>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/changevertopassword">
-            Change Password
+            {{ $t('SettingsView.change') }}
           </router-link>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/backupwallet">
-            Backup Wallet
+            {{ $t('SettingsView.backup') }}
           </router-link>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/getVtxtransactionhistory">
-            Get VTX Transaction History
+            {{ $t('SettingsView.gettrans') }}
           </router-link>
         </div>
         <div class="p-t-md" @click="logout">
           <span class="p-l-lg has-text-white is-size-5">
-            Logout
+            {{ $t('SettingsView.logout') }}
           </span>
         </div>
         <hr>
         <a class="p-l-lg has-text-white is-size-5" @click="openTelegram">
           <!--<font-awesome-icon icon="telegram" class="fa-sm has-text-white m-l-sm"/>-->
-          Telegram
+          {{ $t('SettingsView.telegram') }}
         </a>
         <a class="p-l-lg has-text-white is-size-5" href="mailto:someone@example.com?Subject=Hello%20again" target="_top">
-          Send Mail
+          {{ $t('SettingsView.sendmail') }}
         </a>
       </div>
     </div>

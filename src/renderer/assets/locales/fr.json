@@ -1,5 +1,156 @@
 {
     "Welcome": {
-        "welcometo": "BIENVENUE À"
+        "welcometo": "BIENVENUE À",
+        "welcomeback": "Bienvenue à nouveau!",
+        "password": "Mot de passe",
+        "nopassword": "Aucun mot de passe n'a été défini pour le portefeuille. Créez d'abord un mot de passe.",
+        "incorrect": "Le mot de passe est incorrect.",
+        "login": "Connexion",
+        "create": "Créez un mot de passe Verto",
+        "subtitle_message": "Verto est votre passerelle à Volentix. Avec Verto, vous pouvez acheter le jeton natif VTX de l’écosystème Volentix.",
+        "join_message": "Nous sommes heureux de vous compter parmi nous." 
+    },
+    "CreateVertoPassword": {
+        "vertopassword": "Mot de passe Verto",
+        "confirm": "Confirmer le mot de passe Verto",
+        "mustmatch": "Les mots de passe doivent correspondre",
+        "fillall": "Veuillez remplir tous les champs ci-dessus",
+        "save": "Enregistrer",
+        "addwallet": "Ajouter un portefeuille",
+        "onlysupport": "Pour le moment, Verto ne prend en charge que la possibilité d'ajouter des clés publiques. Pour ajouter un portefeuille, indiquez simplement un nom, l'adresse du portefeuille et le mot de passe Verto pour l'ajouter",
+        "createwallet": "Créer un portefeuille",
+        "createkey": "Créez des paires de clés publique / privée pour un nouveau portefeuille. Notez que <b>UNIQUEMENT</b> la clé publique est stockée dans Verto. Vous êtes responsable de la gestion de votre propre clé privée, de son stockage et sa sécurité.",
+        "wallets": "Portefeuilles",
+        "choose": "Choisissez d'ouvrir un portefeuille en cliquant simplement sur son nom.",
+        "delete": "Supprimer le portefeuille",
+        "trash": "Cliquez sur l'icône 'Corbeille'",
+        "enter": "Entrez votre mot de passe.",
+        "note": "<b>REMARQUE:</b> Verto ne peut pas récupérer les portefeuilles supprimés."
+    },
+    "WalletManager": {
+        "used": "Le nom ou le portefeuille a déjà été utilisé.",
+        "both": "Vous devez fournir le nom et la clé publique pour le portefeuille.",
+        "submit": "Soumettre",
+        "cannotrecover": "Verto ne peut pas récupérer le portefeuille une fois supprimé. Appuyez à nouveau sur le bouton Supprimer pour le supprimer définitivement.",
+        "cancel": "Annuler",
+        "delete": "Supprimer",
+        "keyhere": "Ici vas la clé publique du portefeuille"
+    },
+    "KeepYourKeysSafe": {
+        "keepsafe": "Gardez vos clés en sécurité",
+        "before": "Avant de continuer, il est important de noter que vous êtes entièrement responsable de la gestion, de la sécurité, de la protection et de la récupération de votre clé privée. Personne d'autre, pas même les partenaires de l'écosystème Volentix.",
+        "choices": "Vous avez le choix entre deux méthodes pour conserver votre clé privée. Les deux méthodes sont conçues pour garantir la sécurité de votre clé privée.",
+        "first": "Le premier choix est d'écrire votre clé.",
+        "second": "Le second choix est de chiffrer votre clé dans un fichier protégé par un mot de passe.",
+        "next": "Suivant",
+        "back": "Retour"
+    },
+    "SaveYourKeys": {
+        "strategy": "Vous devez planifier une stratégie pour le stockage physique de votre clé privée. Cette stratégie de stockage doit inclure une réflexion à long terme, notamment:",
+        "physical": "<b>Sécurité physique:</b> Des coffres-forts de toute nature offrant la protection recherchée. Pensez à un endroit à l’abri du vol ainsi que des éléments. Dans certains cas, vous choisirez banque ou un avocat. Dans d’autres, vous préférerez peut-être l’enterrer dans votre jardin. À vous de choisir.",
+        "legacy": "<b>Héritage:</b> Il arrive des choses. La vie se termine. Vous devez planifier le transfert de votre portefeuille à quelqu'un d'autre. Dans certains cas, cela peut être par votre testament, alors que dans d'autres, une chasse au trésor. À vous de choisir.",
+        "agree": "J'accepte les conditions générales",
+        "responsible": "Je suis entièrement responsable de la gestion de la sécurité de ma clé privée",
+        "access": "Je comprends que Volentix et / ou ses partenaires n'ont jamais accès à ma clé privée",
+        "wifi": "Je comprends que le WIFI sera désactivé temporairement lors de la génération des clés",
+        "tofile": "Enregistrer dans un fichier",
+        "writedown": "Je vais l'écrire"
+    },
+    "DisplayKey": {
+        "understand": "Je comprends que la clé privée n'est pas stockée dans Verto et ne peut pas être récupérée.",
+        "private": "Privé",
+        "public": "Public",
+        "already": "Le nom ou la clé a déjà été utilisé.",
+        "mustname": "Vous devez donner un nom à votre clé.",
+        "walletname": "Nom du portefeuille",
+        "writedown": "Écrivez vos clés.",
+        "privkey": "Clé privée",
+        "pubkey": "Clé publique",
+        "recommended": "Recommandé",
+        "goodpen": "Utilisez un bon stylo qui ne maculera pas et ne s'effacera pas avec le temps.",
+        "goodpaper": "Utilisez un bon papier qui durera.",
+        "polaroid": "Si vous souhaitez prendre une photo, utilisez une plate-forme non numérique telle que le 35mm ou Polaroid.",
+        "once": "Une fois terminé",
+        "look": "Recherchez un endroit chaud, sûr, sécurisé et sec tel qu'un coffre-fort dans une banque.",
+        "provisions": "Ajoutez des provisions à votre testament sur qui et comment le transfert de votre portefeuille sera effectué.",
+        "donot": "Ne pas",
+        "fold": "Plier le papier.",
+        "share": "Partager avec n'importe qui.",
+        "picture": "Prendre une photo avec votre téléphone portable.",
+        "screenshot": "Prendre une capture d'écran."
+    },
+    "CongratsScreen": {
+        "continue": "Continuez"
+    },
+    "Main": {
+        "address": "Adresse du portefeuille",
+        "loading": "Chargement des données",
+        "history": "Historique des transactions",
+        "transactions": "Vous n'avez aucune transaction",
+        "getvtx": "Obtenez VTX",
+        "number": "N<sup>o</sup>",
+        "copied": "Copié"
+    },
+    "GetVtxTransactionHistory": {
+        "history": "Obtenir l'historique de VTX",
+        "native": "Monnaie de source",
+        "amount": "Montant",
+        "ratio": "Ratio de conversion",
+        "confirmation": "Confirmation",
+        "transid": "Ledger Trans. ID",
+        "pre": "Pré Bonus",
+        "phase": "Bonus de phase",
+        "additional": "Bonus supplémentaire",
+        "total": "Total",
+        "received": "Reçu",
+        "converted": "Converti",
+        "pending": "En attente",
+        "confirmed": "Confirmé",
+        "approved": "Approuvé"
+    },
+    "SettingsView": {
+        "settings": "Paramètres",
+        "updates": "Recherche de mises à jour",
+        "whitelist": "Liste blanche",
+        "blocktopus": "Associer à Blocktopus",
+        "manager": "Gestionnaire de portefeuille",
+        "change": "Changer le mot de passe",
+        "backup": "Sauvegarde du portefeuille",
+        "gettrans": "Historique des transactions VTX",
+        "logout": "Déconnexion",
+        "telegram": "Telegram",
+        "sendmail": "Envoyer un courriel",
+        "language": "Langage"
+    },
+    "AssociateView": {
+        "username": "Nom d'utilisateur Blocktopus",
+        "password": "Mot de passe Blocktopus"
+    },
+    "GetVtx": {
+        "vtxsold": "VTX vendu",
+        "round": "Tour Bonus",
+        "amount": "Montant Bonus",
+        "current": "Prix VTX actuel",
+        "additional": "Bonus supplémentaires",
+        "bonus": "Bonus",
+        "soon": "Bientôt disponible"
+    },
+    "ChangeVertoPassword": {
+        "current": "Mot de passe Verto actuel",
+        "new": "Nouveau mot de passe Verto",
+        "confirm": "Confirmer le nouveau mot de passe Verto",
+        "required": "Tous les champs sont obligatoires.",
+        "change": "Changer le mot de passe Verto",
+        "recommended": "il est recommandé de sauvegarder d'abord la configuration actuelle de Verto avant de changer le mot de passe. Vous pouvez sauvegarder Verto ",
+        "here": "ici",
+        "access": "Une fois la modification du mot de passe pour accéder à Verto sélectionnée, la configuration sera cryptée à l'aide du nouveau mot de passe. Vous voudrez peut-être "
+    },
+    "BackupWallet": {
+        "folder": "Sélectionner le dossier",
+        "backup": "Sauvegarde",
+        "simple": "Un outil simple pour sauvegarder votre portefeuille afin de le restaurer ou de l'ouvrir sur un autre appareil. Simplement",
+        "directory": "sélectionnez un répertoire dans lequel sauvegarder le portefeuille.",
+        "willbackup": "Verto sauvegardera le portefeuille avec le nom 'verto' + la date + '.config'",
+        "select": "Sélectionnez 'Sauvegarde du portefeuille'"
     }
 }

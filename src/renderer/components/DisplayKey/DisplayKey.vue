@@ -18,18 +18,18 @@
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
         <b-checkbox native-value="write" v-model="isEnabled">
-          I understand that the private key is not stored in Verto and cannot be recovered.
+          {{ $t('DisplayKey.understand') }}
         </b-checkbox>
 
         <div class="column display-keys font-gibson has-text-white p-md m-t-md">
           <div class="generated-keys p-md">
             <a @click="isKeyModalActive = true">
               <div class="wallet-address">
-                <span class="is-size-6 has-text-aqua p-l-sm">Private: </span>
+                <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.private') }}: </span>
                 <span class="is-size-7 has-text-white p-l-sm"> {{ privateKey }} </span>
               </div>
               <div class="wallet-address p-t-sm">
-                <span class="is-size-6 has-text-aqua p-l-sm">Public: </span>
+                <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.public') }}: </span>
                 <span class="is-size-7 has-text-white p-l-sm"> {{ publicKey }} </span>
               </div>
             </a>
@@ -38,32 +38,32 @@
         <div class="m-t-md">
           <div v-if="keyalreadyused">
             <p class="has-text-danger m-t-md">
-              The name or the key has already been used.
+              {{ $t('DisplayKey.already') }}
             </p>
           </div>
           <div v-if="keynameempty">
             <p class="has-text-danger m-t-md">
-              You must provide a name for your key.
+              {{ $t('DisplayKey.mustname') }}
             </p>
           </div>
-          <input v-model="keyname" class="input m-b-sm" type="text" placeholder="Wallet Name">
+          <input v-model="keyname" class="input m-b-sm" type="text" :placeholder="$t('DisplayKey.walletname')">
           <div v-if="incorrectPassword">
             <p class="has-text-danger m-t-md">
-              The Password Is Incorrect.
+              {{ $t('Welcome.incorrect') }}
             </p>
           </div>
-          <input v-model="walletpassword" class="input m-b-sm" type="password" placeholder="Verto Password">
+          <input v-model="walletpassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
           <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a  @click="$router.push({ path: 'walletmanager' })" class="button m-t-md green is-centered has-text-white">
               <p class="is-size-6">
-                Cancel
+                {{ $t('WalletManager.cancel') }}
               </p>
             </a>
           </div>
           <div class="has-text-dark level-right">
             <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('CreateVertoPassword.save') }}</p>
             </a>
           </div>
         </div>
@@ -73,15 +73,15 @@
         <div class="card">
           <div class="card-content">
             <p>
-              Write down your keys.
+              {{ $t('DisplayKey.writedown') }}
             </p>
             <br>
             <p>
-              Private key: {{ privateKey }}
+              {{ $t('DisplayKey.privkey') }}: {{ privateKey }}
             </p>
             <br>
             <p>
-              Public key: {{ publicKey }}
+              {{ $t('DisplayKey.pubkey') }}: {{ publicKey }}
             </p>
           </div>
         </div>
@@ -91,57 +91,57 @@
           <div class="card-content">
             <div class="modal-header">
               <slot name="header">
-                Recommended
+                {{ $t('DisplayKey.recommended') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  * Use a good pen that will not smudge or fade over time.
+                  * {{ $t('DisplayKey.goodpen') }}
                 </li>
                 <li>
-                  * Use good paper that will last.
+                  * {{ $t('DisplayKey.goodpaper') }}
                 </li>
                 <li>
-                  * If you want to take a photo, use a non-digital platform such as 35mm or Polaroid.
+                  * {{ $t('DisplayKey.polaroid') }}
                 </li>
               </ul>
             </div>
             <br>
             <div class="modal-header">
               <slot name="header">
-                Once Completed
+                {{ $t('DisplayKey.once') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  * Look for a warm, safe, secure, dry place such as a bank safety deposit box.
+                  * {{ $t('DisplayKey.look') }}
                 </li>
                 <li>
-                  * Add provisions to your will on who and how the transfer of your wallet will be conducted.
+                  * {{ $t('DisplayKey.provisions') }}
                 </li>
               </ul>
             </div>
             <br>
             <div class="modal-header">
               <slot name="header">
-                Do Not
+                {{ $t('DisplayKey.donot') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  * Fold the paper.
+                  * {{ $t('DisplayKey.fold') }}
                 </li>
                 <li>
-                  * Share with anyone.
+                  * {{ $t('DisplayKey.share') }}
                 </li>
                 <li>
-                  * Take a picture with your cell phone.
+                  * {{ $t('DisplayKey.picture') }}
                 </li>
                 <li>
-                  * Take a screenshot.
+                  * {{ $t('DisplayKey.screenshot') }}
                 </li>
               </ul>
             </div>
@@ -165,7 +165,7 @@ export default {
       isKeyModalActive: false,
       privateKey: "",
       publicKey: "",
-      requiredText: "Key copied",
+      requiredText: this.$t('DisplayKey.copied'),
       textInput: "",
       clicked: false,
       keynameempty: false,

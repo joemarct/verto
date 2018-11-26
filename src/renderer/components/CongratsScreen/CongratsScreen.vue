@@ -2,11 +2,12 @@
   <section>
     <div class="hero-body congrats p-t-md">
       <div class="container font-gibson m-t-xl">
+        <!-- warning image translation needed -->
         <img src="~@/assets/img/congratsScreen.png">
         <div>
           <router-link to="/main">
             <a class="button is-size-5 green is-fullwidth">
-              <p class="p-l-sm p-r-sm is-size-5 font-gibson-semibold">Continue</p>
+              <p class="p-l-sm p-r-sm is-size-5 font-gibson-semibold">{{ $t('CongratsScreen.continue') }}</p>
             </a>
           </router-link>
         </div>

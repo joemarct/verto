@@ -39,7 +39,7 @@
                 Please fill all the fields above
               </p>
             </div>
-            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Wallet Name">
+            <input v-model="keyname" class="input is-medium m-t-md" type="text" :placeholder="$t('DisplayKey.walletname')">
             
             <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Choose Wallet Password">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm Wallet password">
@@ -48,7 +48,7 @@
                 The Verto Password Is Incorrect.
               </p>
             </div>
-            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" placeholder="Verto Password">
+            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
           </div>
         </div>
         <div v-if="fillAllFields">

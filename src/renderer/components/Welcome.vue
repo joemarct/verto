@@ -5,6 +5,7 @@
         <div class="box has-text-white is-radiusless is-shadowless">
           <div class="is-size-3">{{ $t('Welcome.welcometo') }}</div>
           <div class="logo-welcome p-l-lg p-r-lg">
+            <!-- warning image translation needed -->
             <img src="~@/assets/img/white-logo-with-text.png" >
           </div>
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
@@ -21,7 +22,7 @@
               </p>
             </div>
             <form>
-              <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
+              <input  v-model="password" class="input m-b-sm" type="password" :placeholder="$t('Welcome.password')">
               <div class="level-item has-text-centered is-marginless">
                 <a class="p-t-lg button is-fullwidth is-success" @click="login"> {{ $t('Welcome.login') }} </a>
               </div>
