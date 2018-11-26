@@ -12,19 +12,19 @@
       </div>
         <div class="field">
           <div class="control">
-            <input v-model="username" class="input is-medium m-t-md" type="password" placeholder="Blocktopus Username">
-            <input v-model="password" class="input m-t-md is-medium" type="password" placeholder="Blocktopus Password">
+            <input v-model="username" class="input is-medium m-t-md" type="password" :placeholder="$t('AssociateView.username')">
+            <input v-model="password" class="input m-t-md is-medium" type="password" :placeholder="$t('AssociateView.password')">
           </div>
         </div>
         <div v-if="fillAllFields">
           <p class="has-text-danger m-t-md">
-            Please fill all the fields above
+            {{ $t('CreateVertoPassword.fillall') }}
           </p>
         </div>
         <div class="m-t-md">
           <div class="has-text-dark">
             <a class="button m-t-md is-size-5 green" @click="connect">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Submit</p>
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('WalletManager.submit') }}</p>
             </a>
           </div>
         </div>

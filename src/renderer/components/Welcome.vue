@@ -3,34 +3,35 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="box has-text-white is-radiusless is-shadowless">
-          <div class="is-size-3">WELCOME TO</div>
+          <div class="is-size-3">{{ $t('Welcome.welcometo') }}</div>
           <div class="logo-welcome p-l-lg p-r-lg">
+            <!-- warning image translation needed -->
             <img src="~@/assets/img/white-logo-with-text.png" >
           </div>
           <div class="m-t-md is-size-5">{{ subtitle_message }}</div>
           <div v-if="hasPassword">
-            <div class="is-size-6 m-t-md">Welcome Back!</div>
+            <div class="is-size-6 m-t-md">{{ $t('Welcome.welcomeback') }}</div>
             <div v-if="nopassword">
               <p class="has-text-danger m-t-md">
-                No Password Has Been Set For The Wallet. Please Create A Password First.
+                {{ $t('Welcome.nopassword') }}
               </p>
             </div>
             <div v-if="incorrectPassword">
               <p class="has-text-danger m-t-md">
-                The Password Is Incorrect.
+                {{ $t('Welcome.incorrect') }}
               </p>
             </div>
             <form>
-              <input  v-model="password" class="input m-b-sm" type="password" placeholder="Password">
+              <input  v-model="password" class="input m-b-sm" type="password" :placeholder="$t('Welcome.password')">
               <div class="level-item has-text-centered is-marginless">
-                <a class="p-t-lg button is-fullwidth is-success" @click="login"> Login </a>
+                <a class="p-t-lg button is-fullwidth is-success" @click="login"> {{ $t('Welcome.login') }} </a>
               </div>
             </form>
           </div>
           <div v-if="!hasPassword">
             <div class="is-size-6 m-t-md">{{ join_message }}</div>
             <a class="p-t-lg button is-fullwidth is-primary" @click="createvertopassword">
-              Create Verto Password
+              {{ $t('Welcome.create') }}
             </a>
           </div>
         </div>
@@ -53,9 +54,8 @@ ipcRenderer.on('message', function(event, text) {
 export default {
   data() {
     return {
-      subtitle_message:
-        "Verto is your gateway to Volentix, with Verto, you can purchase VTX, the native token of the Volentix ecosystem.",
-      join_message: "We're glad you've joined us.",
+      subtitle_message: this.$t('Welcome.subtitle_message'),
+      join_message: this.$t('Welcome.join_message'),
       publicKey: "",
       password: "",
       nopassword: false,
