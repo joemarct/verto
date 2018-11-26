@@ -1,5 +1,10 @@
 <template>
   <section class="hero is-fullheight wallet-background">
+    <!-- <div class="locale-changer p-t-md m-l-md">
+      <select v-model="$i18n.locale">
+        <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
+      </select>
+    </div> -->
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="box has-text-white is-radiusless is-shadowless">
@@ -52,8 +57,10 @@ ipcRenderer.on('message', function(event, text) {
 })
 
 export default {
+  // name: 'locale-changer',
   data() {
     return {
+      // langs: ['en', 'fr'],
       subtitle_message: this.$t('Welcome.subtitle_message'),
       join_message: this.$t('Welcome.join_message'),
       publicKey: "",

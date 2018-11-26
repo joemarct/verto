@@ -17,14 +17,14 @@
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a class="button m-t-md green is-centered has-text-white" @click="showAddKey = !showAddKey">
-              <p class="is-size-6">
+              <p class="is-size-7">
                 {{ $t('CreateVertoPassword.addwallet') }}
               </p>
             </a>
           </div>
           <div class="has-text-dark level-right">
             <a class="button m-t-md green is-centered has-text-white" @click="generateKey">
-              <p>
+              <p class="is-size-7">
                 {{ $t('CreateVertoPassword.createwallet') }}
               </p>
             </a>
