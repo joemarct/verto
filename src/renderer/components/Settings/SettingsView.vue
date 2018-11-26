@@ -37,9 +37,12 @@
         -->
         <br>
         <div class="p-l-lg has-text-white is-size-5">
-          <router-link to="/language">
-            {{ $t('SettingsView.language') }}
-          </router-link>
+          <div class="locale-changer">
+            {{ $t('SettingsView.language') }}:
+            <select v-model="$i18n.locale">
+              <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
+            </select>
+          </div>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/whitelist">
@@ -101,8 +104,10 @@
 
 <script>
 export default {
+  name: 'locale-changer',
   data() {
     return {
+      langs: ['en', 'fr'],
       appVersion: this.$appVersion,
       appName: this.$appName,
       blocktopusUrl: 'https://volentix.blocktopus.io/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey

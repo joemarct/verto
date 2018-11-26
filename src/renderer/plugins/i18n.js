@@ -6,16 +6,7 @@ import fr from '../assets/locales/fr.json'
 Vue.use(VueI18n)
 
 export const i18n = new VueI18n({
-  locale: 'fr', // set locale
+  locale: 'en', // set locale
   fallbackLocale: 'en',
-  messages: { fr } // set locale messages
+  messages: { en, fr } // set locale messages
 })
-
-Vue.prototype.$locale = {
-  change (language) {
-    i18n.locale = language;
-  },
-  current () {
-    return i18n.locale;
-  }
-}

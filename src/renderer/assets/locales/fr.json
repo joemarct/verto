@@ -4,7 +4,7 @@
         "welcomeback": "Bienvenue à nouveau!",
         "password": "Mot de passe",
         "nopassword": "Aucun mot de passe n'a été défini pour le portefeuille. Créez d'abord un mot de passe.",
-        "incorrect": "Le mot de passe est incorrect.",
+        "incorrect": "Le mot de passe Verto est incorrect.",
         "login": "Connexion",
         "create": "Créez un mot de passe Verto",
         "subtitle_message": "Verto est votre passerelle à Volentix. Avec Verto, vous pouvez acheter le jeton natif VTX de l’écosystème Volentix.",
@@ -152,5 +152,14 @@
         "directory": "sélectionnez un répertoire dans lequel sauvegarder le portefeuille.",
         "willbackup": "Verto sauvegardera le portefeuille avec le nom 'verto' + la date + '.config'",
         "select": "Sélectionnez 'Sauvegarde du portefeuille'"
+    },
+    "ChoosePassword": {
+        "file": "Choisir le fichier",
+        "choose": "Choisissez le mot de passe du portefeuille",
+        "confirm": "Confirmer le mot de passe du portefeuille",
+        "storeext": "Stockez-le sur un lecteur externe, un portefeuille ou une clé USB.",
+        "storeloc": "Le stockez sur le lecteur local de votre ordinateur.",
+        "emailit": "L'Envoyez par courriel.",
+        "cloud": "Le stocker sur le nuage."
     }
 }
