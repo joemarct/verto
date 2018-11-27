@@ -46,11 +46,11 @@
             Associate with Blocktopus
           </router-link>
         </div>
-        <div class="p-l-lg p-t-md has-text-white is-size-5">
+        <!-- <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/getvtx">
             Get VTX
           </router-link>
-        </div>
+        </div> -->
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/walletmanager">
             Wallet Manager

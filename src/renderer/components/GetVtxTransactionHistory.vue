@@ -74,7 +74,7 @@
                             {{ transaction.native_transaction_time | formatTime }}
                           </div>
                         </div>
-                      </div> 
+                      </div>
                       <div class="column is-paddingless">
                         <div class="level is-mobile has-text-white">
                           <div class="level-left">
@@ -100,15 +100,8 @@
       </div>
     </div>
     <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <div class="has-background-darkgreen">
-      <router-link to="/getvtx">
-        <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
-          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
-        </a>
-      </router-link>
-    </div>
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md">
+      <div class="container has-background-darklightgreen p-md has-text-white">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
@@ -119,7 +112,7 @@
         </p>
       </div>
     </b-modal>
-    <b-modal :active.sync="isTransactionDetailsActive" class="modal-qr">
+    <b-modal :active.sync="isTransactionDetailsActive" class="transaction-details-popup">
       <div class="card-content has-text-centered has-text-white">
         <p class="is-marginless is-size-4 has-text-white font-gibson"> {{ currentTransaction.status }} </p>
         <br>
@@ -160,7 +153,7 @@
             <td>
               Ledger Trans. ID
             </td>
-            <td class="td-align-right">
+            <td class="td-align-right ledger-id-wrap">
               {{ currentTransaction.ledger_transaction_id }}
             </td>
           </tr>
@@ -330,8 +323,14 @@ export default {
 
 <style scoped>
 .td-align-right {
-  text-align: right; 
+  text-align: right;
   display:block
+}
+.ledger-id-wrap {
+  max-width: 10rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .notices.is-top {
   top: 18rem !important;

@@ -102,15 +102,15 @@
       </div>
     </div>
     <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <div class="has-background-darkgreen">
+    <!-- <div class="has-background-darkgreen">
       <router-link to="/getvtx">
         <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
           <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
         </a>
       </router-link>
-    </div>
+    </div> -->
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md">
+      <div class="container has-background-darklightgreen p-md has-text-light">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
