@@ -20,10 +20,10 @@
           <div class="control">
             <div v-if="incorrectpassword">
               <p class="has-text-danger m-t-md">
-                The password is incorrect.
+                {{ $t('Welcome.incorrect') }}
               </p>
             </div>
-            <input v-model="originalPassword" :class="{ 'is-danger' : incorrectpassword }" class="input is-medium" type="password" placeholder="Current Verto Password">
+            <input v-model="originalPassword" :class="{ 'is-danger' : incorrectpassword }" class="input is-medium" type="password" :placeholder="$t('ChangeVertoPassword.current')">
           </div>
         </div>
         <hr style="height:1px; border:none; color:#000; background-color:#000;">
@@ -31,30 +31,30 @@
           <div class="control">
             <div v-if="notMatchingPass">
               <p class="has-text-danger m-t-md">
-                Passwords must match.
+                {{ $t('CreateVertoPassword.mustmatch') }}
               </p>
             </div>
             <div v-if="fillAllFields">
               <p class="has-text-danger m-t-md">
-                All fields are required.
+                {{ $t('ChangeVertoPassword.required') }}
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="New Verto Password">
-            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm New Verto Password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" :placeholder="$t('ChangeVertoPassword.new')">
+            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" :placeholder="$t('ChangeVertoPassword.confirm')">
           </div>
         </div>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a  @click="$router.push({ path: 'settings' })" class="button m-t-md green is-centered has-text-white">
               <p class="is-size-6">
-                Cancel
+                {{ $t('WalletManager.cancel') }}
               </p>
             </a>
           </div>
           <div class="has-text-dark level-right">
             <a class="button m-t-md green is-right has-text-white" @click="updatePassword">
               <p class="is-size-6">
-                Save
+                {{ $t('CreateVertoPassword.save') }}
               </p>
             </a>
           </div>
@@ -65,20 +65,20 @@
           <div class="card-content">
             <div class="modal-header">
               <slot name="header">
-                Change Verto Password
+                {{ $t('ChangeVertoPassword.change') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  It is recommended that you first backup the current configuration of Verto before changing the password. You can back up Verto  <router-link to="/backupwallet"><span style="text-decoration:underline;">here</span></router-link>.
+                  {{ $t('ChangeVertoPassword.recommended') }} <router-link to="/backupwallet"><span style="text-decoration:underline;">{{ $t('ChangeVertoPassword.here') }}</span></router-link>.
                 </li>
                 <li>
-                  Changes the password to access Verto. Once selected, all configuration is encrypted using the new password. You may want to 
+                  {{ $t('ChangeVertoPassword.access') }}
                 </li>
                 
                 <li>
-                  <b>NOTE:</b> Vero is unable to recover deleted wallets.
+                  <p v-html="$t('CreateVertoPassword.note')"></p>
                 </li>
               </ul>
             </div>

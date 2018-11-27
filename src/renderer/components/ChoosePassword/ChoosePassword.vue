@@ -15,58 +15,58 @@
       </a>
       
         <b-checkbox native-value="write" v-model="isEnabled" class="has-text-white">
-          I understand that the private key is not stored in Verto and cannot be recovered.
+          {{ $t('DisplayKey.understand') }}
         </b-checkbox>
         <div class="field">
           <div class="control">
             <div v-if="nokeyname">
               <p class="has-text-danger m-t-md">
-                You must provide a key name.
+                {{ $t('DisplayKey.mustname') }}
               </p>
             </div>
             <div v-if="keyalreadyused">
               <p class="has-text-danger m-t-md">
-                The name or the key has already been used.
+                {{ $t('DisplayKey.already') }}
               </p>
             </div>
             <div v-if="notMatchingPass">
               <p class="has-text-danger m-t-md">
-                Passwords should match
+                {{ $t('CreateVertoPassword.mustmatch') }}
               </p>
             </div>
             <div v-if="fillAllFields">
               <p class="has-text-danger m-t-md">
-                Please fill all the fields above
+                {{ $t('CreateVertoPassword.fillall') }}
               </p>
             </div>
-            <input v-model="keyname" class="input is-medium m-t-md" type="text" placeholder="Wallet Name">
+            <input v-model="keyname" class="input is-medium m-t-md" type="text" :placeholder="$t('DisplayKey.walletname')">
             
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" placeholder="Choose Wallet Password">
-            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm Wallet password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" :placeholder="$t('ChoosePassword.choose')">
+            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" :placeholder="$t('ChoosePassword.confirm')">
             <div v-if="incorrectPassword">
               <p class="has-text-danger m-t-md">
-                The Verto Password Is Incorrect.
+                {{ $t('Welcome.incorrect') }}
               </p>
             </div>
-            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" placeholder="Verto Password">
+            <input v-model="walletpassword" class="input is-medium m-t-md" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
           </div>
         </div>
         <div v-if="fillAllFields">
           <p class="has-text-danger m-t-md">
-            Please fill all the fields above
+            {{ $t('CreateVertoPassword.fillall') }}
           </p>
         </div>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a  @click="$router.push({ path: 'walletmanager' })" class="button m-t-md green is-centered has-text-white">
               <p class="is-size-6">
-                Cancel
+                {{ $t('WalletManager.cancel') }}
               </p>
             </a>
           </div>
           <div class="has-text-dark level-right">
             <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('CreateVertoPassword.save') }}</p>
             </a>
           </div>
         </div>
@@ -76,51 +76,51 @@
           <div class="card-content">
             <div class="modal-header">
               <slot name="header">
-                Recommended
+                {{ $t('DisplayKey.recommended') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  * Store on an external drive, wallet, or usb key.
+                  * {{ $t('ChoosePassword.storeext') }}
                 </li>
               </ul>
             </div>
             <br>
             <div class="modal-header">
               <slot name="header">
-                Once Completed
+                {{ $t('DisplayKey.once') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  * Look for a warm, safe, secure, dry place such as a bank safety deposit box.
+                  * {{ $t('DisplayKey.look') }}
                 </li>
                 <li>
-                  * Add provisions to your will on who and how the transfer of your wallet will be conducted.
+                  * {{ $t('DisplayKey.provisions') }}
                 </li>
               </ul>
             </div>
             <br>
             <div class="modal-header">
               <slot name="header">
-                Do Not
+                {{ $t('DisplayKey.donot') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  * Store it on your computers local drive.
+                  * {{ $t('ChoosePassword.storeloc') }}
                 </li>
                 <li>
-                  * Share with anyone.
+                  * {{ $t('DisplayKey.share') }}
                 </li>
                 <li>
-                  * Email it.
+                  * {{ $t('ChoosePassword.emailit') }}
                 </li>
                 <li>
-                  * Store on the cloud.
+                  * {{ $t('ChoosePassword.cloud') }}
                 </li>
               </ul>
             </div>
@@ -198,7 +198,7 @@ export default {
             }
           }
           var savePath = dialog.showSaveDialog({
-            title: "Choose file"
+            title: this.$t('ChoosePassword.file')
           });
           // TODO: Need some error checking here.
           config.keys.push({name: this.keyname, key: this.publicKey});

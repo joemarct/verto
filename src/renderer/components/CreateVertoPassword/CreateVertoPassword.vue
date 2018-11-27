@@ -19,22 +19,22 @@
           <div class="control">
             <div v-if="notMatchingPass">
               <p class="has-text-danger m-t-md">
-                Passwords must match.
+                {{ $t('CreateVertoPassword.mustmatch') }}
               </p>
             </div>
-            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" placeholder="Verto Password">
-            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" placeholder="Confirm Verto password">
+            <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
+            <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" :placeholder="$t('CreateVertoPassword.confirm')">
           </div>
         </div>
         <div v-if="fillAllFields">
           <p class="has-text-danger m-t-md">
-            Please fill all the fields above
+            {{ $t('CreateVertoPassword.fillall') }}
           </p>
         </div>
         <br><br>
         <div class="has-text-dark m-t-xxl">
           <a class="button m-t-md is-size-5 green is-pulled-right" @click="savePassword">
-            <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">Save</p>
+            <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('CreateVertoPassword.save') }}</p>
           </a>
         </div>
       </div>
@@ -43,45 +43,45 @@
           <div class="card-content">
             <div class="modal-header">
               <slot name="header">
-                Add Wallet
+                {{ $t('CreateVertoPassword.addwallet') }}
               </slot>
             </div>
             <div>
-              Verto only supports the ability to add public keys. To add a wallet, simply provide a name, the wallet address, and the Verto password to add your wallet.
+              {{ $t('CreateVertoPassword.onlysupport') }}
             </div>
             <br>
             <div class="modal-header">
               <slot name="header">
-                Create Wallet
+                {{ $t('CreateVertoPassword.createwallet') }}
               </slot>
             </div>
             <div>
-              Create public/private key pairs for a new wallet. Note that <b>ONLY</b> the public key is stored in Verto. You are responsible for the management of your own private key, its storage, and security.
+              <p v-html="$t('CreateVertoPassword.createkey')"></p>
             </div>
             <br>
             <div class="modal-header">
               <slot name="header">
-                Wallets
+                {{ $t('CreateVertoPassword.wallets') }}
               </slot>
             </div>
             <div>
-              Choose to open a wallet by simple clicking on its name.
+              {{ $t('CreateVertoPassword.choose') }}
             </div>
             <div class="modal-header">
               <slot name="header">
-                Delete Wallet
+                {{ $t('CreateVertoPassword.delete') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  Click on the 'Trash' icon <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
+                  {{ $t('CreateVertoPassword.trash') }} <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
                 </li>
                 <li>
-                  Enter your password.
+                  {{ $t('CreateVertoPassword.enter') }}
                 </li>
                 <li>
-                  <b>NOTE:</b> Vero is unable to recover deleted wallets.
+                  <p v-html="$t('CreateVertoPassword.note')"></p>
                 </li>
               </ul>
             </div>

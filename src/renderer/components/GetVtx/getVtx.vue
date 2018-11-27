@@ -17,7 +17,7 @@
               <table style="width:100%">
                 <tr>
                   <td>
-                    VTX Sold:
+                    {{ $t('GetVtx.vtxsold') }}:
                   </td>
                   <td align="right">
                     {{ summaryData.vtx_sold }}
@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Bonus Round:
+                    {{ $t('GetVtx.round') }}:
                   </td>
                   <td align="right">
                     {{ summaryData.round }}
@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Bonus Amount:
+                    {{ $t('GetVtx.amount') }}:
                   </td>
                   <td>
                     {{ summaryData.bonus }}%
@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Current VTX Price:
+                    {{ $t('GetVtx.current') }}:
                   </td>
                   <td>
                     {{ summaryData.priceInBtc }} BTC
@@ -49,7 +49,7 @@
                 </tr>
                 <tr v-if="this.summaryData.has_additional_bonus">
                   <td>
-                    Additional Bonuses:
+                    {{ $t('GetVtx.additional') }}:
                   </td>
                   <td>
                     &nbsp;
@@ -82,7 +82,7 @@
               <table style="width:100%">
                 <tr>
                   <td>
-                    Pre-Bonus
+                    {{ $t('GetVtxTransactionHistory.pre') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.vtxPreBonus.toFixed(4) }}
@@ -90,7 +90,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Bonus
+                    {{ $t('GetVtx.bonus') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.bonusVtx.toFixed(4) }}
@@ -98,7 +98,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Additional Bonus
+                    {{ $t('GetVtxTransactionHistory.additional') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.additionalBonus.toFixed(4) }}
@@ -106,7 +106,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Total
+                    {{ $t('GetVtxTransactionHistory.total') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.total.toFixed(4) }}
@@ -116,7 +116,7 @@
             </div>
             <div class="level-item has-text-centered is-marginless">
               <a :disabled="true" class="button is-fullwidth is-primary has-text-white" @click="buyVtx">
-                Coming Soon
+                {{ $t('GetVtx.soon') }}
               </a>
             </div>
           </form>
