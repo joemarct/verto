@@ -110,7 +110,7 @@
       </router-link>
     </div> -->
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md has-text-white">
+      <div class="container has-background-darklightgreen p-md has-text-light">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>

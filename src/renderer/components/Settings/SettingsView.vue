@@ -54,11 +54,11 @@
             {{ $t('SettingsView.blocktopus') }}
           </router-link>
         </div>
-        <div class="p-l-lg p-t-md has-text-white is-size-5">
+        <!-- <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/getvtx">
             {{ $t('Main.getvtx') }}
           </router-link>
-        </div>
+        </div> -->
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/walletmanager">
             {{ $t('SettingsView.manager') }}
