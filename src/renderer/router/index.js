@@ -221,6 +221,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/associatevertotoblocktopus',
+      name: 'associatevertotoblocktopus',
+      component: require('@/components/AssociateVertoToBlocktopus').default,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

@@ -35,7 +35,7 @@ export default {
     return {
       appVersion: this.$appVersion,
       appName: this.$appName,
-      blocktopusUrl: 'https://volentix.blocktopus.io/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey
+      blocktopusUrl: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey
     };
   },
   mounted() {

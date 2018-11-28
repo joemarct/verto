@@ -47,8 +47,7 @@ export default {
   methods: {
     generateLink() {
       this.blocktopusSigningLink =
-        "https://test.volentix.blocktopus.io/token_buyers/sign_in?verto_public_address=" +
-        this.$route.params.key;
+        process.env.BLOCKTOPUS_URL + "/token_buyers/sign_in?verto_public_address=" + this.$route.params.key;
     }
   }
 };

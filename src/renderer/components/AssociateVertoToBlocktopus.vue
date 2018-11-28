@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import sjcl from "sjcl";
+import sjcl from "sjcl"
 import EventBus from '../bus'
 
 export default {
@@ -16,10 +16,13 @@ export default {
       email: "",
       amount: 0,
       currency: 'BTC',
-      blocktopusLink: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey,
+      blocktopusLink: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_in?verto_public_address=' + this.$store.state.userKey,
       callback: function(e) {
         console.log("Calling the listener")
-        console.log(e.source.location.pathname);
+        console.log(e.data);
+        if (e.data.startsWith('success')) {
+          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        }
       }
     };
   },

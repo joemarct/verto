@@ -8,6 +8,7 @@ import moment from 'moment'
 import App from './App'
 import router from './router'
 import store from './store'
+import EventBus from './bus'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
