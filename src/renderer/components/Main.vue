@@ -39,7 +39,7 @@
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
               <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-                Wallet address:
+                {{ $t('Main.address') }}:
                 <span id="wallet-address">{{ wallet }}</span>
               </div>
             </b-tooltip>
@@ -57,12 +57,12 @@
         <div class="columns is-marginless p-b-md">
           <div v-if="loadingData" class="p-l-lg p-r-md m-t-md is-size-4 has-text-grey-light">
             <p>
-              Loading data...
+              {{ $t('Main.loading') }}...
             </p>
           </div>
           <div v-if="hasTransactions">
             <div class="p-l-md p-r-md m-t-md p-b-none is-size-4 has-text-grey-light">
-              Transaction History
+              {{ $t('Main.history') }}
             </div>
             <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
               <router-link :to="{ name: 'TransactionDetails', params: { transaction, wallet } }">
@@ -81,7 +81,7 @@
                       </div>
                       <div class="column is-paddingless">
                         <div class="wallet-address has-text-grey-light" >
-                          NO: {{ transaction.sToKey }}
+                          <span v-html="$t('Main.number')"/>: {{ transaction.sToKey }}
                         </div>
                       </div>
                     </div>
@@ -95,22 +95,22 @@
           </div>
           <div v-if="noTransactions">
             <p class="has-text-grey is-size-5 m-l-lg has-text-weight-bold">
-              You have no transactions
+              {{ $t('Main.transactions') }}
             </p>
           </div>
         </div>
       </div>
     </div>
     <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <div class="has-background-darkgreen">
+    <!-- <div class="has-background-darkgreen">
       <router-link to="/getvtx">
         <a class="button is-fullwidth is-size-5 is-primary" href="https://zixipay.com">
-          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">Get VTX</p>
+          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">{{ $t('Main.getvtx') }}</p>
         </a>
       </router-link>
-    </div>
+    </div> -->
     <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md">
+      <div class="container has-background-darklightgreen p-md has-text-light">
         {{ appName }}: {{ appVersion }}
       </div>
     </div>
@@ -250,7 +250,7 @@ export default {
     toast() {
       this.$toast.open({
         type: "is-white",
-        message: "Copied",
+        message: this.$t('Main.copied'),
         duration: 2000
       });
     },

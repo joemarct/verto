@@ -3,50 +3,42 @@
     <div class="hero-body save-your-keys">
       <div class="container font-gibson">
         <p class="is-size-4 font-gibson-semibold">
-          Keep your keys safe
+          {{ $t('KeepYourKeysSafe.keepsafe') }}
         </p>
         <p class="m-t-sm">
-          You will need to plan a strategy for the physical storage of your private key. This storage strategy
-          should include long term thinking, including:
+          {{ $t('SaveYourKeys.strategy') }}
         </p>
         <br>
-        <p>
-          <b>Physical Security:</b> Vaults of any kind that provide the protection you are seeking. Think of somewhere you know its safe from
-          theft as well as the elements. In some cases, you will choose a bank or lawyer.
-          In others you may prefer to bury it in your backyard. The choice is yours.
-        </p>
+        <p v-html="$t('SaveYourKeys.physical')"></p>
         <br>
-        <p>
-          <b>Legacy:</b> Things happen. Life ends. You need to plan for the transference of your wallet to someone else. In some cases that may
-          be a will, while in others it becomes a scavanger hunt. The choice is yours.
-        </p>
+        <p v-html="$t('SaveYourKeys.legacy')"></p>
         <br>
         <div class="p-l-sm">
           <b-checkbox v-model="checkedQuiz" native-value="first" @change.native="enableButtons">
-            I agree with the Terms &amp; Conditions
+            {{ $t('SaveYourKeys.agree') }}
           </b-checkbox>
           <br>
           <b-checkbox v-model="checkedQuiz" native-value="second" @change.native="enableButtons">
-            I am entirely responsible for the security managment of my private key
+            {{ $t('SaveYourKeys.responsible') }}
           </b-checkbox>
           <br>
           <b-checkbox v-model="checkedQuiz" native-value="third" @change.native="enableButtons">
-            I understand that Volentix and/or partners never have access to my private key
+            {{ $t('SaveYourKeys.access') }}
           </b-checkbox>
           <br>
           <b-checkbox v-model="checkedQuiz" native-value="fourth" @change.native="enableButtons">
-            I understand WIFI will be disabled temporarily during the generation of keys
+            {{ $t('SaveYourKeys.wifi') }}
           </b-checkbox>
         </div>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
             <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 aqua" @click="disableWiFi('/choosepassword')">
-              <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">Save to file</p>
+              <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">{{ $t('SaveYourKeys.tofile') }}</p>
             </a>
           </div>
           <div class="has-text-dark level-right m-l-sm m-r-lg">
             <a :disabled="buttonsAreDisabled" class="button m-t-md is-size-5 green" @click="disableWiFi('/displaykey')">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">I'll write it down</p>
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('SaveYourKeys.writedown') }}</p>
             </a>
           </div>
         </div>

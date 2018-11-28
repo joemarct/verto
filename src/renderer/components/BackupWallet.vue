@@ -17,7 +17,7 @@
       <input disabled="disabled" v-model="savePath" class="input m-t-md" type="text" placeholder="">
       <a @click="selectFolder" class="button m-t-md green is-centered has-text-white">
         <p class="is-size-6">
-          Select Folder
+          {{ $t('BackupWallet.folder') }}
         </p>
       </a>
       <br>
@@ -25,14 +25,14 @@
           <div class="has-text-dark level-left">
             <a  @click="$router.push({ path: 'settings' })" class="button m-t-md green is-centered has-text-white">
               <p class="is-size-6">
-                Cancel
+                {{ $t('WalletManager.cancel') }}
               </p>
             </a>
           </div>
           <div class="has-text-dark level-right">
             <a :disabled="!enableBackup" @click="backupVerto" class="button m-t-md green is-centered has-text-white">
               <p class="is-size-6">
-                Backup Wallet
+                {{ $t('SettingsView.backup') }}
               </p>
             </a>
           </div>
@@ -43,22 +43,22 @@
           <div class="card-content">
             <div class="modal-header">
               <slot name="header">
-                Backup
+                {{ $t('BackupWallet.backup') }}
               </slot>
             </div>
             <div>
               <ul>
                 <li>
-                  Simple tooling to back up your wallet in order to restore or open on another device. Simply:
+                  {{ $t('BackupWallet.simple') }}:
                 </li>
                 <li>
-                  * Select a directory to back up the wallet to.
+                  * {{ $t('BackupWallet.directory') }}
                 </li>
                 <li>
-                  * Verto will back up the wallet with the name 'verto' + the date + '.config'
+                  * {{ $t('BackupWallet.willbackup') }}
                 </li>
                 <li>
-                  * Select 'Backup Wallet'
+                  * {{ $t('BackupWallet.select') }}
                 </li>
               </ul>
             </div>

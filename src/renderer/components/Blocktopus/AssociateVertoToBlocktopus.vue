@@ -1,13 +1,12 @@
 <template>
   <section>
-    <a class="button is-fullwidth is-primary has-text-white" @click="$router.push('settings')">&lt;--- &nbsp;&nbsp;Back To Verto</a>
-    <iframe :src="blocktopusLink"/>
+    <iframe id="blocktopusiframe" :src="blocktopusLink" />
   </section>
 </template>
 
 <script>
 import sjcl from "sjcl"
-import EventBus from '../bus'
+import EventBus from '../../bus'
 
 export default {
   data() {
@@ -16,14 +15,7 @@ export default {
       email: "",
       amount: 0,
       currency: 'BTC',
-      blocktopusLink: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_in?verto_public_address=' + this.$store.state.userKey,
-      callback: function(e) {
-        console.log("Calling the listener")
-        console.log(e.data);
-        if (e.data.startsWith('success')) {
-          console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        }
-      }
+      blocktopusLink: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_in?verto_public_address=' + this.$store.state.userKey
     };
   },
   beforeMount() {
@@ -36,6 +28,18 @@ export default {
   methods: {
     signup: function() {
       this.$router.push("walletmanager")
+    },
+    callback: function(e) {
+      console.log("Data: " + e.data);
+      if (e.data && (typeof e.data === 'string' || e.data instanceof String)) {
+        if (e.data.startsWith('success')) {
+          this.$router.push({ path: "blocktopussuccesssful" })
+        } else if (e.data.startsWith('cancel')) {
+          this.$router.push({ path: "settings" })
+        } else if (e.data.startsWith('error')) {
+          this.$router.push({ path: "settings" })
+        }
+      }
     }
   }
 };
@@ -68,5 +72,13 @@ export default {
 }
 .hero-body.choose-password input {
   border-radius: 0.5rem;
+}
+#blocktopusiframe
+{
+    height:   100%;
+    left:     0px;
+    position: absolute;
+    top:      0px;
+    width:    100%;
 }
 </style>

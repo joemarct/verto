@@ -225,7 +225,23 @@ const router = new Router({
     {
       path: '/associatevertotoblocktopus',
       name: 'associatevertotoblocktopus',
-      component: require('@/components/AssociateVertoToBlocktopus').default,
+      component: require('@/components/Blocktopus/AssociateVertoToBlocktopus').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/blocktopussuccesssful',
+      name: 'blocktopussuccesssful',
+      component: require('@/components/Blocktopus/Successful').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/begingetvtx',
+      name: 'begingetvtx',
+      component: require('@/components/GetVtx/BeginGetVtx').default,
       meta: {
         requiresAuth: true
       }

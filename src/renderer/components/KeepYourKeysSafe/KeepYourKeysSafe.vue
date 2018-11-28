@@ -8,34 +8,33 @@
     <div class="hero-body safe-keys">
       <div class="container font-gibson">
         <p class="is-size-4 font-gibson-semibold">
-          Keep your keys safe
+          {{ $t('KeepYourKeysSafe.keepsafe') }}
         </p>
         <p class="m-t-sm">
-          Before continuing, it is important to note that you are entirely responsible for the management, safety, protection, and recovery of
-          your private key. No one else including partners of the Volentix ecosystem.
+          {{ $t('KeepYourKeysSafe.before') }}
         </p>
         <br>
         <p>
-          You have 2 choices on persisting your private key. Both methods are designed to ensure your private key remains safe.
+          {{ $t('KeepYourKeysSafe.choices') }}
         </p>
         <ol class="m-l-md">
           <li>
-            The first choice is to write your key down.
+            {{ $t('KeepYourKeysSafe.first') }}
           </li>
           <li>
-            The second choice is to encrypt your key in a password protected  file.
+            {{ $t('KeepYourKeysSafe.second') }}
           </li>
         </ol>
         <br>
         <br>
         <router-link to="/saveyourkeys">
           <a class="is-primary button m-t-md is-size-5 is-pulled-right">
-            <p class="p-l-md p-r-md is-size-6">Next</p>
+            <p class="p-l-md p-r-md is-size-6">{{ $t('KeepYourKeysSafe.next') }}</p>
           </a>
         </router-link>
         <router-link to="/walletmanager">
           <a class="is-primary button m-t-md is-size-5 is-pulled-left">
-            <p class="p-l-md p-r-md is-size-6">Back</p>
+            <p class="p-l-md p-r-md is-size-6">{{ $t('KeepYourKeysSafe.back') }}</p>
           </a>
         </router-link>
       </div>

@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueI18n from 'vue-i18n'
 import axios from 'axios'
 import Buefy from 'buefy'
 import VueQrcode from '@xkeshi/vue-qrcode'
@@ -10,6 +11,7 @@ import router from './router'
 import store from './store'
 import EventBus from './bus'
 
+import { i18n } from './plugins/i18n.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +24,7 @@ Vue.prototype.$appName = app.getName();
 
 library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
+// Define a new component called button-counter
 Vue.component(VueQrcode.name, VueQrcode)
 Vue.use(VueClipboard)
 Vue.use(Buefy)
@@ -46,6 +48,7 @@ Vue.filter("formatTime", function (value) {
 new Vue({
   components: { App },
   router,
+  i18n,
   store,
   template: '<App/>'
 }).$mount('#app')
