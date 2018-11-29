@@ -282,7 +282,7 @@ export default {
       this.wallet = this.$store.state.userKey;
     },
     async getPendingTransactions() {
-      let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/investor-transactions?verto_public_address=" + this.wallet);
+      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
       console.log("Pending Transactions Tlength: " + this.transactions.length);
       console.log(JSON.stringify(results.data));
       this.loadingData = false;

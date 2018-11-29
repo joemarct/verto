@@ -176,7 +176,7 @@ export default {
     },
     async buyVtx() {
       let hashResult = await axios.post(
-        "https://volentix-cf.tekstackapps.com/public/api/zixipay-create-hash/",
+        process.env.CROWDFUND_URL + "/public/api/zixipay-create-hash/",
         {
           merchant: "faka_merchant_id",
           custom: this.$store.state.userKey,
@@ -198,7 +198,7 @@ export default {
       // document.getElementById("zixiform").submit();
     },
     async getSummaryData() {
-      let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
+      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/summary/");
       this.summaryData = results.data;
       this.summaryData.priceInBtc = this.summaryData.current_price / 100000000;
       this.summaryData.has_additional_bonus = false;

@@ -101,7 +101,7 @@ const router = new Router({
     {
       path: '/getvtx',
       name: 'GetVtx',
-      component: require('@/components/GetVtx').default,
+      component: require('@/components/GetVtx/GetVtx').default,
       meta: {
         requiresAuth: true
       }
@@ -242,6 +242,22 @@ const router = new Router({
       path: '/begingetvtx',
       name: 'begingetvtx',
       component: require('@/components/GetVtx/BeginGetVtx').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/notwhitelisted',
+      name: 'notwhitelisted',
+      component: require('@/components/GetVtx/NotWhitelisted').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/requestnativechainaddress',
+      name: 'requestnativechainaddress',
+      component: require('@/components/GetVtx/RequestNativeChainAddress').default,
       meta: {
         requiresAuth: true
       }

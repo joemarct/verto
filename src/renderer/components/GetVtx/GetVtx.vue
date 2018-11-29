@@ -12,7 +12,7 @@
       <div class="field">
         <div class="control p-md has-text-centered">
           <div class="container has-text-white p-md">
-            Checking Wallet Status
+            GetVtx
           </div>
         </div>
       </div>
@@ -28,26 +28,10 @@ export default {
     return {
     };
   },
-  mounted() {
-    let url = process.env.CROWDFUND_URL + "/public/api/allocate-native-chain/?verto_public_address=" + this.$store.state.userKey;
-    const router = this.$router;
-    axios.get(url).then(function (response) {
-      console.log(response.data.data);
-      if (response.data.message === 'wallet_not_whitelisted') {
-        router.push({ path: "notwhitelisted" })
-      } else if (response.data.message === 'wallet_not_allocated') {
-        router.push({ path: "requestnativechainaddress" })
-      } else if (response.data.message === 'wallet_allocated') {
-        router.push({path: "getvtx", params: { native_chain_address: response.data.data.native_chain_address }})
-      }
-    })
-      .catch(function (error) {
-        console.log(error);
-      });
+  created() {
+    console.log("Native Chain Address: " + JSON.stringify(this.$route.params));
   },
   methods: {
-  },
-  created: function() {
   }
 };
 </script>

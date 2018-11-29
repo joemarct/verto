@@ -35,6 +35,13 @@
             </div>
           </div>
         </div>
+        <div class="has-background-darkgreen">
+          <router-link to="/begingetvtx">
+            <a class="button is-fullwidth is-size-5 is-primary" >
+              <p class="p-l-md p-r-md has-text-weight-bold is-size-6">{{ $t('Main.getvtx') }}</p>
+            </a>
+          </router-link>
+        </div>
         <div class="has-text-white container p-b-md" >
           <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
@@ -203,7 +210,6 @@ export default {
         }
         console.log(this.transactions)
       } catch (error) {
-        // console.log("1!!!!!!!!!!!!!!!!!!!!!!!!!!")
         console.log(error)
         this.noTransactions = true;
         this.loadingData = false;
@@ -220,23 +226,19 @@ export default {
       this.balance = "0.00";
       this.currentBtcValue = 0.00
       try {
+        // TODO: Remove the hardcoding of vltxtgevtxtr
         const balance = await ledger.retrieveBalance({
           account: myaccount,
           wallet: this.wallet
         },
         "vltxtgevtxtr");
-        console.log("Balance: " + JSON.stringify(balance))
-        // console.log(balance);
         this.balance = parseFloat(balance.amount).toFixed(2);
         console.log("new balance: " + this.balance);
         if (this.balance > 0) {
-          let results = await axios.get("https://volentix-cf.tekstackapps.com/public/api/summary/");
-          // console.log(JSON.stringify());
+          let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/summary/");
           this.currentBtcValue = ((results.data.current_price * this.balance) / 100000000)
         }
       } catch (error) {
-        // console.log("2@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        // this.noTransactions = true;
         this.loadingData = false;
       }
     },

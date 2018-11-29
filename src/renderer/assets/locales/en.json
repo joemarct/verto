@@ -162,5 +162,11 @@
         "storeloc": "Store it on your computers local drive.",
         "emailit": "Email it.",
         "cloud": "Store on the cloud."
+    },
+    "AllocateNativeChainAddress": {
+        "button": "Allocate Address",
+        "noAddressAvailable": "No address available for that chain. Please try again.",
+        "title": "Request Native Chain Address.",
+        "pendingTransactionsExist": "Pending transactions exist"
     }
 }
