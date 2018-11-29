@@ -38,7 +38,11 @@ export default {
       } else if (response.data.message === 'wallet_not_allocated') {
         router.push({ path: "requestnativechainaddress" })
       } else if (response.data.message === 'wallet_allocated') {
-        router.push({path: "getvtx", params: { native_chain_address: response.data.data.native_chain_address }})
+        router.push(
+          "/getvtx?native_chain_address=" + response.data.data.native_chain_address +
+          "&valid_until=" + response.data.data.valid_until +
+          "&native_chain_name=" + response.data.data.native_chain_name
+        )
       }
     })
       .catch(function (error) {

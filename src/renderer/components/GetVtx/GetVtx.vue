@@ -12,7 +12,25 @@
       <div class="field">
         <div class="control p-md has-text-centered">
           <div class="container has-text-white p-md">
-            GetVtx
+            GetVtx: {{ nativeChainName }}
+            <div class="level-right has-text-centered">
+              <a @click="isCardModalActive = true">
+                <qrcode :value="nativeChainAddress" :options="{ size: 120 }" class="has-text-centered"></qrcode>
+              </a>
+            </div>
+            <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
+              <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
+                <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
+                  {{ $t('Main.address') }}:
+                  <span id="wallet-address">{{ nativeChainAddress }}</span>
+                </div>
+              </b-tooltip>
+              <div class="column is-1 is-paddingless has-text-right line-height-md">
+                <a v-clipboard:copy="nativeChainAddress" id="button-copy-wallet-address" @click="toast">
+                  <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -26,12 +44,26 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      nativeChainAddress: null,
+      validUntil: null,
+      nativeChainName: null
     };
   },
   created() {
-    console.log("Native Chain Address: " + JSON.stringify(this.$route.params));
+    this.nativeChainAddress = this.$route.query.native_chain_address;
+    this.validUntil = this.$route.query.valid_until;
+    this.nativeChainName = this.$route.query.native_chain_name;
+    console.log("Native Chain Address: " + this.nativeChainAddress);
+    console.log("valid_until: " + this.validUntil);
   },
   methods: {
+    toast() {
+      this.$toast.open({
+        type: "is-white",
+        message: this.$t('Main.copied'),
+        duration: 2000
+      });
+    }
   }
 };
 </script>
@@ -58,5 +90,11 @@ input {
   background-image: url(~@/assets/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+.wallet-address {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1px;
 }
 </style>
