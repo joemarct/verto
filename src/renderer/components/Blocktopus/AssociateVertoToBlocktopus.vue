@@ -35,9 +35,9 @@ export default {
         if (e.data.startsWith('success')) {
           this.$router.push({ path: "blocktopussuccesssful" })
         } else if (e.data.startsWith('cancel')) {
-          this.$router.push({ path: "settings" })
+          this.$router.push({ path: "main" })
         } else if (e.data.startsWith('error')) {
-          this.$router.push({ path: "settings" })
+          this.$router.push({ path: "kycalreadyassociated" })
         }
       }
     }

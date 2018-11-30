@@ -23,23 +23,6 @@
           </div>
         </div>
         <div class="p-l-lg p-t-md has-text-white is-size-5">
-          <router-link to="/whitelist">
-            {{ $t('SettingsView.whitelist') }}
-          </router-link>
-        </div>
-        <div class="p-l-lg p-t-md has-text-white is-size-5">
-          <router-link to="/associatevertotoblocktopus">
-            {{ $t('SettingsView.blocktopus') }}
-          </router-link>
-        </div>
-        <!--
-        <div class="p-l-lg p-t-md has-text-white is-size-5">
-          <router-link to="/begingetvtx">
-            {{ $t('Main.getvtx') }}
-          </router-link>
-        </div>
-        -->
-        <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/walletmanager">
             {{ $t('SettingsView.manager') }}
           </router-link>

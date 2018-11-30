@@ -261,6 +261,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/kycalreadyassociated',
+      name: 'kycalreadyassociated',
+      component: require('@/components/Blocktopus/KycAlreadyAssociated').default,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 });

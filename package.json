@@ -104,6 +104,7 @@
     ]
   },
   "dependencies": {
+    "@chenfengyuan/vue-countdown": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-brands-svg-icons": "^5.4.2",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",

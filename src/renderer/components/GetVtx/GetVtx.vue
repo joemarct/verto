@@ -11,17 +11,22 @@
       </div>
       <div class="field">
         <div class="control p-md has-text-centered">
+          <div class="getvtx-header">
+            {{ $t('GetVtx.getvtx') }}
+          </div>
+          <div class="getvtx-subheader">
+            {{ nativeChainName }} {{ $t('GetVtx.native_chain_address') }}
+          </div>
           <div class="container has-text-white p-md">
-            GetVtx: {{ nativeChainName }}
             <div class="level-right has-text-centered">
               <a @click="isCardModalActive = true">
                 <qrcode :value="nativeChainAddress" :options="{ size: 120 }" class="has-text-centered"></qrcode>
               </a>
             </div>
+            <br>
             <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
-              <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
+              <b-tooltip :label="nativeChainAddress" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
                 <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-                  {{ $t('Main.address') }}:
                   <span id="wallet-address">{{ nativeChainAddress }}</span>
                 </div>
               </b-tooltip>
@@ -31,7 +36,18 @@
                 </a>
               </div>
             </div>
-          </div>
+            <br>
+              <countdown :time="timeremaining" :transform="transform">
+                <template slot-scope="props">
+                  <p class="has-text-danger m-t-md">
+                    {{ $t('RequestNativeChainAddress.err_investor_must_wait') }}
+                </p>
+                  <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
+                    {{ props.minutes }}:{{ props.seconds }}
+                  </div>
+                </template>
+              </countdown>
+            </div>
         </div>
       </div>
     </div>
@@ -46,15 +62,17 @@ export default {
     return {
       nativeChainAddress: null,
       validUntil: null,
-      nativeChainName: null
+      nativeChainName: null,
+      timeremaining: 0,
+      underOneMinuteLeftInTimer: false
     };
   },
   created() {
     this.nativeChainAddress = this.$route.query.native_chain_address;
     this.validUntil = this.$route.query.valid_until;
     this.nativeChainName = this.$route.query.native_chain_name;
-    console.log("Native Chain Address: " + this.nativeChainAddress);
-    console.log("valid_until: " + this.validUntil);
+    const serverTime = this.$route.query.server_time;
+    this.timeremaining = Date.parse(this.validUntil) - Date.parse(serverTime)
   },
   methods: {
     toast() {
@@ -63,6 +81,20 @@ export default {
         message: this.$t('Main.copied'),
         duration: 2000
       });
+    },
+    transform(props) {
+      Object.entries(props).forEach(([key, value]) => {
+        const digits = value < 10 ? `0${value}` : value;
+        if (key === 'totalMinutes' && value <= 9) {
+          this.underOneMinuteLeftInTimer = true;
+        } else if (key === 'totalSeconds' && value <= 0) {
+          this.$router.push({ path: "main" })
+        }
+        const word = value < 2 ? key.replace(/s$/, '') : key;
+        props[key] = `${digits}`;
+      });
+
+      return props;
     }
   }
 };
@@ -96,5 +128,21 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 1px;
+}
+.getvtx-header {
+  color: #f4f4f4;
+  font-size: 30pt;
+}
+.overoneminuteleft {
+  color: #f4f4f4;
+  font-size: 30pt;
+}
+.oneminuteleft {
+  color: red;
+  font-size: 30pt;
+}
+.getvtx-subheader {
+  color: #f4f4f4;
+  font-size: 17pt;
 }
 </style>

@@ -97,6 +97,11 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@chenfengyuan/vue-countdown@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@chenfengyuan/vue-countdown/-/vue-countdown-1.0.1.tgz#4e1f5aa5528d8977717dfd72c3a54fbd67815749"
+  integrity sha512-KMVHoIgg3OfX7v4shkwiHS7+arQ+NfxMacjWRg8cAINNCxgF9xdUH/wiDzR2AXVX0AcHWhd3DjZFjoTeDqom1g==
+
 "@fortawesome/fontawesome-common-types@^0.2.8":
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.8.tgz#8cacd1efd1aa956e1ef173f0abcf2ce1b7a0c66f"

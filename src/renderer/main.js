@@ -16,6 +16,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueCountdown from '@chenfengyuan/vue-countdown';
 
 const { app } = require('electron').remote
 
@@ -24,6 +25,7 @@ Vue.prototype.$appName = app.getName();
 
 library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component(VueCountdown.name, VueCountdown);
 // Define a new component called button-counter
 Vue.component(VueQrcode.name, VueQrcode)
 Vue.use(VueClipboard)

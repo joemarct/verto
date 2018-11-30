@@ -13,43 +13,11 @@
         <div class="control p-md">
           <div class="container has-text-white p-md">
             <div class="whitelist-header has-text-centered">
-              {{ $t('NotWhitelisted.header') }}
+              {{ $t('KycAlreadyAssociated.header') }}
             </div>
             <br>
             <p>
-              {{ $t('NotWhitelisted.first_p') }}
-              <ul>
-                <li>
-                  {{ $t('NotWhitelisted.first_p_first_point') }}
-                </li>
-                <li>
-                  {{ $t('NotWhitelisted.first_p_second_point') }}
-                </li>
-              </ul>
-            </p>
-            <br>
-            <div class="whitelist-subheader has-text-centered">
-              {{ $t('NotWhitelisted.subheader_1') }}
-            </div>
-            <p>
-              {{ $t('NotWhitelisted.second_p') }}
-            </p>
-            <p class="has-text-centered">
-              <router-link to="/associatevertotoblocktopus" class="two">
-                {{ $t('NotWhitelisted.link_associate') }}
-              </router-link>
-            </p>
-            <br>
-            <div class="whitelist-subheader has-text-centered">
-               {{ $t('NotWhitelisted.second_subheader') }}
-            </div>
-            <p>
-              {{ $t('NotWhitelisted.third_p') }}
-            </p>
-            <p class="has-text-centered">
-              <router-link to="/whitelist" class="two">
-                {{ $t('NotWhitelisted.link_kyc') }}
-              </router-link>
+              {{ $t('KycAlreadyAssociated.first_p') }}
             </p>
           </div>
         </div>
@@ -93,7 +61,7 @@ input {
 }
 .whitelist-header {
   color: #f4f4f4;
-  font-size: 30pt;
+  font-size: 21pt;
 }
 .whitelist-subheader {
   color: #f4f4f4;
