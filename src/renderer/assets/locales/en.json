@@ -115,13 +115,15 @@
         "whitelist": "Whitelist",
         "blocktopus": "Associate with Blocktopus",
         "manager": "Wallet Manager",
-        "change": "Change Password",
+        "change": "Password",
         "backup": "Backup Wallet",
         "gettrans": "Get VTX Transaction History",
         "logout": "Logout",
         "telegram": "Telegram",
         "sendmail": "Send Mail",
-        "language": "Language"
+        "language": "Language",
+        "help": "Help",
+        "optionsdd": " Options"
     },
     "AssociateView": {
         "username": "Blocktopus Username",
