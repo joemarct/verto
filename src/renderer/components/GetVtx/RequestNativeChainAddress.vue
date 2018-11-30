@@ -15,63 +15,70 @@
             {{ $t('RequestNativeChainAddress.header') }}
           </div>
           <br>
-          <p>
-            {{ $t('RequestNativeChainAddress.first_p') }}
-          </p>
-          <br>
-          <p>
-            {{ $t('RequestNativeChainAddress.second_p') }}
-          </p>
-          <br>
-          <p>
-            {{ $t('RequestNativeChainAddress.third_p') }}
-          </p>
-          <br>
-          <b-checkbox @change.native="buttondisabled = !buttondisabled">
-            {{ $t('RequestNativeChainAddress.access') }}
-          </b-checkbox>
-          <br>
-          <br>
-          <div class="requestaddress-subheader">
-            {{ $t('RequestNativeChainAddress.select_currency') }}
+          <div v-if="!investorMustWait" >
+            <p>
+              {{ $t('RequestNativeChainAddress.first_p') }}
+            </p>
+            <br>
+            <p>
+              {{ $t('RequestNativeChainAddress.second_p') }}
+            </p> 
+            <br>
+            <p v-bind:class="{ highlightNumberTwo: investorMustWait, nothing: !investorMustWait }">
+              {{ $t('RequestNativeChainAddress.third_p') }}
+            </p>
+            <br>
+            <b-checkbox @change.native="buttondisabled = !buttondisabled">
+              {{ $t('RequestNativeChainAddress.access') }}
+            </b-checkbox>          
+            <br>
           </div>
-          <br>
           <div class="container">
-            <div v-if="noAddressAvailable">
-                <p class="has-text-danger m-t-md">
-                    {{ $t('RequestNativeChainAddress.err_noAddressAvailable') }}
-                </p>
-            </div>
-            <div v-if="pendingTransactionsExist">
-                <p class="has-text-danger m-t-md">
-                    {{ $t('RequestNativeChainAddress.err_pendingTransactionsExist') }}
-                </p>
-            </div>
             <div v-if="investorMustWait" class="has-text-centered">
-                
-                <countdown :time="timeremaining" :transform="transform">
+              <p v-bind:class="{ highlightNumberTwo: investorMustWait, nothing: !investorMustWait }">
+                {{ $t('RequestNativeChainAddress.time_remaining') }}
+              </p>
+              <countdown ref="countdown" :time="timeremaining" :transform="transform">
                 <template slot-scope="props">
-                  <p class="has-text-danger m-t-md">
-                    {{ $t('RequestNativeChainAddress.err_investor_must_wait') }}
-                </p>
                   <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
-                    {{ props.minutes }}:{{ props.seconds }}
+                    <span v-if="!underOneMinuteLeftInTimer">{{ props.minutes }}:</span>
+                    {{ props.seconds }}
                   </div>
                 </template>
               </countdown>
             </div>
-            <select class="input m-b-md" v-model="currency">
-              <option value="BTC">Bitcoin</option>
-              <option value="ETH">Ethereum</option>
-            </select>
+            <div v-if="!investorMustWait" class="has-text-centered">
+              <div class="requestaddress-subheader">
+                {{ $t('RequestNativeChainAddress.select_currency') }}
+              </div>
+              <br>
+              <select class="input m-b-md" v-model="currency">
+                <option value="BTC">Bitcoin</option>
+                <option value="ETH">Ethereum</option>
+              </select>
+              <br>
+              <br>
+              <div class="has-background-darkgreen">
+                <a :disabled="buttondisabled" class="button is-size-5 is-primary" @click="allocateAddress" >
+                  <p class="p-l-md p-r-md has-text-weight-bold is-size-6">{{ $t('RequestNativeChainAddress.button') }}</p>
+                </a>
+              </div>
+              <div v-if="noAddressAvailable">
+                <p class="has-text-danger m-t-md">
+                    {{ $t('RequestNativeChainAddress.err_noAddressAvailable') }}
+                </p>
+              </div>
+              <div v-if="pendingTransactionsExist">
+                <p class="has-text-danger m-t-md">
+                    {{ $t('RequestNativeChainAddress.err_pendingTransactionsExist') }}
+                </p>
+              </div>
+            
+            </div>  
           </div>
         </div>
       </div>
-      <div class="has-background-darkgreen">
-        <a :disabled="buttondisabled" class="button is-fullwidth is-size-5 is-primary" @click="allocateAddress" >
-          <p class="p-l-md p-r-md has-text-weight-bold is-size-6">{{ $t('RequestNativeChainAddress.button') }}</p>
-        </a>
-        </div>
+      
     </div>
   </div>
 </template>
@@ -94,19 +101,25 @@ export default {
   },
   methods: {
     transform(props) {
-      let finalMinute = false;
+      let stopCountdown = false;
       Object.entries(props).forEach(([key, value]) => {
         // Adds leading zero
         const digits = value < 10 ? `0${value}` : value;
-        if (key === 'totalSeconds' && value <= 20) {
+        if (key === 'totalMinutes' && value <= 0) {
           this.underOneMinuteLeftInTimer = true;
+        } else if (key === 'totalSeconds' && value <= 0) {
+          console.log('totalSeconds: ' + value)
+          // stopCountdown = true;
+          // this.underOneMinuteLeftInTimer = false;
+        }
+        if (stopCountdown) {
+          this.underOneMinuteLeftInTimer = false;
         }
         // uses singular form when the value is less than 2
         const word = value < 2 ? key.replace(/s$/, '') : key;
 
         props[key] = `${digits}`;
       });
-
       return props;
     },
     async allocateAddress() {
@@ -174,11 +187,18 @@ input {
 }
 .overoneminuteleft {
   color: #f4f4f4;
-  font-size: 30pt;
+  font-size: 50pt;
 }
 .oneminuteleft {
   color: red;
-  font-size: 30pt;
+  font-size: 100pt;
+}
+.nothing {
+}
+.highlightNumberTwo {
+  color: #f4f4f4;
+  font-size: 20pt;
+  font-weight: bold;
 }
 .has-blur-background {
   background-image: url(~@/assets/img/transaction-back-screen.jpg);

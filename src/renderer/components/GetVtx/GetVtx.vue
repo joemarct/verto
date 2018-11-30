@@ -15,8 +15,9 @@
             {{ $t('GetVtx.getvtx') }}
           </div>
           <div class="getvtx-subheader">
-            {{ nativeChainName }} {{ $t('GetVtx.native_chain_address') }}
+            {{ nativeChainName }} 
           </div>
+          <img src="~@/assets/img/ethereum.jpg" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
           <div class="container has-text-white p-md">
             <div class="level-right has-text-centered">
               <a @click="isCardModalActive = true">
@@ -37,17 +38,18 @@
               </div>
             </div>
             <br>
-              <countdown :time="timeremaining" :transform="transform">
-                <template slot-scope="props">
-                  <p class="has-text-danger m-t-md">
-                    {{ $t('RequestNativeChainAddress.err_investor_must_wait') }}
-                </p>
-                  <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
-                    {{ props.minutes }}:{{ props.seconds }}
-                  </div>
-                </template>
-              </countdown>
-            </div>
+            <countdown :time="timeremaining" :transform="transform">
+              <template slot-scope="props">
+                <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
+                  <span v-if="!underOneMinuteLeftInTimer">{{ props.minutes }}:</span>
+                  {{ props.seconds }}
+                </div>
+                <div class="getvtx-subheader">
+                  {{ $t('GetVtx.available_for') }}
+                </div>
+              </template>
+            </countdown>
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +58,7 @@
 
 <script>
 import axios from 'axios'
+import { timingSafeEqual } from 'crypto';
 
 export default {
   data() {
@@ -73,6 +76,7 @@ export default {
     this.nativeChainName = this.$route.query.native_chain_name;
     const serverTime = this.$route.query.server_time;
     this.timeremaining = Date.parse(this.validUntil) - Date.parse(serverTime)
+    console.log("UUUUUUUUUUUUU" + this.timeremaining)
   },
   methods: {
     toast() {
@@ -85,8 +89,9 @@ export default {
     transform(props) {
       Object.entries(props).forEach(([key, value]) => {
         const digits = value < 10 ? `0${value}` : value;
-        if (key === 'totalMinutes' && value <= 9) {
-          this.underOneMinuteLeftInTimer = true;
+        if (key === 'totalMinutes' && value <= 0) {
+          console.log(value)
+          // this.underOneMinuteLeftInTimer = true;
         } else if (key === 'totalSeconds' && value <= 0) {
           this.$router.push({ path: "main" })
         }
@@ -135,11 +140,11 @@ input {
 }
 .overoneminuteleft {
   color: #f4f4f4;
-  font-size: 30pt;
+  font-size: 50pt;
 }
 .oneminuteleft {
   color: red;
-  font-size: 30pt;
+  font-size: 100pt;
 }
 .getvtx-subheader {
   color: #f4f4f4;
