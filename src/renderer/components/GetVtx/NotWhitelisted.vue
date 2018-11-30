@@ -104,7 +104,7 @@ input {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-a.two:link {color:#ff0000;}
+a.two:link {color:#00DEB1;}
 a.two:visited {color:#0000ff;}
 a.two:hover {font-size:150%;}
 </style>

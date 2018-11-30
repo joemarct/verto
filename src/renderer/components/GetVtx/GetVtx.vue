@@ -9,22 +9,29 @@
         </div>
         <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
-      <div class="field">
-        <div class="control p-md has-text-centered">
-          <div class="getvtx-header">
-            {{ $t('GetVtx.getvtx') }}
-          </div>
-          <div class="getvtx-subheader">
-            {{ nativeChainName }} 
-          </div>
-          <img src="~@/assets/img/ethereum.jpg" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-          <div class="container has-text-white p-md">
+      <div class="control p-md has-text-centered">
+        <div class="getvtx-header">
+          {{ $t('GetVtx.getvtx') }}
+        </div>
+        <img v-if="!doneCountdown" height="280" width="120" src="~@/assets/img/ethereum.png" class="logo">
+        <div class="container has-text-white p-md">
+
+          <countdown :time="timeremaining" :transform="transform">
+            <template slot-scope="props">
+              <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
+                <span v-if="!underOneMinuteLeftInTimer">{{ props.minutes }}:</span>
+                {{ props.seconds }}
+              </div>
+            </template>
+          </countdown>
+          <div v-if="!doneCountdown">
             <div class="level-right has-text-centered">
               <a @click="isCardModalActive = true">
                 <qrcode :value="nativeChainAddress" :options="{ size: 120 }" class="has-text-centered"></qrcode>
               </a>
             </div>
             <br>
+            
             <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
               <b-tooltip :label="nativeChainAddress" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
                 <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
@@ -37,19 +44,8 @@
                 </a>
               </div>
             </div>
-            <br>
-            <countdown :time="timeremaining" :transform="transform">
-              <template slot-scope="props">
-                <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
-                  <span v-if="!underOneMinuteLeftInTimer">{{ props.minutes }}:</span>
-                  {{ props.seconds }}
-                </div>
-                <div class="getvtx-subheader">
-                  {{ $t('GetVtx.available_for') }}
-                </div>
-              </template>
-            </countdown>
           </div>
+          <br>
         </div>
       </div>
     </div>
@@ -67,7 +63,8 @@ export default {
       validUntil: null,
       nativeChainName: null,
       timeremaining: 0,
-      underOneMinuteLeftInTimer: false
+      underOneMinuteLeftInTimer: false,
+      doneCountdown: false
     };
   },
   created() {
@@ -75,8 +72,11 @@ export default {
     this.validUntil = this.$route.query.valid_until;
     this.nativeChainName = this.$route.query.native_chain_name;
     const serverTime = this.$route.query.server_time;
-    this.timeremaining = Date.parse(this.validUntil) - Date.parse(serverTime)
-    console.log("UUUUUUUUUUUUU" + this.timeremaining)
+    const potentialTimeRemaining = Date.parse(this.validUntil) - Date.parse(serverTime)
+    console.log(potentialTimeRemaining)
+    if (potentialTimeRemaining > 0) {
+      this.timeremaining = potentialTimeRemaining;
+    }
   },
   methods: {
     toast() {
@@ -88,14 +88,12 @@ export default {
     },
     transform(props) {
       Object.entries(props).forEach(([key, value]) => {
-        const digits = value < 10 ? `0${value}` : value;
-        if (key === 'totalMinutes' && value <= 0) {
-          console.log(value)
-          // this.underOneMinuteLeftInTimer = true;
+        let digits = value < 10 ? `0${value}` : value;
+        if (key === 'totalMinutes' && value <= 10) {
+          this.underOneMinuteLeftInTimer = true;
         } else if (key === 'totalSeconds' && value <= 0) {
-          this.$router.push({ path: "main" })
+          this.doneCountdown = true;
         }
-        const word = value < 2 ? key.replace(/s$/, '') : key;
         props[key] = `${digits}`;
       });
 
@@ -140,7 +138,7 @@ input {
 }
 .overoneminuteleft {
   color: #f4f4f4;
-  font-size: 50pt;
+  font-size: 40pt;
 }
 .oneminuteleft {
   color: red;

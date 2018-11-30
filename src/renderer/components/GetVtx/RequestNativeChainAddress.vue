@@ -14,7 +14,7 @@
           <div class="requestaddress-header has-text-centered">
             {{ $t('RequestNativeChainAddress.header') }}
           </div>
-          <br>
+          <pending-counter/>
           <div v-if="!investorMustWait" >
             <p>
               {{ $t('RequestNativeChainAddress.first_p') }}
@@ -85,6 +85,7 @@
 
 <script>
 import axios from 'axios'
+import PendingCounter from '@/components/GetVtx/PendingCounter'
 
 export default {
   data() {
@@ -99,6 +100,11 @@ export default {
       underOneMinuteLeftInTimer: false
     };
   },
+  components: {
+    'pending-counter': PendingCounter
+  },
+  mounted() {
+  },
   methods: {
     transform(props) {
       let stopCountdown = false;
@@ -108,7 +114,6 @@ export default {
         if (key === 'totalMinutes' && value <= 0) {
           this.underOneMinuteLeftInTimer = true;
         } else if (key === 'totalSeconds' && value <= 0) {
-          console.log('totalSeconds: ' + value)
           // stopCountdown = true;
           // this.underOneMinuteLeftInTimer = false;
         }
@@ -152,9 +157,12 @@ export default {
           this.investorMustWait = true;
         }
       }
+    },
+    async getNumberOdPendingTransactions() {
+      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
+      console.log("Pending Transactions Tlength: " + this.transactions.length);
+      console.log(JSON.stringify(results.data));
     }
-  },
-  created: function() {
   }
 };
 </script>
@@ -192,6 +200,10 @@ input {
 .oneminuteleft {
   color: red;
   font-size: 100pt;
+}
+.pending {
+  color: #00DEB1;
+  font-size: 12pt;
 }
 .nothing {
 }

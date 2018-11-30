@@ -20,7 +20,7 @@
             <div class="level-left has-text-centered">
               <div>
                 <div class="level is-mobile is-size-5 font-gibson">
-                  <p class="level-left has-text-primary" >{{ $t('GetVtxTransactionHistory.history') }}</p>
+                  <p class="level-left has-text-primary" >{{ $t('TransactionHistory.history') }}</p>
                   <div class="level-right is-size-5 has-text-white m-l-md">
                     <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
                   </div>
@@ -69,6 +69,9 @@
                         <div class="level is-mobile has-text-white">
                           <div class="level-left">
                             {{ transaction.native_transaction_time | formatDate }}
+                            <div class="level-left has-text-centered">
+                            <font-awesome-icon v-if="transaction.status === 'CONFIRMED'" icon="ship" class="fa-sm has-text-white m-l-sm"/>
+                          </div>
                           </div>
                           <div class="level-right">
                             {{ transaction.native_transaction_time | formatTime }}
@@ -77,8 +80,8 @@
                       </div>
                       <div class="column is-paddingless">
                         <div class="level is-mobile has-text-white">
-                          <div class="level-left">
-                            {{ transaction.status }}
+                          <div class="level-left has-text-centered">
+                            <font-awesome-icon v-if="transaction.status === 'CONFIRMED'" icon="ship" class="fa-sm has-text-white m-l-sm"/>
                           </div>
                           <div class="level-right">
                             {{ transaction.vtx_amount }} VTX
@@ -119,7 +122,7 @@
         <table style="width:100%;">
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.native') }}:
+              {{ $t('TransactionHistory.native') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.native_currency.toUpperCase() }}
@@ -127,7 +130,7 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.amount') }}:
+              {{ $t('TransactionHistory.amount') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.native_amount }}
@@ -135,7 +138,7 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.ratio') }}:
+              {{ $t('TransactionHistory.ratio') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.conversion_rate }}
@@ -143,7 +146,7 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.confirmation') }}:
+              {{ $t('TransactionHistory.confirmation') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.confirmations_count }}
@@ -151,7 +154,7 @@
           </tr>
           <tr v-if="currentTransaction.ledger_transaction_id">
             <td>
-              {{ $t('GetVtxTransactionHistory.transid') }}
+              {{ $t('TransactionHistory.transid') }}
             </td>
             <td class="td-align-right ledger-id-wrap">
               {{ currentTransaction.ledger_transaction_id }}
@@ -163,7 +166,7 @@
         <table style="width:100%;">
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.pre') }}:
+              {{ $t('TransactionHistory.pre') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.pre_bonus_vtx_amount }}
@@ -171,7 +174,7 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.phase') }}:
+              {{ $t('TransactionHistory.phase') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.phase_bonus_vtx_amount }}
@@ -179,7 +182,7 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.additional') }}:
+              {{ $t('TransactionHistory.additional') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.additional_bonus_vtx_amount }}
@@ -187,7 +190,7 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.total') }}:
+              {{ $t('TransactionHistory.total') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.vtx_amount }}
@@ -199,7 +202,7 @@
         <table style="width:100%;">
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.received') }}:
+              {{ $t('TransactionHistory.received') }}:
             </td>
             <td class="td-align-right">
               {{ currentTransaction.native_transaction_time | formatDate}} {{ currentTransaction.native_transaction_time | formatTime}}
@@ -207,35 +210,35 @@
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.converted') }}:
+              {{ $t('TransactionHistory.converted') }}:
             </td>
             <td class="td-align-right"  v-if="currentTransaction.conversion_time">
               {{ currentTransaction.conversion_time | formatDate}} {{ currentTransaction.conversion_time | formatTime}}
             </td>
             <td class="td-align-right"  v-if="!currentTransaction.conversion_time">
-              {{ $t('GetVtxTransactionHistory.pending') }}...
+              {{ $t('TransactionHistory.pending') }}...
             </td>
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.confirmed') }}:
+              {{ $t('TransactionHistory.confirmed') }}:
             </td>
             <td class="td-align-right" v-if="currentTransaction.confirmation_time">
               {{ currentTransaction.confirmation_time | formatDate}} {{ currentTransaction.confirmation_time | formatTime}}
             </td>
             <td class="td-align-right" v-if="!currentTransaction.confirmation_time">
-              {{ $t('GetVtxTransactionHistory.pending') }}...
+              {{ $t('TransactionHistory.pending') }}...
             </td>
           </tr>
           <tr>
             <td>
-              {{ $t('GetVtxTransactionHistory.approved') }}:
+              {{ $t('TransactionHistory.approved') }}:
             </td>
             <td class="td-align-right"  v-if="currentTransaction.approved_time">
               {{ currentTransaction.approved_time | formatDate}} {{ currentTransaction.approved_time | formatTime}}
             </td>
             <td class="td-align-right"  v-if="!currentTransaction.approved_time">
-              {{ $t('GetVtxTransactionHistory.pending') }}...
+              {{ $t('TransactionHistory.pending') }}...
             </td>
           </tr>
         </table>
@@ -268,6 +271,7 @@ export default {
       loadingData: true,
       currentBtcValue: 0.0,
       isTransactionDetailsActive: false,
+      transactionStatus: "CONFIRMED",
       currentTransaction: {
         'native_currency': ""
       }
@@ -282,9 +286,8 @@ export default {
       this.wallet = this.$store.state.userKey;
     },
     async getPendingTransactions() {
-      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
-      console.log("Pending Transactions Tlength: " + this.transactions.length);
-      console.log(JSON.stringify(results.data));
+      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.wallet + "&status_code=" + this.transactionStatus);
+      console.log(results.data)
       this.loadingData = false;
       if (results.data.length > 0) {
         this.transactions = results.data;

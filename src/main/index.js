@@ -34,7 +34,7 @@ function createWindow() {
     width: 480,
     height: 850,
     useContentSize: true,
-    resizable: false,
+    resizable: true,
     // titleBarStyle: 'hidden',
     title: "Verto wallet",
     icon: `file://${__dirname}/static/icon.png`,

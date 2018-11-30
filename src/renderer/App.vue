@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <component :is="layout">
+      <router-view></router-view>
+    </component>
   </div>
 </template>
 
 <script>
+  import PendingCounter from '@/components/GetVtx/PendingCounter'
+  const defaultLayout = "default";
   export default {
-    name: 'verto'
+    name: 'verto',
+    computed: {
+      layout() {
+        return (this.$route.meta.layout || defaultLayout) + "-layout";
+      }
+    }
   }
 </script>
 

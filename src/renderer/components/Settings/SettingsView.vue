@@ -14,6 +14,7 @@
       </p>
       <div class="p-t-s settings-list">
         <br>
+        <!--
         <div class="p-l-lg has-text-white is-size-5">
           <div class="locale-changer">
             {{ $t('SettingsView.language') }}:
@@ -22,6 +23,7 @@
             </select>
           </div>
         </div>
+        -->
         <div class="p-l-lg p-t-md has-text-white is-size-5">
           <router-link to="/walletmanager">
             {{ $t('SettingsView.manager') }}
@@ -37,11 +39,13 @@
             {{ $t('SettingsView.backup') }}
           </router-link>
         </div>
+        <!--
         <div class="p-l-lg p-t-md has-text-white is-size-5">
-          <router-link to="/getVtxtransactionhistory">
+          <router-link to="/gettxtransactionhistory">
             {{ $t('SettingsView.gettrans') }}
           </router-link>
         </div>
+        -->
         <div class="p-t-md" @click="logout">
           <span class="p-l-lg has-text-white is-size-5">
             {{ $t('SettingsView.logout') }}

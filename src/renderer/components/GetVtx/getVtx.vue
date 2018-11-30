@@ -82,7 +82,7 @@
               <table style="width:100%">
                 <tr>
                   <td>
-                    {{ $t('GetVtxTransactionHistory.pre') }}
+                    {{ $t('TransactionHistory.pre') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.vtxPreBonus.toFixed(4) }}
@@ -98,7 +98,7 @@
                 </tr>
                 <tr>
                   <td>
-                    {{ $t('GetVtxTransactionHistory.additional') }}
+                    {{ $t('TransactionHistory.additional') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.additionalBonus.toFixed(4) }}
@@ -106,7 +106,7 @@
                 </tr>
                 <tr>
                   <td>
-                    {{ $t('GetVtxTransactionHistory.total') }}
+                    {{ $t('TransactionHistory.total') }}
                   </td>
                   <td align="right">
                     {{ calculatedVtx.total.toFixed(4) }}

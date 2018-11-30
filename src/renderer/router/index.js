@@ -15,6 +15,7 @@ const router = new Router({
     {
       path: '/',
       name: 'LandingPage',
+      meta: { layout: "no-sidebar" },
       component: require('@/components/LandingPage').default
     },
     {
@@ -28,6 +29,7 @@ const router = new Router({
     {
       path: '/home',
       name: 'Home',
+      meta: { layout: "no-sidebar" },
       component: require('@/components/Home').default
     },
     {
@@ -51,6 +53,7 @@ const router = new Router({
     {
       path: '/welcome',
       name: 'Welcome',
+      meta: { layout: "login" },
       component: Welcome
     },
     {
@@ -215,9 +218,9 @@ const router = new Router({
       }
     },
     {
-      path: '/getVtxtransactionhistory',
-      name: 'getVtxtransactionhistory',
-      component: require('@/components/GetVtxTransactionHistory').default,
+      path: '/gettxtransactionhistory',
+      name: 'gettxtransactionhistory',
+      component: require('@/components/GetVtx/TransactionHistory').default,
       meta: {
         requiresAuth: true
       }

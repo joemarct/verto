@@ -92,7 +92,7 @@
         "number": "N<sup>o</sup>",
         "copied": "Copié"
     },
-    "GetVtxTransactionHistory": {
+    "TransactionHistory": {
         "history": "Obtenir l'historique de VTX",
         "native": "Monnaie de source",
         "amount": "Montant",
