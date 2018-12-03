@@ -17,6 +17,9 @@ import { faTelegram } from '@fortawesome/free-brands-svg-icons'
 import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle, faShip } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueCountdown from '@chenfengyuan/vue-countdown';
+
+// import VueParticles from 'vue-particles'
+// Vue.use(VueParticles)
 import Default from "./layouts/Default.vue";
 import NoSidebar from "./layouts/NoSidebar.vue";
 import Login from "./layouts/Login.vue";

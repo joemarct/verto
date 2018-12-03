@@ -2,34 +2,40 @@
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
     <div class="hero-head p-t-sm p-l-lg p-r-md">
-      <div class="p-t-xl">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/settings">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
+      <nav class="navbar is-dark">
+        <div class="navbar-brand">
+          <a class="navbar-burger  is-dark" @click="open = !open">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
-        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-      </div>
-        <a @click="isInstructionsActive = true">
-          <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
-        </a>
-        <br>
-        <div class="level is-mobile m-t-md">
-          <div class="has-text-dark level-left">
-            <a class="button m-t-md green is-centered has-text-white" @click="showAddKey = !showAddKey">
-              <p class="is-size-7">
-                {{ $t('CreateVertoPassword.addwallet') }}
-              </p>
-            </a>
-          </div>
-          <div class="has-text-dark level-right">
-            <a class="button m-t-md green is-centered has-text-white" @click="generateKey">
-              <p class="is-size-7">
-                {{ $t('CreateVertoPassword.createwallet') }}
-              </p>
-            </a>
+        <div class="navbar-menu" :class="{'is-active': open}">
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div v-if="showParentNavOptions" class="">
+                <a href="#" v-on:click.prevent="showChildren()" class="mr2 f6 link br1 bw1  ph3 pv1 dib black-40 flex items-center justify-center w4 has-text-white">
+                  <div>{{ $t('SettingsView.optionsdd') }}</div>
+                </a>
+              </div>
+            </div>
+            <div v-if="!showParentNavOptions" class="justify-center">
+              <a class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4" @click="showAddKey = !showAddKey">
+                  {{ $t('CreateVertoPassword.addwallet') }}
+              </a>
+              <a class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4" @click="generateKey">
+                  {{ $t('CreateVertoPassword.createwallet') }}
+              </a>
+              <a @click="isInstructionsActive = true" class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4">
+                <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
+              </a>
+              <a class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4" @click="showParents()">
+                <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
+              </a>
+            </div>
           </div>
         </div>
+      </nav>
         <div v-if="showAddKey">
           <form>
             <div v-if="keyalreadysaved">
@@ -55,10 +61,8 @@
             </div>
           </form>
         </div>
+        <br>
         <div v-if="existingKeys.length > 0">
-          <p class="m-t-lg font-gibson-semibold is-size-5 has-text-white">
-            {{ $t('CreateVertoPassword.wallets') }}
-          </p>
           <div v-if="showdeletekeypassword">
             <div v-if="incorrectdeletekeypassword">
               <p class="has-text-danger m-t-md">
@@ -89,17 +93,43 @@
             </div>
           </div>
           <div class="keys-container">
-            <ul>
-              <div v-for="key in existingKeys" class="keys-list m-t-md">
-                <li>
-                  <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
-                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
-                  <a @click="deleteKey(key.name)">
-                    <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
-                  </a>
-                </li>
+            <div class="columns">
+              <div class="column is-4">
+                &nbsp;
               </div>
-            </ul>
+              <div class="column is-4">
+                <div class="navbar-item header has-text-centered is-centered  has-text-white">{{ $t('WalletManager.header') }}</div>
+              </div>
+
+              <div class="column is-4">
+                &nbsp;
+              </div>
+            </div>
+
+
+              
+                
+                  <div v-for="key in existingKeys" class="keys-list m-t-md">
+                    <nav class="level is-mobile">
+                    <div class="level-item has-text-centered">
+                      <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
+                    </div>
+                    <div class="level-item has-text-centered">
+                      <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
+                    </div>
+                    <div class="level-item has-text-centered">
+                      <b-checkbox @change.native="chooseDefault(key)">
+                        </b-checkbox>
+                    </div>
+                    <div class="level-item has-text-centered">
+                      <a @click="deleteKey(key.name)">
+                        <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
+                      </a>
+                    </div> </nav>
+                  </div>
+             
+            </div>
+            <br>  
           </div>
         </div>
       </div>
@@ -163,6 +193,7 @@ import sjcl from "sjcl";
 export default {
   data() {
     return {
+      open: false,
       userPassword: "",
       checkPassword: "",
       notMatchingPass: false,
@@ -180,13 +211,23 @@ export default {
       keyfordelete: "",
       incorrectdeletekeypassword: false,
       isInstructionsActive: false,
-      lastwarningBeforeDelete: false
+      lastwarningBeforeDelete: false,
+      showParentNavOptions: true
     };
   },
   mounted() {
     this.existingKeys = this.$store.state.keys;
   },
   methods: {
+    showChildren: function() {
+      this.showParentNavOptions = false;
+    },
+    showParents: function() {
+      this.showParentNavOptions = true;
+    },
+    chooseDefault: function(key) {
+      console.log("choose default=" + JSON.stringify(key))
+    },
     openvideo: function() {
       var open = require("open");
       open("https://www.youtube.com/embed/u8qDkInJHaI");
@@ -295,6 +336,10 @@ export default {
 .hero-body.select-key .font-gibson {
   color: #78849e;
   font-size: 11pt;
+}
+.header {
+  color: #78849e;
+  font-size: 20pt;
 }
 .hero-body.select-key .keys-list {
   border-bottom: solid 1px hsl(0, 0%, 86%);

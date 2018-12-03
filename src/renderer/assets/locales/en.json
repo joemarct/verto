@@ -34,7 +34,8 @@
         "cannotrecover": "Verto cannot recover the wallet once deleted. Press the delete button again for final deletion.",
         "cancel": "Cancel",
         "delete": "Delete",
-        "keyhere": "Wallet Public Key Here"
+        "keyhere": "Wallet Public Key Here",
+        "header": "Wallet Manger"
     },
     "KeepYourKeysSafe": {
         "keepsafe": "Keep your keys safe",

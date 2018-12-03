@@ -38,7 +38,7 @@ function createWindow() {
     // titleBarStyle: 'hidden',
     title: "Verto wallet",
     icon: `file://${__dirname}/static/icon.png`,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#000000",
     center: true,
     vibrancy: "appearance-based",
     webPreferences: { webSecurity: false }

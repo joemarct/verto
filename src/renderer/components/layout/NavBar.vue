@@ -1,8 +1,8 @@
 <template>
-  <nav class="navbar is-light">
+  <nav class="navbar is-dark">
     <div class="navbar-brand">
       <div class="navbar-item" href="/">
-        Vue multi layouts
+        <img src="~@/assets/img/white-logo-with-text.png" class="" alt="avatar">
       </div>
 
       <a class="navbar-burger" @click="open = !open">
@@ -11,15 +11,12 @@
         <span aria-hidden="true"></span>
       </a>
     </div>
-
     <div class="navbar-menu" :class="{'is-active': open}">
-      <div class="navbar-start">
-      </div>
 
       <div class="navbar-end">
         <div class="navbar-item">
-              <div class="mr2 f6 link br1 bw1  ph3 pv1 dib black-40 flex items-center justify-center w4">
-                <a href="#" v-if="showDropDownOptions" v-on:click.prevent="showOptionsChildren()" class="mr2 f6 link br1 bw1  ph3 pv1 dib black-40 flex items-center justify-center w4">
+              <div class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 flex items-center justify-center w4">
+                <a href="#" v-if="showDropDownOptions" v-on:click.prevent="showOptionsChildren()" class="mr2 f6 link br1 bw1  ph3 pv1 dib black-40 flex items-center justify-center w4 has-text-white">
                   <div>{{ $t('SettingsView.optionsdd') }}</div>
                 </a>
               </div>
@@ -31,35 +28,33 @@
               </div>
           <transition name="slide-fade">
             <div v-if="showDropDownOptionsChildren" class="justify-center">
-              <a class="br-100 ba b--black-10 h2 w2 mh2 link" @click="showParents()">
-                <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
-              </a>
-              <router-link class="f6 link ph3 pv1 dib black-40  items-center justify-center w4" :to="{name: 'walletmanager'}" @click.native="open = false">
+              <router-link class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" :to="{name: 'walletmanager'}" @click.native="showParents()">
                 {{ $t('SettingsView.manager') }}
               </router-link>
-              <router-link to="/changevertopassword" class="f6 link ph3 pv1 dib black-40  items-center justify-center w4" @click.native="showParents()">
+              <router-link to="/changevertopassword" class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" @click.native="showParents()">
                 {{ $t('SettingsView.change') }}
               </router-link>
-              <router-link to="/logout" class="f6 link ph3 pv1 dib black-40  items-center justify-center w4" @click.native="showParents()">
+              <router-link to="/logout" class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" @click.native="showParents()">
                 {{ $t('SettingsView.logout') }}
               </router-link>
+              <a class="br-100 ba b--black-10 h2 w2 mh2 link  has-text-white" @click="showParents()">
+                <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
+              </a>
             </div>
           </transition>
           <div v-if="showDopDownLanguageChildren" class="justify-center">
-            <a class="" @click="showParents()">
-              <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
-            </a>
             <a class="" @click="updateLanguage('en')">
               <img src="~@/assets/img/lang/en.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
             </a>
             <a class="" @click="updateLanguage('fr')">
               <img src="~@/assets/img/lang/fr.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
             </a>
+            <a class="" @click="showParents()">
+              <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm  has-text-white"/>
+            </a>
           </div>
-
-          
           <div>
-            
+          </div>
           </div>
         </div>
       </div>
@@ -98,10 +93,10 @@ export default {
       this.showDopDownLanguageChildren = false;
     },
     showParents: function() {
-      this.showDropDownOptions = true;
-      this.showDropDownLanguage = true;
       this.showDropDownOptionsChildren = false;
       this.showDopDownLanguageChildren = false;
+      this.showDropDownOptions = true;
+      this.showDropDownLanguage = true;
     },
     updateLanguage: function(lang) {
       this.showParents();

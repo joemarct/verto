@@ -15,14 +15,12 @@ export default {
 <template>
   <div>
     <nav-bar />
-
-    <div class="container section">
+    
+    <div class="section is-dark">
       <div class="columns">
-        <div class="column is-12">
+        <div class="column is-12 ">
           <slot />
         </div>
-
-        
       </div>
     </div>
 
