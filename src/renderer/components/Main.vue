@@ -1,4 +1,4 @@
-<template> 
+<template>
   <section class="hero is-fullheight has-background-darkgreen  is-bold" >
     <div class="">
       <div class="container top-bg">
@@ -9,7 +9,7 @@
                 <router-link to="/welcome">
                   <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
                 </router-link>
-              </div> 
+              </div>
               <img src="~@/assets/img/wallet-logo.png" class="logo"> -->
               <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </span>
 
@@ -23,8 +23,8 @@
                       <span class="has-text-centered has-text-primary">{{ currentBtcValue.toFixed(4) }} BTC </span>
                       <font-awesome-icon icon="sync-alt" class="is-size-3" style="cursor:pointer" @click="refreshContent"/>
                     </p>
-                    
-                    
+
+
                   </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
                       <a class="button is-size-5 is-primary" >
                         <p class="p-l-md p-r-md has-text-weight-bold has-text-centered is-size-6">{{ $t('Main.getvtx') }}</p>
                       </a>
-                    </router-link>  
+                    </router-link>
           </div>
         </div>
     </div>
@@ -128,7 +128,7 @@
             </div>
           </div>
         </div>
-      
+
     </b-modal>
   </section>
 </template>
@@ -343,5 +343,8 @@ export default {
 }
 .hero.is-fullheight {
   height: 100vh;
+}
+.transaction_list {
+  width: 90vw;
 }
 </style>

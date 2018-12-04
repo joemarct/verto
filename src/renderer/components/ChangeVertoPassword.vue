@@ -2,8 +2,7 @@
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
     <div class="hero-head p-t-sm p-l-lg">
-      <div class="p-t-xl">
-      </div>
+      <div class="change-password p-t-xl">
         <div class="field">
           <div class="control">
             <div v-if="incorrectpassword">
@@ -73,6 +72,7 @@
           </div>
         </div>
       </b-modal>
+      </div>
     </div>
   </section>
 </template>
@@ -153,7 +153,7 @@ export default {
   color: #78849e;
   font-size: 11pt;
 }
-.hero-body.choose-password .button.green {
+.change-password .button.green {
   background-color: #00a6a6 !important;
   border: solid #00a6a6 1pt !important;
   border-radius: 0.5rem;
@@ -246,5 +246,9 @@ export default {
 }
 hr {
   width: 90%;
+}
+.change-password {
+  max-width: 35rem;
+  margin: 0 auto;
 }
 </style>

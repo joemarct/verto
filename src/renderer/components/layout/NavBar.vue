@@ -3569,6 +3569,9 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .navbar-menu.is-active {
   background-color: transparent !important;
 }
+.navbar-menu a{
+  color: white !important;
+}
 .navbar-menu.is-active a{
   color: white !important;
 }
