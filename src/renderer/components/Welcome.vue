@@ -35,7 +35,8 @@
           </div>
           <div v-if="!hasPassword">
             <div class="is-size-6 m-t-md">{{ join_message }}</div>
-            <a class="p-t-lg button is-primary" @click="createvertopassword">
+            <br>
+            <a class="p-t-lg button is-primary is-normal" @click="createvertopassword">
               {{ $t('Welcome.create') }}
             </a>
           </div>

@@ -319,7 +319,7 @@ export default {
   },
   methods: {
     setWallet: function() {
-      this.wallet = this.$store.state.userKey;
+      this.wallet = this.$store.state.currentWallet.key;
     },
     transform(props) {
       Object.entries(props).forEach(([key, value]) => {

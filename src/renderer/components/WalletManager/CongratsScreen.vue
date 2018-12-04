@@ -24,7 +24,7 @@ export default {
       setTimeout(function() {
         router.push({ path: "main" })
       },
-      4000);
+      2500);
     }
   }
 };

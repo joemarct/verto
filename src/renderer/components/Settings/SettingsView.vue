@@ -77,7 +77,7 @@ export default {
       langs: ['en', 'fr'],
       appVersion: this.$appVersion,
       appName: this.$appName,
-      blocktopusUrl: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_up?verto_public_address=' + this.$store.state.userKey
+      blocktopusUrl: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_up?verto_public_address=' + this.$store.state.currentWallet.key
     };
   },
   mounted() {

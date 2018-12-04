@@ -250,7 +250,9 @@ export default {
   },
   mounted() {
     this.existingKeys = this.$store.state.keys;
-    console.log(this.existingKeys)
+    if (!this.existingKeys || this.existingKeys.length <= 0) {
+      this.$router.push({ path: "keepyourkeyssafe" });
+    }
   },
   methods: {
     showChildren: function() {
@@ -337,8 +339,14 @@ export default {
           return;
         }
       }
-      config.keys.push({name: this.keyname, key: this.publicKey});
+      let defaultKey = false;
+      if (config.keys.length <= 0) {
+        defaultKey = true;
+      }
+      const key = {name: this.keyname, key: this.publicKey, defaultKey: defaultKey};
+      config.keys.push(key);
       this.$store.dispatch("setKeys", config.keys);
+      this.$store.dispatch("setCurrentWallet", key);
       this.existingKeys = this.$store.state.keys;
       fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
       this.walletpassword = "";

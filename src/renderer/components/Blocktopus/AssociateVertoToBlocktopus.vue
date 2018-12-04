@@ -15,7 +15,7 @@ export default {
       email: "",
       amount: 0,
       currency: 'BTC',
-      blocktopusLink: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_in?verto_public_address=' + this.$store.state.userKey
+      blocktopusLink: process.env.BLOCKTOPUS_URL + '/token_buyers/sign_in?verto_public_address=' + this.$store.state.currentWallet.key
     };
   },
   beforeMount() {

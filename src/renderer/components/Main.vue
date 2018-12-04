@@ -188,17 +188,14 @@ export default {
       chainId: chainId
     },
     process.env.LEDGER_ACCOUNT_NAME);
-    this.setWalletName();
     this.setWallet();
     this.refreshBalance();
     this.getTransactionHistory();
   },
   methods: {
-    setWalletName: function() {
-      this.walletName = this.$store.state.currentWallet.name;
-    },
     setWallet: function() {
-      this.wallet = this.$store.state.userKey;
+      this.walletName = this.$store.state.currentWallet.name;
+      this.wallet = this.$store.state.currentWallet.key
     },
     async getTransactionHistory() {
       this.hasTransactions = false;

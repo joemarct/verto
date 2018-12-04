@@ -193,11 +193,15 @@ export default {
           var savePath = dialog.showSaveDialog({
             title: this.$t('ChoosePassword.file')
           });
-          // TODO: Need some error checking here.
-          config.keys.push({name: this.keyname, key: this.publicKey});
+          let defaultKey = false;
+          if (config.keys.length <= 0) {
+            defaultKey = true;
+          }
+          const key = {name: this.keyname, key: this.publicKey, defaultKey: defaultKey};
+          config.keys.push(key);
           fs.writeFileSync(savePath, sjcl.encrypt(this.walletpassword, this.privateKey));
           fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
-          this.$store.commit("save", this.publicKey);
+          this.$store.dispatch("setCurrentWallet", key);
           this.$store.dispatch("setKeys", config.keys);
           this.$router.push("congratsscreen");
         } else {

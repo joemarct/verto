@@ -138,7 +138,7 @@ export default {
       let hashResult = await axios.post(
         process.env.CROWDFUND_URL + "/public/api/initiate-transaction/",
         {
-          verto_public_address: this.$store.state.userKey,
+          verto_public_address: this.$store.state.currentWallet.key,
           currency: this.currency
         }
       );
