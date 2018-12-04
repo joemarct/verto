@@ -3,19 +3,7 @@
   <div class="hero is-fullheight is-paddingless has-blur-background">
     <div class="hero-head p-t-sm p-l-lg">
       <div class="p-t-xl">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/settings">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
-        </div>
-        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
-        <a @click="isInstructionsActive = true">
-          <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
-        </a>
-        <br>
-        <br>
-        <br>
         <div class="field">
           <div class="control">
             <div v-if="incorrectpassword">
@@ -76,7 +64,7 @@
                 <li>
                   {{ $t('ChangeVertoPassword.access') }}
                 </li>
-                
+
                 <li>
                   <p v-html="$t('CreateVertoPassword.note')"></p>
                 </li>
@@ -142,6 +130,9 @@ export default {
 </script>
 
 <style scoped>
+.input {
+  width: 90%;
+}
 .hero-body.choose-password {
   background-color: #f7f7fa !important;
 }
@@ -247,7 +238,13 @@ export default {
 .hero.is-fullheight .hero-body {
   flex: 1;
 }
+.level {
+  width: 90%;
+}
 .hero.is-fullheight {
-  height: 100vh;
+  min-height: 80vh !important;
+}
+hr {
+  width: 90%;
 }
 </style>

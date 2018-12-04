@@ -19,17 +19,16 @@
 
       <div class="navbar-end">
         <div class="navbar-item">
-              <div class="">
-                <a href="#" v-if="showDropDownOptions" v-on:click.prevent="showOptionsChildren()" >
-                  <div >{{ $t('SettingsView.optionsdd') }}</div>
+
+                <a href="#" v-if="showDropDownOptions" v-on:click.prevent="showOptionsChildren()" style="vertical-align: text-bottom">
+                  {{ $t('SettingsView.optionsdd') }}
                 </a>
-              </div>
-              <div>
+
                 <a href="#" v-if="showDropDownLanguage" v-on:click.prevent="showLanguageChildren()" class="">
                     <img v-if="$i18n.locale == 'en'" src="~@/assets/img/lang/en.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
                     <img v-if="$i18n.locale == 'fr'" src="~@/assets/img/lang/fr.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
                 </a>
-              </div>
+
             <div v-if="showDropDownOptionsChildren" >
 
               <router-link v-if="hasChosenWallet()" :to="{path: 'main'}" @click.native="showParentsPane()">

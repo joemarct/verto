@@ -13,9 +13,9 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div style="min-height: 100vh">
     <nav-bar />
-    
+
     <div class="section is-dark">
       <div class="columns">
         <div class="column is-12 ">
