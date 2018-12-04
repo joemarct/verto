@@ -172,7 +172,8 @@ export default {
       incorrectPassword: false,
       isInstructionsActive: false,
       showPrivate: false,
-      showPublic: false
+      showPublic: false,
+      defaultKey: true
     };
   },
   mounted() {
@@ -217,8 +218,12 @@ export default {
           this.keyalreadyused = true;
           return;
         }
+        if (key.default) {
+          console.log("We already have a default key.")
+          this.defaultKey = false;
+        }
       }
-      config.keys.push({name: this.keyname, key: this.publicKey});
+      config.keys.push({name: this.keyname, key: this.publicKey, default: this.defaultKey});
       this.$store.dispatch("setKeys", config.keys);
       fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
       this.$store.commit("save", this.publicKey);

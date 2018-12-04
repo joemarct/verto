@@ -60,14 +60,6 @@ const router = new Router({
       }
     },
     {
-      path: '/associatewithblocktopus',
-      name: 'AssociateWithBlocktopus',
-      meta: {
-        layout: "blocktopus"
-      },
-      component: require('@/components/AssociateWithBlocktopus').default
-    },
-    {
       path: '/downloadversion',
       name: 'DownloadVersion',
       component: require('@/components/DownloadVersion').default
@@ -264,6 +256,14 @@ const router = new Router({
       path: '/kycalreadyassociated',
       name: 'kycalreadyassociated',
       component: require('@/components/Blocktopus/KycAlreadyAssociated').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/vespucciopen',
+      name: 'vespucciopen',
+      component: require('@/components/Vespucci/Open').default,
       meta: {
         requiresAuth: true
       }
