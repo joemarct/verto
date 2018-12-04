@@ -56,6 +56,23 @@
                 </div>
               </div>
             </div>
+            <div v-if="transactionStatus == 'CONFIRMED'">
+              <div class="columns list-item is-marginless has-text-white ">
+                <div class="column is-12 is-paddingless  font-calibri">
+                  <div class="columns is-marginless">
+                    <div class="column has-text-white is-4">
+                      Confirmed Date
+                    </div>
+                    <div class="column has-text-white is-3">
+                      Status
+                    </div>
+                    <div class="column has-text-white is-4 is-marginless">
+                      VTX
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div v-for="transaction in transactions" :key="transaction.id" class="">
               <a @click="transactionDetails(transaction)">
                 <div class="columns list-item is-marginless has-text-white is-mobile p-t-md p-b-md p-r-md p-l-md">
@@ -69,7 +86,7 @@
                         </div>
                         
                       </div>
-                      <div v-if="transaction.status == 'CONFIRMED'" class="column has-text-white is-3">
+                      <div class="column has-text-white is-3">
                             {{ transaction.status }}
                       </div>
                       

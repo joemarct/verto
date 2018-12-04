@@ -14,7 +14,7 @@ import EventBus from './bus'
 import { i18n } from './plugins/i18n.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTelegram } from '@fortawesome/free-brands-svg-icons'
-import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle, faShip } from '@fortawesome/free-solid-svg-icons'
+import { faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle, faShip, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueCountdown from '@chenfengyuan/vue-countdown';
 
@@ -35,7 +35,7 @@ const { app } = require('electron').remote
 Vue.prototype.$appVersion = app.getVersion();
 Vue.prototype.$appName = app.getName();
 
-library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle, faShip)
+library.add(faCopy, faCheckCircle, faSyncAlt, faSlidersH, faArrowLeft, faKey, faTrash, faQuestionCircle, faShip, faAngleUp)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component(VueCountdown.name, VueCountdown);
 // Define a new component called button-counter

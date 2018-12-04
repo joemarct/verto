@@ -113,14 +113,6 @@ const router = new Router({
       }
     },
     {
-      path: '/saveyourkeys',
-      name: 'SaveYourKeys',
-      component: require('@/components/SaveYourKeys').default,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
       path: '/signupwithgatewayprovider',
       name: 'SignUpWithGatewayProvider',
       component: require('@/components/SignUpWithGatewayProvider').default,
@@ -165,7 +157,7 @@ const router = new Router({
     {
       path: '/walletmanager',
       name: 'walletmanager',
-      component: require('@/components/WalletManager').default,
+      component: require('@/components/WalletManager/WalletManager').default,
       meta: {
         requiresAuth: true
       }

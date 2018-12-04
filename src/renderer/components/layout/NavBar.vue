@@ -4,23 +4,24 @@
       <div class="navbar-item  has-text-centered" href="/">
         {{ appVersion }}
       </div>
-      <div class="navbar-item is-logo has-text-centered" href="/">
+      <div v-if="showParents" class="navbar-item is-logo has-text-centered" href="/">
         <img src="~@/assets/img/verto-logo-white.png" class="" alt="avatar">
       </div>
 
-      <a class="navbar-burger" @click="open = !open">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+      
+      <span class="navbar-burger burger" data-target="navMenu"  @click="showMobileChildren">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
     </div>
-    <div class="navbar-menu" :class="{'is-active': open}">
+    <div class="navbar-menu" id="navMenu" :class="{'is-active': open}">
 
       <div class="navbar-end">
         <div class="navbar-item">
-              <div class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 flex items-center justify-center w4">
-                <a href="#" v-if="showDropDownOptions" v-on:click.prevent="showOptionsChildren()" class="mr2 f6 link br1 bw1  ph3 pv1 dib black-40 flex items-center justify-center w4 has-text-white">
-                  <div>{{ $t('SettingsView.optionsdd') }}</div>
+              <div class="">
+                <a href="#" v-if="showDropDownOptions" v-on:click.prevent="showOptionsChildren()" >
+                  <div >{{ $t('SettingsView.optionsdd') }}</div>
                 </a>
               </div>
               <div>
@@ -29,18 +30,26 @@
                     <img v-if="$i18n.locale == 'fr'" src="~@/assets/img/lang/fr.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
                 </a>
               </div>
-            <div v-if="showDropDownOptionsChildren" class="justify-center">
-              <router-link class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" :to="{name: 'walletmanager'}" @click.native="showParents()">
+            <div v-if="showDropDownOptionsChildren" >
+
+              <router-link v-if="hasChosenWallet()" :to="{path: 'main'}" @click.native="showParentsPane()">
+                Current Wallet
+              </router-link>
+              &nbsp;&nbsp;
+              <router-link  :to="{name: 'walletmanager'}" @click.native="showParentsPane()">
                 {{ $t('SettingsView.manager') }}
               </router-link>
-              <router-link to="/changevertopassword" class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" @click.native="showParents()">
+              &nbsp;&nbsp;
+              <router-link to="/changevertopassword" @click.native="showParentsPane()">
                 {{ $t('SettingsView.change') }}
               </router-link>
-              <router-link to="/logout" class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" @click.native="showParents()">
+              &nbsp;&nbsp;
+              <!-- class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" -->
+              <router-link to="/logout"  @click.native="showParentsPane()">
                 {{ $t('SettingsView.logout') }}
               </router-link>
-              <a class="br-100 ba b--black-10 h2 w2 mh2 link  has-text-white" @click="showParents()">
-                <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
+              <a @click="showParentsPane()">
+                <font-awesome-icon icon="angle-up" class="fa-sm has-text-white m-l-sm"/>
               </a>
             </div>
           <div v-if="showDopDownLanguageChildren" class="justify-center">
@@ -72,6 +81,7 @@ export default {
       showDropDownLanguage: true,
       showDropDownOptionsChildren: false,
       showDopDownLanguageChildren: false,
+      showParents: true,
       appVersion: this.$appVersion,
       appName: this.$appName
     };
@@ -80,6 +90,13 @@ export default {
     console.log(this.$i18n.locale)
   },
   methods: {
+    hasChosenWallet: function() {
+      return this.$store.state.userKey
+    },
+    showMobileChildren: function() {
+      this.open = !this.open;
+      this.showParents = !this.showParents
+    },
     showLanguageChildren: function() {
       this.showDropDownOptions = false;
       this.showDropDownLanguage = false;
@@ -92,14 +109,14 @@ export default {
       this.showDropDownOptionsChildren = true;
       this.showDopDownLanguageChildren = false;
     },
-    showParents: function() {
+    showParentsPane: function() {
       this.showDropDownOptionsChildren = false;
       this.showDopDownLanguageChildren = false;
       this.showDropDownOptions = true;
       this.showDropDownLanguage = true;
     },
     updateLanguage: function(lang) {
-      this.showParents();
+      this.showParentsPane();
       this.$i18n.locale = lang;
     },
     checkBlocktopus: function() {
@@ -121,6 +138,16 @@ export default {
 </script>
 
 <style lang="less">
+a.openClass:link {color:#ff0000;}
+a.openClass:visited {color:#ff0000;}
+a.openClass:hover {color:#ff0000;}
+a.closedClass:link {color:#ff0000;}
+a.closedClass:visited {color:#ff0000;}
+a.closedClass:hover {color:#ff0000;}
+.navbar-burger burger {
+    background: black;
+    border: none;
+}
 .navbar-item.is-logo {
   position: absolute;
   left: 50%;

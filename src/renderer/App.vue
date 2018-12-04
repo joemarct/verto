@@ -23,8 +23,13 @@
 
 <style lang="scss">
 // Import Bulma's core
+.navbar-burger span{
+  background-color: black
+}
 @import "~bulma/sass/utilities/_all";
-
+.navbar-burger span{
+  background-color: black
+}
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";

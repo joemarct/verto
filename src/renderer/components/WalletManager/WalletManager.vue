@@ -8,7 +8,7 @@
             {{ $t('WalletManager.header') }}
           </div>
           <a class="navbar-burger  is-dark" @click="open = !open">
-            <span aria-hidden="true"></span>
+            <span aria-hidden="true" ></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </a>
@@ -213,6 +213,7 @@ export default {
   },
   mounted() {
     this.existingKeys = this.$store.state.keys;
+    console.log(this.existingKeys)
   },
   methods: {
     showChildren: function() {
