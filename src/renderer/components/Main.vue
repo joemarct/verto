@@ -1,63 +1,49 @@
-<template>
-  <section class="hero is-fullheight is-light is-bold" >
-    <div class="hero-head top-bg">
-      <div class="container dark-blue-gradient">
+<template> 
+  <section class="hero is-fullheight has-background-darkgreen  is-bold" >
+    <div class="">
+      <div class="container top-bg">
         <div class="container p-l-lg p-r-lg p-b-md">
-          <div class="p-t-lg p-b-lg has-text-centered">
-            <!-- <div class="is-pulled-left is-vcentered is-flex m-t-md">
-              <router-link to="/welcome">
-                <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-              </router-link>
-            </div> -->
-            <img src="~@/assets/img/wallet-logo.png" class="logo">
-            <div class="is-pulled-right is-vcentered is-flex m-t-md">
-              <router-link to="/settings">
-                <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal"/>
-              </router-link>
+          <div class="container p-l-lg p-r-lg p-b-md">
+            <div class="p-t-lg p-b-lg has-text-centered">
+              <!-- <div class="is-pulled-left is-vcentered is-flex m-t-md">
+                <router-link to="/welcome">
+                  <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
+                </router-link>
+              </div> -->
+              <img src="~@/assets/img/wallet-logo.png" class="logo">
+
+              <div class="is-pulled-right is-vcentered is-flex m-t-md">
+                <a @click="isCardModalActive = true">
+                      <qrcode :value="wallet" :options="{ size: 40 }" class="has-text-centered"></qrcode>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+              </div>
             </div>
-          </div>
-          <div class="p-b-md level is-mobile">
-            <div class="level-left has-text-centered">
-              <div>
-                <p class="is-marginless is-size-3 has-text-white font-gibson"> {{ balance }} VTX </p>
-                <div class="level is-mobile is-size-5 font-gibson">
-                  <p class="level-left has-text-primary" >{{ currentBtcValue.toFixed(4) }} BTC</p>
-                  <div class="level-right is-size-5 has-text-white m-l-md">
-                    <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
+             <div class="p-t-lg p-b-lg has-text-centered">
+                  
+                  <p class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </p>
+                  
+                  <div class="has-text-centered is-size-2 has-text-white m-l-md">
+                    <p >
+                      <span class="has-text-centered has-text-primary">{{ currentBtcValue.toFixed(4) }} BTC </span>
+                      <font-awesome-icon icon="sync-alt" class="is-size-3" style="cursor:pointer" @click="refreshContent"/>
+                    </p>
+                    
+                    
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="level-right has-text-centered">
-              <a @click="isCardModalActive = true">
-                <qrcode :value="wallet" :options="{ size: 80 }" class="has-text-centered"></qrcode>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="has-background-darkgreen">
-          <router-link to="/begingetvtx">
-            <a class="button is-fullwidth is-size-5 is-primary" >
-              <p class="p-l-md p-r-md has-text-weight-bold is-size-6">{{ $t('Main.getvtx') }}</p>
-            </a>
-          </router-link>
-        </div>
-        <div class="has-text-white container p-b-md" >
-          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
-            <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
-              <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-                {{ $t('Main.address') }}:
-                <span id="wallet-address">{{ wallet }}</span>
-              </div>
-            </b-tooltip>
-            <div class="column is-1 is-paddingless has-text-right line-height-md">
-              <a v-clipboard:copy="wallet" id="button-copy-wallet-address" @click="toast">
-                <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
-              </a>
-            </div>
+             </div>
           </div>
         </div>
       </div>
+        <div class="has-text-white container p-b-md has-text-centered" >
+          <div class="is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
+            <router-link to="/begingetvtx">
+                      <a class="button is-size-5 is-primary" >
+                        <p class="p-l-md p-r-md has-text-weight-bold has-text-centered is-size-6">{{ $t('Main.getvtx') }}</p>
+                      </a>
+                    </router-link>  
+          </div>
+        </div>
     </div>
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
@@ -116,17 +102,38 @@
         </a>
       </router-link>
     </div> -->
-    <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md has-text-light">
-        {{ appName }}: {{ appVersion }}
-      </div>
-    </div>
-    <b-modal :active.sync="isCardModalActive" class="modal-qr">
-      <div class="card-content has-text-centered">
-        <p class="image qr-modal">
-          <qrcode :value="wallet" :options="{ size: 220 }" class="has-text-centered"></qrcode>
-        </p>
-      </div>
+    <b-modal :active.sync="isCardModalActive" class="">
+      <div class="card has-text-centered has-background-black has-text-white">
+          <div class="card-content qr-modal image qr-modal">
+            <div class="modal-header  is-size-1">
+              <slot name="header">
+                {{ $t('Main.address') }}
+              </slot>
+            </div>
+            <div>
+              <br>
+              <ul>
+                <li>
+                   <qrcode :value="wallet" :options="{ size: 220 }" class="has-text-centered"></qrcode>
+                </li>
+                <li>
+                  <br>
+                  <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
+                    <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
+                      <span id="wallet-address">{{ wallet }}</span>
+                    </div>
+                  </b-tooltip>
+                  <br>
+                  <br>
+                  <a v-clipboard:copy="wallet" id="button-copy-wallet-address" @click="toast">
+                    <font-awesome-icon icon="copy" class="is-size-3 has-text-white"/>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
     </b-modal>
   </section>
 </template>
@@ -144,6 +151,7 @@ let ledger = {};
 export default {
   data() {
     return {
+      open: false,
       transactions: [
         {
           s: "",

@@ -1,13 +1,9 @@
 <script>
 import NavBar from "@/components/layout/NavBar";
-import SideBar from "@/components/layout/SideBar";
-import FooterBar from "@/components/layout/FooterBar";
 
 export default {
   components: {
-    NavBar,
-    SideBar,
-    FooterBar
+    NavBar
   }
 };
 </script>

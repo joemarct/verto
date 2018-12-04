@@ -1,9 +1,12 @@
 <template>
   <section>
-  <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg p-r-md">
-      <nav class="navbar is-dark">
-        <div class="navbar-brand">
+  <div class="hero is-fullheight is-paddingless has-blur-background ">
+    <div class="hero-head p-t-sm p-l-lg p-r-md ">
+      <nav class="navbar is-dark is-logo">
+        <div class="navbar-brand"> 
+          <div class="navbar-item header has-text-centered is-centered  has-text-white">
+            {{ $t('WalletManager.header') }}
+          </div>
           <a class="navbar-burger  is-dark" @click="open = !open">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -12,31 +15,21 @@
         </div>
         <div class="navbar-menu" :class="{'is-active': open}">
           <div class="navbar-end">
-            <div class="navbar-item">
-              <div v-if="showParentNavOptions" class="">
-                <a href="#" v-on:click.prevent="showChildren()" class="mr2 f6 link br1 bw1  ph3 pv1 dib black-40 flex items-center justify-center w4 has-text-white">
-                  <div>{{ $t('SettingsView.optionsdd') }}</div>
-                </a>
-              </div>
-            </div>
-            <div v-if="!showParentNavOptions" class="justify-center">
+            <div class="justify-center">
               <a class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4" @click="showAddKey = !showAddKey">
                   {{ $t('CreateVertoPassword.addwallet') }}
               </a>
               <a class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4" @click="generateKey">
                   {{ $t('CreateVertoPassword.createwallet') }}
               </a>
-              <a @click="isInstructionsActive = true" class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4">
-                <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
-              </a>
-              <a class="has-text-white mr2 f6 link br1 bw1  ph3 pv1 dib white-40 items-center justify-center w4" @click="showParents()">
-                <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
-              </a>
             </div>
           </div>
         </div>
       </nav>
-        <div v-if="showAddKey">
+        <div v-if="showAddKey" class="container has-text-centered">
+          <div class="header has-text-centered is-centered  has-text-white has-text-centered">
+          {{ $t('CreateVertoPassword.addwallet') }}
+          </div>
           <form>
             <div v-if="keyalreadysaved">
               <p class="has-text-danger m-t-md">
@@ -56,35 +49,49 @@
                 {{ $t('Welcome.incorrect') }}
               </p>
             </div>
-            <div class="level-item has-text-centered is-marginless">
-                <a class="button is-fullwidth is-primary has-text-white" @click="addpublickey"> {{ $t('WalletManager.submit') }} </a>
-            </div>
-          </form>
-        </div>
-        <br>
-        <div v-if="existingKeys.length > 0">
-          <div v-if="showdeletekeypassword">
-            <div v-if="incorrectdeletekeypassword">
-              <p class="has-text-danger m-t-md">
-                {{ $t('Welcome.incorrect') }}
-              </p>
-            </div>
-            <input v-model="deletekeypassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
-            <div v-if="lastwarningBeforeDelete">
-              <p class="has-text-danger m-t-md">
-                {{ $t('WalletManager.cannotrecover') }}
-              </p>
-            </div>
             <div class="level is-mobile m-t-md">
               <div class="has-text-dark level-left">
-                <a class="button m-t-md green is-centered has-text-white" @click="cancelDeleteKey">
+                <a class="button  is-primary m-t-md green is-centered has-text-white" @click="cancelAddPublicKey">
                   <p class="is-size-6">
                     {{ $t('WalletManager.cancel') }}
                   </p>
                 </a>
               </div>
               <div class="has-text-dark level-right">
-                <a class="button m-t-md green is-centered has-text-white" @click="removeKey">
+                <a class="button m-t-md green is-primary is-centered has-text-white" @click="addpublickey">
+                  <p>
+                    {{ $t('WalletManager.submit') }}
+                  </p>
+                </a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <br>
+        <div v-if="existingKeys.length > 0 && !showAddKey">
+          <div v-if="showdeletekeypassword" class="has-text-centered container">
+            
+            <input v-model="deletekeypassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
+            <div v-if="lastwarningBeforeDelete">
+              <p class="has-text-danger">
+                {{ $t('WalletManager.cannotrecover') }}
+              </p>
+            </div>
+            <div v-if="incorrectdeletekeypassword">
+              <p class="has-text-danger">
+                {{ $t('Welcome.incorrect') }}
+              </p>
+            </div>
+            <div class="level is-mobile m-t-md">
+              <div class="has-text-dark level-left">
+                <a class="button  is-primary m-t-md green is-centered has-text-white" @click="cancelDeleteKey">
+                  <p class="is-size-6">
+                    {{ $t('WalletManager.cancel') }}
+                  </p>
+                </a>
+              </div>
+              <div class="has-text-dark level-right">
+                <a class="button m-t-md green is-primary is-centered has-text-white" @click="removeKey">
                   <p>
                     {{ $t('WalletManager.delete') }}
                   </p>
@@ -92,43 +99,31 @@
               </div>
             </div>
           </div>
-          <div class="keys-container">
-            <div class="columns">
-              <div class="column is-4">
-                &nbsp;
-              </div>
-              <div class="column is-4">
-                <div class="navbar-item header has-text-centered is-centered  has-text-white">{{ $t('WalletManager.header') }}</div>
-              </div>
-
-              <div class="column is-4">
-                &nbsp;
-              </div>
+          <div class="keys-container container" v-if="!showdeletekeypassword">
+            <div class="header has-text-centered is-centered  has-text-white has-text-centered">
+              {{ $t('CreateVertoPassword.wallets') }}
             </div>
-
-
-              
-                
-                  <div v-for="key in existingKeys" class="keys-list m-t-md">
-                    <nav class="level is-mobile">
-                    <div class="level-item has-text-centered">
-                      <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
-                    </div>
-                    <div class="level-item has-text-centered">
-                      <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
-                    </div>
-                    <div class="level-item has-text-centered">
-                      <b-checkbox @change.native="chooseDefault(key)">
-                        </b-checkbox>
-                    </div>
-                    <div class="level-item has-text-centered">
-                      <a @click="deleteKey(key.name)">
-                        <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
-                      </a>
-                    </div> </nav>
-                  </div>
+            <div v-for="key in existingKeys" class="keys-list m-t-md">
+              <nav class="level is-mobile">
+                <div class="level-item has-text-centered">
+                  <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
+                </div>
+                <div class="level-item has-text-centered">
+                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
+                </div>
+                <div class="level-item has-text-centered">
+                  <b-checkbox @change.native="chooseDefault(key)">
+                    </b-checkbox>
+                </div>
+                <div class="level-item has-text-centered">
+                  <a @click="deleteKey(key.name)">
+                    <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
+                  </a>
+                </div> 
+              </nav>
+            </div>
              
-            </div>
+          </div>
             <br>  
           </div>
         </div>
@@ -212,7 +207,8 @@ export default {
       incorrectdeletekeypassword: false,
       isInstructionsActive: false,
       lastwarningBeforeDelete: false,
-      showParentNavOptions: true
+      showParentNavOptions: false,
+      showDeleteKey: false
     };
   },
   mounted() {
@@ -272,6 +268,9 @@ export default {
       this.existingKeys = config.keys;
       this.showAddKey = false;
     },
+    cancelAddPublicKey: function() {
+      this.showAddKey = false;
+    },
     generateKey: function() {
       this.$router.push({ path: "keepyourkeyssafe" });
     },
@@ -279,6 +278,7 @@ export default {
       this.keyfordelete = key;
       this.showdeletekeypassword = true;
       this.lastwarningBeforeDelete = false;
+      this.showDeleteKey = true;
     },
     cancelDeleteKey() {
       this.keyfordelete = "";

@@ -1,27 +1,23 @@
 <template>
-  <div class="hero is-fullheight is-paddingless has-blur-background">
+  <div class="hero is-fullheight  has-background-darkgreen  is-bold"> 
     <div class="hero-head p-t-sm">
-      <div class="p-l-lg m-t-md">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/main">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
-        </div>
-        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-      </div>
-      <div class="field">
         <div class="control p-md has-text-white p-md">
           <div class="requestaddress-header has-text-centered">
             {{ $t('RequestNativeChainAddress.header') }}
           </div>
           <pending-counter/>
-          <div v-if="!investorMustWait" >
+          <div v-if="!investorMustWait" class="has-text-centered" >
             <p>
               {{ $t('RequestNativeChainAddress.first_p') }}
             </p>
             <br>
             <p>
               {{ $t('RequestNativeChainAddress.second_p') }}
+              <ul>
+                <li>
+                  {{ $t('RequestNativeChainAddress.second_p_point_1') }}
+                </li>
+              </ul>
             </p> 
             <br>
             <p v-bind:class="{ highlightNumberTwo: investorMustWait, nothing: !investorMustWait }">
@@ -52,10 +48,15 @@
                 {{ $t('RequestNativeChainAddress.select_currency') }}
               </div>
               <br>
-              <select class="input m-b-md" v-model="currency">
-                <option value="BTC">Bitcoin</option>
-                <option value="ETH">Ethereum</option>
-              </select>
+
+              <div class="control has-text-centered is-large">
+                <div class="select is-large">
+                          <select class="input m-b-md" v-model="currency">
+                            <option value="BTC">Bitcoin</option>
+                            <option value="ETH">Ethereum</option>
+                          </select>
+                </div>
+              </div>
               <br>
               <br>
               <div class="has-background-darkgreen">
@@ -77,7 +78,6 @@
             </div>  
           </div>
         </div>
-      </div>
       
     </div>
   </div>

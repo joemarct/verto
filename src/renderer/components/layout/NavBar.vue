@@ -1,8 +1,11 @@
 <template>
   <nav class="navbar is-dark">
-    <div class="navbar-brand">
-      <div class="navbar-item" href="/">
-        <img src="~@/assets/img/white-logo-with-text.png" class="" alt="avatar">
+    <div class="navbar-brand  has-text-centered">
+      <div class="navbar-item  has-text-centered" href="/">
+        {{ appVersion }}
+      </div>
+      <div class="navbar-item is-logo has-text-centered" href="/">
+        <img src="~@/assets/img/verto-logo-white.png" class="" alt="avatar">
       </div>
 
       <a class="navbar-burger" @click="open = !open">
@@ -26,7 +29,6 @@
                     <img v-if="$i18n.locale == 'fr'" src="~@/assets/img/lang/fr.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
                 </a>
               </div>
-          <transition name="slide-fade">
             <div v-if="showDropDownOptionsChildren" class="justify-center">
               <router-link class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" :to="{name: 'walletmanager'}" @click.native="showParents()">
                 {{ $t('SettingsView.manager') }}
@@ -41,16 +43,12 @@
                 <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm"/>
               </a>
             </div>
-          </transition>
           <div v-if="showDopDownLanguageChildren" class="justify-center">
             <a class="" @click="updateLanguage('en')">
               <img src="~@/assets/img/lang/en.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
             </a>
             <a class="" @click="updateLanguage('fr')">
               <img src="~@/assets/img/lang/fr.png" class="br-100 ba b--black-10 h2 w2 mh2" alt="avatar">
-            </a>
-            <a class="" @click="showParents()">
-              <font-awesome-icon icon="arrow-left" class="fa-sm  m-l-sm  has-text-white"/>
             </a>
           </div>
           <div>
@@ -73,7 +71,9 @@ export default {
       showDropDownOptions: true,
       showDropDownLanguage: true,
       showDropDownOptionsChildren: false,
-      showDopDownLanguageChildren: false
+      showDopDownLanguageChildren: false,
+      appVersion: this.$appVersion,
+      appName: this.$appName
     };
   },
   mounted: function() {
@@ -121,6 +121,14 @@ export default {
 </script>
 
 <style lang="less">
+.navbar-item.is-logo {
+  position: absolute;
+  left: 50%;
+  margin-left: -63px; // 50% in my case
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
 /*! TACHYONS v4.9.0 | http://tachyons.io */
 /*
  *

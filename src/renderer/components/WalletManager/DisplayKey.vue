@@ -1,41 +1,39 @@
 <template>
-  <section>
-  <div class="hero is-fullheight is-paddingless has-blur-background">
+  <section> 
+    <div class="has-blur-background has-text-white">
+  <div class="hero is-fullheight is-paddingless">
     <div class="hero-head p-t-sm p-l-lg">
-      <div class="p-t-xl">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/keepyourkeyssafe">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
-        </div>
-        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
+      <div class="has-text-centered">
+        <div class="has-text-centered is-size-1 has-text-white">
+          {{ $t('DisplayKey.header') }}
+          </div>
+          <img src="~@/assets/img/written.jpeg">
       </div>
-      <a @click="isInstructionsActive = true">
-        <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
-      </a>
-      <br>
-      <br>
-    <div class="hero-body save-your-keys">
-      <div class="container font-gibson">
-        <b-checkbox native-value="write" v-model="isEnabled">
-          {{ $t('DisplayKey.understand') }}
-        </b-checkbox>
 
-        <div class="column display-keys font-gibson has-text-white p-md m-t-md">
+        
+    </div>
+
+    <div class="hero-body">
+      <div class="container font-gibson has-text-centered">
+        <a @click="showPrivate = !showPrivate">
+          <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.private') }} </span>
+        </a>
+        <br>
+        <br>  
+        <div v-if="showPrivate" class="column display-keys font-gibson has-text-white p-md m-t-md">
           <div class="generated-keys p-md">
-            <a @click="isKeyModalActive = true">
-              <div class="wallet-address">
-                <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.private') }}: </span>
-                <span class="is-size-7 has-text-white p-l-sm"> {{ privateKey }} </span>
-              </div>
-              <div class="wallet-address p-t-sm">
-                <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.public') }}: </span>
-                <span class="is-size-7 has-text-white p-l-sm"> {{ publicKey }} </span>
-              </div>
-            </a>
+                <span class="is-size-7 has-text-white p-l-sm"> {{ privateKey }} </span> 
           </div>
         </div>
-        <div class="m-t-md">
+        <a @click="showPublic = !showPublic">
+          <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.public') }} </span>
+        </a>
+        <div v-if="showPublic" class="has-text-white">
+          <div class="generated-keys p-md">
+                <span class="is-size-7 has-text-white p-l-sm"> {{ publicKey }} </span>
+          </div>
+        </div>
+        <div class="m-t-md has-text-centered">
           <div v-if="keyalreadyused">
             <p class="has-text-danger m-t-md">
               {{ $t('DisplayKey.already') }}
@@ -53,19 +51,17 @@
             </p>
           </div>
           <input v-model="walletpassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
-          <div class="level is-mobile m-t-md">
-          <div class="has-text-dark level-left">
-            <a  @click="$router.push({ path: 'walletmanager' })" class="button m-t-md green is-centered has-text-white">
-              <p class="is-size-6">
-                {{ $t('WalletManager.cancel') }}
-              </p>
-            </a>
-          </div>
-          <div class="has-text-dark level-right">
-            <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="goToCongratsScreen">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('CreateVertoPassword.save') }}</p>
-            </a>
-          </div>
+
+        <b-checkbox native-value="write" v-model="isEnabled">
+          {{ $t('DisplayKey.understand') }}
+        </b-checkbox>
+          <div class="is-mobile m-t-md has-text-centered">
+         
+            <div class="has-text-dark has-text-centered">
+              <a :disabled="!isEnabled" class="button is-primary m-t-md is-size-5 aqua" @click="goToCongratsScreen">
+                <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">{{ $t('CreateVertoPassword.done') }}</p>
+              </a>
+            </div>
         </div>
         </div>
       </div>
@@ -151,6 +147,7 @@
     </div>
     </div>
     </div>
+     </div>
   </section>
 </template>
 
@@ -173,7 +170,9 @@ export default {
       keyname: "",
       walletpassword: "",
       incorrectPassword: false,
-      isInstructionsActive: false
+      isInstructionsActive: false,
+      showPrivate: false,
+      showPublic: false
     };
   },
   mounted() {

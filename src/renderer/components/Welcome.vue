@@ -29,13 +29,13 @@
             <form>
               <input  v-model="password" class="input m-b-sm" type="password" :placeholder="$t('Welcome.password')">
               <div class="level-item has-text-centered is-marginless">
-                <a class="p-t-lg button is-fullwidth is-success" @click="login"> {{ $t('Welcome.login') }} </a>
+                <a class="p-t-lg button is-success" @click="login"> {{ $t('Welcome.login') }} </a>
               </div>
             </form>
           </div>
           <div v-if="!hasPassword">
             <div class="is-size-6 m-t-md">{{ join_message }}</div>
-            <a class="p-t-lg button is-fullwidth is-primary" @click="createvertopassword">
+            <a class="p-t-lg button is-primary" @click="createvertopassword">
               {{ $t('Welcome.create') }}
             </a>
           </div>

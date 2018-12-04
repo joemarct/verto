@@ -1,14 +1,6 @@
 <template>
   <div class="hero is-fullheight is-paddingless has-blur-background">
     <div class="hero-head p-t-sm">
-      <div class="p-l-lg m-t-md">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/main">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
-        </div>
-        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
-      </div>
       <div class="field">
         <div class="control p-md">
           <div class="container has-text-white p-md">
@@ -19,38 +11,34 @@
             <p>
               {{ $t('NotWhitelisted.first_p') }}
               <ul>
+
                 <li>
-                  {{ $t('NotWhitelisted.first_p_first_point') }}
+                  <div class="whitelist-subheader has-text-centered">
+                    <router-link to="/whitelist" class="two">
+                      {{ $t('NotWhitelisted.link_kyc') }}
+                    </router-link>
+                  </div>
+                  <br>
+                  <div class="has-text-centered">
+                    {{ $t('NotWhitelisted.first_p_second_point') }}
+                  </div>
+                  
                 </li>
                 <li>
-                  {{ $t('NotWhitelisted.first_p_second_point') }}
+                  
+                <div class="whitelist-subheader has-text-centered">
+                  <router-link to="/associatevertotoblocktopus" class="two">
+                    {{ $t('NotWhitelisted.link_associate') }}
+                  </router-link>
+                  
+                </div>
+                <br>
+                  {{ $t('NotWhitelisted.first_p_first_point') }}
                 </li>
               </ul>
             </p>
             <br>
-            <div class="whitelist-subheader has-text-centered">
-              {{ $t('NotWhitelisted.subheader_1') }}
-            </div>
-            <p>
-              {{ $t('NotWhitelisted.second_p') }}
-            </p>
-            <p class="has-text-centered">
-              <router-link to="/associatevertotoblocktopus" class="two">
-                {{ $t('NotWhitelisted.link_associate') }}
-              </router-link>
-            </p>
-            <br>
-            <div class="whitelist-subheader has-text-centered">
-               {{ $t('NotWhitelisted.second_subheader') }}
-            </div>
-            <p>
-              {{ $t('NotWhitelisted.third_p') }}
-            </p>
-            <p class="has-text-centered">
-              <router-link to="/whitelist" class="two">
-                {{ $t('NotWhitelisted.link_kyc') }}
-              </router-link>
-            </p>
+            
           </div>
         </div>
       </div>

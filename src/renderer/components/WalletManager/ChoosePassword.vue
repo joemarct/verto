@@ -1,22 +1,11 @@
 <template>
   <section>
   <div class="hero is-fullheight is-paddingless has-blur-background">
-    <div class="hero-head p-t-sm p-l-lg">
-      <div class="p-t-xl">
-        <div class="is-pulled-left is-vcentered is-flex m-t-md">
-          <router-link to="/keepyourkeyssafe">
-            <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
-          </router-link>
-        </div>
-        <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
+    <div class="hero-head p-t-sm p-l-lg container">
+     <div class="header has-text-centered  is-size-1  has-text-white has-text-centered">
+        {{ $t('ChoosePassword.header') }}
       </div>
-      <a @click="isInstructionsActive = true">
-        <font-awesome-icon icon="question-circle" class="fa-lg has-text-grey-light  is-pulled-right m-r-sm"/>
-      </a>
       
-        <b-checkbox native-value="write" v-model="isEnabled" class="has-text-white">
-          {{ $t('DisplayKey.understand') }}
-        </b-checkbox>
         <div class="field">
           <div class="control">
             <div v-if="nokeyname">
@@ -56,17 +45,21 @@
             {{ $t('CreateVertoPassword.fillall') }}
           </p>
         </div>
+
+        <b-checkbox native-value="write" v-model="isEnabled" class="has-text-white">
+          {{ $t('DisplayKey.understand') }}
+        </b-checkbox>
         <div class="level is-mobile m-t-md">
           <div class="has-text-dark level-left">
-            <a  @click="$router.push({ path: 'walletmanager' })" class="button m-t-md green is-centered has-text-white">
+            <a  @click="$router.push({ path: 'walletmanager' })" class="button is-primary m-t-md green is-centered has-text-white">
               <p class="is-size-6">
                 {{ $t('WalletManager.cancel') }}
               </p>
             </a>
           </div>
           <div class="has-text-dark level-right">
-            <a :disabled="!isEnabled" class="button m-t-md is-size-5 green is-pulled-right" @click="encrypt">
-              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('CreateVertoPassword.save') }}</p>
+            <a :disabled="!isEnabled" class="button is-primary m-t-md is-size-5 green is-pulled-right" @click="encrypt">
+              <p class="p-l-sm p-r-sm is-size-7 font-gibson-semibold second">{{ $t('ChoosePassword.save') }}</p>
             </a>
           </div>
         </div>

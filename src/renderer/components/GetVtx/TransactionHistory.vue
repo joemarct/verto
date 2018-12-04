@@ -1,7 +1,7 @@
-<template>
-  <section class="hero is-fullheight is-light is-bold" >
-    <div class="hero-head top-bg">
-      <div class="container dark-blue-gradient">
+<template> 
+  <section class="hero is-fullheight has-background-darkgreen is-bold" >
+    <div class="">
+      <div class="container top-bg">
         <div class="container p-l-lg p-r-lg p-b-md">
           <div class="p-t-lg p-b-lg has-text-centered">
             <!-- <div class="is-pulled-left is-vcentered is-flex m-t-md">
@@ -10,83 +10,107 @@
               </router-link>
             </div> -->
             <img src="~@/assets/img/wallet-logo.png" class="logo">
-            <div class="is-pulled-right is-vcentered is-flex m-t-md">
-              <router-link to="/settings">
-                <font-awesome-icon icon="sliders-h" class="is-size-5 has-text-white" flip="horizontal"/>
-              </router-link>
-            </div>
-          </div>
-          <div class="p-b-md level is-mobile">
-            <div class="level-left has-text-centered">
-              <div>
-                <div class="level is-mobile is-size-5 font-gibson">
-                  <p class="level-left has-text-primary" >{{ $t('TransactionHistory.history') }}</p>
-                  <div class="level-right is-size-5 has-text-white m-l-md">
-                    <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="level-right has-text-centered">
-              <a @click="isCardModalActive = true">
-                <qrcode :value="wallet" :options="{ size: 80 }" class="has-text-centered"></qrcode>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="has-text-white container p-b-md" >
-          <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
-            <b-tooltip :label="wallet" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
-              <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
-                {{ $t('Main.address') }}:
-                <span id="wallet-address">{{ wallet }}</span>
-              </div>
-            </b-tooltip>
-            <div class="column is-1 is-paddingless has-text-right line-height-md">
-              <a v-clipboard:copy="wallet" id="button-copy-wallet-address" @click="toast">
-                <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
-              </a>
-            </div>
           </div>
         </div>
       </div>
+
+        <div class="has-text-white  p-b-md has-text-centered" >
+          <div class="is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
+            <div class="is-mobile is-size-5 font-gibson has-text-centered">
+                <div class="is-size-4 has-text-white m-l-md has-text-centered">
+                  <select class=" " v-model="transactionStatus" @change="refreshContent">
+                    <option value="CONVERTED">Pending</option>
+                    <option value="CONFIRMED">Accepted</option>
+                  </select>
+                  <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
+                </div>
+              </div>
+          </div>
+        </div>
     </div>
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
-        <div class="columns is-marginless p-b-md">
+        <div class=" is-marginless p-b-md">
           <div v-if="loadingData" class="p-l-lg p-r-md m-t-md is-size-4 has-text-grey-light">
             <p>
               {{ $t('Main.loading') }}...
             </p>
           </div>
+
+
           <div v-if="hasTransactions">
-            <div v-for="transaction in transactions" :key="transaction.id" class="transaction_list column is-paddingless list-item">
+            <div v-if="transactionStatus == 'CONVERTED'">
+              <div class="columns list-item is-marginless has-text-white ">
+                <div class="column is-12 is-paddingless  font-calibri">
+                  <div class="columns is-marginless has-text-centered">
+                    <div class="column has-text-white is-2">
+                      Days Left
+                    </div>
+                    <div class="column has-text-white is-4">
+                      Time Left
+                    </div>
+                    <div class="column has-text-white is-2 is-marginless">
+                      VTX
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-for="transaction in transactions" :key="transaction.id" class="">
               <a @click="transactionDetails(transaction)">
-                <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
-                  <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                    <div class="columns is-marginless">
-                      <div class="column is-paddingless">
-                        <div class="level is-mobile has-text-white">
-                          <div class="level-left">
-                            {{ transaction.native_transaction_time | formatDate }}
-                            <div class="level-left has-text-centered">
-                            <font-awesome-icon v-if="transaction.status === 'CONFIRMED'" icon="ship" class="fa-sm has-text-white m-l-sm"/>
-                          </div>
-                          </div>
-                          <div class="level-right">
-                            {{ transaction.native_transaction_time | formatTime }}
-                          </div>
+                <div class="columns list-item is-marginless has-text-white is-mobile p-t-md p-b-md p-r-md p-l-md">
+                  <div class="column is-12 is-paddingless  font-calibri">
+                    <div v-if="transaction.status == 'CONFIRMED'" class="columns is-marginless ">
+                      <div class="column is-4 has-text-white">
+                        <div v-if="transaction.native_transaction_time">
+                          {{ transaction.native_transaction_time | formatDate }}
+                          &nbsp;&nbsp;&nbsp;
+                          {{ transaction.native_transaction_time | formatTime }}
                         </div>
+                        
                       </div>
-                      <div class="column is-paddingless">
-                        <div class="level is-mobile has-text-white">
-                          <div class="level-left has-text-centered">
-                            <font-awesome-icon v-if="transaction.status === 'CONFIRMED'" icon="ship" class="fa-sm has-text-white m-l-sm"/>
-                          </div>
-                          <div class="level-right">
+                      <div v-if="transaction.status == 'CONFIRMED'" class="column has-text-white is-3">
+                            {{ transaction.status }}
+                      </div>
+                      
+                      <div class="column has-text-white is-4">
                             {{ transaction.vtx_amount }} VTX
+                      </div>
+                    </div>
+                    <div v-if="transaction.status == 'CONVERTED'" class="columns is-marginless ">
+                      <div v-if="transaction.countdown_time_ends" class="column has-text-white is-12">
+                            <countdown :time="transaction.  timeremaining" :transform="transform">
+                              <template slot-scope="props">
+                                <div class="columns is-marginless has-text-centered">
+                                  <div class="column has-text-white is-2">
+                                    <span class="is-size-2">
+                                      {{ props.days }}
+                                    </span>
+                                    
+                                  </div>
+                                  <div class="column has-text-white is-4">
+                                    <span class="is-size-2">
+                                      {{ props.hours }}:
+                                    {{ props.minutes }}:
+                                    {{ props.seconds }}
+                                    </span>
+                                    
+                                  </div>
+                                  <div class="column has-text-white is-2 is-marginless">
+                                    <span class="is-size-2">
+                                      {{ transaction.vtx_amount.toFixed(2) }}
+                                    </span> 
+                                  </div>
+                                </div>
+                                  
+                              </template>
+                            </countdown>
+                      </div>
+                      <div v-if="!transaction.countdown_time_ends" class="column has-text-white is-3">
+                            {{ transaction.confirmations_count }} {{ $t('TransactionHistory.number_of_approved_blocks') }}
+                          <div class="column has-text-white is-4 is-marginless">
+                                {{ transaction.vtx_amount }} VTX
                           </div>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -100,12 +124,6 @@
             </p>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- <a class="button is-fullwidth is-size-5 is-primary" @click="openZixipay"> -->
-    <div class="hero-foot">
-      <div class="container has-background-darklightgreen p-md has-text-white">
-        {{ appName }}: {{ appVersion }}
       </div>
     </div>
     <b-modal :active.sync="isCardModalActive" class="modal-qr">
@@ -271,7 +289,8 @@ export default {
       loadingData: true,
       currentBtcValue: 0.0,
       isTransactionDetailsActive: false,
-      transactionStatus: "CONFIRMED",
+      transactionStatus: "CONVERTED",
+      underOneMinuteLeftInTimer: false,
       currentTransaction: {
         'native_currency': ""
       }
@@ -285,11 +304,35 @@ export default {
     setWallet: function() {
       this.wallet = this.$store.state.userKey;
     },
+    transform(props) {
+      Object.entries(props).forEach(([key, value]) => {
+        let digits = value < 10 ? `0${value}` : value;
+        if (key === 'totalMinutes' && value <= 10) {
+          this.underOneMinuteLeftInTimer = true;
+        } else if (key === 'totalSeconds' && value <= 0) {
+          this.doneCountdown = true;
+        }
+        props[key] = `${digits}`;
+      });
+
+      return props;
+    },
     async getPendingTransactions() {
       let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.wallet + "&status_code=" + this.transactionStatus);
       console.log(results.data)
       this.loadingData = false;
       if (results.data.length > 0) {
+        for (var i = 0; i < results.data.length; i++) {
+          const item = results.data[i];
+          if (item.status === 'CONVERTED' && item.countdown_time_ends) {
+            const serverTime = this.$route.query.server_time;
+            const potentialTimeRemaining = Date.parse(item.countdown_time_ends) - Date.parse(item.server_time)
+            console.log(potentialTimeRemaining)
+            if (potentialTimeRemaining > 0) {
+              item.timeremaining = potentialTimeRemaining;
+            }
+          }
+        }
         this.transactions = results.data;
         this.hasTransactions = true;
         this.noTransactions = false;

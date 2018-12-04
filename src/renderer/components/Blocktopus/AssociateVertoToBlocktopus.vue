@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <iframe id="blocktopusiframe" :src="blocktopusLink" />
+  <section class="has-background-darkgreen">
+    <iframe id="blocktopusiframe" :src="blocktopusLink"/>
   </section>
 </template>
 

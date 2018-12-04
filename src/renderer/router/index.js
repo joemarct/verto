@@ -41,11 +41,6 @@ const router = new Router({
       }
     },
     {
-      path: '/checkforupdates',
-      name: 'CheckForUpdates',
-      component: require('@/components/CheckForUpdates').default
-    },
-    {
       path: '/newversionisavailable',
       name: 'NewVersionIsAvailable',
       component: require('@/components/NewVersionIsAvailable').default
@@ -67,10 +62,10 @@ const router = new Router({
     {
       path: '/associatewithblocktopus',
       name: 'AssociateWithBlocktopus',
-      component: require('@/components/AssociateWithBlocktopus').default,
       meta: {
-        requiresAuth: true
-      }
+        layout: "blocktopus"
+      },
+      component: require('@/components/AssociateWithBlocktopus').default
     },
     {
       path: '/downloadversion',
@@ -80,7 +75,7 @@ const router = new Router({
     {
       path: '/congratsscreen',
       name: 'CongratsScreen',
-      component: require('@/components/CongratsScreen').default,
+      component: require('@/components/WalletManager/CongratsScreen').default,
       meta: {
         requiresAuth: true
       }
@@ -88,7 +83,7 @@ const router = new Router({
     {
       path: '/displaykey',
       name: 'DisplayKey',
-      component: require('@/components/DisplayKey').default,
+      component: require('@/components/WalletManager/DisplayKey').default,
       meta: {
         requiresAuth: true
       }
@@ -112,7 +107,7 @@ const router = new Router({
     {
       path: '/keepyourkeyssafe',
       name: 'KeepYourKeysSafe',
-      component: require('@/components/KeepYourKeysSafe').default,
+      component: require('@/components/WalletManager/KeepYourKeysSafe').default,
       meta: {
         requiresAuth: true
       }
@@ -157,7 +152,7 @@ const router = new Router({
     {
       path: '/choosepassword',
       name: 'choosepassword',
-      component: require('@/components/ChoosePassword').default,
+      component: require('@/components/WalletManager/ChoosePassword').default,
       meta: {
         requiresAuth: true
       }
@@ -178,7 +173,15 @@ const router = new Router({
     {
       path: '/whitelist',
       name: 'whitelist',
-      component: require('@/components/Whitelist').default,
+      component: require('@/components/Blocktopus/Whitelist').default,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/whitelistsuccessful',
+      name: 'whitelistsuccessful',
+      component: require('@/components/Blocktopus/WhitelistSuccessful').default,
       meta: {
         requiresAuth: true
       }

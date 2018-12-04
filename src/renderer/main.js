@@ -23,10 +23,12 @@ import VueCountdown from '@chenfengyuan/vue-countdown';
 import Default from "./layouts/Default.vue";
 import NoSidebar from "./layouts/NoSidebar.vue";
 import Login from "./layouts/Login.vue";
+import BlocktopusFrame from "./layouts/BlocktopusFrame.vue";
 
 Vue.component("default-layout", Default);
 Vue.component("no-sidebar-layout", NoSidebar);
 Vue.component("login-layout", Login);
+Vue.component("blocktopus-layout", BlocktopusFrame);
 
 const { app } = require('electron').remote
 

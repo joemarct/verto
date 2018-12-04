@@ -3,13 +3,8 @@
     <div class="hero-body congrats p-t-md">
       <div class="container font-gibson m-t-xl">
         <!-- warning image translation needed -->
-        <img src="~@/assets/img/congratsScreen.png">
+        <img src="~@/assets/img/sunnysky.jpg">
         <div>
-          <router-link to="/main">
-            <a class="button is-size-5 green is-fullwidth">
-              <p class="p-l-sm p-r-sm is-size-5 font-gibson-semibold">{{ $t('CongratsScreen.continue') }}</p>
-            </a>
-          </router-link>
         </div>
       </div>
     </div>
@@ -19,9 +14,16 @@
 <script>
 export default {
   mounted() {
-    let command = "networksetup -setairportpower en0 on";
-    let exec = require("child_process").exec;
-    exec(command);
+    this.redirect();
+  },
+  methods: {
+    redirect: function() {
+      const router = this.$router;
+      setTimeout(function() {
+        router.push({ path: "main" })
+      },
+      4000);
+    }
   }
 };
 </script>
