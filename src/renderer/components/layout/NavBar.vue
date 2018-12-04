@@ -8,7 +8,7 @@
         <img src="~@/assets/img/verto-logo-white.png" class="" alt="avatar">
       </div>
 
-      
+
       <span class="navbar-burger burger" data-target="navMenu"  @click="showMobileChildren">
         <span></span>
         <span></span>
@@ -72,7 +72,7 @@
       </div>
     </div>
   </nav>
-</template> 
+</template>
 
 <script>
 export default {
@@ -400,7 +400,7 @@ template { display: none; }
 [hidden] { display: none; }
 /* Modules */
 /*
- 
+
   BOX SIZING
 
 */
@@ -994,7 +994,7 @@ code, .code { font-family: Consolas, monaco, monospace; }
 /*
 
    FORMS
-   
+
 */
 .input-reset { -webkit-appearance: none; -moz-appearance: none; }
 .button-reset::-moz-focus-inner, .input-reset::-moz-focus-inner { border: 0; padding: 0; }
@@ -1279,8 +1279,8 @@ code, .code { font-family: Consolas, monaco, monospace; }
    Docs: http://tachyons.io/docs/themes/skins/
 
    Classes for setting foreground and background colors on elements.
-   If you haven't declared a border color, but set border on an element, it will 
-   be set to the current text color. 
+   If you haven't declared a border color, but set border on an element, it will
+   be set to the current text color.
 
 */
 /* Text colors */
@@ -1398,13 +1398,13 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .bg-washed-yellow { background-color: #fffceb; }
 .bg-washed-red { background-color: #ffdfdf; }
 .bg-inherit { background-color: inherit; }
-/* 
-  
+/*
+
    SKINS:PSEUDO
 
    Customize the color of an element when
    it is focused or hovered over.
- 
+
  */
 .hover-black:hover { color: #000; }
 .hover-black:focus { color: #000; }
@@ -2085,16 +2085,16 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .grow-large:active { -webkit-transform: scale( .95 ); transform: scale( .95 ); }
 /* Add pointer on hover */
 .pointer:hover { cursor: pointer; }
-/* 
+/*
    Add shadow on hover.
 
-   Performant box-shadow animation pattern from 
-   http://tobiasahlin.com/blog/how-to-animate-box-shadow/ 
+   Performant box-shadow animation pattern from
+   http://tobiasahlin.com/blog/how-to-animate-box-shadow/
 */
 .shadow-hover { cursor: pointer; position: relative; transition: all .5s cubic-bezier( .165, .84, .44, 1 ); }
 .shadow-hover::after { content: ''; box-shadow: 0 0 16px 2px rgba( 0, 0, 0, .2 ); border-radius: inherit; opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; transition: opacity .5s cubic-bezier( .165, .84, .44, 1 ); }
 .shadow-hover:hover::after, .shadow-hover:focus::after { opacity: 1; }
-/* Combine with classes in skins and skins-pseudo for 
+/* Combine with classes in skins and skins-pseudo for
  * many different transition possibilities. */
 .bg-animate, .bg-animate:hover, .bg-animate:focus { transition: background-color .15s ease-in-out; }
 /*
@@ -3556,12 +3556,20 @@ code, .code { font-family: Consolas, monaco, monospace; }
 .slide-fade-leave-active {
   transition: all .2s ease;
 }
-.slide-fade-enter { 
+.slide-fade-enter {
   transform: translateY(-50px);
   opacity: 0;
 }
 .slide-fade-leave-to {
  transform: translateY(-50px);
-  opacity: 0; 
+  opacity: 0;
+}
+
+.navbar-item a {
+  color: white !important;
+}
+
+.navbar-menu.is-active {
+  background-color: transparent !important;
 }
 </style>

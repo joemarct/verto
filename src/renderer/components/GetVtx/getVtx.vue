@@ -9,211 +9,96 @@
         </div>
         <img src="~@/assets/img/verto-logo-white.png" class="logo m-l-md p-t-sm p-l-sm p-r-sm">
       </div>
-      <div class="field">
-        <div class="control p-md has-text-centered">
-          <!-- <form method="POST" action="https://zixipay.com/sci/form"> -->
-          <form method="POST" id="zixiform" action="https://zixipay.com/sci/form" >
-            <div class="container has-text-white p-md">
-              <table style="width:100%">
-                <tr>
-                  <td>
-                    {{ $t('GetVtx.vtxsold') }}:
-                  </td>
-                  <td align="right">
-                    {{ summaryData.vtx_sold }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    {{ $t('GetVtx.round') }}:
-                  </td>
-                  <td align="right">
-                    {{ summaryData.round }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    {{ $t('GetVtx.amount') }}:
-                  </td>
-                  <td>
-                    {{ summaryData.bonus }}%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    {{ $t('GetVtx.current') }}:
-                  </td>
-                  <td>
-                    {{ summaryData.priceInBtc }} BTC
-                  </td>
-                </tr>
-                <tr v-if="this.summaryData.has_additional_bonus">
-                  <td>
-                    {{ $t('GetVtx.additional') }}:
-                  </td>
-                  <td>
-                    &nbsp;
-                  </td>
-                </tr>
-                <tr v-for="data in summaryData.additional_bonus" v-if="data.bonus != 0">
-                  <td>
-                    {{ data.symbol }}
-                  </td>
-                  <td align="right">
-                    {{ data.bonus }} %
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <br>
-            <input type="hidden" name="merchant" placeholder="Merchant" value="faka_merchant_id">
-            <input type="hidden" name="description" value="Testing payment">
-            <input type="number" class="input m-b-md" name="amount" placeholder="0" v-model.number="amount" @change="calculateVtx">
-            <select class="input m-b-md" v-model="currency" @change="changeCurrency">
-              <option value="BTC">Bitcoin</option>
-              <option value="ETH">Ethereum</option>
-              <option value="EOS">EOS</option>
-            </select>
-            <input type="hidden" name="currency" v-model="currency">
-            <input type="hidden" name="custom" v-model="this.$store.state.userKey">
-            <input type="hidden" name="hash" v-model="userHash">
+      <div class="control p-md has-text-centered">
+        <div class="getvtx-header">
+          {{ $t('GetVtx.getvtx') }}
+        </div>
+        <img v-if="!doneCountdown" height="280" width="120" src="~@/assets/img/ethereum.png" class="logo">
+        <div class="container has-text-white p-md">
 
-            <div class="container has-text-white p-md">
-              <table style="width:100%">
-                <tr>
-                  <td>
-                    {{ $t('TransactionHistory.pre') }}
-                  </td>
-                  <td align="right">
-                    {{ calculatedVtx.vtxPreBonus.toFixed(4) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    {{ $t('GetVtx.bonus') }}
-                  </td>
-                  <td align="right">
-                    {{ calculatedVtx.bonusVtx.toFixed(4) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    {{ $t('TransactionHistory.additional') }}
-                  </td>
-                  <td align="right">
-                    {{ calculatedVtx.additionalBonus.toFixed(4) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    {{ $t('TransactionHistory.total') }}
-                  </td>
-                  <td align="right">
-                    {{ calculatedVtx.total.toFixed(4) }}
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-              <a :disabled="true" class="button is-fullwidth is-primary has-text-white" @click="buyVtx">
-                {{ $t('GetVtx.soon') }}
+          <countdown :time="timeremaining" :transform="transform">
+            <template slot-scope="props">
+              <div v-bind:class="{ oneminuteleft: underOneMinuteLeftInTimer, overoneminuteleft: !underOneMinuteLeftInTimer }">
+                <span v-if="!underOneMinuteLeftInTimer">{{ props.minutes }}:</span>
+                {{ props.seconds }}
+              </div>
+            </template>
+          </countdown>
+          <div v-if="!doneCountdown">
+            <div class="level-right has-text-centered">
+              <a @click="isCardModalActive = true">
+                <qrcode :value="nativeChainAddress" :options="{ size: 120 }" class="has-text-centered"></qrcode>
               </a>
             </div>
-          </form>
+            <br>
+            
+            <div class="columns is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
+              <b-tooltip :label="nativeChainAddress" position="is-bottom" class="m-l-lg" type="is-white" style="width:80%">
+                <div class="column is-11 is-paddingless wallet-address is-size-7 font-calibri">
+                  <span id="wallet-address">{{ nativeChainAddress }}</span>
+                </div>
+              </b-tooltip>
+              <div class="column is-1 is-paddingless has-text-right line-height-md">
+                <a v-clipboard:copy="nativeChainAddress" id="button-copy-wallet-address" @click="toast">
+                  <font-awesome-icon icon="copy" class="is-size-7 has-text-white"/>
+                </a>
+              </div>
+            </div>
+          </div>
+          <br>
         </div>
       </div>
-      <!-- <iframe src="https://www.zixipay.com"/> -->
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { timingSafeEqual } from 'crypto';
 
 export default {
   data() {
     return {
-      messages: "",
-      isCardModalActive: false,
-      wallet: "",
-      balance: 0,
-      transactionLink: "/transactiondetails",
-      hasTransactions: true,
-      summaryData: {},
-      userHash: "",
-      currency: "BTC",
-      amount: 0,
-      currency_conversion_ratio: 1,
-      rateAmount: 1,
-      calculatedVtx: {vtxPreBonus: 0, bonusVtx: 0, additionalBonus: 0, total: 0}
+      nativeChainAddress: null,
+      validUntil: null,
+      nativeChainName: null,
+      timeremaining: 0,
+      underOneMinuteLeftInTimer: false,
+      doneCountdown: false
     };
   },
-  methods: {
-    async changeCurrency() {
-      let url = "https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=" + this.currency;
-      let results = await axios.get(url);
-      let key = 'price_' + this.currency.toLowerCase();
-      this.rateAmount = results.data[0][key];
-      this.calculateVtx();
-    },
-    async calculateVtx() {
-      if (this.amount > 0) {
-        let btcAmount = this.amount / this.rateAmount;
-        let satoshi = btcAmount * 100000000;
-        this.calculatedVtx.vtxPreBonus = satoshi / (this.summaryData.priceInBtc * 100000000);
-        this.calculatedVtx.bonusVtx = this.calculatedVtx.vtxPreBonus * this.summaryData.bonus / 100
-        this.calculatedVtx.additionalBonus = 0;
-        let i;
-        for (i = 0; i < this.summaryData.additional_bonus.length; i++) {
-          const bonus = this.summaryData.additional_bonus[i];
-          if (bonus.bonus !== 0 && bonus.symbol === this.currency) {
-            this.calculatedVtx.additionalBonus = this.calculatedVtx.vtxPreBonus * bonus.bonus / 100
-            break;
-          }
-        }
-        this.calculatedVtx.total = this.calculatedVtx.vtxPreBonus + this.calculatedVtx.bonusVtx + this.calculatedVtx.additionalBonus
-      }
-    },
-    async buyVtx() {
-      let hashResult = await axios.post(
-        process.env.CROWDFUND_URL + "/public/api/zixipay-create-hash/",
-        {
-          merchant: "faka_merchant_id",
-          custom: this.$store.state.userKey,
-          amount: this.amount,
-          currency: this.currency
-        }
-      );
-      const res = await hashResult;
-      this.userHash = res.data.hash;
-      console.log("HASH RESULTS: " + this.userHash)
-      const form = document.getElementById("zixiform");
-      form.hash.value = this.userHash
-      let fs = require("fs");
-      let path = require("path")
-      let electron = require("electron")
-      let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.temp');
-      let datatoStore = {currentKey: this.$store.state.userKey, keys: this.$store.state.keys};
-      fs.writeFileSync(filePath, JSON.stringify(datatoStore), 'utf-8');
-      // document.getElementById("zixiform").submit();
-    },
-    async getSummaryData() {
-      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/summary/");
-      this.summaryData = results.data;
-      this.summaryData.priceInBtc = this.summaryData.current_price / 100000000;
-      this.summaryData.has_additional_bonus = false;
-      let i;
-      for (i = 0; i < this.summaryData.additional_bonus.length; i++) {
-        const bonus = this.summaryData.additional_bonus[i];
-        if (bonus.bonus !== 0) {
-          this.summaryData.has_additional_bonus = true;
-          break;
-        }
-      }
+  created() {
+    this.nativeChainAddress = this.$route.query.native_chain_address;
+    this.validUntil = this.$route.query.valid_until;
+    this.nativeChainName = this.$route.query.native_chain_name;
+    const serverTime = this.$route.query.server_time;
+    const potentialTimeRemaining = Date.parse(this.validUntil) - Date.parse(serverTime)
+    console.log(potentialTimeRemaining)
+    if (potentialTimeRemaining > 0) {
+      this.timeremaining = potentialTimeRemaining;
     }
   },
-  created: function() {
-    this.getSummaryData();
+  methods: {
+    toast() {
+      this.$toast.open({
+        type: "is-white",
+        message: this.$t('Main.copied'),
+        duration: 2000
+      });
+    },
+    transform(props) {
+      Object.entries(props).forEach(([key, value]) => {
+        let digits = value < 10 ? `0${value}` : value;
+        if (key === 'totalMinutes' && value <= 10) {
+          this.underOneMinuteLeftInTimer = true;
+        } else if (key === 'totalSeconds' && value <= 0) {
+          this.doneCountdown = true;
+        }
+        props[key] = `${digits}`;
+      });
+
+      return props;
+    }
   }
 };
 </script>
@@ -240,5 +125,27 @@ input {
   background-image: url(~@/assets/img/transaction-back-screen.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+.wallet-address {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 1px;
+}
+.getvtx-header {
+  color: #f4f4f4;
+  font-size: 30pt;
+}
+.overoneminuteleft {
+  color: #f4f4f4;
+  font-size: 40pt;
+}
+.oneminuteleft {
+  color: red;
+  font-size: 100pt;
+}
+.getvtx-subheader {
+  color: #f4f4f4;
+  font-size: 17pt;
 }
 </style>
