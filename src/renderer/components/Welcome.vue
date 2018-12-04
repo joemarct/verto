@@ -99,7 +99,20 @@ export default {
           const config = JSON.parse(sjcl.decrypt(this.password, databack));
           this.$store.dispatch("setKeys", config.keys);
           this.$store.dispatch("login", true);
-          this.$router.push({ path: "walletmanager" });
+          let foundDefault = false;
+          let i;
+          for (i = 0; i < config.keys.length; i++) {
+            const key = config.keys[i];
+            if (key.defaultKey) {
+              this.$store.commit("save", key.address);
+              foundDefault = true;
+            }
+          }
+          if (foundDefault) {
+            this.$router.push({ path: "main" });
+          } else {
+            this.$router.push({ path: "walletmanager" });
+          }
         } catch (error) {
           this.incorrectPassword = true
         }

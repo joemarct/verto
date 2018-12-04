@@ -178,6 +178,39 @@
           </div>
         </div>
       </b-modal>
+      <b-modal :active.sync="isChangingDefault">
+        <div class="card has-text-centered has-background-black has-text-white">
+          <div class="card-content">
+            <div class="modal-header is-size-1">
+              <slot name="header">
+                {{ newDefaultKey.name }} As Default
+              </slot>
+            </div>
+            <br>
+            <div>
+              <input v-model="walletpassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
+            </div>
+            <div v-if="changeDefaultMissingPassword">
+              <p class="has-text-danger m-t-md">
+                You must provide a password
+              </p>
+            </div>
+            <div v-if="incorrectDefaultChangePassword">
+              <p class="has-text-danger m-t-md">
+                {{ $t('Welcome.incorrect') }}
+              </p>
+            </div>
+            <div class="has-text-dark">
+                <a class="button m-t-md green is-primary is-centered has-text-white" @click="changeDefault">
+                  <p>
+                    {{ $t('WalletManager.submit') }}
+                  </p>
+                </a>
+              </div>
+            <br>
+          </div>
+        </div>
+      </b-modal>
     </div>
   </section>
 </template>
@@ -208,7 +241,11 @@ export default {
       isInstructionsActive: false,
       lastwarningBeforeDelete: false,
       showParentNavOptions: false,
-      showDeleteKey: false
+      showDeleteKey: false,
+      isChangingDefault: false,
+      newDefaultKey: {},
+      changeDefaultMissingPassword: false,
+      incorrectDefaultChangePassword: false
     };
   },
   mounted() {
@@ -224,6 +261,44 @@ export default {
     },
     chooseDefault: function(key) {
       console.log("choose default=" + JSON.stringify(key))
+      this.newDefaultKey = key;
+      this.walletpassword = "";
+      this.isChangingDefault = true;
+    },
+    changeDefault: function() {
+      this.changeDefaultMissingPassword = false;
+      this.incorrectDefaultChangePassword = false;
+      if (this.walletpassword === "") {
+        this.changeDefaultMissingPassword = true;
+        return;
+      }
+      let fs = require("fs");
+      let path = require("path")
+      let electron = require("electron")
+      let filePath = path.join(electron.remote.app.getPath('userData'), '/verto.config');
+      const databack = fs.readFileSync(filePath, 'utf-8');
+      let config = {};
+      try {
+        config = JSON.parse(sjcl.decrypt(this.walletpassword, databack));
+      } catch (error) {
+        this.incorrectDefaultChangePassword = true
+        return;
+      }
+      let i;
+      for (i = 0; i < config.keys.length; i++) {
+        const key = config.keys[i];
+        if (key.name.toLowerCase() === this.newDefaultKey.name.toLowerCase()) {
+          key.defaultKey = true;
+        } else {
+          key.defaultKey = false;
+        }
+      }
+      this.$store.dispatch("setKeys", config.keys);
+      this.existingKeys = this.$store.state.keys;
+      fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
+      this.walletpassword = "";
+      this.existingKeys = config.keys;
+      this.isChangingDefault = false;
     },
     openvideo: function() {
       var open = require("open");
