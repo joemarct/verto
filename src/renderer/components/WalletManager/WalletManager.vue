@@ -3,7 +3,7 @@
   <div class="hero is-fullheight is-paddingless has-blur-background ">
     <div class="hero-head p-t-sm p-l-lg p-r-md ">
       <nav class="navbar is-dark is-logo">
-        <div class="navbar-brand"> 
+        <div class="navbar-brand">
           <div class="navbar-item header has-text-centered is-centered  has-text-white">
             {{ $t('WalletManager.header') }}
           </div>
@@ -70,7 +70,7 @@
         <br>
         <div v-if="existingKeys.length > 0 && !showAddKey">
           <div v-if="showdeletekeypassword" class="has-text-centered container">
-            
+
             <input v-model="deletekeypassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
             <div v-if="lastwarningBeforeDelete">
               <p class="has-text-danger">
@@ -119,12 +119,12 @@
                   <a @click="deleteKey(key.name)">
                     <font-awesome-icon icon="trash" class="fa-md has-text-grey-light m-l-sm trash-bin is-pulled-right m-r-sm"/>
                   </a>
-                </div> 
+                </div>
               </nav>
             </div>
-             
+
           </div>
-            <br>  
+            <br>
           </div>
         </div>
       </div>
@@ -324,6 +324,9 @@ export default {
 </script>
 
 <style scoped>
+.navbar-menu.is-active {
+  background-color: transparent !important;
+}
 .hero-body.select-key {
   background-color: #f7f7fa !important;
 }
