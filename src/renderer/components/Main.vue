@@ -11,20 +11,21 @@
                 </router-link>
               </div> 
               <img src="~@/assets/img/wallet-logo.png" class="logo"> -->
-              <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </span>
-
+              <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ walletName }}</span>
               <div class="is-pulled-right is-vcentered is-flex m-t-md">
                 <a @click="isCardModalActive = true">
                   <qrcode :value="wallet" :options="{ size: 40 }" class="has-text-centered"></qrcode>
                 </a>
               </div>
+              <br>
+              <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </span>
+
+              
               <div class="has-text-centered is-size-2 has-text-white m-l-md">
                     <p >
                       <span class="has-text-centered has-text-primary">{{ currentBtcValue.toFixed(4) }} BTC </span>
                       <font-awesome-icon icon="sync-alt" class="is-size-3" style="cursor:pointer" @click="refreshContent"/>
                     </p>
-                    
-                    
                   </div>
             </div>
           </div>
@@ -175,7 +176,8 @@ export default {
       appVersion: this.$appVersion,
       appName: this.$appName,
       loadingData: true,
-      currentBtcValue: 0.0
+      currentBtcValue: 0.0,
+      walletName: ""
     };
   },
   mounted() {
@@ -184,12 +186,15 @@ export default {
       chainId: chainId
     },
     process.env.LEDGER_ACCOUNT_NAME);
-
+    this.setWalletName();
     this.setWallet();
     this.refreshBalance();
     this.getTransactionHistory();
   },
   methods: {
+    setWalletName: function() {
+      this.walletName = this.$store.state.currentWallet.name;
+    },
     setWallet: function() {
       this.wallet = this.$store.state.userKey;
     },

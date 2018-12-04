@@ -5,8 +5,9 @@
           <div class="requestaddress-header has-text-centered">
             {{ $t('RequestNativeChainAddress.header') }}
           </div>
-          <pending-counter/>
+          
           <div v-if="!investorMustWait" class="has-text-centered" >
+            <pending-counter/>
             <p>
               {{ $t('RequestNativeChainAddress.first_p') }}
             </p>

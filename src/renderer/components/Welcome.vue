@@ -105,6 +105,7 @@ export default {
             const key = config.keys[i];
             if (key.defaultKey) {
               this.$store.commit("save", key.address);
+              this.$store.dispatch("setCurrentWallet", key);
               foundDefault = true;
             }
           }

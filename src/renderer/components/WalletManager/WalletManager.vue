@@ -109,7 +109,7 @@
                   <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
                 </div>
                 <div class="level-item has-text-centered">
-                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
+                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key)"> {{ key.name }} </a>
                 </div>
                 <div class="level-item has-text-centered">
                   <b-checkbox v-model="key.defaultKey" @change.native="chooseDefault(key)">
@@ -304,8 +304,9 @@ export default {
       var open = require("open");
       open("https://www.youtube.com/embed/u8qDkInJHaI");
     },
-    openMain: function(address) {
-      this.$store.commit("save", address);
+    openMain: function(key) {
+      this.$store.commit("save", key.address);
+      this.$store.dispatch("setCurrentWallet", key);
       this.$router.push({ path: "main" });
     },
     addpublickey: function() {
