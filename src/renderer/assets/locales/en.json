@@ -25,8 +25,9 @@
         "delete": "Delete Wallet",
         "trash": "Click on the 'Trash' icon",
         "enter": "Enter your password.",
-        "note": "<b>NOTE:</b> Verto is unable to recover deleted wallets."
-    },    
+        "note": "<b>NOTE:</b> Verto is unable to recover deleted wallets.",
+        "save": "Save"
+    },
     "WalletManager": {
         "used": "The name or the wallet has already been used.",
         "both": "You must supply both a name and the public key for the wallet.",
@@ -35,7 +36,7 @@
         "cancel": "Cancel",
         "delete": "Delete",
         "keyhere": "Wallet Public Key Here",
-        "header": "Wallet Manger",
+        "header": "Wallet Manager",
         "wallets": "Wallets"
     },
     "KeepYourKeysSafe": {

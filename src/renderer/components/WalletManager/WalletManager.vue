@@ -7,7 +7,7 @@
           <div class="navbar-item header has-text-centered is-centered  has-text-white">
             {{ $t('WalletManager.header') }}
           </div>
-          <a class="navbar-burger  is-dark" @click="open = !open">
+          <a class="navbar-burger  is-white" @click="open = !open">
             <span aria-hidden="true" ></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -326,6 +326,9 @@ export default {
 <style scoped>
 .navbar-menu.is-active {
   background-color: transparent !important;
+}
+.navbar-burger{
+  color: #ffffff !important;
 }
 .hero-body.select-key {
   background-color: #f7f7fa !important;
