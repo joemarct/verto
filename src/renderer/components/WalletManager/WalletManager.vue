@@ -428,9 +428,9 @@ export default {
   border-bottom: solid 1px hsl(0, 0%, 86%);
   padding: 0.5rem !important;
 }
-.hero-body.select-key .keys-container {
+.keys-container {
+  max-width: 40rem;
   overflow-y: scroll;
-  height: 50vh;
 }
 .hero-body.select-key .key:hover {
   color: hsl(171, 100%, 41%) !important;

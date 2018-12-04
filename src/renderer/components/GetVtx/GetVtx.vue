@@ -120,7 +120,7 @@ export default {
         if (key === 'totalMinutes' && value <= 0) {
           this.underOneMinuteLeftInTimer = true;
         } else if (key === 'totalSeconds' && value <= 0) {
-          // this.doneCountdown = true;
+          this.doneCountdown = true;
         }
         props[key] = `${digits}`;
       });
