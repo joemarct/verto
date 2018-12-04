@@ -242,6 +242,9 @@ export default {
   width: 90%;
 }
 .hero.is-fullheight {
-  height: 80vh;
+  min-height: 80vh !important;
+}
+hr {
+  width: 90%;
 }
 </style>
