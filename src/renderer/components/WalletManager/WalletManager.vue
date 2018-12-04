@@ -112,7 +112,7 @@
                   <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
                 </div>
                 <div class="level-item has-text-centered">
-                  <b-checkbox @change.native="chooseDefault(key)">
+                  <b-checkbox v-model="key.defaultKey" @change.native="chooseDefault(key)">
                     </b-checkbox>
                 </div>
                 <div class="level-item has-text-centered">

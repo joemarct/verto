@@ -10,10 +10,10 @@
 
       
       <span class="navbar-burger burger" data-target="navMenu"  @click="showMobileChildren">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
     </div>
     <div class="navbar-menu" id="navMenu" :class="{'is-active': open}">
 
@@ -33,7 +33,7 @@
             <div v-if="showDropDownOptionsChildren" >
 
               <router-link v-if="hasChosenWallet()" :to="{path: 'main'}" @click.native="showParentsPane()">
-                Current Wallet
+                {{ $t('SettingsView.current_wallet') }}
               </router-link>
               &nbsp;&nbsp;
               <router-link  :to="{name: 'walletmanager'}" @click.native="showParentsPane()">
@@ -42,6 +42,10 @@
               &nbsp;&nbsp;
               <router-link to="/changevertopassword" @click.native="showParentsPane()">
                 {{ $t('SettingsView.change') }}
+              </router-link>
+              &nbsp;&nbsp;
+              <router-link to="/vespucciopen" @click.native="showParentsPane()">
+                {{ $t('SettingsView.vespucci_open') }}
               </router-link>
               &nbsp;&nbsp;
               <!-- class="f6 link ph3 pv1 dib black-40  items-center justify-center w4  has-text-white" -->

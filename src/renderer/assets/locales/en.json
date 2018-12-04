@@ -126,7 +126,9 @@
         "sendmail": "Send Mail",
         "language": "Language",
         "help": "Help",
-        "optionsdd": " Options"
+        "optionsdd": " Options",
+        "vespucci_open": "Vespucci Open",
+        "current_wallet": "Current Wallet"
     },
     "AssociateView": {
         "username": "Blocktopus Username",
