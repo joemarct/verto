@@ -5,38 +5,30 @@
         <div class="control p-md">
           <div class="container has-text-white p-md">
             <div class="whitelist-header has-text-centered">
-              {{ $t('NotWhitelisted.header') }}
+              {{ $t('NotWhitelisted.kyc') }}
+            </div>
+            <div class="has-text-centered">
+              {{ $t('NotWhitelisted.kyc_1') }}
             </div>
             <br>
-            <p>
-              {{ $t('NotWhitelisted.first_p') }}
-              <ul>
-
-                <li>
-                  <div class="whitelist-subheader has-text-centered">
-                    <router-link to="/whitelist" class="two">
-                      {{ $t('NotWhitelisted.link_kyc') }}
-                    </router-link>
-                  </div>
-                  <br>
-                  <div class="has-text-centered">
-                    {{ $t('NotWhitelisted.first_p_second_point') }}
-                  </div>
-                  
-                </li>
-                <li>
-                  
-                <div class="whitelist-subheader has-text-centered">
-                  <router-link to="/associatevertotoblocktopus" class="two">
-                    {{ $t('NotWhitelisted.link_associate') }}
-                  </router-link>
-                  
-                </div>
-                <br>
-                  {{ $t('NotWhitelisted.first_p_first_point') }}
-                </li>
-              </ul>
-            </p>
+            <div class="has-text-centered">
+              <router-link  to="/whitelist" class="button is-primary">
+                {{ $t('NotWhitelisted.link_kyc') }}
+              </router-link>
+            </div>
+            <br>
+            <div class="whitelist-header has-text-centered">
+              {{ $t('NotWhitelisted.whitelist') }}
+            </div>
+            <div class="has-text-centered">
+              {{ $t('NotWhitelisted.second_p') }}
+            </div>
+            <br>
+            <div class="has-text-centered">
+              <router-link  to="/associatevertotoblocktopus" class="button is-primary">
+                {{ $t('NotWhitelisted.link_associate') }}
+              </router-link>
+            </div>
             <br>
             
           </div>
@@ -93,6 +85,5 @@ input {
   background-repeat: no-repeat;
 }
 a.two:link {color:#00DEB1;}
-a.two:visited {color:#0000ff;}
-a.two:hover {font-size:150%;}
+a.two:visited {color:#00DEB1;;}
 </style>

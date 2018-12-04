@@ -9,21 +9,16 @@
                 <router-link to="/welcome">
                   <font-awesome-icon icon="arrow-left" class="fa-sm has-text-white m-l-sm"/>
                 </router-link>
-              </div> -->
-              <img src="~@/assets/img/wallet-logo.png" class="logo">
+              </div> 
+              <img src="~@/assets/img/wallet-logo.png" class="logo"> -->
+              <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </span>
 
               <div class="is-pulled-right is-vcentered is-flex m-t-md">
                 <a @click="isCardModalActive = true">
-                      <qrcode :value="wallet" :options="{ size: 40 }" class="has-text-centered"></qrcode>
-                    </a>
-                    &nbsp;&nbsp;&nbsp;
+                  <qrcode :value="wallet" :options="{ size: 40 }" class="has-text-centered"></qrcode>
+                </a>
               </div>
-            </div>
-             <div class="p-t-lg p-b-lg has-text-centered">
-                  
-                  <p class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </p>
-                  
-                  <div class="has-text-centered is-size-2 has-text-white m-l-md">
+              <div class="has-text-centered is-size-2 has-text-white m-l-md">
                     <p >
                       <span class="has-text-centered has-text-primary">{{ currentBtcValue.toFixed(4) }} BTC </span>
                       <font-awesome-icon icon="sync-alt" class="is-size-3" style="cursor:pointer" @click="refreshContent"/>
@@ -31,7 +26,7 @@
                     
                     
                   </div>
-             </div>
+            </div>
           </div>
         </div>
       </div>
