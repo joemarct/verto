@@ -5,8 +5,9 @@
           <div class="requestaddress-header has-text-centered">
             {{ $t('RequestNativeChainAddress.header') }}
           </div>
-          <pending-counter/>
+          
           <div v-if="!investorMustWait" class="has-text-centered" >
+            <pending-counter/>
             <p>
               {{ $t('RequestNativeChainAddress.first_p') }}
             </p>
@@ -137,7 +138,7 @@ export default {
       let hashResult = await axios.post(
         process.env.CROWDFUND_URL + "/public/api/initiate-transaction/",
         {
-          verto_public_address: this.$store.state.userKey,
+          verto_public_address: this.$store.state.currentWallet.key,
           currency: this.currency
         }
       );

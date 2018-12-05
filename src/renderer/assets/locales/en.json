@@ -6,8 +6,8 @@
         "nopassword": "No Password Has Been Set For The Wallet. Please Create A Password First.",
         "incorrect": "The Verto Password Is Incorrect.",
         "login": "Login",
-        "create": "Create Verto Password",
-        "subtitle_message": "Verto is your gateway to Volentix, with Verto, you can purchase VTX, the native token of the Volentix ecosystem.",
+        "create": "Begin",
+        "subtitle_message": "Verto is your gateway into Volentix.",
         "join_message": "We're glad you've joined us."
     },
     "CreateVertoPassword": {
@@ -181,7 +181,7 @@
         "err_noAddressAvailable": "No address available for that chain. Please try again.",
         "err_pendingTransactionsExist": "Pending transactions exist",
         "err_investor_must_wait": "You must wait an hour between before requesting a new address.",
-        "first_p": "The following two rules apply:",
+        "first_p": "The following rules apply:",
         "second_p": "1. The address you receive is only valid for a limited period of time.",
         "second_p_point_1": "2. Any transaction you send after the allocation period may be lost.",
         "third_p": "3. You are only able to request one native chain address per hour.",
@@ -208,9 +208,10 @@
         "header": "Checking Wallet Status"
     },
     "GetVtx": {
-        "getvtx": "GetVtx",
+        "getvtx": "Get Vtx With",
         "native_chain_address": "Native Chain Address",
-        "available_for": "Address Available Until"
+        "available_for": "Address Available Until",
+        "native_chain_header": "Native Chain Address"
     },
     "Countdown": {
         "time_remaining": "Time Remaining",

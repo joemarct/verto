@@ -169,8 +169,7 @@ export default {
       incorrectPassword: false,
       isInstructionsActive: false,
       showPrivate: false,
-      showPublic: false,
-      defaultKey: true
+      showPublic: false
     };
   },
   mounted() {
@@ -215,15 +214,16 @@ export default {
           this.keyalreadyused = true;
           return;
         }
-        if (key.default) {
-          console.log("We already have a default key.")
-          this.defaultKey = false;
-        }
       }
-      config.keys.push({name: this.keyname, key: this.publicKey, default: this.defaultKey});
+      let defaultKey = false;
+      if (config.keys.length <= 0) {
+        defaultKey = true;
+      }
+      const key = {name: this.keyname, key: this.publicKey, defaultKey: defaultKey};
+      config.keys.push(key);
       this.$store.dispatch("setKeys", config.keys);
+      this.$store.dispatch("setCurrentWallet", key);
       fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
-      this.$store.commit("save", this.publicKey);
       this.$router.push("congratsscreen");
     }
   }

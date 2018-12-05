@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     hasChosenWallet: function() {
-      return this.$store.state.userKey
+      return this.$store.state.currentWallet.key
     },
     showMobileChildren: function() {
       this.open = !this.open;

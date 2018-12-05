@@ -109,7 +109,7 @@
                   <font-awesome-icon icon="key" class="fa-sm has-text-primary m-l-sm"/>
                 </div>
                 <div class="level-item has-text-centered">
-                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key.key)"> {{ key.name }} </a>
+                  <a class="is-size-6 m-md key has-text-white" @click="openMain(key)"> {{ key.name }} </a>
                 </div>
                 <div class="level-item has-text-centered">
                   <b-checkbox v-model="key.defaultKey" @change.native="chooseDefault(key)">
@@ -250,7 +250,9 @@ export default {
   },
   mounted() {
     this.existingKeys = this.$store.state.keys;
-    console.log(this.existingKeys)
+    if (!this.existingKeys || this.existingKeys.length <= 0) {
+      this.$router.push({ path: "keepyourkeyssafe" });
+    }
   },
   methods: {
     showChildren: function() {
@@ -304,8 +306,9 @@ export default {
       var open = require("open");
       open("https://www.youtube.com/embed/u8qDkInJHaI");
     },
-    openMain: function(address) {
-      this.$store.commit("save", address);
+    openMain: function(key) {
+      this.$store.commit("save", key.address);
+      this.$store.dispatch("setCurrentWallet", key);
       this.$router.push({ path: "main" });
     },
     addpublickey: function() {
@@ -336,8 +339,14 @@ export default {
           return;
         }
       }
-      config.keys.push({name: this.keyname, key: this.publicKey});
+      let defaultKey = false;
+      if (config.keys.length <= 0) {
+        defaultKey = true;
+      }
+      const key = {name: this.keyname, key: this.publicKey, defaultKey: defaultKey};
+      config.keys.push(key);
       this.$store.dispatch("setKeys", config.keys);
+      this.$store.dispatch("setCurrentWallet", key);
       this.existingKeys = this.$store.state.keys;
       fs.writeFileSync(filePath, sjcl.encrypt(this.walletpassword, JSON.stringify(config)), 'utf-8');
       this.walletpassword = "";
