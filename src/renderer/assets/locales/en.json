@@ -61,8 +61,10 @@
     "DisplayKey": {
         "header": "Write It Down",
         "understand": "I understand that the private key is not stored in Verto and cannot be recovered.",
-        "private": "Show Private",
-        "public": "Show Public",
+        "showPrivate": "Show Private",
+        "hidePrivate": "Hide Private",
+        "showPublic": "Show Public",
+        "hidePublic": "Hide Public",
         "already": "The name or the key has already been used.",
         "mustname": "You must provide a name for your key.",
         "walletname": "Wallet Name",

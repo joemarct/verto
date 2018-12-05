@@ -1,14 +1,12 @@
 <template>
   <section>
-    <div class="hero-head p-md has-blur-background">
+    <div class="hero-body has-background-darkgreen has-text-white has-blur-background">
       <div class="has-text-centered">
         <div class="has-text-centered is-size-1 has-text-white">{{ $t('KeepYourKeysSafe.keepsafe') }}</div>
         <br>
         <img src="~@/assets/img/saveKeys.png">
       </div>
-    </div>
-    <div class="hero-body has-background-darkgreen has-text-white">
-      <div class="container font-gibson">
+      <div class="container font-gibson body-text">
         <p class="m-t-sm">
           {{ $t('KeepYourKeysSafe.before') }}
         </p>
@@ -107,6 +105,9 @@ export default {
 </script>
 
 <style scoped>
+.body-text {
+  max-width: 40rem;
+}
 .hero-body.safe-keys {
   background-color: #ffffff !important;
   padding-top: 0 !important;

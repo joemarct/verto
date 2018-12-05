@@ -1,10 +1,5 @@
 <template>
   <section class="hero is-fullheight wallet-background">
-    <!-- <div class="locale-changer p-t-md m-l-md">
-      <select v-model="$i18n.locale">
-        <option v-for="(lang, i) in langs" :key="`Lang${i}`" :value="lang">{{ lang }}</option>
-      </select>
-    </div> -->
     <div class="hero-body">
       <div class="container has-text-centered">
         <div class="box has-text-white is-radiusless is-shadowless">
@@ -28,7 +23,7 @@
             </div>
             <form>
               <input  v-model="password" class="input m-b-sm" type="password" :placeholder="$t('Welcome.password')">
-              <div class="level-item has-text-centered is-marginless">
+              <div class="level-item has-text-centered m-t-sm">
                 <a class="p-t-lg button is-success" @click="login"> {{ $t('Welcome.login') }} </a>
               </div>
             </form>
@@ -126,6 +121,9 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  max-width: 30rem;
+}
 .wallet-background {
   height: 100vh;
   background-image: url(~@/assets/img/wallet-bg.jpg);

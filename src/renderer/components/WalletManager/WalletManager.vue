@@ -26,8 +26,8 @@
           </div>
         </div>
       </nav>
-        <div v-if="showAddKey" class="container has-text-centered">
-          <div class="header has-text-centered is-centered  has-text-white has-text-centered">
+        <div v-if="showAddKey" class="container has-text-centered add-wallet">
+          <div class="header has-text-white has-text-centered m-t-lg">
           {{ $t('CreateVertoPassword.addwallet') }}
           </div>
           <form>
@@ -459,5 +459,8 @@ export default {
 }
 .hero-body.select-key input {
   border-radius: 0.5rem;
+}
+.add-wallet {
+  max-width: 35rem;
 }
 </style>
