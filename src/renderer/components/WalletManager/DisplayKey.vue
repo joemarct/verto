@@ -1,5 +1,5 @@
 <template>
-  <section> 
+  <section>
     <div class="has-blur-background has-text-white">
   <div class="hero is-fullheight is-paddingless">
     <div class="hero-head p-t-sm p-l-lg">
@@ -9,24 +9,22 @@
           </div>
           <img src="~@/assets/img/written.jpeg">
       </div>
-
-        
-    </div>
-
-    <div class="hero-body">
+      <br>
       <div class="container font-gibson has-text-centered">
         <a @click="showPrivate = !showPrivate">
-          <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.private') }} </span>
+          <span v-if="!showPrivate" class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.showPrivate') }} </span>
+          <span v-else class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.hidePrivate') }} </span>
         </a>
         <br>
-        <br>  
-        <div v-if="showPrivate" class="column display-keys font-gibson has-text-white p-md m-t-md">
+        <div v-if="showPrivate" class="has-text-white">
           <div class="generated-keys p-md">
-                <span class="is-size-7 has-text-white p-l-sm"> {{ privateKey }} </span> 
+                <span class="is-size-7 has-text-white p-l-sm"> {{ privateKey }} </span>
           </div>
         </div>
+        <br>
         <a @click="showPublic = !showPublic">
-          <span class="is-size-6 has-text-aqua p-l-sm">{{ $t('DisplayKey.public') }} </span>
+          <span v-if="!showPublic" class="is-size-6 has-text-aqua p-l-sm m-t-md">{{ $t('DisplayKey.showPublic') }} </span>
+          <span v-else class="is-size-6 has-text-aqua p-l-sm m-t-md">{{ $t('DisplayKey.hidePublic') }} </span>
         </a>
         <div v-if="showPublic" class="has-text-white">
           <div class="generated-keys p-md">
@@ -56,7 +54,7 @@
           {{ $t('DisplayKey.understand') }}
         </b-checkbox>
           <div class="is-mobile m-t-md has-text-centered">
-         
+
             <div class="has-text-dark has-text-centered">
               <a :disabled="!isEnabled" class="button is-primary m-t-md is-size-5 aqua" @click="goToCongratsScreen">
                 <p class="p-l-sm p-r-sm font-gibson-semibold is-size-7">{{ $t('CreateVertoPassword.done') }}</p>
@@ -147,7 +145,6 @@
     </div>
     </div>
     </div>
-     </div>
   </section>
 </template>
 
@@ -287,6 +284,9 @@ export default {
   height: 3rem;
 }
 .container {
-  width: 10rem;
+  max-width: 35rem;
+}
+.hero.is-fullheight {
+  min-height: 80vh !important;
 }
 </style>

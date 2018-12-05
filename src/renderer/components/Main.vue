@@ -353,7 +353,4 @@ export default {
 .hero.is-fullheight {
   height: 100vh;
 }
-.transaction_list {
-  width: 90vw;
-}
 </style>
