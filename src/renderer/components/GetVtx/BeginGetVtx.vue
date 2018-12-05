@@ -29,6 +29,11 @@ export default {
     };
   },
   mounted() {
+    this.$router.push({ path: "notwhitelisted" })
+    /*
+    //
+    //               KEEP the logic below as it will be uncommented once the Get Vtx is finalized.
+    //
     let url = process.env.CROWDFUND_URL + "/public/api/allocate-native-chain/?verto_public_address=" + this.$store.state.currentWallet.key;
     console.log(url)
     const router = this.$router;
@@ -50,6 +55,7 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
+    */
   },
   methods: {
   },

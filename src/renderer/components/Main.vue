@@ -26,8 +26,6 @@
                       <span class="has-text-centered has-text-primary">{{ currentBtcValue.toFixed(4) }} BTC </span>
                       <font-awesome-icon icon="sync-alt" class="is-size-3" style="cursor:pointer" @click="refreshContent"/>
                     </p>
-
-
                   </div>
             </div>
           </div>
@@ -36,10 +34,13 @@
         <div class="has-text-white container p-b-md has-text-centered" >
           <div class="is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <router-link to="/begingetvtx">
-                      <a class="button is-size-5 is-primary" >
-                        <p class="p-l-md p-r-md has-text-weight-bold has-text-centered is-size-6">{{ $t('Main.getvtx') }}</p>
-                      </a>
-                    </router-link>
+              <a class="button is-size-5 is-primary" >
+                <p class="p-l-md p-r-md has-text-weight-bold has-text-centered is-size-6">{{ $t('Main.getvtx') }}</p>
+              </a>
+            </router-link>
+            <br>
+            <br>
+            <pending-counter/>
           </div>
         </div>
     </div>
@@ -139,6 +140,7 @@
 <script>
 import Ledger from "volentix-ledger";
 import axios from 'axios'
+import PendingCounter from '@/components/GetVtx/PendingCounter'
 
 const chainId = process.env.CHAIN_ID
 const httpEndpoint = process.env.HTTP_ENDPOINT
@@ -181,6 +183,9 @@ export default {
       currentBtcValue: 0.0,
       walletName: ""
     };
+  },
+  components: {
+    'pending-counter': PendingCounter
   },
   mounted() {
     ledger = new Ledger({

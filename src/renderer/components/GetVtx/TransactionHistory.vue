@@ -10,6 +10,20 @@
               </router-link>
             </div> -->
             <img src="~@/assets/img/wallet-logo.png" class="logo">
+            <br>
+            <br>  
+            <div class="is-size-4 has-text-white m-l-md has-text-centered select">
+                <select class=" " v-model="transactionStatus" @change="refreshContent">
+                  <option value="CONVERTED">Pending</option>
+                  <option value="CONFIRMED">Accepted</option>
+                </select>
+            
+            </div>
+            <br>
+            <br>
+            <div class="has-text-white is-size-3">
+              <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
+            </div>
           </div>
         </div>
       </div>
@@ -18,11 +32,10 @@
           <div class="is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <div class="is-mobile is-size-5 font-gibson has-text-centered">
                 <div class="is-size-4 has-text-white m-l-md has-text-centered">
-                  <select class=" " v-model="transactionStatus" @change="refreshContent">
-                    <option value="CONVERTED">Pending</option>
-                    <option value="CONFIRMED">Accepted</option>
-                  </select>
-                  <font-awesome-icon icon="sync-alt" style="cursor:pointer" @click="refreshContent"/>
+                  
+                  <router-link to="/main" class="return">
+                      Back To Wallet 
+                  </router-link>
                 </div>
               </div>
           </div>
@@ -385,6 +398,10 @@ export default {
 </script>
 
 <style scoped>
+.return {
+  color: #00DEB1;
+  font-size: 12pt;
+}
 .td-align-right {
   text-align: right;
   display:block

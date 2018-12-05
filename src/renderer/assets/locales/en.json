@@ -188,12 +188,12 @@
         "time_remaining": "Available In"
     },
     "NotWhitelisted": {
+        "get_ready": "Get Ready",
         "kyc": "KYC",
         "whitelist": "White List",
-        "kyc_1": "If you have not already done so, please KYC with one of our trusted partners.",
-        "kyc_2": "Note that this will automatically associate this wallet with the partners KYC account.",
+        "kyc_1": "In order to get VTX, investors must first KYC with one of our trusted partners.",
         "first_p_second_point": "If you have KYC'd through the web, you may now associate this wallet to the account directly.",
-        "second_p": "If you have already signed up for the KYC process, through the web, you can associate your wallet with this account now.",
+        "second_p": "In some cases, you have already KYC'd but do not have a wallet associated with your account.",
         "link_associate": "Associate Verto",
         "third_p": "In order to Get Vtx, it is required that you are KYC'd in order to meet regulatory compliance. Note that if you KYC through Verto your public address will be automatically be associated to your KYC account. As a result, once you are KYC approved, you will be able to Get VTX immediately.",
         "link_kyc": "Begin KYC Process"

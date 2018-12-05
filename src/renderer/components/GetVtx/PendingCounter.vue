@@ -1,11 +1,10 @@
 <template>
     <div class="PendingCounter">
-        <div v-if="numberOfPendingTransactions > 0" class="">
+        <!-- <div v-if="numberOfPendingTransactions == 0" class=""> -->
             <router-link to="/gettxtransactionhistory" class="pending">
                 View Pending Transactions: ( {{ numberOfPendingTransactions}} ) 
             </router-link>
-        </div>
-        <br>
+        <!-- </div> -->
     </div>
 </template>
 

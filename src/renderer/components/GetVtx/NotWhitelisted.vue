@@ -5,30 +5,61 @@
         <div class="control p-md">
           <div class="container has-text-white p-md">
             <div class="whitelist-header has-text-centered">
-              {{ $t('NotWhitelisted.kyc') }}
+              {{ $t('NotWhitelisted.get_ready') }}
             </div>
             <div class="has-text-centered">
-              {{ $t('NotWhitelisted.kyc_1') }}
+              We are introducting the process of allowing investors the opportunity to get VTX directly through Verto.
+            </div>
+            <div class="has-text-centered">
+              In order for investors to get VTX, they will need to first be KYC'd through a third party.
+            </div>
+            <div class="has-text-centered">
+              Once the investor has been KYC'd, they will need to be whitelisted.
+            </div>
+            <div class="has-text-centered">
+              Currently the whitelist process is manual and is done a case by case basis for now.
+            </div>
+            <div class="has-text-centered">
+              This is done in order to throttle the system and ensure its integrity.
+            </div>
+            <div class="has-text-centered">
+              Once this process is mature, we will begin to automate allowing more diversity in our investor pool.
             </div>
             <br>
-            <div class="has-text-centered">
-              <router-link  to="/whitelist" class="button is-primary">
-                {{ $t('NotWhitelisted.link_kyc') }}
-              </router-link>
+            <div class="is-paddingless wallet-address has-background-darkgreen has-text-centered">
+              <div class="whitelist-header has-text-centered">
+                {{ $t('NotWhitelisted.kyc') }}
+              </div>
+
+              <div class="is-outlined has-text-centered">
+                {{ $t('NotWhitelisted.kyc_1') }}
+              </div>
+              <br>
+              <div class="has-text-centered">
+                <router-link  to="/whitelist" class="button is-primary">
+                  {{ $t('NotWhitelisted.link_kyc') }}
+                </router-link>
+              </div>
+              <br>
             </div>
             <br>
-            <div class="whitelist-header has-text-centered">
-              {{ $t('NotWhitelisted.whitelist') }}
-            </div>
-            <div class="has-text-centered">
-              {{ $t('NotWhitelisted.second_p') }}
-            </div>
-            <br>
-            <div class="has-text-centered">
-              <router-link  to="/associatevertotoblocktopus" class="button is-primary">
+            <div class="is-paddingless wallet-address has-background-darkgreen">
+                
+              <div class="whitelist-header is-paddingless has-text-centered">
                 {{ $t('NotWhitelisted.link_associate') }}
-              </router-link>
+              </div>
+              <div class="has-text-centered is-paddingless">
+                {{ $t('NotWhitelisted.second_p') }}
+              </div>
+              <br>
+              <div class="has-text-centered is-paddingless">
+                <router-link  to="/associatevertotoblocktopus" class="button is-primary">
+                  {{ $t('NotWhitelisted.link_associate') }}
+                </router-link>
+              </div>
+              <br>
             </div>
+
             <br>
             
           </div>

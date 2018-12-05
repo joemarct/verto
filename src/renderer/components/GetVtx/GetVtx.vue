@@ -7,7 +7,6 @@
         <div class="getvtx-header">
           {{ $t('GetVtx.getvtx') }} {{ nativeChainName }}
         </div>
-        <br>
         <pending-counter/>
         <div class="container has-text-white p-md">
 
