@@ -12126,6 +12126,11 @@ volentix-ledger@^0.2.71:
     moment "^2.22.2"
     uuid "^3.3.2"
 
+vue-cli-plugin-vue-website@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/vue-cli-plugin-vue-website/-/vue-cli-plugin-vue-website-0.0.4.tgz#4b6fab4fb9c233affbe09b425a8de8770f2acfa6"
+  integrity sha512-wD828/0ZdSMUppHpqW6Ri/xwYmTI/8A6HddrJqG8k0viCU/fhrnG19rYxcF2kQrXLFS9N/bifrw1XZqc+BzHMA==
+
 vue-clipboard2@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/vue-clipboard2/-/vue-clipboard2-0.2.1.tgz#9f06690af1c98aef344be1fc4beb00cdc5307ee1"
