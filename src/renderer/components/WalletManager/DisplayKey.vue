@@ -286,4 +286,7 @@ export default {
 .container {
   max-width: 35rem;
 }
+.hero.is-fullheight {
+  min-height: 80vh !important;
+}
 </style>

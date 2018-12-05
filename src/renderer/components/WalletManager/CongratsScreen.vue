@@ -4,7 +4,7 @@
       <div class="font-gibson m-t-xl has-text-centered    ">
         <!-- warning image translation needed -->
         <img src="~@/assets/img/congratsScreen.png">
-        
+
       </div>
     </div>
   </section>
@@ -46,5 +46,8 @@ export default {
   border-radius: 0.6rem;
   margin-top: 3rem !important;
   height: 3.5rem;
+}
+.hero.is-fullheight {
+  min-height: 80vh !important;
 }
 </style>

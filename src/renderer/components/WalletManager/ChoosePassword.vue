@@ -5,7 +5,7 @@
      <div class="header has-text-centered  is-size-1  has-text-white has-text-centered">
         {{ $t('ChoosePassword.header') }}
       </div>
-      
+
         <div class="field">
           <div class="control">
             <div v-if="nokeyname">
@@ -29,7 +29,7 @@
               </p>
             </div>
             <input v-model="keyname" class="input is-medium m-t-md" type="text" :placeholder="$t('DisplayKey.walletname')">
-            
+
             <input v-model="userPassword" :class="{ 'is-danger' : notMatchingPass }" class="input is-medium m-t-md" type="password" :placeholder="$t('ChoosePassword.choose')">
             <input v-model="checkPassword" :class="{ 'is-danger' : notMatchingPass }" class="input m-t-md is-medium" type="password" :placeholder="$t('ChoosePassword.confirm')">
             <div v-if="incorrectPassword">
@@ -246,5 +246,8 @@ export default {
 }
 .hero-body.choose-password input {
   border-radius: 0.5rem;
+}
+.hero.is-fullheight {
+  min-height: 80vh !important;
 }
 </style>

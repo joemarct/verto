@@ -69,7 +69,7 @@
         </div>
         <br>
         <div v-if="existingKeys.length > 0 && !showAddKey">
-          <div v-if="showdeletekeypassword" class="has-text-centered container">
+          <div v-if="showdeletekeypassword" class="has-text-centered container delete-key">
 
             <input v-model="deletekeypassword" class="input m-b-sm" type="password" :placeholder="$t('CreateVertoPassword.vertopassword')">
             <div v-if="lastwarningBeforeDelete">
@@ -471,5 +471,11 @@ export default {
 }
 .add-wallet {
   max-width: 35rem;
+}
+.hero.is-fullheight {
+  min-height: 80vh !important;
+}
+.delete-key {
+  max-width: 30rem;
 }
 </style>
