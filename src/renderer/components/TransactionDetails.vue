@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-fullheight is-light is-bold" >
+  <section>
     <ViewTransactionDetails/>
   </section>
 </template>

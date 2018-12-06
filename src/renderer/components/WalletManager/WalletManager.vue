@@ -393,6 +393,7 @@ export default {
             newKeysArray.push({name: config.keys[i].name, key: config.keys[i].key});
           }
         }
+        console.log(newKeysArray);
         config.keys = newKeysArray;
         fs.writeFileSync(filePath, sjcl.encrypt(this.deletekeypassword, JSON.stringify(config)), 'utf-8');
         this.existingKeys = newKeysArray;

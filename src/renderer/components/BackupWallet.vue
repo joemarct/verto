@@ -37,7 +37,7 @@
             </a>
           </div>
         </div>
-      
+
       <b-modal :active.sync="isInstructionsActive">
         <div class="card">
           <div class="card-content">
@@ -213,7 +213,7 @@ export default {
   flex: 1;
 }
 .hero.is-fullheight {
-  height: 100vh;
+  height: 80vh;
 }
 
 </style>

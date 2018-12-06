@@ -12,7 +12,7 @@
               </div>
               <img src="~@/assets/img/wallet-logo.png" class="logo"> -->
               <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ walletName }}</span>
-              <div class="is-pulled-right is-vcentered is-flex m-t-md">
+              <div class="is-pulled-right is-vcentered is-flex m-t-md m-r-md">
                 <a @click="isCardModalActive = true">
                   <qrcode :value="wallet" :options="{ size: 40 }" class="has-text-centered"></qrcode>
                 </a>
@@ -20,7 +20,7 @@
               <br>
               <span class="is-marginless is-size-1 has-text-white font-gibson"> {{ balance }} VTX </span>
 
-              
+
               <div class="has-text-centered is-size-2 has-text-white m-l-md">
                     <p >
                       <span class="has-text-centered has-text-primary">{{ currentBtcValue.toFixed(4) }} BTC </span>
@@ -47,12 +47,12 @@
     <div class="hero-body is-paddingless has-background-darkgreen">
       <div class="container w-main-b-graident">
         <div class="columns is-marginless p-b-md">
-          <div v-if="loadingData" class="p-l-lg p-r-md m-t-md is-size-4 has-text-grey-light">
+          <div v-if="loadingData" class="p-l-lg p-r-md p-t-md is-size-4 has-text-grey-light wallet-transactions-window">
             <p>
               {{ $t('Main.loading') }}...
             </p>
           </div>
-          <div v-if="hasTransactions">
+          <div v-if="hasTransactions" class="wallet-transactions-window">
             <div class="p-l-md p-r-md m-t-md p-b-none is-size-4 has-text-grey-light">
               {{ $t('Main.history') }}
             </div>
@@ -60,8 +60,6 @@
               <router-link :to="{ name: 'TransactionDetails', params: { transaction, wallet } }">
                 <div class="columns is-marginless is-mobile p-t-md p-b-md p-r-md p-l-md">
                   <div class="column is-6 is-paddingless is-size-7 font-calibri">
-                    <div class="columns is-marginless">
-                      <div class="column is-paddingless">
                         <div class="level is-mobile has-text-white">
                           <div class="level-left">
                             {{ transaction.timestamp | formatDate }}
@@ -69,14 +67,10 @@
                           <div class="level-right">
                             {{ transaction.timestamp | formatTime }}
                           </div>
-                        </div>
                       </div>
-                      <div class="column is-paddingless">
                         <div class="wallet-address has-text-grey-light" >
                           <span v-html="$t('Main.number')"/>: {{ transaction.sToKey }}
                         </div>
-                      </div>
-                    </div>
                   </div>
                   <div class="column is-5 is-paddingless is-flex level level-right has-text-primary is-size-5 m-l-md">
                     {{ parseFloat(transaction.amount) >= 0 ? '+' : '' }}{{ parseFloat(transaction.amount).toFixed(2) }} VTX
@@ -85,7 +79,7 @@
               </router-link>
             </div>
           </div>
-          <div v-if="noTransactions">
+          <div v-if="noTransactions" class="wallet-transactions-window p-t-md">
             <p class="has-text-grey is-size-5 m-l-lg has-text-weight-bold">
               {{ $t('Main.transactions') }}
             </p>
@@ -330,7 +324,6 @@ export default {
 }
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
-  width: 100vw;
 }
 .hero-body {
   position: relative;
@@ -350,7 +343,19 @@ export default {
 .hero.is-fullheight .hero-body {
   flex: 1;
 }
+.transaction_list {
+  max-width: 40rem;
+  margin: 0 auto !important;
+}
+.transaction_list .level {
+  margin-bottom: 0 !important;
+}
+.wallet-transactions-window {
+  margin: 0 auto;
+  min-height: 20vh;
+}
+
 .hero.is-fullheight {
-  height: 100vh;
+  min-height: 80vh !important;
 }
 </style>
