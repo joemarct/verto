@@ -1,4 +1,4 @@
-<template> 
+<template>
   <section class="hero is-fullheight has-background-darkgreen is-bold" >
     <div class="">
       <div class="container top-bg">
@@ -11,13 +11,13 @@
             </div> -->
             <img src="~@/assets/img/wallet-logo.png" class="logo">
             <br>
-            <br>  
+            <br>
             <div class="is-size-4 has-text-white m-l-md has-text-centered select">
                 <select class=" " v-model="transactionStatus" @change="refreshContent">
                   <option value="CONVERTED">Pending</option>
                   <option value="CONFIRMED">Accepted</option>
                 </select>
-            
+
             </div>
             <br>
             <br>
@@ -32,9 +32,9 @@
           <div class="is-marginless is-mobile has-background-darkgreen p-l-lg p-r-lg p-t-sm p-b-sm has-text-centered">
             <div class="is-mobile is-size-5 font-gibson has-text-centered">
                 <div class="is-size-4 has-text-white m-l-md has-text-centered">
-                  
+
                   <router-link to="/main" class="return">
-                      Back To Wallet 
+                      Back To Wallet
                   </router-link>
                 </div>
               </div>
@@ -97,12 +97,12 @@
                           &nbsp;&nbsp;&nbsp;
                           {{ transaction.native_transaction_time | formatTime }}
                         </div>
-                        
+
                       </div>
                       <div class="column has-text-white is-3">
                             {{ transaction.status }}
                       </div>
-                      
+
                       <div class="column has-text-white is-4">
                             {{ transaction.vtx_amount }} VTX
                       </div>
@@ -116,7 +116,7 @@
                                     <span class="is-size-2">
                                       {{ props.days }}
                                     </span>
-                                    
+
                                   </div>
                                   <div class="column has-text-white is-4">
                                     <span class="is-size-2">
@@ -124,15 +124,15 @@
                                     {{ props.minutes }}:
                                     {{ props.seconds }}
                                     </span>
-                                    
+
                                   </div>
                                   <div class="column has-text-white is-2 is-marginless">
                                     <span class="is-size-2">
                                       {{ transaction.vtx_amount.toFixed(2) }}
-                                    </span> 
+                                    </span>
                                   </div>
                                 </div>
-                                  
+
                               </template>
                             </countdown>
                       </div>
@@ -460,7 +460,6 @@ export default {
 }
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
-  width: 100vw;
 }
 .hero-body {
   position: relative;

@@ -218,7 +218,6 @@ export default {
 }
 .list-item {
   border-bottom: solid 1px rgba(55, 202, 189, 0.3);
-  width: 100vw;
 }
 .hero-body {
   position: relative;

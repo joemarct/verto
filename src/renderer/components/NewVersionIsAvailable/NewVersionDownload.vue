@@ -72,10 +72,6 @@ export default {};
 .line-height-md {
   line-height: 1rem;
 }
-.list-item {
-  border-bottom: solid 1px rgba(55, 202, 189, 0.3);
-  width: 100vw;
-}
 .hero-foot {
   border-top: solid 1px rgba(55, 202, 189, 0.3);
 }
