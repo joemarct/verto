@@ -15,9 +15,9 @@ describe('Main.vue', () => {
     assert.equal(defaultData.transactionLink, "/transactiondetails")
   })
 
-  it('Renders the correct message', () => {
-    const Constructor = Vue.extend(Main)
-    const vm = new Constructor().$mount()
-    assert.include(vm.$el.querySelector('.wallet-address').textContent, 'Wallet address:')
-  })
+  // it('Renders the correct message', () => {
+  //   const Constructor = Vue.extend(Main)
+  //   const vm = new Constructor().$mount()
+  //   assert.include(vm.$el.querySelector('.wallet-address').textContent, 'Wallet address:')
+  // })
 })
