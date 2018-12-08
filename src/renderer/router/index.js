@@ -127,11 +127,8 @@ const router = new Router({
     },
     {
       path: '/usercredentials',
-      name: 'UserCredentials',
-      component: require('@/components/UserCredentials').default,
-      meta: {
-        requiresAuth: true
-      }
+      name: 'usercredentials',
+      component: require('@/components/UserCredentials/UserSignUp').default
     },
     {
       path: '/choosepassword',

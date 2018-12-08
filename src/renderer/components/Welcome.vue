@@ -43,6 +43,7 @@
 
 <script>
 import sjcl from "sjcl";
+import axios from 'axios';
 
 const {ipcRenderer} = require('electron');
 ipcRenderer.on('message', function(event, text) {
@@ -67,6 +68,7 @@ export default {
     };
   },
   mounted() {
+    // this.getFromIpfs();
     let fs = require("fs");
     let path = require("path")
     let electron = require("electron")
@@ -76,10 +78,54 @@ export default {
     }
     if (fs.existsSync(path.join(electron.remote.app.getPath('userData'), '/verto.config'))) {
       this.hasPassword = true;
-      console.log("You are here.")
     }
+    this.$router.push({ path: "usercredentials" });
   },
   methods: {
+    async getFromIpfs() {
+      let hashResult = await axios.post("http://localhost:8040/ipfs-store/query/search?index=VertoWallets",
+        {
+          query: [
+            {
+              name: "title",
+              operation: "contains",
+              value: "realrhys"
+            }
+          ]
+        }
+      );
+      const res = await hashResult;
+      // console.log(JSON.stringify(res, null, 4));
+      // console.log("DDDD: " + res.data.content[0].hash)
+      const walletUrl = "http://localhost:8040/ipfs-store/query/fetch/" + res.data.content[0].hash;
+      let results = await axios.get(walletUrl);
+      console.log(results.data.wallets);
+      this.$router.push({ path: "usercredentials" });
+      /*
+      try {
+        const config = JSON.parse(sjcl.decrypt("123", JSON.stringify(results.data.wallets)));
+        this.$store.dispatch("setKeys", config.keys);
+        this.$store.dispatch("login", true);
+        let foundDefault = false;
+        let i;
+        for (i = 0; i < config.keys.length; i++) {
+          const key = config.keys[i];
+          if (key.defaultKey) {
+            this.$store.commit("save", key.address);
+            this.$store.dispatch("setCurrentWallet", key);
+            foundDefault = true;
+          }
+        }
+        if (foundDefault) {
+          this.$router.push({ path: "main" });
+        } else {
+          this.$router.push({ path: "walletmanager" });
+        }
+      } catch (error) {
+        this.incorrectPassword = true
+      }
+      */
+    },
     login: function() {
       this.incorrectPassword = false;
       this.nopassword = false;
@@ -91,6 +137,7 @@ export default {
         this.nopassword = true;
       } else {
         const databack = fs.readFileSync(filePath, 'utf-8');
+        console.log(databack)
         try {
           const config = JSON.parse(sjcl.decrypt(this.password, databack));
           this.$store.dispatch("setKeys", config.keys);

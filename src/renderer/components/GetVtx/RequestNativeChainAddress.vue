@@ -158,11 +158,6 @@ export default {
           this.investorMustWait = true;
         }
       }
-    },
-    async getNumberOdPendingTransactions() {
-      let results = await axios.get(process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.wallet);
-      console.log("Pending Transactions Tlength: " + this.transactions.length);
-      console.log(JSON.stringify(results.data));
     }
   }
 };

@@ -15,6 +15,7 @@
         "confirm": "Confirm Verto password",
         "mustmatch": "Passwords must match.",
         "fillall": "Please fill all the fields above",
+        "username_exists": "The username is taken. Please try another",
         "done": "Done",
         "addwallet": "Add Wallet",
         "onlysupport": "For now, Verto only supports the ability to add public keys. To add a wallet, simply provide a name, the wallet address, and the Verto password to add your wallet.",
