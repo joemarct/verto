@@ -25,10 +25,11 @@ export default {
       let url = process.env.CROWDFUND_URL + "/public/api/investor-transactions?verto_public_address=" + this.$store.state.currentWallet.key + "&status_code=" + "CONVERTED";
       const router = this.$router;
       const self = this;
-      console.log("DDDDDDDDDDDD");
       axios.get(url).then(function (response) {
-        console.log("DDDDDDDDDDDD" + response.data[0])
-        self.numberOfPendingTransactions = response.data.length;
+        let pendingTxns = response.data.filter(function (item) {
+          return item.status !== 'COMPLETED'
+        })
+        self.numberOfPendingTransactions = pendingTxns.length;
       })
         .catch(function (error) {
           console.log(error);
